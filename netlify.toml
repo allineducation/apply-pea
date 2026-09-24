@@ -1,0 +1,6 @@
+[build]
+  publish = "site"
+  command = "node maintenance/scripts/check-parity.js"
+
+[build.environment]
+  NODE_VERSION = "22"

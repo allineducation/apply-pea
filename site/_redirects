@@ -1,0 +1,8 @@
+# Netlify Drop / manual upload aliases
+/es  /?lang=es  302
+/en  /?lang=en  302
+/inscripcion  /?lang=es#participar  302
+/join  /?lang=en#participar  302
+/README.md  /404.html  404!
+/CHANGELOG.md  /404.html  404!
+/scripts/*  /404.html  404!
