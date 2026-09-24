@@ -108,13 +108,13 @@
         lead: "Otoño de 2026: tres pasos. El tercero es el que asegura su lugar. Para primavera de 2027, complete por ahora el formulario de interés.",
         items: [
           { t: "Llene el formulario de interés", d: "Nos dice quién es usted y cómo comunicarnos con usted. No es una solicitud y no hay proceso de selección.", link: "apply", cta: "Ir al formulario" },
-          { t: "Asista a la sesión informativa", d: "Opcional, pero es muy recomendable asistir a una sesión. Es la misma sesión en dos fechas, así que basta con una. Es bilingüe: se habla español e inglés. Al final, el equipo le ayuda a completar su registro para las clases.", link: "info", cta: "Registrarse para la sesión", tag: "Opcional" },
+          { t: "Asista a la sesión informativa", d: "Opcional, pero es muy recomendable asistir a una sesión. Puede registrarse para la próxima sesión o ver la grabación después. Es bilingüe: se habla español e inglés. Al final, el equipo le ayuda a completar su registro para las clases.", link: "info", cta: "Registrarse para la sesión", tag: "Opcional" },
           { t: "Complete su registro en Zoom", d: "Este paso es el que asegura su lugar. El cupo es limitado y se llena por orden de registro.", link: "zoom", cta: "Registrarse en Zoom", key: true }
         ],
         noteLabel: "Importante",
         note: "No hay formulario de compromiso, no hay invitación y no hay proceso de selección. Para otoño de 2026, el registro en Zoom reserva su lugar. Para primavera de 2027, por ahora solo está disponible el formulario de interés.",
-        infoDatesH: "Fechas de la sesión informativa",
-        infoDatesNote: "Es la misma sesión en las dos fechas. Asista a la que mejor le acomode.",
+        infoDatesH: "Sesión informativa",
+        infoDatesNote: "Si no puede asistir, podrá ver la grabación después. Consulte al equipo para obtener el enlace cuando esté disponible.",
         whoLabel: "Quién puede participar",
         who: "Familias y cuidadores que quieren abogar por sus hijos dentro del sistema escolar de Arizona. No hay proceso de selección: el cupo se llena por orden de registro.",
         askH: "Qué esperamos de cada persona",                                     /* [G] */
@@ -207,7 +207,7 @@
         before: "Antes", now: "Hoy",
         changed: [
           ["Ya no hay solicitud ni selección", "Antes había que solicitar y esperar una invitación.", "Para otoño de 2026, el registro en Zoom reserva su lugar, y el límite es el cupo, no un comité."],
-          ["Las sesiones informativas son opcionales", "Antes eran tres sesiones distintas y había que asistir a dos para tener lugar.", "Hoy es una sola sesión, ofrecida dos veces, y asistir es recomendable pero no obligatorio."],
+          ["Las sesiones informativas son opcionales", "Antes eran tres sesiones distintas y había que asistir a dos para tener lugar.", "Asistir a la sesión informativa es recomendable, pero no obligatorio. También puede ver la grabación después."],
           ["Ya no hay formulario de compromiso", "Antes las expectativas se acordaban en un formulario previo.", "Las expectativas siguen siendo las mismas — asistir, participar, comunicar — pero se acuerdan en la primera clase."]
         ]
       },
@@ -219,7 +219,7 @@
           ["¿Cómo sé que ya tengo mi lugar?", "Cuando complete su registro en Zoom, le llega un correo de confirmación de Zoom. Ese correo es su confirmación y trae su enlace personal para entrar a clase. Guárdelo."],
           ["¿Quién puede participar?", "Familias y cuidadores que quieren abogar por sus hijos dentro del sistema escolar de Arizona. No hay proceso de selección: el cupo se llena por orden de registro."],
           ["¿Es obligatorio asistir a la sesión informativa?", "No. Es opcional, pero es muy recomendable asistir a una sesión. Es una oportunidad para conocernos, conocer el programa y hacer preguntas, y al final el equipo le ayuda a completar su registro para las clases. No asistir no afecta su lugar de ninguna manera."], /* [G] */
-          ["¿Las dos fechas de la sesión informativa son distintas?", "No, es la misma sesión en dos fechas. Asista a la que mejor le acomode; no hace falta ir a las dos."], /* [G] */
+          ["¿Qué pasa si no puedo asistir a la sesión informativa?", "Puede ver la grabación después. Consulte al equipo para obtener el enlace cuando esté disponible."], /* [G] */
           ["¿En qué idioma es el programa?", function (c) { return "La cohorte de " + c.label + " se imparte en " + c.lang + ". La sesión informativa es bilingüe — se habla español e inglés — porque es la puerta de entrada y queremos que cualquier familia pueda venir a conocernos antes de decidir."; }], /* [G], cohort resolved from facts */
           ["¿Cuánto cuesta?", "Nada. PEA es gratuito para las familias participantes."], /* [G] */
           ["¿PEA incluye un incentivo económico?", "No. Esta cohorte no incluye un incentivo económico. Lo que el programa ofrece es contenido, materiales y el acompañamiento del equipo y del grupo. Si tiene preguntas sobre esto, escríbanos — con gusto lo platicamos."], /* [G] */
@@ -240,7 +240,7 @@
         groups: [
           { h: "Para unirse", items: [
             ["zoom", "Registro de la cohorte", "El paso que asegura su lugar."],                 /* [G] */
-            ["info", "Registro para la sesión informativa", "El mismo enlace sirve para las dos fechas."], /* [G] */
+            ["info", "Registro para la sesión informativa", "Regístrese para la próxima sesión o consulte al equipo sobre la grabación después."], /* [G] */
             ["apply", "Formulario de interés", "El primer paso, si todavía no lo ha llenado."],   /* [G] */
             ["cal", "Calendario publicado", "Todas las fechas del programa."]                    /* [G] */
           ]},
@@ -377,13 +377,13 @@
         lead: "Fall 2026: three steps. The third secures your place. For Spring 2027, complete the interest form for now.",
         items: [
           { t: "Fill out the interest form", d: "It tells us who you are and how to reach you. It is not an application, and there is no selection process.", link: "apply", cta: "Go to the form" },
-          { t: "Come to the information session", d: "Optional, but attending one session is highly recommended. It is the same session on two dates, so one is enough. It is bilingual — Spanish and English. At the end, the team helps you complete your class registration.", link: "info", cta: "Register for the session", tag: "Optional" },
+          { t: "Come to the information session", d: "Optional, but attending one session is highly recommended. Register for the upcoming session, or watch the recording afterward. It is bilingual — Spanish and English. At the end, the team helps you complete your class registration.", link: "info", cta: "Register for the session", tag: "Optional" },
           { t: "Complete your Zoom registration", d: "This is the step that secures your place. Space is limited and fills in the order people register.", link: "zoom", cta: "Register on Zoom", key: true }
         ],
         noteLabel: "Important",
         note: "There is no commitment form, no invitation and no selection process. For Fall 2026, Zoom registration holds your place. For Spring 2027, complete the interest form for now; Zoom registration will be available later.",
-        infoDatesH: "Information session dates",
-        infoDatesNote: "It is the same session on both dates. Come to whichever suits you.",
+        infoDatesH: "Information session",
+        infoDatesNote: "If you cannot attend, you can watch the recording afterward. Contact the team for the link when it is available.",
         whoLabel: "Who can take part",
         who: "Families and caregivers who want to advocate for their children inside Arizona's school system. There is no selection process: places fill in the order people register.",
         askH: "What we ask of everyone",
@@ -476,7 +476,7 @@
         before: "Before", now: "Now",
         changed: [
           ["No application, no selection", "There used to be an application and a wait for an invitation.", "For Fall 2026, Zoom registration holds your place, and the limit is capacity, not a committee."],
-          ["Information sessions are optional", "There used to be three different sessions, and you had to attend two to hold a place.", "Today there is one session, offered twice, and attending is encouraged but not required."],
+          ["Information sessions are optional", "There used to be three different sessions, and you had to attend two to hold a place.", "Attending the information session is encouraged but not required. You can also watch the recording afterward."],
           ["No commitment form", "Expectations used to be agreed in a form beforehand.", "The expectations are the same — attend, take part, tell us — but they are agreed in the first class."]
         ]
       },
@@ -488,7 +488,7 @@
           ["How do I know I have a place?", "When you complete your Zoom registration, Zoom sends you a confirmation email. That email is your confirmation, and it carries your personal link to join class. Keep it."],
           ["Who can take part?", "Families and caregivers who want to advocate for their children inside Arizona's school system. There is no selection process: places fill in the order people register."],
           ["Do I have to attend the information session?", "No. It is optional, but attending one session is highly recommended. It is a chance to meet us, learn about the program and ask questions, and the team helps you complete your class registration at the end. Not attending does not affect your place in any way."],
-          ["Are the two information session dates different?", "No, it is the same session on two dates. Come to whichever suits you; there is no need to attend both."],
+          ["What if I cannot attend the information session?", "You can watch the recording afterward. Contact the team for the link when it is available."],
           ["What language is the program in?", function (c) { return "The " + c.label + " cohort is taught in " + c.lang + ". The information session is bilingual — Spanish and English — because it is the front door, and any family should be able to come meet us before deciding."; }], /* [G], cohort resolved from facts */
           ["What does it cost?", "Nothing. PEA is free for participating families."],
           ["Does PEA include a financial incentive?", "No. This cohort does not include a financial incentive. What the program offers is content, materials, and the support of the team and the group. If you have questions about this, write to us — we are glad to talk it through."],
@@ -509,7 +509,7 @@
         groups: [
           { h: "To join", items: [
             ["zoom", "Cohort registration", "The step that secures your place."],
-            ["info", "Information session registration", "The same link works for both dates."],
+            ["info", "Information session registration", "Register for the upcoming session or contact the team about the recording afterward."],
             ["apply", "Interest form", "The first step, if you have not filled it out yet."],
             ["cal", "Published calendar", "Every date in the program."]
           ]},

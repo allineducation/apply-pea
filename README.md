@@ -1,6 +1,6 @@
 # PEA Applicant Portal
 
-Bilingual applicant portal for ALL In Education. Current release: v0.10.1.
+Bilingual applicant portal for ALL In Education. Current release: v0.10.2.
 
 ## Publishing
 
@@ -23,6 +23,6 @@ Spring 2027 interest is open. The form defaults to Fall 2026 but allows Spring 2
 
 Action-first bilingual home page, collapsible navigation, four persistent bottom actions, tinted sections, and aligned cards. Spring dates appear only on Calendar. The checklist and application-progress storage have been removed; local storage is used only for language preference. Primary application and Zoom links use verified direct URLs and open in the same tab. The public portal describes 18 scheduled classes rather than weeks.
 
-## v0.10.1 visual refinement
+## v0.10.2 visual refinement
 
 Use the supplied complete primary logo artwork unchanged in both languages; never translate the logo tagline or recreate the lockup as page text. Section headings use 8px rounded corners. Reduced type sizes, padding, card gaps and action heights give the information pages a lighter rhythm. The sticky Zoom action explicitly says “Register on Zoom” / “Registro en Zoom”.

@@ -80,7 +80,6 @@ window.PEA_FACTS = {
       teaching_es: "español", teaching_en: "Spanish",
       weeks: 10,
       events: [
-        { code: "IS1", kind: "info",    start: "2026-09-25T00:00:00Z", end: "2026-09-25T01:30:00Z" },
         { code: "IS2", kind: "info",    start: "2026-10-02T00:00:00Z", end: "2026-10-02T01:30:00Z" },
         { code: "1T",  kind: "cls", start: "2026-10-07T00:00:00Z", end: "2026-10-07T01:30:00Z", title_es: "Orientación", title_en: "Orientation" },
         { code: "1R",  kind: "cls", start: "2026-10-09T00:00:00Z", end: "2026-10-09T01:30:00Z", title_es: "La historia de la educación pública en Arizona", title_en: "History of Public Education in Arizona" },
