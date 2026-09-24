@@ -27,7 +27,7 @@
       },
       org: "ALL In Education",
       tagline: "Leadership · Power · Justice",
-      taglinePair: "Liderazgo · Poder · Justicia",
+      taglinePair: null,
       toolTitle: "Parent Educator Academy",
       toolSub: function (c) { return "Centro de inscripción · " + c; },
       langSwitch: { toEn: "Switch to English", toEs: "Cambiar a español" },

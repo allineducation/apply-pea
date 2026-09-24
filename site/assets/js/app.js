@@ -1,5 +1,5 @@
 /* ==================================================================
-   PEA Applicant Hub — app  (v0.10.0)
+   PEA Applicant Hub — app  (v0.10.1)
    Vanilla JS, no build step, no dependencies. State-based navigation
    (hash routes) per AIE Hub Design System §5.1. Every date, time and
    link resolves from facts.js; every string from copy.js.
@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.10.0";
+  var VERSION = "0.10.1";
   var UPDATED = "2026-09-24";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -170,10 +170,7 @@
   function renderBand() {
     var other = lang === "es" ? "en" : "es";
     document.getElementById("band").innerHTML =
-      '<div class="band-l"><img src="assets/img/aie-mark-96.png" width="32" height="32" alt="' + esc(L.markAlt) + '">' +
-      '<div><div class="band-org">' + esc(L.org) + "</div>" +
-      '<div class="band-tag" lang="en">' + esc(L.tagline) + "</div>" +
-      (L.taglinePair ? '<div class="band-pair">' + esc(L.taglinePair) + "</div>" : "") + "</div></div>" +
+      '<div class="band-l"><img src="assets/img/aie-logo-primary.png" width="260" height="36" alt="ALL In Education — Leadership · Power · Justice"></div>' +
       '<div class="band-r"><div><div class="band-title">' + esc(L.toolTitle) + "</div>" +
       '<div class="band-sub">' + esc(L.toolSub(cohortLabel())) + "</div></div>" +
       '<button class="lang" id="langbtn" type="button" lang="' + other + '" aria-label="' +
@@ -457,7 +454,7 @@
   /* ---------- routing + render ---------- */
   function actionsHtml(sticky) {
     var labels = lang === 'es' ? ['Solicitar información','Registro en Zoom','Ver calendario','Sesión informativa','WhatsApp al equipo'] : ['Apply / interest form','Register on Zoom','View calendar','Info session','WhatsApp the team'];
-    var short = lang === 'es' ? ['Solicitar','Zoom','Calendario','Información','WhatsApp'] : ['Apply','Zoom','Calendar','Info','WhatsApp'];
+    var short = lang === 'es' ? ['Solicitar','Registro en Zoom','Calendario','Información','WhatsApp'] : ['Apply','Register on Zoom','Calendar','Info','WhatsApp'];
     var urls = [link('apply'),link('zoom'),'#calendario',link('info'),F.org.waHref], icons = ['📝','🎥','📅','👋','💬'];
     return '<div class="' + (sticky ? 'sticky-actions' : 'quick-actions') + '" aria-label="' + (lang === 'es' ? 'Acciones rápidas' : 'Quick actions') + '">' + urls.map(function(url,i) {
       if (!url || (sticky && i===3)) return '';
