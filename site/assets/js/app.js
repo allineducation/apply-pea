@@ -1,5 +1,5 @@
 /* ==================================================================
-   PEA Applicant Hub — app  (v0.9.4)
+   PEA Applicant Hub — app  (v0.10.0)
    Vanilla JS, no build step, no dependencies. State-based navigation
    (hash routes) per AIE Hub Design System §5.1. Every date, time and
    link resolves from facts.js; every string from copy.js.
@@ -7,15 +7,15 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.9.4";
+  var VERSION = "0.10.0";
   var UPDATED = "2026-09-24";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
-  var LS_LANG = "aie_lang", LS_LIST = "pea_hub_checklist_v1";
+  var LS_LANG = "aie_lang";
 
   /* ---------- sections, groups, order ---------- */
   var GROUPS = [
-    { id: "join",  color: "blue",   items: ["participar", "calendario", "zoom", "lista"] },
+    { id: "join",  color: "blue",   items: ["participar", "calendario", "zoom"] },
     { id: "about", color: "pink",   items: ["programa", "historia"] },
     { id: "help",  color: "purple", items: ["preguntas", "enlaces", "contacto"] }
   ];
@@ -110,7 +110,6 @@
   }
   Object.keys(F.cohorts).forEach(function (k) { F.cohorts[k].events.forEach(function (e) { e._c = k; }); });
   var AC = activeCohort(NOW), C = AC.cur, EV = sorted(C.events);
-  LS_LIST += "_" + C.code;
   var CLASSES = EV.filter(function (e) { return e.kind === "cls"; });
 
   /* A link resolves or it does not exist. Families never see a gap marker. */
@@ -147,9 +146,10 @@
 
   /* ---------- small builders ---------- */
   function ext(url, inner, cls, extra) {
-    return '<a class="' + (cls || "") + '" href="' + esc(url) + '" target="_blank" rel="noopener"' + (extra || "") + ">" +
-      inner + '<span class="sr-only"> ' + esc(L.ui.newTab) + "</span></a>";
+    if (!url) return '';
+    return '<a class="' + (cls || '') + '" href="' + esc(url) + '"' + (extra || '') + '>' + inner + '</a>';
   }
+
   function callout(variant, label, html) {
     return '<div class="callout ' + (variant || "") + '"><span class="label">' + esc(label) + "</span><p>" + html + "</p></div>";
   }
@@ -162,7 +162,7 @@
   }
   function groupOf(id) { for (var i = 0; i < GROUPS.length; i++) if (GROUPS[i].items.indexOf(id) !== -1) return GROUPS[i].id; return "join"; }
   function sectionTitle(id) {
-    return { participar: L.steps.h, calendario: L.cal.h, zoom: L.zoom.h, lista: L.list.h, programa: L.prog.h,
+    return { participar: L.steps.h, calendario: L.cal.h, zoom: L.zoom.h, programa: L.prog.h,
              historia: L.hist.h, preguntas: L.faq.h, enlaces: L.links.h, contacto: L.contact.h }[id] || L.sections[id].label;
   }
 
@@ -183,17 +183,10 @@
   }
 
   function renderNav(active) {
-    var nav = document.getElementById("gnav");
-    nav.setAttribute("aria-label", L.nav.label);
-    var h = '<div class="g-row"><a class="chip home" href="#inicio"' + (active === "inicio" ? ' aria-current="page"' : "") + ">" + esc(L.nav.home) + "</a></div>";
-    GROUPS.forEach(function (g) {
-      h += '<div class="g-row" role="group" aria-label="' + esc(L.nav.groups[g.id]) + '"><span class="g-lbl ' + g.color + '" aria-hidden="true">' + esc(L.nav.groups[g.id]) + "</span>";
-      g.items.forEach(function (id) {
-        h += '<a class="chip ' + g.color + '" href="#' + id + '"' + (active === id ? ' aria-current="page"' : "") + ">" + esc(L.sections[id].label) + "</a>";
-      });
-      h += "</div>";
-    });
-    nav.innerHTML = h;
+    var ids = ['inicio','participar','calendario','zoom','programa','historia','preguntas','enlaces','contacto'];
+    document.getElementById('gnav').innerHTML = '<details class="menu"><summary>☰ ' + (lang === 'es' ? 'Menú' : 'Menu') + '</summary><div class="menu-links">' + ids.map(function(id) {
+      return '<a href="#' + id + '"' + (id === active ? ' aria-current="page"' : '') + '>' + esc(id === 'inicio' ? L.nav.home : L.sections[id].label) + '</a>';
+    }).join('') + '</div></details>';
   }
 
   function renderFoot() {
@@ -203,63 +196,11 @@
       "<br>" + esc(L.foot.dates(ymdLong(F.syncedAt))) + "</div>";
   }
 
-  /* ---------- next event card ---------- */
-  function nextEvent() {                           /* this cohort first; then the next cohort's first date */
-    var t = NOW.getTime(), pool = EV;
-    for (var i = 0; i < pool.length; i++) if (new Date(pool[i].end).getTime() > t) return pool[i];
-    return null;
-  }
-  function nextCard() {
-    var U = L.next, e = nextEvent();
-    if (!e) return '<div class="card"><p class="muted">' + esc(U.nothing) + "</p></div>";
-    var live = new Date(e.start).getTime() <= NOW.getTime();
-    var n = daysUntil(e.start, NOW);
-    var when = live ? U.now : n <= 0 ? U.today : n === 1 ? U.tomorrow : U.inDays(n);
-    var tt = evTitle(e), isInfo = e.kind === "info";
-    var ecode = e._c;
-    var title = e.kind === "cls" ? tt.topic : tt.kind;
-    var wk = weekOf(e);
-    var btns = "";
-    if (isInfo && link("info", ecode)) btns += ext(link("info", ecode), esc(U.join), "btn btn-primary");
-    if (link("zoom", ecode) && e.kind !== "holiday") btns += ext(link("zoom", ecode), esc(U.register), isInfo ? "btn btn-secondary" : "btn btn-primary");
-    btns += '<button type="button" class="btn btn-ghost" data-ics="' + esc(e._c + ":" + e.code) + '">' + esc(U.addCal) + "</button>";
-    var note = isInfo ? esc(L.cal.infoWording) + ". " + esc(L.steps.infoDatesNote)
-             : e.kind === "holiday" ? esc(U.holidayNote)
-             : e.projected ? esc(U.projected) : e.kind === "focus" ? esc(U.focusNote) : esc(U.classNote);
-    return '<section class="card top-pink next" aria-labelledby="next-t">' +
-      '<div class="next-top"><span class="label blue">' + esc(U.eyebrow) + '</span><span class="when' + (live ? " live" : "") + '">' + esc(when) + "</span>" +
-      (isInfo ? '<span class="tag pink">' + esc(L.ui.optional) + "</span>" : "") + "</div>" +
-      '<h2 class="next-title" id="next-t">' + esc(title) + "</h2>" +
-      (e.kind === "cls" ? '<p class="small">' + esc(tt.kind + (wk ? " · " + L.cal.week(wk) : "")) + "</p>" : "") +
-      '<p class="next-when">' + esc(cap(longDate(e.start))) + (e.kind === "holiday" ? "" : " · " + esc(spanDash(e.start, e.end))) + "</p>" +
-      '<p class="note">' + note + "</p>" +
-      '<div class="btnrow">' + btns + "</div></section>";
-  }
-
-  /* ---------- sections ---------- */
   function heroHtml() {
-    var H = L.hero, chips = '<span class="hchip gold">' + esc(H.chipFree) + "</span>" +
-      '<span class="hchip">' + esc(H.chipWeeks(C.weeks)) + "</span>" +
-      '<span class="hchip">' + esc(H.chipZoom) + "</span>";
-    if (CLASSES.length && !C.projected) chips += '<span class="hchip">' + esc(H.chipSchedule(cap(classDays()), classTime(spanDash))) + "</span>";
-    if (teachLang()) chips += '<span class="hchip">' + esc(H.chipLang(teachLang())) + "</span>";
-    var ctas = "";
-    if (link("zoom")) ctas += ext(link("zoom"), esc(L.next.register), "btn btn-onblue");
-    ctas += '<a class="btn btn-outline-onblue" href="#participar">' + esc(L.nav.start) + "</a>";
-    return '<section class="hero"><p class="eyebrow">' + esc(H.eyebrow(cohortLabel(), C.num)) + "</p>" +
-      '<h1 tabindex="-1">' + esc(H.title) + '</h1><p class="sub">' + esc(H.sub) + "</p>" +
-      '<div class="chips">' + chips + '</div><div class="btnrow">' + ctas + "</div></section>";
+    return applicantSection(lang === 'es' ? '¿Qué es PEA?' : 'What is PEA?', L.hero.sub, '<div class="chips"><span class="tag gold">' + esc(L.hero.chipFree) + '</span><span class="tag blue">' + esc(L.hero.chipZoom) + '</span><span class="tag blue">' + esc(L.hero.chipLang(teachLang())) + '</span></div>');
   }
 
-  function statsHtml() {
-    var S = L.stats, fg = F.figures;
-    return '<div class="stats">' +
-      '<div class="stat"><div class="stat-n">$0</div><div class="stat-l">' + esc(S.cost) + "</div></div>" +
-      '<div class="stat"><div class="stat-n">' + C.weeks + '</div><div class="stat-l">' + esc(S.weeks) + "</div></div>" +
-      '<div class="stat"><div class="stat-n">' + CLASSES.length + '</div><div class="stat-l">' + esc(S.classes) + "</div></div>" +
-      '<div class="stat"><div class="stat-n">' + fg.alumni + '</div><div class="stat-l">' + esc(S.alumni) + '</div><div class="stat-note">' +
-      esc(S.alumniNote(ymdLong(fg.alumniAsOf))) + "</div></div></div>";
-  }
+  function statsHtml() { return ''; }
 
   function stepsHtml(compact, hx) {
     hx = hx || "h3";
@@ -267,54 +208,14 @@
       var u = link(s.link);
       return '<li class="step' + (s.key ? " key" : "") + '"><span class="dot' + (s.key ? " blue" : "") + '" aria-hidden="true">' + (i + 1) + "</span>" +
         '<div class="step-body"><div class="step-head"><' + hx + ' class="h3">' + esc(s.t) + "</" + hx + ">" +
-        (s.tag ? '<span class="tag pink">' + esc(s.tag) + "</span>" : "") +
-        (s.key ? '<span class="tag solid-blue">' + esc(L.list.keyLabel) + "</span>" : "") + "</div>" +
+
+         "</div>" +
         "<p>" + esc(s.d) + "</p>" +
         (u ? '<div class="btnrow">' + ext(u, esc(s.cta), "btn btn-sm " + (s.key ? "btn-primary" : "btn-secondary")) + "</div>" : "") +
         "</div></li>";
     }).join("") + "</ol>";
   }
 
-  function listCount() {
-    var st = readList(), req = L.list.items.filter(function (x) { return !x.optional; });
-    return { done: req.filter(function (x) { return st[x.id]; }).length, total: req.length };
-  }
-  function ring(done, total) {
-    var r = 12, c = 2 * Math.PI * r, off = c * (1 - (total ? done / total : 0));
-    return '<svg class="ring" viewBox="0 0 30 30" aria-hidden="true"><g transform="rotate(-90 15 15)">' +
-      '<circle class="trk" cx="15" cy="15" r="' + r + '"></circle>' +
-      '<circle class="val" cx="15" cy="15" r="' + r + '" stroke-dasharray="' + c.toFixed(2) + '" stroke-dashoffset="' + off.toFixed(2) + '"></circle></g>' +
-      '<text x="15" y="18" text-anchor="middle">' + (done >= total ? "✓" : done + "/" + total) + "</text></svg>";
-  }
-
-  function overviewHtml() {
-    return GROUPS.map(function (g) {
-      return '<div class="ogroup ' + g.color + '"><div class="ohead">' + esc(L.nav.groups[g.id]) + '</div><div class="otiles">' +
-        g.items.map(function (id) {
-          var s = L.sections[id], rec = id === "participar", lc = id === "lista" ? listCount() : null;
-          return '<a class="otile' + (rec ? " rec" : "") + '" href="#' + id + '">' +
-            (rec ? '<span class="badge">' + esc(L.ui.recommended) + "</span>" : "") +
-            '<div class="ot-body"><div class="ot-t">' + esc(s.label) + '</div><div class="ot-d">' + esc(s.desc) + "</div>" +
-            '<div class="ot-m"><span>' + esc(L.ui.minutes(s.time)) + '</span><span class="ot-go" aria-hidden="true">' + esc(L.nav.start) + "</span></div></div>" +
-            (lc ? ring(lc.done, lc.total) : "") + "</a>";
-        }).join("") + "</div></div>";
-    }).join("");
-  }
-
-  function shareUrl() {
-    var base = location.protocol.indexOf("http") === 0 ? location.origin + location.pathname : "https://";
-    return base + "?lang=" + lang;
-  }
-  function shareHtml(headKey) {
-    var msg = L.links.shareMsg(shareUrl());
-    return '<div class="card top-gold"><span class="label ink">' + esc(headKey.h) + "</span>" +
-      '<p class="lead">' + esc(headKey.lead) + "</p>" +
-      '<div class="copyblock" id="sharemsg">' + esc(msg) +
-      '<button type="button" class="copybtn" data-copy="sharemsg">' + esc(L.ui.copy) + "</button></div>" +
-      '<div class="btnrow">' + ext("https://wa.me/?text=" + encodeURIComponent(msg), esc(L.links.shareWa), "btn btn-secondary btn-sm") + "</div></div>";
-  }
-
-  /* Applicant decision support; strings remain parallel in copy.js. */
   function applicantCards(items) {
     return '<div class="lgrid">' + items.map(function (item) {
       return '<div class="card top-blue"><h3 class="h3">' + esc(item[0]) + '</h3><p>' + esc(item[1]) + '</p></div>';
@@ -347,11 +248,8 @@
   function welcomeHtml() {
     return applicantSection(L.applicant.welcomeH, '', applicantCards(L.applicant.welcome) + applicantContact());
   }
-  function experienceHtml() {
-    var A = L.applicant;
-    return applicantSection(A.experienceH, A.experienceLead, applicantCards(A.experience)) +
-      applicantSection(A.practiceH, A.practiceText, '<p class="small">' + esc(A.practiceNote) + '</p>');
-  }
+  function experienceHtml() { return applicantSection(L.applicant.experienceH, L.applicant.experienceLead, applicantCards(L.applicant.experience)); }
+
   function storiesHtml() {
     var A = L.applicant, url = link(lang === 'es' ? 'familyStoryEs' : 'familyStoryEn');
     var body = applicantCards(A.stories) + '<div class="btnrow">' + ext(url, esc(A.storyCta), 'btn btn-secondary') + '</div>';
@@ -361,24 +259,19 @@
   }
 
   function springHtml() {
-    var S = L.spring;
-    return applicantSection(S.h, S.text, '<p class="small">' + esc(S.note) + '</p><div class="btnrow">' + ext(link('apply'), esc(S.cta), 'btn btn-primary') + '</div>');
+    return applicantSection(lang === 'es' ? 'Próximas fechas' : 'Upcoming dates', lang === 'es' ? 'Primavera de 2027: del 16 de marzo al 13 de mayo, martes y jueves, de 5:00 a 6:30 p. m., hora de Arizona.' : 'Spring 2027: March 16–May 13, Tuesdays and Thursdays, 5:00–6:30 PM Arizona time.', '');
   }
+
   function pageHome() {
-    var cta = link("zoom")
-      ? '<div class="cta-wrap">' + ext(link("zoom"), esc(L.next.register), "cta") + '<p class="cta-note">' + esc(L.home.ctaLead) + "</p></div>"
-      : "";
-    return heroHtml() + springHtml() + benefitsHtml() + fitHtml() + scheduleNote() + nextCard() + statsHtml() +
-      '<section class="block"><span class="label blue">' + esc(L.nav.groups.join) + '</span><h2 class="h-sec">' + esc(L.home.stepsH) + "</h2>" +
-      '<div class="block">' + stepsHtml(true) + "</div>" + cta + "</section>" +
-      '<section class="block"><h2 class="h-sec">' + esc(L.home.overviewH) + '</h2><div class="block">' + overviewHtml() + "</div></section>" +
-      '<section class="block">' + shareHtml({ h: L.home.shareH, lead: L.home.shareLead }) + "</section>";
+    return '<h1 class="home-title" tabindex="-1">' + (lang === 'es' ? 'Su próximo paso con PEA' : 'Your next step with PEA') + '</h1>' + actionsHtml(false) + heroHtml() +
+      applicantSection(L.cal.scheduleLabel, L.cal.scheduleNote, '') + benefitsHtml() +
+      applicantSection(L.home.stepsH, '', stepsHtml(true)) + fitHtml();
   }
 
   function infoDatesHtml() {
     var infos = EV.filter(function (e) { return e.kind === "info"; });
     if (!infos.length) return "";
-    return '<div class="card top-pink"><span class="label blue">' + esc(L.steps.infoDatesH) + "</span>" +
+    return '<div class="card top-pink">' +
       '<ul class="checks">' + infos.map(function (e) {
         var past = new Date(e.end).getTime() < NOW.getTime();
         return '<li class="check"><div><div class="h3">' + esc(cap(longDate(e.start))) + '</div><div class="small">' + esc(spanDash(e.start, e.end)) +
@@ -393,20 +286,11 @@
   }
 
   function pageParticipar() {
-    var S = L.steps;
-    return secHead("participar") + springHtml() + fitHtml() + commitmentHtml() + scheduleNote() + '<p class="lead">' + esc(S.lead) + "</p>" +
-      '<div class="block">' + stepsHtml(false, "h2") + "</div>" +
-      callout("", S.noteLabel, esc(S.note)) +
-      '<div class="block">' + infoDatesHtml() + "</div>" +
-      welcomeHtml() +
-      '<section class="block"><h2 class="h-sec">' + esc(S.askH) + '</h2><div class="block">' +
-      S.ask.map(function (a) { return '<div class="card top-blue"><h3 class="h3">' + esc(a[0]) + '</h3><p class="lead">' + esc(a[1]) + "</p></div>"; }).join("") +
-      "</div></section>" +
-      '<div class="panel"><div class="panel-head"><span class="label">' + esc(S.panelH) + "</span></div>" +
-      "<p>" + esc(S.panelText) + '</p><div class="btnrow"><a class="btn btn-primary" href="#lista">' + esc(S.panelCta) + "</a></div></div>";
+    return secHead('participar') + applicantSection(L.home.stepsH, '', stepsHtml(false)) +
+      applicantSection(L.steps.infoDatesH, '', infoDatesHtml()) + welcomeHtml() + commitmentHtml();
   }
+  var calFilter = 'all';
 
-  var calFilter = "all";
   function calRows() {
     return EV.filter(function (e) { return calFilter === "all" || (calFilter === "info" ? e.kind === "info" : e.kind === "cls"); })
       .map(function (e) {
@@ -417,7 +301,7 @@
                    (e.kind === "info" ? ' <span class="tag pink row-tag">' + esc(L.ui.optional) + "</span>" : "");
         return '<tr class="' + cls.trim() + '"><td class="c-date"><span class="dow">' + esc(sd.dow) + "</span> " + esc(sd.dm) + "</td>" +
           '<td class="c-kind"><span class="tag ' + (e.kind === "info" ? "pink" : e.kind === "cls" ? (e.grad ? "gold" : "blue") : "") + '">' + esc(tt.kind) + "</span></td>" +
-          '<td class="c-topic">' + (wk && e.kind === "cls" ? '<span class="wk">' + esc(L.cal.week(wk)) + "</span>" : "") + esc(tt.topic) + tags + "</td>" +
+          '<td class="c-topic">' + esc(tt.topic) + tags + "</td>" +
           '<td class="c-time">' + (e.kind === "holiday" ? "—" : esc(spanDash(e.start, e.end))) + "</td></tr>";
       }).join("");
   }
@@ -426,10 +310,9 @@
     var pills = ["all", "info", "cls"].map(function (k) {
       return '<button type="button" class="pill" data-filter="' + k + '" aria-pressed="' + (calFilter === k) + '">' + esc(f[k]) + "</button>";
     }).join("");
-    return secHead("calendario") + springHtml() + scheduleNote() +
-      (CLASSES.length && !C.projected ? '<p class="lead">' + esc(K.lead(classDays(), classTime(spanWords))) + "</p>" : "") +
+    return secHead("calendario") + scheduleNote() +
       (C.projected ? callout("gold", K.projectedLabel, esc(K.projected)) : "") +
-      '<div class="block">' + nextCard() + "</div>" +
+
       '<div class="filters" role="group" aria-label="' + esc(K.filterLabel) + '"><span class="label">' + esc(K.filterLabel) + "</span>" + pills + "</div>" +
       '<div class="tablewrap"><table class="cal"><caption class="sr-only">' + esc(K.h + " · " + cohortLabel()) + "</caption>" +
       '<thead><tr><th scope="col">' + esc(K.cols.date) + '</th><th scope="col">' + esc(K.cols.kind) + '</th><th scope="col">' +
@@ -437,7 +320,7 @@
       '<p class="small mt">' + esc(K.note) + "</p>" +
       '<div class="btnrow"><button type="button" class="btn btn-primary" data-ics="all">' + esc(K.ics) + "</button>" +
       (link("cal") ? ext(link("cal"), esc(K.full), "btn btn-secondary") : "") + "</div>" +
-      '<p class="small">' + esc(K.icsHelp) + "</p>";
+      '<p class="small">' + esc(K.icsHelp) + "</p>" + springHtml();
   }
 
   function pageZoom() {
@@ -457,52 +340,9 @@
       '<div class="block">' + callout("", Z.lostLabel, esc(Z.lost)) + callout("mid", Z.deviceLabel, esc(Z.device)) + "</div>";
   }
 
-  function readList() { try { return JSON.parse(lsGet(LS_LIST) || "{}") || {}; } catch (e) { return {}; } }
-  function writeList(st) { lsSet(LS_LIST, JSON.stringify(st)); }
-  function pageLista() {
-    var Li = L.list, st = readList(), lc = listCount();
-    var rows = Li.items.map(function (it) {
-      var u = it.link ? link(it.link) : null;
-      /* Keep checklist steps visible even when an event or registration link expires. */
-      var action = u ? ext(u, esc(it.cta), "btn btn-secondary btn-sm")
-                 : it.route ? '<a class="btn btn-secondary btn-sm" href="#' + it.route + '">' + esc(it.cta) + "</a>" : "";
-      return '<li class="check"><input type="checkbox" id="ck-' + it.id + '" data-check="' + it.id + '"' + (st[it.id] ? " checked" : "") + ">" +
-        '<label for="ck-' + it.id + '"><span class="box" aria-hidden="true"></span><span class="ctext">' + esc(it.t) +
-        (it.optional ? '<span class="tag pink">' + esc(L.ui.optional) + "</span>" : "") +
-        (it.key ? '<span class="tag solid-blue">' + esc(Li.keyLabel) + "</span>" : "") + "</span></label>" + action + "</li>";
-    }).join("");
-    var done = lc.done >= lc.total;
-    return secHead("lista") + '<p class="lead">' + esc(Li.lead) + "</p>" +
-      '<div class="panel"><div class="panel-head"><span class="label">' + esc(Li.panelLabel) + '</span><span class="status' + (done ? " done" : "") + '" id="lststatus">' +
-      esc(done ? Li.status.done : Li.status.todo) + "</span></div>" +
-      '<ul class="checks">' + rows + "</ul>" +
-      '<div class="bar" aria-hidden="true"><span id="lstbar"></span></div>' +
-      '<p class="bar-cap" id="lstcap" aria-live="polite">' + esc(Li.progress(lc.done, lc.total)) + (done ? " — " + esc(Li.doneMsg) : "") + "</p>" +
-      '<div class="btnrow"><button type="button" class="btn btn-ghost btn-sm" id="lstreset">' + esc(Li.reset) + "</button></div></div>";
-  }
-  function syncListUi() {
-    var Li = L.list, lc = listCount(), done = lc.done >= lc.total;
-    var bar = document.getElementById("lstbar"), cap = document.getElementById("lstcap"), stt = document.getElementById("lststatus");
-    if (bar) bar.style.width = (lc.total ? Math.round(100 * lc.done / lc.total) : 0) + "%";
-    if (cap) cap.textContent = Li.progress(lc.done, lc.total) + (done ? " — " + Li.doneMsg : "");
-    if (stt) { stt.textContent = done ? Li.status.done : Li.status.todo; stt.className = "status" + (done ? " done" : ""); }
-  }
-
   function pagePrograma() {
-    var P = L.prog, weeks = {};
-    EV.forEach(function (e) { var w = weekOf(e); if (w && (e.kind === "cls" || e.kind === "holiday")) (weeks[w] = weeks[w] || []).push(e); });
-    var cards = Object.keys(weeks).sort(function (a, b) { return a - b; }).map(function (w) {
-      var list = weeks[w], isGrad = list.some(function (e) { return e.grad; });
-      return '<div class="week' + (isGrad ? " grad" : "") + '"><span class="label ' + (isGrad ? "ink" : "blue") + '">' + esc(P.weekH(w)) + "</span><ol>" +
-        list.map(function (e) {
-          var tt = evTitle(e), sd = shortDate(e.start);
-          return '<li class="' + (e.kind === "holiday" ? "off" : "") + '"><span class="d">' + esc(cap(sd.dow) + " " + sd.dm) + "</span>" +
-            esc(e.kind === "holiday" ? tt.kind + " — " + tt.topic : tt.topic) + (e.grad ? " · " + esc(P.gradNote) : "") + "</li>";
-        }).join("") + "</ol></div>";
-    }).join("");
-    return secHead("programa") + experienceHtml() + commitmentHtml() + scheduleNote() + '<p class="lead">' + esc(P.lead) + "</p>" +
-      callout("", P.classLabel, esc(P.classText)) +
-      '<div class="weeks">' + cards + "</div>";
+    var cards = CLASSES.map(function(e,i) { return '<div class="card"><span class="label blue">' + (lang === 'es' ? 'Clase ' : 'Class ') + (i+1) + '</span><h3 class="h3">' + esc(evTitle(e).topic) + '</h3></div>'; }).join('');
+    return secHead('programa') + applicantSection(lang === 'es' ? 'Temas de las 18 clases' : 'Topics across 18 classes', '', '<div class="lgrid">'+cards+'</div>') + experienceHtml();
   }
 
   function pageHistoria() {
@@ -519,7 +359,7 @@
     }).join("");
     return secHead("historia") + storiesHtml() + H.p.map(function (p) { return '<p class="lead">' + esc(p) + "</p>"; }).join("") +
       '<div class="block">' + stats + "</div>" +
-      '<section class="block"><span class="label purple">' + esc(H.missionH) + '</span><blockquote class="quote">' + esc(H.mission) + "</blockquote></section>" +
+      '<section class="block"><h2 class="h-sec">' + esc(H.missionH) + '</h2><blockquote class="quote">' + esc(H.mission) + "</blockquote></section>" +
       '<section class="block"><h2 class="h-sec">' + esc(H.changedH) + '</h2><div class="block">' + changed + "</div></section>";
   }
 
@@ -530,7 +370,7 @@
       if (typeof q[1] === "function") { if (ctx.lang) items.push([q[0], q[1](ctx)]); }   /* needs a known teaching language */
       else items.push(q);
     });
-    if (AC.next) items.push([L.faq.nextCohortQ, L.faq.nextCohortA(lang === "es" ? lowerFirst(AC.next.label_es) : AC.next.label_en)]);
+
     return items;
   }
   function pagePreguntas() {
@@ -554,10 +394,9 @@
         var u = link(it[0]); if (!u) return "";
         return "<li>" + ext(u, '<span class="t">' + esc(it[1]) + '</span><span class="d">' + esc(it[2]) + "</span>", "lnk" + (it[0] === "zoom" ? " key" : "")) + "</li>";
       }).join("");
-      return lis ? '<section class="block"><span class="label blue">' + esc(g.h) + '</span><ul class="lgrid">' + lis + "</ul></section>" : "";
+      return lis ? '<section class="block"><h2 class="h-sec">' + esc(g.h) + '</h2><ul class="lgrid">' + lis + "</ul></section>" : "";
     }).join("");
-    return secHead("enlaces") + springHtml() + '<p class="lead">' + esc(L.links.lead) + "</p>" + groups +
-      '<div class="block">' + shareHtml({ h: L.links.shareH, lead: L.links.shareLead }) + "</div>";
+    return secHead("enlaces") + '<p class="lead">' + esc(L.links.lead) + "</p>" + groups;
   }
 
   function pageContacto() {
@@ -568,23 +407,12 @@
       "<dt>" + esc(Lb.phone) + '</dt><dd><a href="' + esc(O.phoneHref) + '">' + esc(O.phone) + "</a></dd>" +
       "<dt>" + esc(Lb.wa) + "</dt><dd>" + ext(O.waHref, esc(L.contact.waCta)) + "</dd>" +
       "<dt>" + esc(Lb.web) + "</dt><dd>" + ext(O.web, esc(L.contact.webLabel)) + "</dd>" +
-      "</dl></div>" + '<div class="btnrow">' + ext(O.waHref, esc(L.contact.waCta), "btn btn-primary") +
-      '<a class="btn btn-secondary" href="mailto:' + esc(O.email) + '">' + esc(O.email) + "</a></div>" + applicantSection(L.applicant.supportH, L.applicant.supportText, "") + applicantSection(L.applicant.alumniH, L.applicant.alumniText, "");
+      "</dl></div>" + applicantSection(L.applicant.supportH, L.applicant.supportText, "") + applicantSection(L.applicant.alumniH, L.applicant.alumniText, "");
   }
 
-  var PAGES = { inicio: pageHome, participar: pageParticipar, calendario: pageCalendario, zoom: pageZoom, lista: pageLista,
+  var PAGES = { inicio: pageHome, participar: pageParticipar, calendario: pageCalendario, zoom: pageZoom,
                 programa: pagePrograma, historia: pageHistoria, preguntas: pagePreguntas, enlaces: pageEnlaces, contacto: pageContacto };
 
-  function prevNext(id) {
-    var i = ORDER.indexOf(id), p = ORDER[i - 1], n = ORDER[i + 1];
-    function lbl(x) { return x === "inicio" ? L.nav.home : L.sections[x].label; }
-    var h = '<nav class="pn" aria-label="' + esc(L.nav.prev.replace(/[←→]/g, "").trim() + " / " + L.nav.next.replace(/[←→]/g, "").trim()) + '">';
-    if (p) h += '<a class="prev" href="#' + p + '"><span class="pl">' + esc(L.nav.prev) + '</span><span class="pt">' + esc(lbl(p)) + "</span></a>";
-    if (n) h += '<a class="next ' + colorOf(n) + '" href="#' + n + '"><span class="pl">' + esc(i === 0 ? L.nav.start : L.nav.next) + '</span><span class="pt">' + esc(lbl(n)) + "</span></a>";
-    return h + "</nav>";
-  }
-
-  /* ---------- ICS ---------- */
   function icsStamp(iso) { return new Date(iso).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, ""); }
   function icsEsc(s) { return String(s).replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n"); }
   function icsFold(line) {                        /* RFC 5545: 75 octets per line, UTF-8 aware */
@@ -624,21 +452,29 @@
   }
 
   /* ---------- copy ---------- */
-  function copyText(text, btn) {
-    function ok() { btn.textContent = L.ui.copied; btn.classList.add("ok"); announce(L.ui.copied);
-      setTimeout(function () { btn.textContent = L.ui.copy; btn.classList.remove("ok"); }, 1500); }
-    if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(text).then(ok, fallback); } else fallback();
-    function fallback() {
-      var ta = document.createElement("textarea"); ta.value = text; ta.setAttribute("readonly", "");
-      ta.style.position = "absolute"; ta.style.left = "-9999px"; document.body.appendChild(ta); ta.select();
-      try { document.execCommand("copy"); ok(); } catch (e) {} ta.remove();
-    }
-  }
   function announce(msg) { var el = document.getElementById("live"); if (el) { el.textContent = ""; setTimeout(function () { el.textContent = msg; }, 30); } }
 
   /* ---------- routing + render ---------- */
+  function actionsHtml(sticky) {
+    var labels = lang === 'es' ? ['Solicitar información','Registro en Zoom','Ver calendario','Sesión informativa','WhatsApp al equipo'] : ['Apply / interest form','Register on Zoom','View calendar','Info session','WhatsApp the team'];
+    var short = lang === 'es' ? ['Solicitar','Zoom','Calendario','Información','WhatsApp'] : ['Apply','Zoom','Calendar','Info','WhatsApp'];
+    var urls = [link('apply'),link('zoom'),'#calendario',link('info'),F.org.waHref], icons = ['📝','🎥','📅','👋','💬'];
+    return '<div class="' + (sticky ? 'sticky-actions' : 'quick-actions') + '" aria-label="' + (lang === 'es' ? 'Acciones rápidas' : 'Quick actions') + '">' + urls.map(function(url,i) {
+      if (!url || (sticky && i===3)) return '';
+      return ext(url, '<span aria-hidden="true">' + icons[i] + '</span><span>' + esc(sticky ? short[i] : labels[i]) + '</span>', 'quick-action action-'+i);
+    }).join('') + '</div>';
+  }
+  function styleSections(main) {
+    if (currentRoute() !== 'inicio') {
+      var head = main.querySelector('.sec-head');
+      if (head) { var wrapper = document.createElement('div'); wrapper.className='page-section'; main.insertBefore(wrapper,head); while(wrapper.nextSibling) wrapper.appendChild(wrapper.nextSibling); }
+    }
+    main.querySelectorAll('section.block').forEach(function(el) { el.classList.add('section-panel'); });
+    main.querySelectorAll('.section-panel').forEach(function(el,i) { el.classList.toggle('pink-section', i%2===1); });
+  }
   function currentRoute() {
     var h = (location.hash || "").replace(/^#\/?/, "");
+    if (h === "lista") return "participar";
     return PAGES[h] ? h : "inicio";
   }
   function render(focus) {
@@ -651,8 +487,9 @@
     document.getElementById("skip").textContent = L.ui.skip;
     renderBand(); renderNav(id); renderFoot();
     var main = document.getElementById("main");
-    main.innerHTML = PAGES[id]() + prevNext(id);
-    if (id === "lista") syncListUi();
+    main.innerHTML = PAGES[id]();
+    styleSections(main);
+    document.getElementById("quickbar").innerHTML = actionsHtml(true);
     if (focus) {
       window.scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
       var h1 = main.querySelector("h1"); if (h1) h1.focus({ preventScroll: true });
@@ -671,10 +508,9 @@
   /* ---------- events (delegated) ---------- */
   document.addEventListener("click", function (ev) {
     var t = ev.target.closest ? ev.target : null; if (!t) return;
+    if (t.closest(".menu a")) document.querySelector(".menu").open = false;
     if (t.closest("#skip")) { ev.preventDefault(); document.getElementById("main").focus(); return; }
     var ics = t.closest("[data-ics]"); if (ics) { downloadIcs(ics.getAttribute("data-ics")); return; }
-    var cp = t.closest("[data-copy]");
-    if (cp) { var src = document.getElementById(cp.getAttribute("data-copy")); if (src) copyText(src.firstChild.nodeValue, cp); return; }
     var fl = t.closest("[data-filter]");
     if (fl) {
       calFilter = fl.getAttribute("data-filter");
@@ -682,14 +518,7 @@
       var body = document.getElementById("calbody"); if (body) body.innerHTML = calRows();
       return;
     }
-    if (t.id === "lstreset") {
-      writeList({}); document.querySelectorAll("[data-check]").forEach(function (c) { c.checked = false; }); syncListUi(); return;
-    }
     if (t.id === "faqx") { var q = document.getElementById("faqq"); q.value = ""; filterFaq(""); q.focus(); }
-  });
-  document.addEventListener("change", function (ev) {
-    var c = ev.target; if (!c.getAttribute || !c.getAttribute("data-check")) return;
-    var st = readList(); st[c.getAttribute("data-check")] = c.checked; writeList(st); syncListUi();
   });
   document.addEventListener("input", function (ev) { if (ev.target.id === "faqq") filterFaq(ev.target.value); });
   function filterFaq(v) {

@@ -1,5 +1,5 @@
 /* ==================================================================
-   PEA Applicant Hub — FACTS  (v0.9.4)
+   PEA Applicant Hub — FACTS  (v0.10.0)
    ------------------------------------------------------------------
    PRIMARY DATE AND LINK REGISTRY. Also review cohort policy copy.
    Cohort dates, duration and links are maintained here.
@@ -50,7 +50,7 @@ window.PEA_FACTS = {
       overviewVideo: "https://www.youtube.com/watch?v=FEV_87qoqjc",
       familyStoryEn: "https://azluminaria.org/2023/05/18/a-program-helping-parents-navigate-arizonas-education-system-as-leaders-and-advocates-for-their-kids/",
       familyStoryEs: "https://azluminaria.org/2023/05/19/un-programa-que-ayuda-a-padres-latinos-a-navegar-el-sistema-educativo-de-arizona-como-lideres-y-defensores-de-sus-hijos/",
-      apply:       "https://bit.ly/peaapply",
+      apply:       "https://airtable.com/appIqlWqvk2HkHVRM/pagKt0dz2HEbrxL0d/form",
       exit:        "https://airtable.com/appIqlWqvk2HkHVRM/pagsaimIoBv1ZTWYd/form",
       lista:       "https://bit.ly/pealista",
       flyer:       "https://bit.ly/peaflyer",
@@ -59,8 +59,8 @@ window.PEA_FACTS = {
       vidName:     "https://bit.ly/peazoomnombre"
     },
     FA26: {
-      info:     "https://bit.ly/peafa26info",
-      zoom:     "https://bit.ly/peafa26zoom",
+      info:     "https://us06web.zoom.us/meeting/register/GpHzmL9lQe6K_7ult-Mmnw",
+      zoom:     "https://us06web.zoom.us/meeting/register/nLJgGfCITL2GURTc-eEUsw",
       cal:      "https://bit.ly/peafa26cal",
       whatsapp: "https://chat.whatsapp.com/KHdNf1nJalPLUW64lCkIdg?s=sh&p=i&mlu=4"
     },

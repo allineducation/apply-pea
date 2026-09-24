@@ -41,8 +41,7 @@
         participar: { label: "Cómo participar", desc: "Tres pasos. El tercero asegura su lugar.", time: "2 min" },
         calendario: { label: "Calendario", desc: "Todas las fechas y horarios del programa.", time: "1 min" },
         zoom:       { label: "Zoom paso a paso", desc: "Videos cortos y consejos para entrar sin problema.", time: "3 min" },
-        lista:      { label: "Mi lista", desc: "Marque cada paso y vea cuánto le falta.", time: "2 min" },
-        programa:   { label: "Qué va a aprender", desc: "Los temas de cada semana.", time: "2 min" },
+        programa:   { label: "Qué va a aprender", desc: "Los temas de las 18 clases.", time: "2 min" },
         historia:   { label: "Experiencias e historia", desc: "Historias de familias, resultados y la organización.", time: "2 min" },
         preguntas:  { label: "Preguntas", desc: "Respuestas rápidas a las dudas más comunes.", time: "3 min" },
         enlaces:    { label: "Enlaces", desc: "Todo lo que va a necesitar, en un solo lugar.", time: "1 min" },
@@ -69,7 +68,6 @@
         title: "Todo lo que necesita saber para participar",                      /* [G] */
         sub: "La Parent Educator Academy es un programa de liderazgo para familias y cuidadores que quieren abogar por sus hijos dentro del sistema escolar de Arizona.", /* [G] */
         chipFree: "Gratis",
-        chipWeeks: function (n) { return n + " semanas"; },
         chipZoom: "En línea, por Zoom",
         chipSchedule: function (days, time) { return days + " · " + time; },
         chipLang: function (l) { return "Clases en " + l; }
@@ -92,7 +90,6 @@
 
       stats: {
         cost: "Costo para las familias",
-        weeks: "Semanas",
         classes: "Clases en vivo",
         alumni: "Personas en el registro histórico de exalumnos de PEA",
         alumniNote: function (d) { return "al " + d; }
@@ -126,15 +123,12 @@
           ["Participar", "Encienda su cámara si puede, hable, pregunte. El salón funciona cuando todos aportan."],
           ["Comunicar", "Si algo se le dificulta — la tecnología, el horario, el idioma — díganos. Casi siempre hay una solución."]
         ],
-        panelH: "Siguiente paso",
-        panelText: "Use la lista para confirmar que tiene todo listo antes de la primera clase.",
-        panelCta: "Abrir mi lista →"
       },
 
       cal: {
         h: "Calendario",
         scheduleLabel: "Fechas de otoño de 2026",
-        scheduleNote: "18 clases en 10 semanas, del 6 de octubre al 8 de diciembre de 2026. No hay clase el 26 de noviembre. Grupo de enfoque: 10 de diciembre. Todo de 5:00 a 6:30 p. m., hora de Arizona. Si las clases ya comenzaron, consulte al equipo sobre la posibilidad de inscribirse.",
+        scheduleNote: "18 clases programadas, martes y jueves, del 6 de octubre al 8 de diciembre de 2026. No hay clase el 26 de noviembre. Grupo de enfoque: 10 de diciembre. Todo de 5:00 a 6:30 p. m., hora de Arizona. Si las clases ya comenzaron, consulte al equipo sobre la posibilidad de inscribirse.",
         lead: function (days, time) { return "Las clases son los " + days + ", de " + time + ", hora de Arizona."; },
         filterLabel: "Mostrar",
         filters: { all: "Todo", info: "Sesiones informativas", cls: "Clases" },
@@ -182,33 +176,11 @@
         device: "La computadora o la tableta hacen la experiencia mejor: se ven los materiales y es más fácil participar. Si el teléfono es lo que tiene, el teléfono funciona." /* [G] */
       },
 
-      list: {
-        h: "Mi lista para inscribirse",
-        lead: "Marque cada paso cuando lo termine. Su progreso se guarda solo en este dispositivo.",
-        panelLabel: "Lista de inscripción",
-        items: [
-          { id: "form",  t: "Llené el formulario de interés", link: "apply", cta: "Formulario" },
-          { id: "acct",  t: "Tengo una cuenta de Zoom (es gratuita)", link: "vidAccount", cta: "Video" },
-          { id: "email", t: "Uso el mismo correo en mi cuenta de Zoom y en el registro" },
-          { id: "reg",   t: "Completé mi registro en Zoom — esto asegura mi lugar", link: "zoom", cta: "Registro", key: true },
-          { id: "conf",  t: "Encontré y guardé el correo de confirmación de Zoom" },
-          { id: "name",  t: "Cambié el nombre que se muestra en Zoom", link: "vidName", cta: "Video" },
-          { id: "dates", t: "Guardé las fechas de clase en mi calendario", route: "calendario", cta: "Fechas" },
-          { id: "info",  t: "Asistí a una sesión informativa", link: "info", cta: "Sesión", optional: true }
-        ],
-        progress: function (a, b) { return a + " de " + b + " completados"; },
-        status: { todo: "En progreso", done: "Completa" },
-        doneMsg: "Todo listo. Nos vemos en la primera clase.",
-        reset: "Empezar de nuevo",
-        keyLabel: "Asegura su lugar"
-      },
-
       prog: {
         h: "Qué va a aprender",
         lead: "Durante el programa nos reunimos en línea para aprender juntos cómo funciona el sistema educativo, cuáles son sus derechos, y cómo usar su voz con las escuelas, los distritos y quienes toman decisiones. Usted ya conoce a su hijo mejor que nadie. El programa le da el mapa del sistema y las herramientas para moverse dentro de él.", /* [G] */
         classLabel: "Cómo es cada clase",
         classText: "Nos reunimos en grupo por Zoom. Al final de cada clase hay una encuesta de salida corta: entre cinco y ocho preguntas, dos a cuatro minutos. Nos dice qué está funcionando y qué no.",
-        weekH: function (n) { return "Semana " + n; },
         gradNote: "Cierre del programa"
       },
 
@@ -338,8 +310,7 @@
         participar: { label: "How to take part", desc: "Three steps. The third one secures your place.", time: "2 min" },
         calendario: { label: "Calendar", desc: "Every date and time in the program.", time: "1 min" },
         zoom:       { label: "Zoom step by step", desc: "Short videos and tips to get in without trouble.", time: "3 min" },
-        lista:      { label: "My checklist", desc: "Check off each step and see what is left.", time: "2 min" },
-        programa:   { label: "What you'll learn", desc: "The topics, week by week.", time: "2 min" },
+        programa:   { label: "What you'll learn", desc: "Topics across the 18 classes.", time: "2 min" },
         historia:   { label: "Stories & history", desc: "Family experiences, findings, and the organization.", time: "2 min" },
         preguntas:  { label: "Questions", desc: "Quick answers to the most common questions.", time: "3 min" },
         enlaces:    { label: "Links", desc: "Everything you will need, in one place.", time: "1 min" },
@@ -366,7 +337,6 @@
         title: "Everything you need to know to take part",
         sub: "The Parent Educator Academy is a leadership program for families and caregivers who want to advocate for their children inside Arizona's school system.",
         chipFree: "Free",
-        chipWeeks: function (n) { return n + " weeks"; },
         chipZoom: "Online, on Zoom",
         chipSchedule: function (days, time) { return days + " · " + time; },
         chipLang: function (l) { return "Taught in " + l; }
@@ -389,7 +359,6 @@
 
       stats: {
         cost: "Cost to families",
-        weeks: "Weeks",
         classes: "Live classes",
         alumni: "People in the historical PEA alumni registry",
         alumniNote: function (d) { return "as of " + d; }
@@ -423,15 +392,12 @@
           ["Take part", "Turn your camera on if you can, speak up, ask questions. The class works when everyone contributes."],
           ["Tell us", "If something is getting in the way — the technology, the schedule, the language — tell us. There is almost always a way around it."]
         ],
-        panelH: "Next step",
-        panelText: "Use the checklist to confirm you have everything ready before the first class.",
-        panelCta: "Open my checklist →"
       },
 
       cal: {
         h: "Calendar",
         scheduleLabel: "Fall 2026 dates",
-        scheduleNote: "18 classes over 10 weeks, October 6–December 8, 2026. No class November 26. Focus group: December 10. All events run 5:00–6:30 PM Arizona time. If classes have already started, contact the team about joining.",
+        scheduleNote: "18 scheduled classes on Tuesdays and Thursdays, October 6–December 8, 2026. No class November 26. Focus group: December 10. All events run 5:00–6:30 PM Arizona time. If classes have already started, contact the team about joining.",
         lead: function (days, time) { return "Classes meet " + days + ", " + time + " Arizona time."; },
         filterLabel: "Show",
         filters: { all: "All", info: "Information sessions", cls: "Classes" },
@@ -479,33 +445,11 @@
         device: "A computer or tablet makes for a better experience: the materials are easier to see and it is easier to take part. If a phone is what you have, a phone works."
       },
 
-      list: {
-        h: "My registration checklist",
-        lead: "Check off each step as you finish it. Your progress is saved on this device only.",
-        panelLabel: "Registration checklist",
-        items: [
-          { id: "form",  t: "I filled out the interest form", link: "apply", cta: "Form" },
-          { id: "acct",  t: "I have a Zoom account (it is free)", link: "vidAccount", cta: "Video" },
-          { id: "email", t: "I use the same email for my Zoom account and my registration" },
-          { id: "reg",   t: "I completed my Zoom registration — this secures my place", link: "zoom", cta: "Register", key: true },
-          { id: "conf",  t: "I found and saved my Zoom confirmation email" },
-          { id: "name",  t: "I changed my Zoom display name", link: "vidName", cta: "Video" },
-          { id: "dates", t: "I saved the class dates in my calendar", route: "calendario", cta: "Dates" },
-          { id: "info",  t: "I attended an information session", link: "info", cta: "Session", optional: true }
-        ],
-        progress: function (a, b) { return a + " of " + b + " completed"; },
-        status: { todo: "In progress", done: "Complete" },
-        doneMsg: "All set. See you at the first class.",
-        reset: "Start over",
-        keyLabel: "Secures your place"
-      },
-
       prog: {
         h: "What you'll learn",
         lead: "During the program we meet online to learn together how the education system works, what your rights are, and how to use your voice with schools, districts and the people who make decisions. You already know your child better than anyone. The program gives you the map of the system and the tools to move through it.",
         classLabel: "What each class is like",
         classText: "We meet as a group on Zoom. Each class ends with a short exit ticket: five to eight questions, two to four minutes. It tells us what is working and what is not.",
-        weekH: function (n) { return "Week " + n; },
         gradNote: "Closing the program"
       },
 
@@ -673,7 +617,7 @@
   "practiceText": "Piense en una conversación que le gustaría tener con la escuela de su estudiante. ¿Qué le gustaría entender mejor? Anote una pregunta y la información que le ayudaría a explicarla.",
   "practiceNote": "Esta es una invitación opcional a reflexionar antes de participar. No es una tarea ni necesita enviarla.",
   "commitmentH": "El tiempo que necesita reservar",
-  "commitmentText": "18 sesiones de 90 minutos: 27 horas programadas en vivo, distribuidas en 10 semanas. Por lo general son tres horas por semana, los martes y jueves. El calendario incluye la pausa por el Día de Acción de Gracias.",
+  "commitmentText": "18 sesiones de 90 minutos: 27 horas programadas en vivo. Nos reunimos los martes y jueves de 5:00 a 6:30 p. m., hora de Arizona. El calendario incluye la pausa por el Día de Acción de Gracias.",
   "commitmentNote": "Ese cálculo corresponde solo a las 18 clases, incluida la graduación. No incluye la sesión informativa opcional ni el grupo de enfoque. Consulte al equipo si necesita saber cuánto tiempo adicional requieren los materiales o las actividades.",
   "certificateH": "Su certificado",
   "certificateText": "El registro de Zoom de esta cohorte indica que debe asistir al menos a 16 de las 18 clases para recibir su certificado. Avise con anticipación si no puede asistir. El equipo puede explicarle los demás requisitos de participación y cómo se entrega el certificado.",
@@ -723,7 +667,7 @@
   "faq": [
     [
       "¿Cuánto tiempo debo reservar?",
-      "Las 18 clases de 90 minutos suman 27 horas en vivo durante 10 semanas. Por lo general son tres horas por semana. La sesión informativa opcional y el grupo de enfoque son adicionales; consulte al equipo sobre el tiempo para actividades fuera de clase."
+      "Las 18 clases de 90 minutos suman 27 horas en vivo. Las clases son los martes y jueves, de 5:00 a 6:30 p. m., hora de Arizona. La sesión informativa opcional y el grupo de enfoque son adicionales; consulte al equipo sobre el tiempo para actividades fuera de clase."
     ],
     [
       "¿Recibiré un certificado?",
@@ -811,7 +755,7 @@
   "practiceText": "Think of a conversation you would like to have with your student’s school. What would you like to understand better? Write down one question and the information that would help you explain it.",
   "practiceNote": "This is an optional invitation to reflect before participating. It is not an assignment, and you do not need to submit it.",
   "commitmentH": "The time to set aside",
-  "commitmentText": "18 sessions of 90 minutes: 27 scheduled live hours spread across 10 weeks. Most weeks include three hours of classes on Tuesdays and Thursdays. The calendar includes the Thanksgiving break.",
+  "commitmentText": "18 sessions of 90 minutes: 27 scheduled live hours. Classes meet Tuesdays and Thursdays, 5:00–6:30 PM Arizona time. The calendar includes the Thanksgiving break.",
   "commitmentNote": "This calculation covers the 18 classes, including graduation. It excludes the optional information session and the focus group. Ask the team how much additional time materials or activities may require.",
   "certificateH": "Your certificate",
   "certificateText": "This cohort’s Zoom registration states that you must attend at least 16 of the 18 classes to receive your certificate. Give advance notice if you cannot attend. The team can explain other participation requirements and how the certificate is delivered.",
@@ -861,7 +805,7 @@
   "faq": [
     [
       "How much time should I set aside?",
-      "The 18 classes of 90 minutes total 27 live hours over 10 weeks. Most weeks include three hours of classes. The optional information session and focus group are additional; ask the team about time for activities outside class."
+      "The 18 classes of 90 minutes total 27 live hours. Classes meet Tuesdays and Thursdays, 5:00–6:30 PM Arizona time. The optional information session and focus group are additional; ask the team about time for activities outside class."
     ],
     [
       "Will I receive a certificate?",
@@ -892,8 +836,6 @@
 };
   ["es", "en"].forEach(function (l) { T[l].faq.items = T[l].faq.items.concat(T[l].applicant.faq); });
 
-  T.es.spring = {h: "¿Le interesa primavera de 2027?", text: "Del 16 de marzo al 13 de mayo de 2027 · martes y jueves · de 5:00 a 6:30 p. m., hora de Arizona. Ya puede completar el formulario de interés. El registro de Zoom se publicará más adelante; no necesita registrarse en Zoom ahora para expresar su interés.", note: "El formulario muestra otoño de 2026 de forma predeterminada. Para primavera, seleccione «Primavera / Spring 2027 (S27)».", cta: "Formulario de interés — primavera 2027"};
-  T.en.spring = {h: "Interested in Spring 2027?", text: "March 16–May 13, 2027 · Tuesdays and Thursdays · 5:00–6:30 PM Arizona time. You can complete the interest form now. Zoom registration will be available later; you do not need to register in Zoom now to express interest.", note: "The form defaults to Fall 2026. For spring, select “Primavera / Spring 2027 (S27)”.", cta: "Interest form — Spring 2027"};
   root.T = T;
   if (typeof module !== "undefined" && module.exports) module.exports = { T: T };
 })(typeof window !== "undefined" ? window : globalThis);
