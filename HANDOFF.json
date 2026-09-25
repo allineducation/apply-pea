@@ -1,0 +1,622 @@
+{
+  "schema_version": "1.0.0",
+  "document_type": "website_handoff",
+  "handoff_version": "1.0.0",
+  "as_of": "2026-09-25",
+  "timezone": "America/Phoenix",
+  "prepared_by": "Danny Hernández",
+  "project": {
+    "name": "apply-pea",
+    "title": "PEA applicant portal",
+    "organization": "ALL In Education",
+    "purpose": "Public bilingual program information and applicant routing; no application-progress tracking.",
+    "site_version": "0.10.2",
+    "site_content_revision": "d7af9ce6dab19973936b634777f70473c695c951",
+    "production_url": "https://apply-pea.netlify.app/",
+    "repository_url": "https://github.com/allineducation/apply-pea",
+    "repository_visibility": "public",
+    "default_branch": "main",
+    "readme": "README.md"
+  },
+  "snapshot_policy": {
+    "live_data_feed": false,
+    "refresh_on": [
+      "Program fact change",
+      "Link change",
+      "Cohort rollover",
+      "Route or architecture change",
+      "Deployment configuration change"
+    ],
+    "authority": "Approved program sources and explicit user corrections supersede this dated snapshot. Inspect current repository and production before acting.",
+    "source_snapshot_warning": "facts_snapshot is copied from facts.js, not fetched from Airtable during this handoff."
+  },
+  "deployment": {
+    "provider": "Netlify",
+    "project_name": "apply-pea",
+    "team_slug": "azdanhz",
+    "site_id": "47e247f5-7ecd-45a1-b487-9c24dc9c6e43",
+    "project_url": "https://app.netlify.com/projects/apply-pea",
+    "source_branch": "main",
+    "publish_directory": "site",
+    "build_command": "node maintenance/scripts/check-parity.js",
+    "node_version": "22",
+    "dependency_install_required": false,
+    "workflow": "Push or merge into main; verify ready deployment commit and production behavior.",
+    "documentation_public_on_github": true,
+    "documentation_in_netlify_publish_directory": false,
+    "rollback": "Revert faulty commit and deploy revert. Reconcile Git after any emergency Netlify restore; avoid force-resetting shared history."
+  },
+  "architecture": {
+    "type": "Static HTML/CSS/vanilla JavaScript",
+    "routing": "URL hash",
+    "default_language": "es",
+    "supported_languages": [
+      "es",
+      "en"
+    ],
+    "language_precedence": [
+      "lang query parameter",
+      "localStorage aie_lang",
+      "es"
+    ],
+    "local_storage_keys": [
+      "aie_lang"
+    ],
+    "progress_tracking": false,
+    "analytics_in_application_code": false,
+    "embedded_forms": false,
+    "backend": null,
+    "local_fonts": "Lato",
+    "external_services": [
+      "Airtable interest form",
+      "Zoom registration",
+      "WhatsApp",
+      "Published calendar and linked resources"
+    ],
+    "security_configuration": "site/_headers",
+    "no_secrets_or_participant_records_in_repo": true
+  },
+  "routes": [
+    {
+      "hash": "#inicio",
+      "purpose": "Home and primary actions"
+    },
+    {
+      "hash": "#participar",
+      "purpose": "Participation instructions"
+    },
+    {
+      "hash": "#calendario",
+      "purpose": "Schedule, export and spring date summary"
+    },
+    {
+      "hash": "#zoom",
+      "purpose": "Zoom help"
+    },
+    {
+      "hash": "#programa",
+      "purpose": "Program experience"
+    },
+    {
+      "hash": "#historia",
+      "purpose": "Program history and evidence"
+    },
+    {
+      "hash": "#preguntas",
+      "purpose": "Searchable FAQs"
+    },
+    {
+      "hash": "#enlaces",
+      "purpose": "Resources"
+    },
+    {
+      "hash": "#contacto",
+      "purpose": "Team contact"
+    }
+  ],
+  "aliases": {
+    "/es": "/?lang=es",
+    "/en": "/?lang=en",
+    "/inscripcion": "/?lang=es#participar",
+    "/join": "/?lang=en#participar",
+    "#lista": "#participar"
+  },
+  "files": [
+    {
+      "path": "site/index.html",
+      "role": "Page shell and release metadata",
+      "sha256": "ac311d403eba9b0fa6301b58baa90ff0f1f42068aaf0f4fb5b949fef356f84ca"
+    },
+    {
+      "path": "site/assets/js/facts.js",
+      "role": "Application facts registry",
+      "sha256": "89df4ff38636feaaab3d6e0d44db9ba9a1770c4711aafff6b9e6ec3946340c4e"
+    },
+    {
+      "path": "site/assets/js/copy.js",
+      "role": "Bilingual dictionaries",
+      "sha256": "19dad0419b8b4eebca9f1f89d561a2590f12bb10842f768136a79b9d7622b6ea"
+    },
+    {
+      "path": "site/assets/js/app.js",
+      "role": "Rendering, routing, calendar export and date behavior",
+      "sha256": "073a76f3496824b126ad5df0e125556c6074ec58937139417d30f0a672893f26"
+    },
+    {
+      "path": "site/assets/css/hub.css",
+      "role": "Responsive styles",
+      "sha256": "06d26eed606c63dce0da967eff076006693575ffd97b125bc414e158a33db2d9"
+    },
+    {
+      "path": "site/assets/img/aie-logo-primary.png",
+      "role": "Complete approved logo",
+      "sha256": "1f3c0687817a0b326b9b3118da4215c2ee8062afce33437623d640f7c17eabdd"
+    },
+    {
+      "path": "site/_headers",
+      "role": "Netlify security and cache headers",
+      "sha256": "685548471cbb7719e2867ef0149dc9ac99a37fbe35b34ead826f29de39e1a00c"
+    },
+    {
+      "path": "site/_redirects",
+      "role": "Netlify language and entry aliases",
+      "sha256": "eeff8bfe0098e621e641baad7782b7bed937c3954544116e3d7a30dd128a8086"
+    },
+    {
+      "path": "netlify.toml",
+      "role": "Build and publish configuration",
+      "sha256": "64d5ebf5ae1f68561f87f9045593a47c69389299fa800f16224a09204c5622ef"
+    },
+    {
+      "path": "maintenance/scripts/check-parity.js",
+      "role": "Dictionary parity and vocabulary gate",
+      "sha256": "57bcea3a2dba346b41378712b57ff270c63b2441628b472a7f84e4fc05d3d1e7"
+    }
+  ],
+  "sources": [
+    {
+      "id": "user_directions",
+      "type": "Explicit user decisions in this project conversation",
+      "scope": [
+        "922 alumni excluding staff test",
+        "Interest form supports spring while defaulting to fall",
+        "18 classes and meeting schedule",
+        "Approved logo and untranslated tagline",
+        "Removal of September 24 info session",
+        "Recording option",
+        "Presentation and no-progress-tracking rules"
+      ],
+      "last_direction_date": "2026-09-24"
+    },
+    {
+      "id": "aie_alumni",
+      "type": "Airtable base",
+      "name": "AIE Alumni",
+      "base_id": "appAnb90zo02mNqpi",
+      "url": "https://airtable.com/appAnb90zo02mNqpi",
+      "scope": "Verify alumni, program participation and exclusions here first.",
+      "freshly_audited_for_handoff": false
+    },
+    {
+      "id": "pea_calendar",
+      "type": "Airtable table",
+      "base_id": "appIqlWqvk2HkHVRM",
+      "table_id": "tblGVaBk7FSDybGuH",
+      "url": "https://airtable.com/appIqlWqvk2HkHVRM/tblGVaBk7FSDybGuH",
+      "scope": "Authoritative event timestamps and cohort calendar",
+      "source_check_date_recorded_in_code": "2026-09-24",
+      "freshly_audited_for_handoff": false
+    },
+    {
+      "id": "repository",
+      "type": "Current source files",
+      "revision": "d7af9ce6dab19973936b634777f70473c695c951",
+      "scope": "Implemented behavior and configured facts, not independent program-source verification"
+    }
+  ],
+  "approved_content": {
+    "pea_alumni": {
+      "value": 922,
+      "unit": "PEA alumni",
+      "excluded": "One staff test record included in uncorrected 923 count",
+      "authority": "Danny Hernández correction; verify future figures in AIE Alumni",
+      "as_of": "2026-09-24"
+    },
+    "fall_2026": {
+      "scheduled_classes": 18,
+      "days": [
+        "Tuesday",
+        "Thursday"
+      ],
+      "local_start_time": "17:00",
+      "local_end_time": "18:30",
+      "class_start_date": "2026-10-06",
+      "class_end_date": "2026-12-08",
+      "no_class_dates": [
+        "2026-11-26"
+      ],
+      "focus_group_date": "2026-12-10",
+      "remaining_info_session_date": "2026-10-01",
+      "removed_public_info_session_date": "2026-09-24",
+      "recording_url": null,
+      "recording_copy_policy": "Visitors may view the recording afterward; contact team for link when available.",
+      "minimum_class_attendance_in_current_copy": 16
+    },
+    "spring_2027": {
+      "start_date": "2027-03-16",
+      "end_date": "2027-05-13",
+      "dates_placement": "Calendar only",
+      "interest_open": true,
+      "form_default": "Fall 2026",
+      "form_allows_spring_selection": true,
+      "zoom_registration_url": null,
+      "full_calendar_confirmed_in_portal": false,
+      "teaching_language": null,
+      "projected_flag_in_code": true
+    },
+    "excluded_content": [
+      "Lotería participant activity",
+      "Nine- or ten-week duration claims",
+      "My list/checklist/progress tracking",
+      "September 24 info-session promotion",
+      "Two-info-session-date wording"
+    ]
+  },
+  "brand_and_ux": {
+    "logo_asset": "site/assets/img/aie-logo-primary.png",
+    "tagline": "Leadership · Power · Justice",
+    "translate_tagline": false,
+    "recreate_logo_as_html": false,
+    "approved_logo_variations_only": true,
+    "preserve_logo_proportions": true,
+    "section_heading_radius_px": 8,
+    "section_style": "Filled blue or pink heading; white or gold text; tinted area; aligned cards.",
+    "layout": "Compact, light information-page spacing; responsive; restrained consistent icons; collapsible menu.",
+    "home_actions": [
+      "Interest form",
+      "Register on Zoom",
+      "Calendar",
+      "Info session",
+      "WhatsApp"
+    ],
+    "sticky_actions": [
+      "Apply",
+      "Register on Zoom",
+      "Calendar",
+      "WhatsApp"
+    ],
+    "sticky_zoom_labels": {
+      "en": "Register on Zoom",
+      "es": "Registro en Zoom"
+    },
+    "external_link_target": "same tab",
+    "avoid_duplicate_long_paragraphs": true
+  },
+  "runtime_behavior": {
+    "timezone_display": "UTC minus seven hours; Arizona has no daylight-saving shift",
+    "date_preview_parameter": "today",
+    "example_preview_query": "?lang=en&today=2026-10-02#participar",
+    "preview_urls_for_staff_only": true,
+    "cohort_selection": "Select confirmed cohort; projected spring is not promoted; selection considers last event start plus 14 days, then falls back to last confirmed cohort.",
+    "info_link_expiration": "Hidden when no info event has an end timestamp after the current preview/runtime time.",
+    "class_zoom_link_expiration": "Hidden when no class event has an end timestamp after the current preview/runtime time.",
+    "automatic_recording_swap": false,
+    "refresh_behavior": "Current date updates on rendering unless today preview is set.",
+    "hardcoded_copy_locations": [
+      "app.js springHtml()",
+      "app.js action labels",
+      "copy.js fall schedule and other cohort-specific prose"
+    ],
+    "all_three_js_files_need_cohort_review": true
+  },
+  "pending_work": [
+    {
+      "id": "info_recording",
+      "status": "awaiting_url",
+      "owner": "PEA program team",
+      "trigger": "Approved recording link supplied",
+      "actions": [
+        "Verify public access",
+        "Add bilingual recording action independent of expired registration link",
+        "Test after October 1 session ends"
+      ],
+      "do_not": "Invent recording URL or reuse a meeting registration URL as a recording."
+    },
+    {
+      "id": "spring_rollover",
+      "status": "awaiting_confirmed_details",
+      "owner": "PEA program team",
+      "trigger": "Spring registration and full calendar released",
+      "actions": [
+        "Verify Zoom URL, language and full calendar",
+        "Review facts.js, copy.js and app.js",
+        "Reassess projected flag and automatic cohort promotion",
+        "Check both languages and future-date previews"
+      ],
+      "do_not": "Promote spring or infer a registration link from fall."
+    }
+  ],
+  "maintenance_commands": {
+    "parity": "node maintenance/scripts/check-parity.js",
+    "syntax": [
+      "node --check site/assets/js/app.js",
+      "node --check site/assets/js/facts.js",
+      "node --check site/assets/js/copy.js"
+    ],
+    "whitespace": "git diff --check",
+    "preview": "python3 -m http.server 8770 --bind 127.0.0.1 --directory site"
+  },
+  "release_checklist": [
+    "Read README and handoff; inspect current source and working tree",
+    "Verify changed program facts against appropriate authority",
+    "Update both languages and all duplicated date locations",
+    "Run parity, syntax and whitespace checks",
+    "Preview affected routes; use phone and desktop widths for layout work",
+    "Check changed external destinations without submitting forms or messages",
+    "Push or merge intended change to main",
+    "Verify Netlify deployment commit and production behavior",
+    "Refresh release metadata and handoff when applicable"
+  ],
+  "verification": {
+    "production_receipt": "maintenance/qa/production-2026-09-25.json",
+    "production_byte_parity_passed": true,
+    "served_files_checked": 18,
+    "last_external_link_check_recorded": "2026-09-24",
+    "prior_qa": [
+      "maintenance/qa/v0.10.0.md",
+      "maintenance/qa/v0.10.0-links.json",
+      "maintenance/qa/v0.10.1.md",
+      "maintenance/qa/v0.10.2.md"
+    ],
+    "limitations": [
+      "No fresh Airtable audit for this handoff",
+      "Prior HTTP 200 checks do not prove external form submission or message delivery",
+      "Dictionary parity does not verify translation quality or program facts",
+      "Production receipt checks CSP presence, not every security header directive",
+      "Python local server does not implement Netlify headers or aliases"
+    ]
+  },
+  "facts_snapshot": {
+    "syncedAt": "2026-09-24",
+    "source": "Airtable · PEA · Calendar",
+    "org": {
+      "email": "pea@allineducation.org",
+      "phone": "602-759-0619",
+      "phoneHref": "tel:+16027590619",
+      "waHref": "https://api.whatsapp.com/send?phone=16027590619",
+      "web": "https://allineducation.org"
+    },
+    "figures": {
+      "alumni": 922,
+      "alumniCohorts": 11,
+      "alumniYears": "2021–2026",
+      "alumniAsOf": "2026-09-24",
+      "counties": 3,
+      "evalGrad": "100%",
+      "evalAttend": "96.4%"
+    },
+    "links": {
+      "global": {
+        "overviewVideo": "https://www.youtube.com/watch?v=FEV_87qoqjc",
+        "familyStoryEn": "https://azluminaria.org/2023/05/18/a-program-helping-parents-navigate-arizonas-education-system-as-leaders-and-advocates-for-their-kids/",
+        "familyStoryEs": "https://azluminaria.org/2023/05/19/un-programa-que-ayuda-a-padres-latinos-a-navegar-el-sistema-educativo-de-arizona-como-lideres-y-defensores-de-sus-hijos/",
+        "apply": "https://airtable.com/appIqlWqvk2HkHVRM/pagKt0dz2HEbrxL0d/form",
+        "exit": "https://airtable.com/appIqlWqvk2HkHVRM/pagsaimIoBv1ZTWYd/form",
+        "lista": "https://bit.ly/pealista",
+        "flyer": "https://bit.ly/peaflyer",
+        "vidAccount": "https://bit.ly/peacuentadezoom",
+        "vidRegister": "https://bit.ly/pearegistrozoom",
+        "vidName": "https://bit.ly/peazoomnombre"
+      },
+      "FA26": {
+        "info": "https://us06web.zoom.us/meeting/register/GpHzmL9lQe6K_7ult-Mmnw",
+        "zoom": "https://us06web.zoom.us/meeting/register/nLJgGfCITL2GURTc-eEUsw",
+        "cal": "https://bit.ly/peafa26cal",
+        "whatsapp": "https://chat.whatsapp.com/KHdNf1nJalPLUW64lCkIdg?s=sh&p=i&mlu=4"
+      },
+      "SP27": {}
+    },
+    "cohorts": {
+      "FA26": {
+        "code": "FA26",
+        "num": 12,
+        "minimumAttendance": 16,
+        "label_es": "Otoño 2026",
+        "label_en": "Fall 2026",
+        "teaching_es": "español",
+        "teaching_en": "Spanish",
+        "weeks": 10,
+        "events": [
+          {
+            "code": "IS2",
+            "kind": "info",
+            "start": "2026-10-02T00:00:00Z",
+            "end": "2026-10-02T01:30:00Z"
+          },
+          {
+            "code": "1T",
+            "kind": "cls",
+            "start": "2026-10-07T00:00:00Z",
+            "end": "2026-10-07T01:30:00Z",
+            "title_es": "Orientación",
+            "title_en": "Orientation"
+          },
+          {
+            "code": "1R",
+            "kind": "cls",
+            "start": "2026-10-09T00:00:00Z",
+            "end": "2026-10-09T01:30:00Z",
+            "title_es": "La historia de la educación pública en Arizona",
+            "title_en": "History of Public Education in Arizona"
+          },
+          {
+            "code": "2T",
+            "kind": "cls",
+            "start": "2026-10-14T00:00:00Z",
+            "end": "2026-10-14T01:30:00Z",
+            "title_es": "Determinantes sociales de la educación",
+            "title_en": "Social Determinants of Education"
+          },
+          {
+            "code": "2R",
+            "kind": "cls",
+            "start": "2026-10-16T00:00:00Z",
+            "end": "2026-10-16T01:30:00Z",
+            "title_es": "Sesgo, identidad y el mito de la oportunidad",
+            "title_en": "Bias, Identity & the Opportunity Myth"
+          },
+          {
+            "code": "3T",
+            "kind": "cls",
+            "start": "2026-10-21T00:00:00Z",
+            "end": "2026-10-21T01:30:00Z",
+            "title_es": "Acceso a una educación de calidad y la elección escolar",
+            "title_en": "Access to Quality Education & School Choice"
+          },
+          {
+            "code": "3R",
+            "kind": "cls",
+            "start": "2026-10-23T00:00:00Z",
+            "end": "2026-10-23T01:30:00Z",
+            "title_es": "Navegando salones, escuelas y distritos escolares",
+            "title_en": "Navigating Classrooms, Schools, and School Districts"
+          },
+          {
+            "code": "4T",
+            "kind": "cls",
+            "start": "2026-10-28T00:00:00Z",
+            "end": "2026-10-28T01:30:00Z",
+            "title_es": "Fundamentos de la lectura y cómo abogar por los estudiantes",
+            "title_en": "Foundational Reading Skills & Advocating for Students in the Literacy Classroom"
+          },
+          {
+            "code": "4R",
+            "kind": "cls",
+            "start": "2026-10-30T00:00:00Z",
+            "end": "2026-10-30T01:30:00Z",
+            "title_es": "Lectura en casa",
+            "title_en": "Reading at Home"
+          },
+          {
+            "code": "5T",
+            "kind": "cls",
+            "start": "2026-11-04T00:00:00Z",
+            "end": "2026-11-04T01:30:00Z",
+            "title_es": "Alfabetización digital para padres y cuidadores",
+            "title_en": "Digital Literacy for Parents & Caregivers"
+          },
+          {
+            "code": "5R",
+            "kind": "cls",
+            "start": "2026-11-06T00:00:00Z",
+            "end": "2026-11-06T01:30:00Z",
+            "title_es": "Derechos de padres y cuidadores",
+            "title_en": "Your Rights as Parents & Caregivers"
+          },
+          {
+            "code": "6T",
+            "kind": "cls",
+            "start": "2026-11-11T00:00:00Z",
+            "end": "2026-11-11T01:30:00Z",
+            "title_es": "Abogando por nuestros estudiantes en el salón de matemáticas",
+            "title_en": "Advocating for Students in the Math Classroom"
+          },
+          {
+            "code": "6R",
+            "kind": "cls",
+            "start": "2026-11-13T00:00:00Z",
+            "end": "2026-11-13T01:30:00Z",
+            "title_es": "Explorando oportunidades después de la preparatoria",
+            "title_en": "Exploring Opportunities After High School"
+          },
+          {
+            "code": "7T",
+            "kind": "cls",
+            "start": "2026-11-18T00:00:00Z",
+            "end": "2026-11-18T01:30:00Z",
+            "title_es": "Abogando por estudiantes excepcionales",
+            "title_en": "Advocating for Exceptional Students"
+          },
+          {
+            "code": "7R",
+            "kind": "cls",
+            "start": "2026-11-20T00:00:00Z",
+            "end": "2026-11-20T01:30:00Z",
+            "title_es": "Participación comunitaria auténtica",
+            "title_en": "Authentic Community Engagement"
+          },
+          {
+            "code": "8T",
+            "kind": "cls",
+            "start": "2026-11-25T00:00:00Z",
+            "end": "2026-11-25T01:30:00Z",
+            "title_es": "Historia personal: construyendo poder a través de la incidencia",
+            "title_en": "Story of Self: Creating Power Through Advocacy"
+          },
+          {
+            "code": "8R",
+            "kind": "holiday",
+            "start": "2026-11-27T00:00:00Z",
+            "end": "2026-11-27T01:30:00Z"
+          },
+          {
+            "code": "9T",
+            "kind": "cls",
+            "start": "2026-12-02T00:00:00Z",
+            "end": "2026-12-02T01:30:00Z",
+            "title_es": "Poniéndolo en práctica I",
+            "title_en": "Putting It Into Practice I"
+          },
+          {
+            "code": "9R",
+            "kind": "cls",
+            "start": "2026-12-04T00:00:00Z",
+            "end": "2026-12-04T01:30:00Z",
+            "title_es": "Poniéndolo en práctica II",
+            "title_en": "Putting It Into Practice II"
+          },
+          {
+            "code": "10T",
+            "kind": "cls",
+            "start": "2026-12-09T00:00:00Z",
+            "end": "2026-12-09T01:30:00Z",
+            "title_es": "Graduación",
+            "title_en": "Graduation",
+            "grad": true
+          },
+          {
+            "code": "10R",
+            "kind": "focus",
+            "start": "2026-12-11T00:00:00Z",
+            "end": "2026-12-11T01:30:00Z"
+          }
+        ]
+      },
+      "SP27": {
+        "code": "SP27",
+        "num": 13,
+        "label_es": "Primavera 2027",
+        "label_en": "Spring 2027",
+        "teaching_es": null,
+        "teaching_en": null,
+        "weeks": 9,
+        "projected": true,
+        "interestOpen": true,
+        "startDate": "2027-03-16",
+        "endDate": "2027-05-13",
+        "schedulePublished": true,
+        "events": [
+          {
+            "code": "1T",
+            "kind": "cls",
+            "start": "2027-03-17T00:00:00Z",
+            "end": "2027-03-17T01:30:00Z",
+            "title_es": "Orientación",
+            "title_en": "Orientation",
+            "projected": true
+          }
+        ]
+      }
+    }
+  }
+}

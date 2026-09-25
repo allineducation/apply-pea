@@ -1,0 +1,118 @@
+{
+  "passed": true,
+  "files": [
+    {
+      "path": "index.html",
+      "status": 200,
+      "sha256": "ac311d403eba9b0fa6301b58baa90ff0f1f42068aaf0f4fb5b949fef356f84ca"
+    },
+    {
+      "path": "404.html",
+      "status": 200,
+      "sha256": "c48e0971165bf53834831ef36d0edb53ba5f88440c53376f7cc4a1811bd737bd"
+    },
+    {
+      "path": "site.webmanifest",
+      "status": 200,
+      "sha256": "34878b547c16a6acf6486c749d7950f28faa80656e89799bce3c03df1fca848d"
+    },
+    {
+      "path": "assets/css/hub.css",
+      "status": 200,
+      "sha256": "06d26eed606c63dce0da967eff076006693575ffd97b125bc414e158a33db2d9"
+    },
+    {
+      "path": "assets/js/copy.js",
+      "status": 200,
+      "sha256": "19dad0419b8b4eebca9f1f89d561a2590f12bb10842f768136a79b9d7622b6ea"
+    },
+    {
+      "path": "assets/js/facts.js",
+      "status": 200,
+      "sha256": "89df4ff38636feaaab3d6e0d44db9ba9a1770c4711aafff6b9e6ec3946340c4e"
+    },
+    {
+      "path": "assets/js/app.js",
+      "status": 200,
+      "sha256": "073a76f3496824b126ad5df0e125556c6074ec58937139417d30f0a672893f26"
+    },
+    {
+      "path": "assets/img/apple-touch-icon.png",
+      "status": 200,
+      "sha256": "f7cd8af29715f56ebc21c1c309bdb33bbddcb47f4fbc1eb00e9593abcd3ec64f"
+    },
+    {
+      "path": "assets/img/aie-logo-primary.png",
+      "status": 200,
+      "sha256": "1f3c0687817a0b326b9b3118da4215c2ee8062afce33437623d640f7c17eabdd"
+    },
+    {
+      "path": "assets/img/aie-mark-96.png",
+      "status": 200,
+      "sha256": "20afb6a5a90c999042d44252a1ab293d96cfdb497f54414dfbddbcc38a12ba6a"
+    },
+    {
+      "path": "assets/img/icon-192.png",
+      "status": 200,
+      "sha256": "d09b3739f1d90821452228ed0e21df58be941ee50c926c3f6399f78b63a853e0"
+    },
+    {
+      "path": "assets/img/favicon-32.png",
+      "status": 200,
+      "sha256": "80dbba815322dd7206d3e6fc33110c044060a3381756c91939e28869dcf9d427"
+    },
+    {
+      "path": "assets/img/icon-512.png",
+      "status": 200,
+      "sha256": "f1728e854c773f3bac27c973bc5e1a862a984a7975adad243414053d7b953a9c"
+    },
+    {
+      "path": "assets/fonts/lato-400i.woff2",
+      "status": 200,
+      "sha256": "b6670fca7191a683a31ff667b03fd135eda43dff5e043ba605b52742584efd20"
+    },
+    {
+      "path": "assets/fonts/lato-900.woff2",
+      "status": 200,
+      "sha256": "e87e0da99121fe877fd342b7f7477535d231c60ea641ac4bbb64f25146a5c8a8"
+    },
+    {
+      "path": "assets/fonts/lato-400.woff2",
+      "status": 200,
+      "sha256": "94deea24f4701bcd0677ddee806a41b9c0e986c98d72e56844aa00a8a5f54ec1"
+    },
+    {
+      "path": "assets/fonts/OFL.txt",
+      "status": 200,
+      "sha256": "74ba064d03f1f1c4a952da936c3eb71866c34404916734de3cae73b34357e59e"
+    },
+    {
+      "path": "assets/fonts/lato-700.woff2",
+      "status": 200,
+      "sha256": "51c289109692603d5af2ad3b0fa6377699f240def8bb03f9cc1c567a890e46ad"
+    }
+  ],
+  "routes": [
+    {
+      "path": "es",
+      "final": "https://apply-pea.netlify.app/?lang=es"
+    },
+    {
+      "path": "en",
+      "final": "https://apply-pea.netlify.app/?lang=en"
+    },
+    {
+      "path": "inscripcion",
+      "final": "https://apply-pea.netlify.app/?lang=es#participar"
+    },
+    {
+      "path": "join",
+      "final": "https://apply-pea.netlify.app/?lang=en#participar"
+    }
+  ],
+  "csp": true,
+  "verified_at": "2026-09-25T08:21:11.385058+00:00",
+  "site_url": "https://apply-pea.netlify.app/",
+  "site_revision": "d7af9ce6dab19973936b634777f70473c695c951",
+  "scope": "Served-file byte parity, successful alias destinations, CSP header presence. No fresh external-form or Airtable audit."
+}
