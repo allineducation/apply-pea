@@ -1,5 +1,5 @@
 /* ==================================================================
-   PEA Applicant Hub — app  (v0.11.0)
+   PEA Applicant Hub — app  (v0.12.0)
    Vanilla JS, no build step, no dependencies. State-based navigation
    (hash routes) per AIE Hub Design System §5.1. Every date, time and
    link resolves from facts.js; every string from copy.js.
@@ -7,8 +7,8 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.11.0";
-  var UPDATED = "2026-09-27";
+  var VERSION = "0.12.0";
+  var UPDATED = "2026-09-28";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
   var LS_LANG = "aie_lang";
@@ -168,20 +168,20 @@
 
   /* ---------- header band + nav + footer ---------- */
   function renderBand() {
-    var other = lang === "es" ? "en" : "es";
-    document.getElementById("band").innerHTML =
+    document.getElementById("bandinner").innerHTML =
       '<div class="band-l"><img src="assets/img/aie-logo-primary.png" width="260" height="36" alt="ALL In Education — Leadership · Power · Justice"></div>' +
       '<div class="band-r"><div><div class="band-title">' + esc(L.toolTitle) + "</div>" +
       '<div class="band-sub">' + esc(L.toolSub(cohortLabel())) + "</div></div>" +
-      '<button class="lang" id="langbtn" type="button" lang="' + other + '" aria-label="' +
-      esc(lang === "es" ? L.langSwitch.toEn : L.langSwitch.toEs) + '">' +
-      lang.toUpperCase() + ' <span class="div" aria-hidden="true">|</span> ' + other.toUpperCase() + "</button></div>";
-    document.getElementById("langbtn").addEventListener("click", function () { setLang(other); });
+      '<div class="lang-toggle" role="group" aria-label="' + esc(L.langSwitch.group) + '">' +
+      ["es", "en"].map(function (l) {
+        return '<button type="button" class="lang-pill" data-lang="' + l + '" lang="' + l + '" aria-pressed="' + (l === lang) + '"' +
+          (l === lang ? "" : ' aria-label="' + esc(l === "en" ? L.langSwitch.toEn : L.langSwitch.toEs) + '"') + ">" + l.toUpperCase() + "</button>";
+      }).join("") + "</div></div>";
   }
 
   function renderNav(active) {
     var ids = ['inicio','participar','calendario','zoom','programa','historia','preguntas','enlaces','contacto'];
-    document.getElementById('gnav').innerHTML = '<details class="menu"><summary>☰ ' + (lang === 'es' ? 'Menú' : 'Menu') + '</summary><div class="menu-links">' + ids.map(function(id) {
+    document.getElementById('gnav').innerHTML = '<details class="menu"><summary><span aria-hidden="true">☰</span> <span class="menu-txt">' + (lang === 'es' ? 'Menú' : 'Menu') + '</span></summary><div class="menu-links">' + ids.map(function(id) {
       return '<a href="#' + id + '"' + (id === active ? ' aria-current="page"' : '') + '>' + esc(id === 'inicio' ? L.nav.home : L.sections[id].label) + '</a>';
     }).join('') + '</div></details>';
   }
@@ -230,9 +230,24 @@
     return applicantSection(A.benefitsH, A.benefitsLead, applicantCards(A.benefits) +
       '<div class="btnrow"><a class="btn btn-primary" href="#programa">' + esc(A.learnCta) + '</a></div>');
   }
+  function accordion(items) {
+    return '<div class="accordion">' + items.map(function (item, i) {
+      return '<details class="accordion-item"' + (i === 0 ? " open" : "") + '><summary class="accordion-header"><span>' + esc(item[0]) +
+        '</span><span class="acc-chev" aria-hidden="true"></span></summary><div class="accordion-body"><p>' + esc(item[1]) + "</p></div></details>";
+    }).join("") + "</div>";
+  }
   function fitHtml() {
     var A = L.applicant;
-    return applicantSection(A.fitH, A.fitLead, applicantCards(A.fitItems) + applicantContact());
+    return applicantSection(A.fitH, A.fitLead, accordion(A.fitItems) + applicantContact());
+  }
+  function audienceHtml() {
+    var A = L.applicant, routes = ["#participar", "#calendario", "#contacto"], icons = ["📝", "📅", "🎓"];
+    return '<nav class="audience-router" aria-label="' + esc(A.audienceH) + '"><h2 class="audience-h">' + esc(A.audienceH) + "</h2>" +
+      '<div class="audience-grid">' + A.audience.map(function (a, i) {
+        return '<a class="audience-card" href="' + routes[i] + '"><span class="audience-badge" aria-hidden="true">' + icons[i] + "</span>" +
+          '<span class="audience-body"><span class="audience-t">' + esc(a[0]) + '</span><span class="audience-d">' + esc(a[1]) + "</span></span>" +
+          '<span class="audience-go" aria-hidden="true">→</span></a>';
+      }).join("") + "</div></nav>";
   }
   function commitmentHtml() {
     var A = L.applicant;
@@ -260,7 +275,7 @@
   }
 
   function pageHome() {
-    return '<h1 class="home-title" tabindex="-1">' + (lang === 'es' ? 'Su próximo paso con PEA' : 'Your next step with PEA') + '</h1>' + actionsHtml(false) + heroHtml() +
+    return '<h1 class="home-title" tabindex="-1">' + (lang === 'es' ? 'Su próximo paso con PEA' : 'Your next step with PEA') + '</h1>' + audienceHtml() + actionsHtml(false) + heroHtml() +
       applicantSection(L.cal.scheduleLabel, L.cal.scheduleNote, '') + benefitsHtml() +
       applicantSection(L.home.stepsH, '', stepsHtml(true)) + fitHtml();
   }
@@ -413,7 +428,7 @@
       '<button type="button" class="x" id="faqx" aria-label="' + esc(L.ui.clear) + '" hidden>×</button></div>' +
       '<p class="small" id="faqcount" aria-live="polite">' + esc(L.ui.count(items.length)) + "</p>" +
       '<div id="faqlist">' + items.map(function (q, i) {
-        return '<details class="qa" data-q="' + esc(norm(q[0] + " " + q[1])) + '"' + (i === 0 ? " open" : "") + '><summary><span class="q">' + esc(q[0]) +
+        return '<details class="qa accordion-item" data-q="' + esc(norm(q[0] + " " + q[1])) + '"' + (i === 0 ? " open" : "") + '><summary class="accordion-header"><span class="q">' + esc(q[0]) +
           '</span><span class="sh" aria-hidden="true"><span class="s">' + esc(L.ui.show) + '</span><span class="h">' + esc(L.ui.hide) + "</span></span></summary>" +
           '<div class="a"><p>' + esc(q[1]) + "</p></div></details>";
       }).join("") + "</div>" +
@@ -534,13 +549,16 @@
       history.replaceState(null, "", u.pathname + u.search + u.hash);
     } catch (e) {}
     var y = window.scrollY; render(false); window.scrollTo(0, y);
-    var b = document.getElementById("langbtn"); if (b) b.focus();
+    var b = document.querySelector('.lang-pill[data-lang="' + l + '"]'); if (b) b.focus();
+    announce(L.langSwitch.announced);
   }
 
   /* ---------- events (delegated) ---------- */
   document.addEventListener("click", function (ev) {
     var t = ev.target.closest ? ev.target : null; if (!t) return;
     if (t.closest(".menu a")) document.querySelector(".menu").open = false;
+    var lp = t.closest(".lang-pill");
+    if (lp) { var nl = lp.getAttribute("data-lang"); if (nl !== lang) setLang(nl); return; }
     if (t.closest("#skip")) { ev.preventDefault(); document.getElementById("main").focus(); return; }
     var ics = t.closest("[data-ics]"); if (ics) { downloadIcs(ics.getAttribute("data-ics")); return; }
     var ob = t.closest(".cal-open");
