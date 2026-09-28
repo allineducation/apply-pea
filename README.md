@@ -8,7 +8,7 @@ The Parent Educator Academy (PEA) applicant portal is a public, bilingual inform
 - Repository: https://github.com/allineducation/apply-pea
 - Netlify project: https://app.netlify.com/projects/apply-pea
 - Machine-readable handoff: [HANDOFF.json](HANDOFF.json)
-- Latest production verification: [September 25 receipt](maintenance/qa/production-2026-09-25.json)
+- Latest production verification: [v0.11.0 production receipt](maintenance/qa/production-v0.11.0-2026-09-27.json)
 
 ## Start here
 
@@ -116,3 +116,5 @@ Earlier QA: v0.10.0 checked nine routes in both languages at phone/desktop width
 The old `allined-pea.netlify.app` site and the original ZIP are historical comparison sources, not the release authority for this repository. Current approved corrections and the sources above govern future changes.
 
 Release corrections on September 27: no class-week labels or applicant exit-survey actions; Zoom recovery directs visitors to spam and team support; secondary text contrast improved. Periodic calendar refresh defers while focus is within the main content. Fresh visual/browser QA was unavailable because no browser surface was connected; generated-page, date-preview, syntax and source checks were used, and this limitation remains explicit.
+
+Production v0.11.0 verified September 27, 2026 (Arizona): commit `2579aefe37100b78c986709bab50a1358300ebd7`, Netlify deploy `6ab9aff63b51d500084fab14`, 18 served files match; aliases and CSP presence pass.

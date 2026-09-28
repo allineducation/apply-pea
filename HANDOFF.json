@@ -11,7 +11,7 @@
     "organization": "ALL In Education",
     "purpose": "Public bilingual program information and applicant routing; no application-progress tracking.",
     "site_version": "0.11.0",
-    "site_content_revision": null,
+    "site_content_revision": "2579aefe37100b78c986709bab50a1358300ebd7",
     "production_url": "https://apply-pea.netlify.app/",
     "repository_url": "https://github.com/allineducation/apply-pea",
     "repository_visibility": "public",
@@ -416,8 +416,8 @@
     "Refresh release metadata and handoff when applicable"
   ],
   "verification": {
-    "production_receipt": null,
-    "production_byte_parity_passed": false,
+    "production_receipt": "maintenance/qa/production-v0.11.0-2026-09-27.json",
+    "production_byte_parity_passed": true,
     "served_files_checked": 18,
     "last_external_link_check_recorded": "2026-09-24",
     "prior_qa": [
@@ -435,11 +435,12 @@
       "Python local server does not implement Netlify headers or aliases",
       "No browser surface available for fresh visual and interaction QA on September 27."
     ],
-    "release_status": "pending_deployment",
+    "release_status": "published",
     "historical_production_receipt": {
       "path": "maintenance/qa/production-2026-09-25.json",
       "version": "0.10.2"
-    }
+    },
+    "deploy_id": "6ab9aff63b51d500084fab14"
   },
   "facts_snapshot": {
     "syncedAt": "2026-09-24",
