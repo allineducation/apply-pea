@@ -1,5 +1,5 @@
 /* ==================================================================
-   PEA Applicant Hub — app  (v0.10.2)
+   PEA Applicant Hub — app  (v0.11.0)
    Vanilla JS, no build step, no dependencies. State-based navigation
    (hash routes) per AIE Hub Design System §5.1. Every date, time and
    link resolves from facts.js; every string from copy.js.
@@ -7,8 +7,8 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.10.2";
-  var UPDATED = "2026-09-24";
+  var VERSION = "0.11.0";
+  var UPDATED = "2026-09-27";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
   var LS_LANG = "aie_lang";
@@ -287,20 +287,60 @@
       applicantSection(L.steps.infoDatesH, '', infoDatesHtml()) + welcomeHtml() + commitmentHtml();
   }
   var calFilter = 'all';
+  var calOpen = {};                                /* expanded rows — survive filter changes and the 60-second refresh */
+  function expandable(e) { return e.kind === "cls" || e.kind === "info"; }
+  function calDetail(e) {
+    var D = L.cal.detail, today = daysUntil(e.start, NOW) === 0, over = new Date(e.end).getTime() < NOW.getTime();
+    var mod = e.module && F.modules ? F.modules[e.module] : null;
+    var desc = e.kind === "info" ? L.steps.items[1].d : (mod ? mod[lang] : "");
+    var b = "", notes = "";
+    if (e.kind === "info") {
+      if (!over && link("info", e._c)) b += ext(link("info", e._c), esc(L.next.join), "btn btn-primary btn-sm");
+    } else {
+      if (link("zoom", e._c)) { b += ext(link("zoom", e._c), esc(D.zoom), "btn btn-primary btn-sm"); notes += "<li>" + esc(D.zoomNote) + "</li>"; }
+      if (mod && mod.worksheet) b += ext(mod.worksheet, esc(D.worksheet), "btn btn-secondary btn-sm");
+      if (link("lista", e._c)) b += ext(link("lista", e._c), esc(D.resources), "btn btn-secondary btn-sm");
 
+    }
+    b += '<button type="button" class="btn btn-ghost btn-sm" data-ics="' + esc(e._c + ":" + e.code) + '">' + esc(D.addCal) + "</button>";
+    return '<div class="det"><span class="label blue">' + esc(e.kind === "info" ? D.aboutInfo : D.about) + "</span>" +
+      (desc ? '<p class="det-desc">' + esc(desc) + "</p>" : "") +
+      '<div class="btnrow">' + b + "</div>" + (notes ? '<ul class="det-notes">' + notes + "</ul>" : "") + "</div>";
+  }
   function calRows() {
+    var n = 0;
     return EV.filter(function (e) { return calFilter === "all" || (calFilter === "info" ? e.kind === "info" : e.kind === "cls"); })
       .map(function (e) {
-        var tt = evTitle(e), sd = shortDate(e.start), wk = weekOf(e);
+        var tt = evTitle(e), sd = shortDate(e.start), wk = weekOf(e), key = e._c + "-" + e.code, open = !!calOpen[key], x = expandable(e);
         var past = new Date(e.end).getTime() < NOW.getTime(), today = daysUntil(e.start, NOW) === 0;
-        var cls = (past ? " is-past" : "") + (today ? " is-today" : "") + (e.kind === "info" ? " is-info" : "");
+        var alt = n++ % 2 ? " alt" : "";
+        var cls = alt + (past ? " is-past" : "") + (today ? " is-today" : "") + (e.kind === "info" ? " is-info" : "") + (x ? " has-det" : "") + (open ? " open" : "");
         var tags = (today ? ' <span class="tag gold row-tag">' + esc(L.cal.today) + "</span>" : past ? ' <span class="tag row-tag">' + esc(L.cal.done) + "</span>" : "") +
                    (e.kind === "info" ? ' <span class="tag pink row-tag">' + esc(L.ui.optional) + "</span>" : "");
-        return '<tr class="' + cls.trim() + '"><td class="c-date"><span class="dow">' + esc(sd.dow) + "</span> " + esc(sd.dm) + "</td>" +
+        var label = esc(tt.topic);
+        var topic = x
+          ? '<button type="button" class="cal-open" data-row="' + esc(key) + '" aria-expanded="' + open + '" aria-controls="det-' + esc(key) + '">' +
+            '<span class="ct">' + label + '</span><span class="chev" aria-hidden="true"></span><span class="sr-only"> — ' +
+            esc(open ? L.cal.detail.close : (e.kind === "info" ? L.cal.detail.openInfo : L.cal.detail.open)) + "</span></button>" + tags
+          : label + tags;
+        var row = '<tr class="' + cls.trim() + '"' + (x ? ' data-rowkey="' + esc(key) + '"' : "") + '><td class="c-date"><span class="dow">' + esc(sd.dow) + "</span> " + esc(sd.dm) + "</td>" +
           '<td class="c-kind"><span class="tag ' + (e.kind === "info" ? "pink" : e.kind === "cls" ? (e.grad ? "gold" : "blue") : "") + '">' + esc(tt.kind) + "</span></td>" +
-          '<td class="c-topic">' + esc(tt.topic) + tags + "</td>" +
+          '<td class="c-topic">' + topic + "</td>" +
           '<td class="c-time">' + (e.kind === "holiday" ? "—" : esc(spanDash(e.start, e.end))) + "</td></tr>";
+        if (x) row += '<tr class="cal-det' + alt + '" id="det-' + esc(key) + '"' + (open ? "" : " hidden") + '><td colspan="4">' + calDetail(e) + "</td></tr>";
+        return row;
       }).join("");
+  }
+  function toggleRow(key) {
+    calOpen[key] = !calOpen[key];
+    var btn = document.querySelector('.cal-open[data-row="' + key + '"]'), det = document.getElementById("det-" + key);
+    var tr = document.querySelector('tr[data-rowkey="' + key + '"]');
+    if (!btn || !det) return;
+    btn.setAttribute("aria-expanded", String(calOpen[key]));
+    det.hidden = !calOpen[key];
+    if (tr) tr.classList.toggle("open", calOpen[key]);
+    var sr = btn.querySelector(".sr-only");
+    if (sr) sr.textContent = " — " + (calOpen[key] ? L.cal.detail.close : (tr && tr.classList.contains("is-info") ? L.cal.detail.openInfo : L.cal.detail.open));
   }
   function pageCalendario() {
     var K = L.cal, f = K.filters;
@@ -350,14 +390,9 @@
       '<div class="stat"><div class="stat-n">' + C.num + '</div><div class="stat-l">' + esc(S.cohort) + '</div><div class="stat-note">' + esc(S.cohortNote) + "</div></div>" +
       '<div class="stat"><div class="stat-n">' + fg.counties + '</div><div class="stat-l">' + esc(S.counties) + '</div><div class="stat-note">' + esc(S.countiesNote) + "</div></div>" +
       '<div class="stat"><div class="stat-n">' + esc(fg.evalGrad) + '</div><div class="stat-l">' + esc(S.grad) + '</div><div class="stat-note">' + esc(S.gradNote) + "</div></div></div>";
-    var changed = H.changed.map(function (c) {
-      return '<div class="card"><h3 class="h3">' + esc(c[0]) + '</h3><div class="ba"><div class="b"><span class="label">' + esc(H.before) + "</span><p>" +
-        esc(c[1]) + '</p></div><div class="a"><span class="label">' + esc(H.now) + "</span><p>" + esc(c[2]) + "</p></div></div></div>";
-    }).join("");
     return secHead("historia") + storiesHtml() + H.p.map(function (p) { return '<p class="lead">' + esc(p) + "</p>"; }).join("") +
       '<div class="block">' + stats + "</div>" +
-      '<section class="block"><h2 class="h-sec">' + esc(H.missionH) + '</h2><blockquote class="quote">' + esc(H.mission) + "</blockquote></section>" +
-      '<section class="block"><h2 class="h-sec">' + esc(H.changedH) + '</h2><div class="block">' + changed + "</div></section>";
+      '<section class="block"><h2 class="h-sec">' + esc(H.missionH) + '</h2><blockquote class="quote">' + esc(H.mission) + "</blockquote></section>";
   }
 
   function faqItems() {
@@ -508,6 +543,10 @@
     if (t.closest(".menu a")) document.querySelector(".menu").open = false;
     if (t.closest("#skip")) { ev.preventDefault(); document.getElementById("main").focus(); return; }
     var ics = t.closest("[data-ics]"); if (ics) { downloadIcs(ics.getAttribute("data-ics")); return; }
+    var ob = t.closest(".cal-open");
+    if (ob) { toggleRow(ob.getAttribute("data-row")); return; }
+    var rowEl = t.closest("tr.has-det");
+    if (rowEl && !t.closest("a,button")) { toggleRow(rowEl.getAttribute("data-rowkey")); return; }
     var fl = t.closest("[data-filter]");
     if (fl) {
       calFilter = fl.getAttribute("data-filter");
@@ -537,6 +576,7 @@
 
   render(false);
   setInterval(function () {
-    if (!document.hidden && ["inicio", "calendario"].indexOf(currentRoute()) !== -1) render(false);
+    if (!document.hidden && ["inicio", "calendario"].indexOf(currentRoute()) !== -1 &&
+        !(document.activeElement && document.activeElement.closest("#main"))) render(false);
   }, 60000);
 })();

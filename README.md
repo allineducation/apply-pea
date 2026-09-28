@@ -1,8 +1,8 @@
 # PEA applicant portal
 
-Prepared by Danny Hernández · Handoff updated September 25, 2026 · Site release **v0.10.2**
+Prepared by Danny Hernández · Handoff updated September 27, 2026 · Site release **v0.11.0**
 
-The Parent Educator Academy (PEA) applicant portal is a public, bilingual information site for families and caregivers. It explains the program and routes visitors to the interest form, class registration, information session, calendar and team support. It does not track an applicant’s progress.
+The Parent Educator Academy (PEA) applicant portal is a public, bilingual information site for families, caregivers and school staff. It explains the program and routes visitors to the interest form, class registration, information session, calendar and team support. It does not track an applicant’s progress.
 
 - Live site: https://apply-pea.netlify.app/
 - Repository: https://github.com/allineducation/apply-pea
@@ -23,7 +23,7 @@ Static HTML, CSS and vanilla JavaScript. No package installation, bundler, appli
 | File | Responsibility |
 | --- | --- |
 | `site/index.html` | Page shell, asset loading and release metadata |
-| `site/assets/js/facts.js` | Cohorts, event timestamps, primary URLs, contact information and impact figures |
+| `site/assets/js/facts.js` | Cohorts, event timestamps, primary URLs, contact information, impact figures, and curriculum module descriptions/worksheets |
 | `site/assets/js/copy.js` | Spanish and English content dictionaries |
 | `site/assets/js/app.js` | Rendering, hash navigation, language preference, date logic, calendar export and interactions |
 | `site/assets/css/hub.css` | Responsive presentation and accessibility styles |
@@ -49,6 +49,10 @@ Language selection is `?lang=es` or `?lang=en`, then the stored `aie_lang` prefe
 - Visitors may register for the October 1 information session or view the recording afterward. **No recording URL has been supplied.** Current wording directs visitors to the team for that link when available.
 - The interest form defaults to Fall 2026 and allows Spring 2027 selection, as confirmed by Danny Hernández. Spring dates are March 16–May 13, 2027 and appear only on Calendar. No spring Zoom registration link is published. The full spring calendar and teaching language require confirmation before promotion.
 - The current fall registration copy states that at least 16 of 18 classes are required for a certificate. Reverify registration requirements with the program source before changing or reusing them for another cohort.
+- **PEA is open to school staff** as well as families and caregivers — for example, family liaisons and teachers (Danny Hernández, 2026-09-25). Stated on the home page (“What is PEA?” and “Is PEA a fit for me?”) and in the FAQ. In Spanish, use **maestros**, not “docentes.”
+- **PEA is free for every participant.** How seats are funded (including district-paid seats) is intentionally **not** published on this site.
+- **Do not reintroduce** the financial-incentive FAQ or the “Lo que cambió este año / What changed this year” before-and-after section; both were removed at Danny Hernández’s direction on 2026-09-25.
+- **Class details in Calendar.** Each class (and the information session) expands to show a description plus **Registro en Zoom / Register on Zoom**, the participant worksheet where one exists, the resource list and individual calendar downloads. Descriptions and worksheets live in `facts.js → modules`, copied from the Airtable **Modules** table (`tblPkSBzSYKE4cBC6`: Description ES/EN, Participant Worksheet (ES) — PDF) on 2026-09-25; each class event names its `module`. Three edits differ from Airtable and should be made there too: MCOMM ES “docentes” → “maestros”; MPIP1 EN “stakeholders” → “key people”; MORIE ES/EN “nueve semanas / nine-week” → “18 clases / 18-class” (and the program name kept as “Parent Educator Academy”). Worksheets exist for 3T, 3R, 6R, 7T, 7R and 8T; all six Drive files were confirmed shared “anyone with the link.” Exit surveys are excluded from this applicant calendar. Dates and class titles identify sessions; generated week labels are excluded.
 - Lotería is a participant activity and is excluded from this applicant portal. Avoid duplicate long paragraphs and any suggestion that the site logs application steps.
 
 Airtable PEA Calendar (`appIqlWqvk2HkHVRM`, table `tblGVaBk7FSDybGuH`) is the source for event dates/times. The public registry intentionally omits the September 24 info session following the user’s direction; it is not a complete historical Calendar export. Timestamps are UTC and display at UTC−7 (Arizona, no daylight-saving shift).
@@ -100,10 +104,15 @@ Rollback by reverting the faulty commit in GitHub and deploying that revert. A N
 
 On September 25, all **18 served files** matched site revision `d7af9ce6dab19973936b634777f70473c695c951` byte for byte; the four aliases returned successful destinations and the production CSP header was present. See the receipt for hashes. This is site parity evidence, not a new Airtable audit or proof that an external form submission succeeds.
 
+v0.11.0 QA (pre-deploy, local): see [maintenance/qa/v0.11.0.md](maintenance/qa/v0.11.0.md).
+
 Earlier QA: v0.10.0 checked nine routes in both languages at phone/desktop widths and 16 external URLs; v0.10.1 checked the compact layout and logo at 320/390/1100px; v0.10.2 verified the October 1 session and recording wording. External links and authoritative Airtable records were **not freshly re-audited for this documentation update**.
 
 - v0.10.0: action-first information site, revised navigation, removal of progress tracking, updated links and schedule copy.
 - v0.10.1: original logo, untranslated tagline, compact sizing, rounded-corner headings, explicit Zoom registration label.
 - v0.10.2: removal of September 24 session details; October 1 registration and recording guidance.
+- v0.11.0: expandable class details in Calendar (module descriptions, Zoom registration, worksheet, resources and individual calendar downloads); financial-incentive FAQ and before/now section removed; school staff welcomed; free for every participant; “docentes” → “maestros”; parity gate now checks module descriptions and flags “docentes” and week-count language.
 
 The old `allined-pea.netlify.app` site and the original ZIP are historical comparison sources, not the release authority for this repository. Current approved corrections and the sources above govern future changes.
+
+Release corrections on September 27: no class-week labels or applicant exit-survey actions; Zoom recovery directs visitors to spam and team support; secondary text contrast improved. Periodic calendar refresh defers while focus is within the main content. Fresh visual/browser QA was unavailable because no browser surface was connected; generated-page, date-preview, syntax and source checks were used, and this limitation remains explicit.

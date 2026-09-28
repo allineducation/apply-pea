@@ -223,7 +223,24 @@ table.cal{width:100%;border-collapse:collapse;font-size:13.5px}
 table.cal thead th{background:var(--blue);color:var(--white);font-size:11px;font-weight:700;letter-spacing:.04em;
   text-align:left;padding:.5rem .65rem;white-space:nowrap}
 table.cal td{padding:.55rem .65rem;border-bottom:1px solid var(--n12);vertical-align:top}
-table.cal tbody tr:nth-child(even){background:var(--n05)}
+table.cal tbody tr.alt{background:var(--n05)}
+table.cal tr[hidden]{display:none!important}
+tr.has-det{cursor:pointer}
+tr.has-det:hover .cal-open .ct{text-decoration:underline;text-underline-offset:3px}
+tr.has-det.open td{border-bottom-color:transparent}
+.cal-open{all:unset;cursor:pointer;display:inline-flex;align-items:flex-start;gap:8px;color:var(--blue);font-weight:700;min-height:32px;border-radius:4px}
+.cal-open:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+.cal-open .ct{display:block}
+.cal-open .wk{display:block;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--n70)}
+.chev{flex-shrink:0;width:9px;height:9px;margin-top:5px;border:solid var(--blue);border-width:0 2px 2px 0;transform:rotate(45deg);transition:transform .2s}
+.cal-open[aria-expanded="true"] .chev{transform:rotate(-135deg);margin-top:9px}
+tr.is-past .cal-open{color:var(--n70)} tr.is-past .chev{border-color:var(--n70)}
+tr.cal-det td{padding:0 .65rem .9rem;border-bottom:1px solid var(--n12)}
+.det{background:var(--white);border:1.5px solid var(--blue);border-radius:8px;padding:.85rem .95rem}
+.det-desc{font-size:14px;line-height:1.65;margin-top:.3rem;max-width:68ch}
+.det .btnrow{margin-top:.7rem}
+.det-notes{margin:.6rem 0 0;padding-left:1.1rem;font-size:12px;color:var(--n70);line-height:1.5}
+.det-notes li + li{margin-top:.2rem}
 table.cal tbody tr:last-child td{border-bottom:0}
 .c-date{white-space:nowrap;font-weight:700}
 .c-date .dow{font-weight:400;color:var(--n70);text-transform:capitalize}
@@ -246,6 +263,9 @@ tr.is-today.is-info td:first-child{box-shadow:inset 4px 0 0 var(--gold)}
   tr.is-today td:first-child, tr.is-info td:first-child{box-shadow:none}
   tr.is-info{box-shadow:inset 4px 0 0 var(--pink)}
   tr.is-today{box-shadow:inset 4px 0 0 var(--gold)}
+  table.cal tr.cal-det{padding:0 .75rem .75rem}
+  table.cal tr.cal-det td{padding:0}
+  .det .btnrow .btn{flex:1 1 100%}
 }
 
 /* ---------- 5.14 overview groups + tiles ---------- */
@@ -304,15 +324,6 @@ tr.is-today.is-info td:first-child{box-shadow:inset 4px 0 0 var(--gold)}
 .qa[open] .sh .h{display:inline}
 .qa .a{padding:0 .95rem .9rem;font-size:14px;line-height:1.65}
 
-/* before / after */
-.ba{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:.6rem}
-.ba > div{border-radius:var(--r-md);padding:.7rem .85rem}
-.ba .b{background:var(--n05);border:1px solid var(--n12)}
-.ba .a{background:var(--tint-blue)}
-.ba .label{display:block;margin-bottom:.2rem}
-.ba .a .label{color:var(--blue)} .ba .b .label{color:var(--charcoal)}
-.ba p{font-size:13.5px;line-height:1.6}
-@media (max-width:560px){ .ba{grid-template-columns:1fr} }
 
 /* mission quote */
 .quote{margin:.5rem 0 0;background:var(--grad-lang);border-radius:var(--r-md);padding:1rem 1.1rem;margin-top:.5rem;
@@ -470,3 +481,7 @@ body{font-size:14px}
  .section-panel,.page-section{padding:12px;margin:16px 0;border-radius:10px}.section-panel>h2,.sec-head h1{font-size:19px;padding:9px 12px;border-radius:8px;margin-bottom:10px}
  .sticky-actions .quick-action{font-size:11px;min-height:58px;padding:5px 3px;gap:3px;line-height:1.2}.sticky-actions .quick-action>span:first-child{font-size:18px}
 }
+
+/* v0.11.0: readable secondary text on tinted panels and controls. */
+.pink-section .small,.filters>.label,#faqcount{color:var(--charcoal)}
+.cal-open{min-height:44px}

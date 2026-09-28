@@ -1,5 +1,5 @@
 /* ==================================================================
-   PEA Applicant Hub — FACTS  (v0.10.0)
+   PEA Applicant Hub — FACTS  (v0.11.0)
    ------------------------------------------------------------------
    PRIMARY DATE AND LINK REGISTRY. Also review cohort policy copy.
    Cohort dates, duration and links are maintained here.
@@ -45,6 +45,78 @@ window.PEA_FACTS = {
     evalAttend: "96.4%"
   },
 
+  /* Curriculum modules — canonical, cohort-independent descriptions and the
+     participant worksheet (Spanish PDF, public link) where one exists.
+     Source: Airtable · PEA base · Modules table tblPkSBzSYKE4cBC6
+     (Description (ES) / Description (EN) / Participant Worksheet (ES) — PDF),
+     read 2026-09-25. Calendar events link to a module by its planning ID.
+     Edits: MPIP1 EN "stakeholders" → "key people" (brand §5.2; matches ES);
+     MCOMM ES "docentes" → "maestros" (Danny, 2026-09-25: "docentes" is not in common use);
+     MORIE ES/EN "nueve semanas"/"nine-week" → "18 clases"/"18-class" (repo rule: describe
+     scheduled classes, not weeks); MORIE ES program name kept as "Parent Educator Academy". */
+  modules: {
+    MORIE: { id: "PEA-M01",
+      es: "Este curso de apertura presenta a las familias ALL In Education, la Parent Educator Academy y los acuerdos y apoyos que guían la experiencia de las 18 clases. Las personas participantes empiezan a conocerse, comparten sus esperanzas para sus estudiantes y establecen compromisos de participación, comunicación y apoyo mutuo.",
+      en: "This opening course introduces participants to ALL In Education, the Parent Educator Academy, and the expectations and supports that shape the 18-class learning experience. Families build relationships with their cohort, identify shared hopes for their students, and establish agreements for participation, communication, and mutual support." },
+    MHIST: { id: "PEA-M02",
+      es: "Este curso examina los acontecimientos, las políticas y las decisiones que formaron la educación pública en Arizona y que continúan influyendo en las oportunidades estudiantiles. Las familias relacionan esta historia con sus propias experiencias escolares y consideran cómo el contexto histórico puede orientar el aprendizaje, la participación comunitaria y la defensa educativa.",
+      en: "This course examines the historical events, policies, and decisions that shaped public education in Arizona and continue to influence students’ opportunities today. Families connect this history to their own school experiences and consider how historical context can inform learning, community involvement, and education advocacy." },
+    MSDOE: { id: "PEA-M03",
+      es: "Este curso explora cómo la vivienda, la salud, el transporte, los ingresos, el acceso lingüístico y los recursos comunitarios pueden influir en las experiencias y los resultados educativos. Las familias identifican fortalezas y barreras en sus comunidades, relacionan estos factores con la equidad y la justicia y consideran cómo abogar por los apoyos que necesitan sus estudiantes.",
+      en: "This course explores how conditions such as housing, health, transportation, income, language access, and neighborhood resources can influence students’ educational experiences and outcomes. Families identify strengths and barriers in their communities, connect these factors to equity and justice, and consider ways to advocate for the supports their students need." },
+    MBIAS: { id: "PEA-M04",
+      es: "Este curso invita a las personas participantes a examinar la identidad, el sentido de pertenencia, los prejuicios conscientes e inconscientes y cómo influyen en las experiencias escolares y el acceso a oportunidades. Mediante la reflexión y el diálogo, las familias relacionan sus vivencias con patrones más amplios e identifican maneras de apoyar entornos de aprendizaje más equitativos e inclusivos.",
+      en: "This course invites participants to examine identity, belonging, conscious and unconscious bias, and the ways these forces shape students’ school experiences and access to opportunity. Through reflection and dialogue, families connect personal experiences to broader patterns and identify ways to support more equitable and inclusive learning environments." },
+    MQUAL: { id: "PEA-M05",
+      es: "Este curso ayuda a las familias a definir una educación de alta calidad y comprender las opciones de escuelas públicas disponibles en Arizona, dentro y fuera de la escuela asignada. Las personas participantes analizan información sobre las escuelas, consideran cómo cada opción apoya el aprendizaje y la equidad y practican preguntas que orienten decisiones para sus estudiantes.",
+      en: "This course helps families define high-quality education and understand Arizona’s public school options, including choices available within and beyond their assigned school. Participants examine information about schools, consider how different options support learning and equity, and practice asking questions that can inform decisions for their students.",
+      worksheet: "https://drive.google.com/file/d/1sPH61eRkEwEuunsItmxGeZ7rbPhdZKgc/view?usp=drivesdk" },
+    MCOMM: { id: "PEA-M06",
+      es: "Este curso explica cómo se organizan los salones, las escuelas y los distritos e identifica a las personas y las rutas de comunicación que las familias pueden usar cuando surgen preguntas o inquietudes. Las personas participantes practican estrategias de comunicación de dos vías con maestros, directores, consejeros y otro personal escolar para construir alianzas enfocadas en las necesidades estudiantiles.",
+      en: "This course explains how classrooms, schools, and districts are organized and identifies the people and communication pathways families can use when questions or concerns arise. Participants practice strategies for two-way communication with teachers, principals, counselors, and other school staff so they can build productive partnerships around student needs.",
+      worksheet: "https://drive.google.com/file/d/1otX4R1zltnbdQwJaEXv0oXOVee-WPf0O/view?usp=drivesdk" },
+    MREAD: { id: "PEA-M07",
+      es: "Este curso presenta las habilidades fundamentales de la lectura y cómo puede verse una enseñanza eficaz mientras los estudiantes se desarrollan como lectores. Las familias aprenden a reconocer señales de que un estudiante podría necesitar apoyo adicional, revisan preguntas para el personal educativo y practican cómo abogar por una enseñanza de lectura apropiada y al nivel de grado.",
+      en: "This course introduces foundational reading skills and what effective literacy instruction can look like as students develop as readers. Families learn how to recognize signs that a student may need additional support, review questions they can ask educators, and practice advocating for appropriate, grade-level literacy instruction." },
+    MHOME: { id: "PEA-M08",
+      es: "Este curso se enfoca en formas prácticas y culturalmente relevantes de apoyar el desarrollo de la lectura en casa y en cualquier idioma. Las familias practican estrategias para leer juntas, hacer preguntas, ampliar el vocabulario y crear rutinas que fortalezcan la confianza y conecten la lectura en casa con el aprendizaje escolar.",
+      en: "This course focuses on practical, culturally responsive ways families can support reading development at home and in any language. Participants practice strategies for reading together, asking questions, building vocabulary, and creating routines that strengthen confidence and connect home literacy experiences with classroom learning." },
+    MDIGI: { id: "PEA-M09",
+      es: "Este curso presenta conceptos de alfabetización digital que afectan a estudiantes y familias, incluyendo la seguridad en línea, el uso de medios, la desinformación, la privacidad y el acceso a herramientas de aprendizaje. Las personas participantes practican cómo evaluar información digital e identifican estrategias y recursos para orientar el uso responsable de la tecnología, comunicarse con las escuelas y apoyar el aprendizaje en casa.",
+      en: "This course introduces digital literacy concepts that affect students and families, including online safety, media use, misinformation, privacy, and access to learning tools. Participants practice evaluating online information and identify strategies and resources for guiding responsible technology use, communicating with schools, and supporting learning at home." },
+    MRGHT: { id: "PEA-M10",
+      es: "Este curso presenta los derechos y las responsabilidades clave de las familias y los estudiantes en la educación pública de Arizona, incluyendo protecciones para aprendices de inglés, estudiantes con discapacidades y familias con estatus migratorio mixto. Las personas participantes aprenden dónde encontrar información confiable, cómo expresar inquietudes y qué rutas de defensa pueden proteger el acceso, la inclusión y el éxito estudiantil.",
+      en: "This course introduces key rights and responsibilities of families and students in Arizona public education, including protections for English Learners, students with disabilities, and mixed-status families. Participants learn where to locate reliable information, how to raise concerns, and which advocacy pathways can help protect access, inclusion, and student success." },
+    MMATH: { id: "PEA-M11",
+      es: "Este curso explora cómo ha cambiado la enseñanza de las matemáticas y qué se espera que los estudiantes comprendan y demuestren en los salones actuales. Las familias revisan estrategias para fortalecer la confianza y la resolución de problemas, identifican preguntas para el personal educativo y practican cómo abogar cuando un estudiante necesita una explicación más clara o apoyo adicional.",
+      en: "This course explores how mathematics instruction has changed and what students are expected to understand and demonstrate in today’s math classrooms. Families examine strategies for supporting confidence and problem solving, identify questions to ask educators, and practice advocating when a student needs clearer instruction or additional support." },
+    MOPHS: { id: "PEA-M12",
+      es: "Este curso presenta caminos disponibles después de la preparatoria, incluyendo colegios comunitarios, universidades, educación técnica y profesional, aprendizajes, servicio militar e ingreso directo al trabajo. Las familias consideran los intereses y las metas de sus estudiantes, exploran preguntas de planificación y ayuda financiera e identifican maneras de apoyar decisiones informadas sobre educación, capacitación y carreras.",
+      en: "This course introduces pathways available after high school, including community college, universities, career and technical education, apprenticeships, military service, and direct entry into the workforce. Families consider students’ interests and goals, explore planning and financial-aid questions, and identify ways to support informed decisions about education, training, and careers.",
+      worksheet: "https://drive.google.com/file/d/18Ta0-1JoumzowXE1ZJx4vevMfzN5oFJs/view?usp=drivesdk" },
+    MEXCP: { id: "PEA-M13",
+      es: "Este curso explica cómo las escuelas identifican y apoyan a estudiantes excepcionales y presenta sistemas como educación especial, Programas de Educación Individualizados (IEP), planes de la Sección 504 y apoyos de varios niveles. Las familias comparan los apoyos disponibles, preparan preguntas para los equipos escolares y practican cómo abogar por servicios y oportunidades inclusivas que respondan a las fortalezas y necesidades de cada estudiante.",
+      en: "This course explains how schools identify and support exceptional students and introduces common systems such as special education, Individualized Education Programs (IEPs), Section 504 plans, and multi-tiered supports. Families compare available supports, prepare questions for school teams, and practice advocating for services and inclusive opportunities aligned with each student’s strengths and needs.",
+      worksheet: "https://drive.google.com/file/d/1cRa0toDWW4-n61eosAVWFCs2y01wxZ-r/view?usp=drivesdk" },
+    MCENG: { id: "PEA-M14",
+      es: "Este curso examina cómo se ve la participación familiar y comunitaria auténtica cuando las familias colaboran como socias en decisiones que afectan a estudiantes y escuelas. Las personas participantes exploran principios de participación significativa, distinguen entre asistir y compartir decisiones e identifican oportunidades para contribuir a la mejora escolar dentro y fuera de la escuela.",
+      en: "This course examines what authentic family and community engagement looks like when families participate as partners in decisions that affect students and schools. Participants explore principles of meaningful engagement, distinguish participation from shared decision-making, and identify opportunities to contribute to school improvement within and beyond the school building.",
+      worksheet: "https://drive.google.com/file/d/172jJ4Ur3DwHS6DnRcY3ePA2gMXffPPrF/view?usp=drivesdk" },
+    MSELF: { id: "PEA-M15",
+      es: "Este curso ayuda a las personas participantes a desarrollar una Historia Personal que conecte su identidad, experiencias, valores, desafíos y decisiones con su liderazgo y defensa educativa. Las familias practican cómo construir y compartir una narrativa que comunique por qué la educación es importante para ellas y que apoye acciones con propósito a favor de estudiantes y comunidades.",
+      en: "This course helps participants develop a Story of Self by connecting identity, lived experience, values, challenges, and choices to their leadership and advocacy. Families practice shaping and sharing a personal narrative that communicates why education matters to them and supports purposeful action on behalf of students and communities.",
+      worksheet: "https://drive.google.com/file/d/1bWohNr9jlSV2JvznJcOHe__W1wh1C1cD/view?usp=drivesdk" },
+    MPIP1: { id: "PEA-M16",
+      es: "Este curso reúne los aprendizajes de sesiones anteriores de PEA y apoya a las personas participantes para aplicarlos a una situación escolar, del salón o de la comunidad que quieran abordar. Las familias definen la situación, aclaran su meta, identifican personas clave y recursos y comienzan un plan de defensa que puedan llevar a la práctica con comentarios de sus compañeros y facilitadores.",
+      en: "This course brings together learning from earlier PEA sessions and supports participants in applying it to a school, classroom, or community issue they want to address. Families define the issue, clarify their goal, identify key people and resources, and begin an actionable advocacy plan with feedback from peers and facilitators." },
+    MPIP2: { id: "PEA-M17",
+      es: "Este curso apoya a las personas participantes para fortalecer y comunicar los planes de defensa desarrollados en Poniéndolo en Práctica I. Las familias usan comentarios para mejorar sus estrategias, practican cómo presentar un plan claro y centrado en las familias e identifican próximos pasos, formas de comunicación y apoyos necesarios para pasar de la planificación a la acción.",
+      en: "This course supports participants in strengthening and communicating the advocacy plans developed in Putting It Into Practice I. Families use feedback to refine their strategies, practice presenting a clear family-centered plan, and identify immediate next steps, communication approaches, and support needed to move from planning to action." },
+    MGRAD: { id: "PEA-M18",
+      es: "Este curso de cierre celebra que las personas participantes completaron PEA y ofrece un espacio para reflexionar sobre los aprendizajes, las relaciones y el crecimiento logrado durante la cohorte. Las personas graduadas identifican cómo seguirán usando sus conocimientos y habilidades de defensa como líderes familiares, alumni y colaboradoras para fortalecer las oportunidades educativas de los estudiantes.",
+      en: "This culminating course celebrates participants’ completion of PEA and creates space to reflect on learning, relationships, and growth across the cohort. Graduates identify how they will continue using their knowledge and advocacy skills as family leaders, alumni, and partners in strengthening educational opportunities for students." }
+  },
+
   links: {
     global: {
       overviewVideo: "https://www.youtube.com/watch?v=FEV_87qoqjc",
@@ -81,25 +153,25 @@ window.PEA_FACTS = {
       weeks: 10,
       events: [
         { code: "IS2", kind: "info",    start: "2026-10-02T00:00:00Z", end: "2026-10-02T01:30:00Z" },
-        { code: "1T",  kind: "cls", start: "2026-10-07T00:00:00Z", end: "2026-10-07T01:30:00Z", title_es: "Orientación", title_en: "Orientation" },
-        { code: "1R",  kind: "cls", start: "2026-10-09T00:00:00Z", end: "2026-10-09T01:30:00Z", title_es: "La historia de la educación pública en Arizona", title_en: "History of Public Education in Arizona" },
-        { code: "2T",  kind: "cls", start: "2026-10-14T00:00:00Z", end: "2026-10-14T01:30:00Z", title_es: "Determinantes sociales de la educación", title_en: "Social Determinants of Education" },
-        { code: "2R",  kind: "cls", start: "2026-10-16T00:00:00Z", end: "2026-10-16T01:30:00Z", title_es: "Sesgo, identidad y el mito de la oportunidad", title_en: "Bias, Identity & the Opportunity Myth" },
-        { code: "3T",  kind: "cls", start: "2026-10-21T00:00:00Z", end: "2026-10-21T01:30:00Z", title_es: "Acceso a una educación de calidad y la elección escolar", title_en: "Access to Quality Education & School Choice" },
-        { code: "3R",  kind: "cls", start: "2026-10-23T00:00:00Z", end: "2026-10-23T01:30:00Z", title_es: "Navegando salones, escuelas y distritos escolares", title_en: "Navigating Classrooms, Schools, and School Districts" },
-        { code: "4T",  kind: "cls", start: "2026-10-28T00:00:00Z", end: "2026-10-28T01:30:00Z", title_es: "Fundamentos de la lectura y cómo abogar por los estudiantes", title_en: "Foundational Reading Skills & Advocating for Students in the Literacy Classroom" },
-        { code: "4R",  kind: "cls", start: "2026-10-30T00:00:00Z", end: "2026-10-30T01:30:00Z", title_es: "Lectura en casa", title_en: "Reading at Home" },
-        { code: "5T",  kind: "cls", start: "2026-11-04T00:00:00Z", end: "2026-11-04T01:30:00Z", title_es: "Alfabetización digital para padres y cuidadores", title_en: "Digital Literacy for Parents & Caregivers" },
-        { code: "5R",  kind: "cls", start: "2026-11-06T00:00:00Z", end: "2026-11-06T01:30:00Z", title_es: "Derechos de padres y cuidadores", title_en: "Your Rights as Parents & Caregivers" },
-        { code: "6T",  kind: "cls", start: "2026-11-11T00:00:00Z", end: "2026-11-11T01:30:00Z", title_es: "Abogando por nuestros estudiantes en el salón de matemáticas", title_en: "Advocating for Students in the Math Classroom" },
-        { code: "6R",  kind: "cls", start: "2026-11-13T00:00:00Z", end: "2026-11-13T01:30:00Z", title_es: "Explorando oportunidades después de la preparatoria", title_en: "Exploring Opportunities After High School" },
-        { code: "7T",  kind: "cls", start: "2026-11-18T00:00:00Z", end: "2026-11-18T01:30:00Z", title_es: "Abogando por estudiantes excepcionales", title_en: "Advocating for Exceptional Students" },
-        { code: "7R",  kind: "cls", start: "2026-11-20T00:00:00Z", end: "2026-11-20T01:30:00Z", title_es: "Participación comunitaria auténtica", title_en: "Authentic Community Engagement" },
-        { code: "8T",  kind: "cls", start: "2026-11-25T00:00:00Z", end: "2026-11-25T01:30:00Z", title_es: "Historia personal: construyendo poder a través de la incidencia", title_en: "Story of Self: Creating Power Through Advocacy" },
+        { code: "1T",  kind: "cls", module: "MORIE", start: "2026-10-07T00:00:00Z", end: "2026-10-07T01:30:00Z", title_es: "Orientación", title_en: "Orientation" },
+        { code: "1R",  kind: "cls", module: "MHIST", start: "2026-10-09T00:00:00Z", end: "2026-10-09T01:30:00Z", title_es: "La historia de la educación pública en Arizona", title_en: "History of Public Education in Arizona" },
+        { code: "2T",  kind: "cls", module: "MSDOE", start: "2026-10-14T00:00:00Z", end: "2026-10-14T01:30:00Z", title_es: "Determinantes sociales de la educación", title_en: "Social Determinants of Education" },
+        { code: "2R",  kind: "cls", module: "MBIAS", start: "2026-10-16T00:00:00Z", end: "2026-10-16T01:30:00Z", title_es: "Sesgo, identidad y el mito de la oportunidad", title_en: "Bias, Identity & the Opportunity Myth" },
+        { code: "3T",  kind: "cls", module: "MQUAL", start: "2026-10-21T00:00:00Z", end: "2026-10-21T01:30:00Z", title_es: "Acceso a una educación de calidad y la elección escolar", title_en: "Access to Quality Education & School Choice" },
+        { code: "3R",  kind: "cls", module: "MCOMM", start: "2026-10-23T00:00:00Z", end: "2026-10-23T01:30:00Z", title_es: "Navegando salones, escuelas y distritos escolares", title_en: "Navigating Classrooms, Schools, and School Districts" },
+        { code: "4T",  kind: "cls", module: "MREAD", start: "2026-10-28T00:00:00Z", end: "2026-10-28T01:30:00Z", title_es: "Fundamentos de la lectura y cómo abogar por los estudiantes", title_en: "Foundational Reading Skills & Advocating for Students in the Literacy Classroom" },
+        { code: "4R",  kind: "cls", module: "MHOME", start: "2026-10-30T00:00:00Z", end: "2026-10-30T01:30:00Z", title_es: "Lectura en casa", title_en: "Reading at Home" },
+        { code: "5T",  kind: "cls", module: "MDIGI", start: "2026-11-04T00:00:00Z", end: "2026-11-04T01:30:00Z", title_es: "Alfabetización digital para padres y cuidadores", title_en: "Digital Literacy for Parents & Caregivers" },
+        { code: "5R",  kind: "cls", module: "MRGHT", start: "2026-11-06T00:00:00Z", end: "2026-11-06T01:30:00Z", title_es: "Derechos de padres y cuidadores", title_en: "Your Rights as Parents & Caregivers" },
+        { code: "6T",  kind: "cls", module: "MMATH", start: "2026-11-11T00:00:00Z", end: "2026-11-11T01:30:00Z", title_es: "Abogando por nuestros estudiantes en el salón de matemáticas", title_en: "Advocating for Students in the Math Classroom" },
+        { code: "6R",  kind: "cls", module: "MOPHS", start: "2026-11-13T00:00:00Z", end: "2026-11-13T01:30:00Z", title_es: "Explorando oportunidades después de la preparatoria", title_en: "Exploring Opportunities After High School" },
+        { code: "7T",  kind: "cls", module: "MEXCP", start: "2026-11-18T00:00:00Z", end: "2026-11-18T01:30:00Z", title_es: "Abogando por estudiantes excepcionales", title_en: "Advocating for Exceptional Students" },
+        { code: "7R",  kind: "cls", module: "MCENG", start: "2026-11-20T00:00:00Z", end: "2026-11-20T01:30:00Z", title_es: "Participación comunitaria auténtica", title_en: "Authentic Community Engagement" },
+        { code: "8T",  kind: "cls", module: "MSELF", start: "2026-11-25T00:00:00Z", end: "2026-11-25T01:30:00Z", title_es: "Historia personal: construyendo poder a través de la incidencia", title_en: "Story of Self: Creating Power Through Advocacy" },
         { code: "8R",  kind: "holiday", start: "2026-11-27T00:00:00Z", end: "2026-11-27T01:30:00Z" },
-        { code: "9T",  kind: "cls", start: "2026-12-02T00:00:00Z", end: "2026-12-02T01:30:00Z", title_es: "Poniéndolo en práctica I", title_en: "Putting It Into Practice I" },
-        { code: "9R",  kind: "cls", start: "2026-12-04T00:00:00Z", end: "2026-12-04T01:30:00Z", title_es: "Poniéndolo en práctica II", title_en: "Putting It Into Practice II" },
-        { code: "10T", kind: "cls", start: "2026-12-09T00:00:00Z", end: "2026-12-09T01:30:00Z", title_es: "Graduación", title_en: "Graduation", grad: true },
+        { code: "9T",  kind: "cls", module: "MPIP1", start: "2026-12-02T00:00:00Z", end: "2026-12-02T01:30:00Z", title_es: "Poniéndolo en práctica I", title_en: "Putting It Into Practice I" },
+        { code: "9R",  kind: "cls", module: "MPIP2", start: "2026-12-04T00:00:00Z", end: "2026-12-04T01:30:00Z", title_es: "Poniéndolo en práctica II", title_en: "Putting It Into Practice II" },
+        { code: "10T", kind: "cls", module: "MGRAD", start: "2026-12-09T00:00:00Z", end: "2026-12-09T01:30:00Z", title_es: "Graduación", title_en: "Graduation", grad: true },
         { code: "10R", kind: "focus",   start: "2026-12-11T00:00:00Z", end: "2026-12-11T01:30:00Z" }
       ]
     },
@@ -113,7 +185,7 @@ window.PEA_FACTS = {
       startDate: "2027-03-16", endDate: "2027-05-13",
       schedulePublished: true,
       events: [
-        { code: "1T", kind: "cls", start: "2027-03-17T00:00:00Z", end: "2027-03-17T01:30:00Z", title_es: "Orientación", title_en: "Orientation", projected: true }
+        { code: "1T", kind: "cls", module: "MORIE", start: "2027-03-17T00:00:00Z", end: "2027-03-17T01:30:00Z", title_es: "Orientación", title_en: "Orientation", projected: true }
       ]
     }
   }

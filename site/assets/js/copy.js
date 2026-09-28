@@ -66,7 +66,7 @@
       hero: {
         eyebrow: function (label, num) { return label + " · Cohorte " + num; },
         title: "Todo lo que necesita saber para participar",                      /* [G] */
-        sub: "La Parent Educator Academy es un programa de liderazgo para familias y cuidadores que quieren abogar por sus hijos dentro del sistema escolar de Arizona.", /* [G] */
+        sub: "La Parent Educator Academy es un programa de liderazgo para familias y cuidadores que quieren abogar por sus hijos dentro del sistema escolar de Arizona. También está abierto al personal escolar, como enlaces con las familias y maestros.", /* [G] + school-staff sentence (Danny, 2026-09-25) */
         chipFree: "Gratis",
         chipZoom: "En línea, por Zoom",
         chipSchedule: function (days, time) { return days + " · " + time; },
@@ -89,7 +89,7 @@
       },
 
       stats: {
-        cost: "Costo para las familias",
+        cost: "Costo para participantes",
         classes: "Clases en vivo",
         alumni: "Personas en el registro histórico de exalumnos de PEA",
         alumniNote: function (d) { return "al " + d; }
@@ -116,7 +116,7 @@
         infoDatesH: "Sesión informativa",
         infoDatesNote: "Si no puede asistir, podrá ver la grabación después. Consulte al equipo para obtener el enlace cuando esté disponible.",
         whoLabel: "Quién puede participar",
-        who: "Familias y cuidadores que quieren abogar por sus hijos dentro del sistema escolar de Arizona. No hay proceso de selección: el cupo se llena por orden de registro.",
+        who: "Familias y cuidadores que quieren abogar por sus hijos dentro del sistema escolar de Arizona. PEA también está abierto al personal escolar, como enlaces con las familias y maestros. No hay proceso de selección: el cupo se llena por orden de registro.",
         askH: "Qué esperamos de cada persona",                                     /* [G] */
         ask: [
           ["Asistir", "Asista al menos a 16 de las 18 clases para recibir su certificado. Si no puede asistir, avise al equipo con anticipación."],
@@ -147,6 +147,16 @@
         ics: "Descargar todas las fechas (.ics)",
         icsHelp: "El archivo .ics agrega las fechas al calendario de su teléfono o computadora.",
         icsName: "PEA",
+        detail: {
+          open: "Ver detalles de la clase", close: "Ocultar detalles",
+          openInfo: "Ver detalles de la sesión",
+          about: "Sobre esta clase", aboutInfo: "Sobre la sesión",
+          zoom: "Registro en Zoom",
+          zoomNote: "Si ya se registró, entre con el enlace personal de su correo de confirmación de Zoom. Si no lo encuentra, revise la carpeta de spam y comuníquese con el equipo para recuperar su enlace.",
+          resources: "Lista de recursos",
+          worksheet: "Hoja de trabajo (PDF)",
+          addCal: "Agregar a mi calendario"
+        },
         projectedLabel: "Por confirmar",
         projected: "Fechas proyectadas, todavía no confirmadas."
       },
@@ -203,13 +213,6 @@
         },
         missionH: "La misión de ALL In Education",
         mission: "Asegurar que las personas de las comunidades más afectadas por las desigualdades educativas sean quienes toman las decisiones que dan forma a los sistemas educativos, para que todos los estudiantes y las familias de Arizona puedan prosperar.",
-        changedH: "Lo que cambió este año",
-        before: "Antes", now: "Hoy",
-        changed: [
-          ["Ya no hay solicitud ni selección", "Antes había que solicitar y esperar una invitación.", "Para otoño de 2026, el registro en Zoom reserva su lugar, y el límite es el cupo, no un comité."],
-          ["Las sesiones informativas son opcionales", "Antes eran tres sesiones distintas y había que asistir a dos para tener lugar.", "Asistir a la sesión informativa es recomendable, pero no obligatorio. También puede ver la grabación después."],
-          ["Ya no hay formulario de compromiso", "Antes las expectativas se acordaban en un formulario previo.", "Las expectativas siguen siendo las mismas — asistir, participar, comunicar — pero se acuerdan en la primera clase."]
-        ]
       },
 
       faq: {
@@ -217,12 +220,11 @@
         items: [
           ["¿Tengo que solicitar o esperar una invitación?", "No. No hay solicitud, no hay invitación y no hay proceso de selección. Para otoño de 2026, llene el formulario de interés y complete su registro en Zoom; ese registro es lo que reserva su lugar."], /* [G] */
           ["¿Cómo sé que ya tengo mi lugar?", "Cuando complete su registro en Zoom, le llega un correo de confirmación de Zoom. Ese correo es su confirmación y trae su enlace personal para entrar a clase. Guárdelo."],
-          ["¿Quién puede participar?", "Familias y cuidadores que quieren abogar por sus hijos dentro del sistema escolar de Arizona. No hay proceso de selección: el cupo se llena por orden de registro."],
+          ["¿Quién puede participar?", "Familias y cuidadores que quieren abogar por sus hijos dentro del sistema escolar de Arizona. PEA también está abierto al personal escolar, como enlaces con las familias y maestros. No hay proceso de selección: el cupo se llena por orden de registro."],
           ["¿Es obligatorio asistir a la sesión informativa?", "No. Es opcional, pero es muy recomendable asistir a una sesión. Es una oportunidad para conocernos, conocer el programa y hacer preguntas, y al final el equipo le ayuda a completar su registro para las clases. No asistir no afecta su lugar de ninguna manera."], /* [G] */
           ["¿Qué pasa si no puedo asistir a la sesión informativa?", "Puede ver la grabación después. Consulte al equipo para obtener el enlace cuando esté disponible."], /* [G] */
           ["¿En qué idioma es el programa?", function (c) { return "La cohorte de " + c.label + " se imparte en " + c.lang + ". La sesión informativa es bilingüe — se habla español e inglés — porque es la puerta de entrada y queremos que cualquier familia pueda venir a conocernos antes de decidir."; }], /* [G], cohort resolved from facts */
-          ["¿Cuánto cuesta?", "Nada. PEA es gratuito para las familias participantes."], /* [G] */
-          ["¿PEA incluye un incentivo económico?", "No. Esta cohorte no incluye un incentivo económico. Lo que el programa ofrece es contenido, materiales y el acompañamiento del equipo y del grupo. Si tiene preguntas sobre esto, escríbanos — con gusto lo platicamos."], /* [G] */
+          ["¿Cuánto cuesta?", "Nada. PEA es gratuito para todas las personas participantes."], /* [G], widened to all participants (Danny, 2026-09-25) */
           ["¿Necesito una cuenta de Zoom?", "Sí. Para participar necesita una cuenta activa de Zoom, y es gratuita. El correo que use para registrarse debe ser el mismo de su cuenta de Zoom. Inicie sesión con esa cuenta antes de entrar a clase. La sección «Zoom paso a paso» le muestra cómo crearla."], /* [G], last sentence adapted */
           ["No encuentro el correo de confirmación de Zoom. ¿Qué hago?", "Revise su bandeja de entrada y la carpeta de spam. Si no aparece, escríbanos para que le ayudemos a recuperar su enlace personal."], /* [G] */
           ["¿Qué pasa si falto a una clase?", "Avise al equipo de PEA con anticipación si no puede asistir. Para recibir su certificado, debe asistir al menos a 16 de las 18 clases. Escríbanos si necesita apoyo para cumplir este requisito."], /* [G] */
@@ -335,7 +337,7 @@
       hero: {
         eyebrow: function (label, num) { return label + " · Cohort " + num; },
         title: "Everything you need to know to take part",
-        sub: "The Parent Educator Academy is a leadership program for families and caregivers who want to advocate for their children inside Arizona's school system.",
+        sub: "The Parent Educator Academy is a leadership program for families and caregivers who want to advocate for their children inside Arizona's school system. It is also open to school staff, such as family liaisons and teachers.",
         chipFree: "Free",
         chipZoom: "Online, on Zoom",
         chipSchedule: function (days, time) { return days + " · " + time; },
@@ -358,7 +360,7 @@
       },
 
       stats: {
-        cost: "Cost to families",
+        cost: "Cost to participants",
         classes: "Live classes",
         alumni: "People in the historical PEA alumni registry",
         alumniNote: function (d) { return "as of " + d; }
@@ -385,7 +387,7 @@
         infoDatesH: "Information session",
         infoDatesNote: "If you cannot attend, you can watch the recording afterward. Contact the team for the link when it is available.",
         whoLabel: "Who can take part",
-        who: "Families and caregivers who want to advocate for their children inside Arizona's school system. There is no selection process: places fill in the order people register.",
+        who: "Families and caregivers who want to advocate for their children inside Arizona's school system. PEA is also open to school staff, such as family liaisons and teachers. There is no selection process: places fill in the order people register.",
         askH: "What we ask of everyone",
         ask: [
           ["Attend", "Attend at least 16 of the 18 classes to receive your certificate. If you cannot attend, notify the team in advance."],
@@ -416,6 +418,16 @@
         ics: "Download every date (.ics)",
         icsHelp: "The .ics file adds the dates to the calendar on your phone or computer.",
         icsName: "PEA",
+        detail: {
+          open: "See class details", close: "Hide details",
+          openInfo: "See session details",
+          about: "About this class", aboutInfo: "About the session",
+          zoom: "Register on Zoom",
+          zoomNote: "If you have already registered, join with the personal link in your Zoom confirmation email. If you cannot find it, check your spam folder and contact the team for help recovering your link.",
+          resources: "Resource list",
+          worksheet: "Worksheet (PDF, in Spanish)",
+          addCal: "Add to my calendar"
+        },
         projectedLabel: "To be confirmed",
         projected: "Projected dates, not yet confirmed."
       },
@@ -472,13 +484,6 @@
         },
         missionH: "The ALL In Education mission",
         mission: "To ensure that individuals from the communities most impacted by education inequities are the ones making decisions that shape education systems, so all students and families in Arizona can thrive.",
-        changedH: "What changed this year",
-        before: "Before", now: "Now",
-        changed: [
-          ["No application, no selection", "There used to be an application and a wait for an invitation.", "For Fall 2026, Zoom registration holds your place, and the limit is capacity, not a committee."],
-          ["Information sessions are optional", "There used to be three different sessions, and you had to attend two to hold a place.", "Attending the information session is encouraged but not required. You can also watch the recording afterward."],
-          ["No commitment form", "Expectations used to be agreed in a form beforehand.", "The expectations are the same — attend, take part, tell us — but they are agreed in the first class."]
-        ]
       },
 
       faq: {
@@ -486,12 +491,11 @@
         items: [
           ["Do I have to apply or wait for an invitation?", "No. There is no application, no invitation and no selection process. For Fall 2026, fill out the interest form and complete your Zoom registration; that registration is what holds your place."],
           ["How do I know I have a place?", "When you complete your Zoom registration, Zoom sends you a confirmation email. That email is your confirmation, and it carries your personal link to join class. Keep it."],
-          ["Who can take part?", "Families and caregivers who want to advocate for their children inside Arizona's school system. There is no selection process: places fill in the order people register."],
+          ["Who can take part?", "Families and caregivers who want to advocate for their children inside Arizona's school system. PEA is also open to school staff, such as family liaisons and teachers. There is no selection process: places fill in the order people register."],
           ["Do I have to attend the information session?", "No. It is optional, but attending one session is highly recommended. It is a chance to meet us, learn about the program and ask questions, and the team helps you complete your class registration at the end. Not attending does not affect your place in any way."],
           ["What if I cannot attend the information session?", "You can watch the recording afterward. Contact the team for the link when it is available."],
           ["What language is the program in?", function (c) { return "The " + c.label + " cohort is taught in " + c.lang + ". The information session is bilingual — Spanish and English — because it is the front door, and any family should be able to come meet us before deciding."; }], /* [G], cohort resolved from facts */
-          ["What does it cost?", "Nothing. PEA is free for participating families."],
-          ["Does PEA include a financial incentive?", "No. This cohort does not include a financial incentive. What the program offers is content, materials, and the support of the team and the group. If you have questions about this, write to us — we are glad to talk it through."],
+          ["What does it cost?", "Nothing. PEA is free for everyone who takes part."],
           ["Do I need a Zoom account?", "Yes. You need an active Zoom account to take part, and it is free. The email you register with must be the same one on your Zoom account. Sign in with that account before joining class. The “Zoom step by step” section shows you how to set it up."],
           ["I cannot find my Zoom confirmation email. What do I do?", "Check your inbox and your spam folder. If it is not there, contact us for help recovering your personal link."],
           ["What happens if I miss a class?", "Notify the PEA team in advance if you cannot attend. To receive your certificate, you must attend at least 16 of the 18 classes. Contact us if you need support meeting this requirement."],
@@ -581,7 +585,7 @@
   ],
   "learnCta": "Conocer la experiencia y los temas →",
   "fitH": "¿PEA es para mí?",
-  "fitLead": "PEA se dirige a familias y cuidadores que quieren acompañar a sus hijos y abogar por ellos dentro del sistema escolar de Arizona.",
+  "fitLead": "PEA se dirige a familias y cuidadores que quieren acompañar a sus hijos y abogar por ellos dentro del sistema escolar de Arizona. También está abierto al personal escolar, como enlaces con las familias y maestros.",
   "fitItems": [
     [
       "Su relación con el estudiante",
@@ -589,7 +593,7 @@
     ],
     [
       "Su escuela o función",
-      "Si trabaja en educación, o tiene dudas sobre si el programa corresponde al tipo de escuela o grado de su estudiante, consulte al equipo antes de registrarse."
+      "Si trabaja en una escuela —por ejemplo, como enlace con las familias o maestro—, también puede participar. Si tiene dudas sobre si el programa corresponde al tipo de escuela o grado de su estudiante, consulte al equipo."
     ],
     [
       "Su idioma",
@@ -660,7 +664,7 @@
   "videoText": "Video institucional: «ALL In Education — Who We Are». Duración: 6 minutos y 44 segundos. Está en inglés; YouTube ofrece subtítulos automáticos en inglés. Presenta a la organización y su misión.",
   "videoCta": "Ver el video en YouTube",
   "evidenceH": "Lo que encontró una evaluación anterior",
-  "evidenceText": "La evaluación de LeCroy & Milligan de 2022 encontró una mejora en la efectividad que las personas participantes reportaron al comunicarse con docentes. Es un resultado de aquella cohorte, no una garantía para cada participante.",
+  "evidenceText": "La evaluación de LeCroy & Milligan de 2022 encontró una mejora en la efectividad que las personas participantes reportaron al comunicarse con maestros. Es un resultado de aquella cohorte, no una garantía para cada participante.",
   "evidenceSource": "Fuente: Parent Educator Academy Evaluation Report, agosto de 2022, página 25; análisis de encuestas antes y después del programa, 109 participantes.",
   "alumniH": "Después de PEA",
   "alumniText": "La relación puede continuar después de la graduación. Pregunte al equipo por las oportunidades actuales de participación, grupos de enfoque y liderazgo, y por la manera de recibir esos avisos.",
@@ -687,7 +691,7 @@
     ],
     [
       "¿Puedo participar si trabajo en una escuela o soy otra persona cuidadora?",
-      "Consulte al equipo para confirmar cómo se aplica la participación a su función, relación con el estudiante y contexto escolar."
+      "Sí. PEA también está abierto al personal escolar, como enlaces con las familias y maestros, y a otras personas cuidadoras. Si tiene dudas sobre su caso, el equipo puede orientarle."
     ],
     [
       "¿Hay clases en inglés en esta cohorte?",
@@ -719,7 +723,7 @@
   ],
   "learnCta": "Explore the experience and topics →",
   "fitH": "Is PEA a fit for me?",
-  "fitLead": "PEA is for families and caregivers who want to support their children and advocate for them within Arizona’s school system.",
+  "fitLead": "PEA is for families and caregivers who want to support their children and advocate for them within Arizona’s school system. It is also open to school staff, such as family liaisons and teachers.",
   "fitItems": [
     [
       "Your relationship to the student",
@@ -727,7 +731,7 @@
     ],
     [
       "Your school or role",
-      "If you work in education, or have questions about your student’s school type or grade level, contact the team before registering."
+      "If you work at a school — for example, as a family liaison or teacher — you are welcome to take part. If you have questions about your student’s school type or grade level, contact the team."
     ],
     [
       "Your language",
@@ -825,7 +829,7 @@
     ],
     [
       "Can I participate if I work at a school or am another caregiver?",
-      "Contact the team to confirm how participation applies to your role, relationship to the student, and school setting."
+      "Yes. PEA is also open to school staff, such as family liaisons and teachers, and to other caregivers. If you have questions about your situation, the team can guide you."
     ],
     [
       "Are English classes available in this cohort?",
