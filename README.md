@@ -63,6 +63,8 @@ Use approved logo artwork without translating the tagline **Leadership · Power 
 
 Keep the compact information-page layout: filled blue or pink section headings, white or gold heading text, modest rounded corners (8px), tinted section backgrounds and aligned cards. Maintain clear contrast, keyboard focus and mobile readability. Use consistent, restrained icons. Keep navigation collapsible.
 
+**v0.12.0 interface (brand exception, approved by Danny Hernández 2026-09-28):** a sticky, translucent header holds the logo, an **ES | EN** pill toggle (`aria-pressed`, announced in the live region) and the menu. Home opens with three audience cards: *Quiero unirme / I want to join* → `#participar`, *Ya estoy inscrito/a / I'm registered* → `#calendario`, and *Soy egresado/a / I'm a PEA graduate* → `#contacto`. “Is PEA a fit for me?” and the FAQ use `details.accordion-item`. The 16px card radius, pill shapes, Blue-tinted soft shadows and header/bar blur go beyond Brand Standard v4.1.0 §6.10 and are limited to this site. Every colour is still one of the 18 palette values, mapped through the `--color-*` tokens at the end of `hub.css`. `.skeleton-loader` is reserved CSS: the site has no live Airtable feed, and the CSP would block one.
+
 The first actions are interest form, class registration, calendar, information session and WhatsApp. Four bottom actions persist: Apply, **Register on Zoom**, Calendar and WhatsApp. Spanish registration wording is **Registro en Zoom**. Avoid the ambiguous standalone label “Zoom.” Links open in the same tab.
 
 ## Date-dependent behavior and pending work
@@ -112,6 +114,7 @@ Earlier QA: v0.10.0 checked nine routes in both languages at phone/desktop width
 - v0.10.1: original logo, untranslated tagline, compact sizing, rounded-corner headings, explicit Zoom registration label.
 - v0.10.2: removal of September 24 session details; October 1 registration and recording guidance.
 - v0.11.0: expandable class details in Calendar (module descriptions, Zoom registration, worksheet, resources and individual calendar downloads); financial-incentive FAQ and before/now section removed; school staff welcomed; free for every participant; “docentes” → “maestros”; parity gate now checks module descriptions and flags “docentes” and week-count language.
+- v0.12.0: design tokens mapped to the palette, sticky header with ES | EN pill toggle, floating bottom action bar with safe-area padding and icon-above-label layout, Home audience router cards, accordion eligibility and FAQ, reserved skeleton utility. See [maintenance/qa/v0.12.0.md](maintenance/qa/v0.12.0.md).
 
 The old `allined-pea.netlify.app` site and the original ZIP are historical comparison sources, not the release authority for this repository. Current approved corrections and the sources above govern future changes.
 

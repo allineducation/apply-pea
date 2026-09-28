@@ -30,7 +30,7 @@
       taglinePair: null,
       toolTitle: "Parent Educator Academy",
       toolSub: function (c) { return "Centro de inscripción · " + c; },
-      langSwitch: { toEn: "Switch to English", toEs: "Cambiar a español" },
+      langSwitch: { toEn: "Switch to English", toEs: "Cambiar a español", group: "Idioma", announced: "Página en español" },
 
       nav: {
         home: "Inicio", label: "Secciones del sitio",
@@ -301,7 +301,7 @@
       taglinePair: null,
       toolTitle: "Parent Educator Academy",
       toolSub: function (c) { return "Registration hub · " + c; },
-      langSwitch: { toEn: "Switch to English", toEs: "Cambiar a español" },
+      langSwitch: { toEn: "Switch to English", toEs: "Cambiar a español", group: "Language", announced: "Page in English" },
 
       nav: {
         home: "Home", label: "Site sections",
@@ -563,6 +563,12 @@
   };
 
   T.es.applicant = {
+  "audienceH": "¿Dónde está usted con PEA?",
+  "audience": [
+    ["Quiero unirme", "Pasos para inscribirse y la sesión informativa."],
+    ["Ya estoy inscrito/a", "Calendario de clases, Registro en Zoom y materiales."],
+    ["Soy egresado/a", "Cómo seguir conectado después de PEA."]
+  ],
   "benefitsH": "Herramientas para acompañar a su estudiante",
   "benefitsLead": "Explore lo que puede aprender y cómo se relaciona con situaciones de la vida diaria. Estos son objetivos de aprendizaje; cada familia tiene su propia experiencia.",
   "benefits": [
@@ -701,6 +707,12 @@
   "teamText": "El equipo de PEA es su contacto para preguntas sobre inscripción, acceso a Zoom y participación. Use el correo, WhatsApp o teléfono que aparecen abajo para pedir orientación antes de decidir o durante el programa."
 };
   T.en.applicant = {
+  "audienceH": "Where are you with PEA?",
+  "audience": [
+    ["I want to join", "Steps to sign up and the information session."],
+    ["I’m registered", "Class calendar, Register on Zoom and materials."],
+    ["I’m a PEA graduate", "How to stay connected after PEA."]
+  ],
   "benefitsH": "Tools to support your student",
   "benefitsLead": "Explore what you can learn and how it connects to everyday situations. These are learning goals; each family’s experience is different.",
   "benefits": [
