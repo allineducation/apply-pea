@@ -115,6 +115,7 @@ Earlier QA: v0.10.0 checked nine routes in both languages at phone/desktop width
 - v0.10.2: removal of September 24 session details; October 1 registration and recording guidance.
 - v0.11.0: expandable class details in Calendar (module descriptions, Zoom registration, worksheet, resources and individual calendar downloads); financial-incentive FAQ and before/now section removed; school staff welcomed; free for every participant; “docentes” → “maestros”; parity gate now checks module descriptions and flags “docentes” and week-count language.
 - v0.12.0: design tokens mapped to the palette, sticky header with ES | EN pill toggle, floating bottom action bar with safe-area padding and icon-above-label layout, Home audience router cards, accordion eligibility and FAQ, reserved skeleton utility. See [maintenance/qa/v0.12.0.md](maintenance/qa/v0.12.0.md).
+- v0.13.0: Participar gains a 3-step applicant orientation timeline, a help card (email/call, 48px targets) beside the join CTAs, and a program-details/commitment accordion; audience icons 📝 🎓 🤝. See [maintenance/qa/v0.13.0.md](maintenance/qa/v0.13.0.md).
 
 The old `allined-pea.netlify.app` site and the original ZIP are historical comparison sources, not the release authority for this repository. Current approved corrections and the sources above govern future changes.
 

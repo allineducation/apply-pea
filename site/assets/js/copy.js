@@ -563,6 +563,16 @@
   };
 
   T.es.applicant = {
+  "orientH": "Su camino a PEA en 3 pasos",
+  "orient": [
+    ["Revise quién puede participar", "Consulte los requisitos y el tiempo que necesita reservar."],
+    ["Revise las fechas", "Confirme el horario de clases y la sesión informativa."],
+    ["Envíe el formulario", "Llene el formulario de interés en línea."]
+  ],
+  "helpText": "¿Tiene preguntas sobre cómo inscribirse? Comuníquese con nuestro equipo para recibir ayuda.",
+  "helpEmail": "Escribir al equipo",
+  "helpCall": "Llamar",
+  "detailsH": "Detalles del programa y compromiso",
   "audienceH": "¿Dónde está usted con PEA?",
   "audience": [
     ["Quiero unirme", "Pasos para inscribirse y la sesión informativa."],
@@ -707,6 +717,16 @@
   "teamText": "El equipo de PEA es su contacto para preguntas sobre inscripción, acceso a Zoom y participación. Use el correo, WhatsApp o teléfono que aparecen abajo para pedir orientación antes de decidir o durante el programa."
 };
   T.en.applicant = {
+  "orientH": "Your path to PEA in 3 steps",
+  "orient": [
+    ["Check eligibility", "Review who can join and the time commitment."],
+    ["Review dates", "Confirm the class schedule and information session."],
+    ["Submit form", "Complete the interest form online."]
+  ],
+  "helpText": "Questions about applying? Contact our team for assistance.",
+  "helpEmail": "Email the team",
+  "helpCall": "Call",
+  "detailsH": "Program details and commitment",
   "audienceH": "Where are you with PEA?",
   "audience": [
     ["I want to join", "Steps to sign up and the information session."],
