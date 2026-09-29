@@ -1,5 +1,5 @@
 /* ==================================================================
-   PEA Applicant Hub — FACTS  (v0.14.0)
+   PEA Applicant Hub — FACTS  (v0.15.0)
    ------------------------------------------------------------------
    PRIMARY DATE AND LINK REGISTRY. Also review cohort policy copy.
    Cohort dates, duration and links are maintained here.
@@ -132,7 +132,10 @@ window.PEA_FACTS = {
       lista:       "https://bit.ly/pealista",
       flyer:       "https://bit.ly/peaflyer",
       vidAccount:  "https://bit.ly/peacuentadezoom",
-      vidName:     "https://bit.ly/peazoomnombre"
+      vidName:     "https://bit.ly/peazoomnombre",
+      /* "Resend my Zoom link" request form (Airtable). Leave empty until the
+         form and its automation are live; an empty link is simply not shown. */
+      resend:      ""
     },
     FA26: {
       info:     "https://bit.ly/peafa26info",          /* info session only — not class registration */
