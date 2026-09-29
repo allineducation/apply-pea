@@ -1,6 +1,6 @@
 {
   "spec": "PEA_Zoom_Link_Resend_Build_Spec",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "status": "draft — not yet approved for execution",
   "prepared": "2026-09-29",
   "owner": "Danny Hernández, Community Impact & Learning Manager, ALL In Education",
@@ -111,6 +111,15 @@
       "value": [],
       "verify_in": "phase_0",
       "note": "Fill with Enrollments → Status options that mean the person left the program (for example Withdrawn or Dropped). The human confirms at Checkpoint 1."
+    },
+    "DUPLICATE_WINDOW_HOURS": 24,
+    "GLOBAL_CAP_PER_HOUR": {
+      "value": 30,
+      "note": "A safety valve against bots. FA26 has far fewer participants than this per hour; the human can lower it at Checkpoint 1."
+    },
+    "DIGEST_SCHEDULE": {
+      "value": "Daily at 8:00 AM America/Phoenix",
+      "note": "The human may add a second run at 3:00 PM on class days (Tuesday and Thursday) at Checkpoint 1."
     }
   },
   "phases": [
@@ -144,7 +153,8 @@
         "EXCLUDED_ENROLLMENT_STATUSES lists every status that should NOT get a link.",
         "The duplicate-email count is acceptable. Duplicates go to 'Needs review' instead of sending.",
         "The new table and fields in phase_1 are acceptable.",
-        "The email and form copy in the copy section reads well in both languages."
+        "The email and form copy in the copy section reads well in both languages.",
+        "GLOBAL_CAP_PER_HOUR and DIGEST_SCHEDULE are acceptable."
       ],
       "approval_phrase": "APPROVED: proceed to Phase 1",
       "on_changes_requested": "Update the config and copy, re-post the phase_0 report with the changes marked, and wait."
@@ -189,8 +199,10 @@
                 "New",
                 "Sent",
                 "Not found",
-                "Rate limited",
                 "Needs review",
+                "Rate limited",
+                "Duplicate",
+                "Throttled",
                 "Error"
               ],
               "default": "New"
@@ -209,6 +221,12 @@
               "name": "Result Note",
               "type": "multilineText",
               "description": "Why the automation chose this outcome. Never store a Zoom URL here."
+            },
+            {
+              "name": "Alerted At",
+              "type": "dateTime",
+              "timezone": "America/Phoenix",
+              "description": "When this request was included in the team follow-up digest. Empty means not yet reported."
             }
           ]
         },
@@ -252,7 +270,8 @@
             "Status",
             "Matched Enrollment",
             "Processed At",
-            "Result Note"
+            "Result Note",
+            "Alerted At"
           ],
           "submit_button": "Enviar | Send",
           "confirmation_message_ref": "copy.form.confirmation",
@@ -295,6 +314,7 @@
               "firstName",
               "joinUrl",
               "lang",
+              "nextCount",
               "note"
             ]
           },
@@ -315,8 +335,10 @@
                     "type": "updateRecord",
                     "table": "Enrollments",
                     "record": "{decide.enrollmentId}",
+                    "runs_after": "the Gmail action succeeds",
                     "fields": {
-                      "Link Resent At": "{trigger.record.Submitted At}"
+                      "Link Resent At": "{trigger.record.Submitted At}",
+                      "Link Resend Count": "{decide.nextCount}"
                     }
                   },
                   {
@@ -342,13 +364,6 @@
                 "when": "decide.outcome = 'not_found' OR decide.outcome = 'needs_review'",
                 "do": [
                   {
-                    "type": "gmailSendEmail",
-                    "connection": "same as Zoom — Welcome email",
-                    "to": "pea@allineducation.org",
-                    "subject_ref": "copy.team_alert.subject",
-                    "body_ref": "copy.team_alert.body"
-                  },
-                  {
                     "type": "updateRecord",
                     "table": "Zoom Link Requests",
                     "record": "{trigger.record.id}",
@@ -358,25 +373,27 @@
                       "Result Note": "{decide.note}"
                     }
                   }
-                ]
+                ],
+                "note": "No email here. These requests are reported once a day by the digest automation (issue #7)."
               },
               {
-                "when": "decide.outcome = 'rate_limited'",
+                "when": "decide.outcome IN ('rate_limited', 'duplicate', 'throttled')",
                 "do": [
                   {
                     "type": "updateRecord",
                     "table": "Zoom Link Requests",
                     "record": "{trigger.record.id}",
                     "fields": {
-                      "Status": "Rate limited",
+                      "Status": "Rate limited, Duplicate or Throttled, matching decide.outcome",
                       "Processed At": "{trigger.record.Submitted At}",
                       "Result Note": "{decide.note}"
                     }
                   }
-                ]
+                ],
+                "note": "No email and no alert."
               }
             ],
-            "fallback": "If the script throws, Airtable marks the run as failed. Set up the automation's failure notification to email pea@allineducation.org."
+            "fallback": "If the script or the Gmail step throws, Airtable marks the run as failed and Link Resend Count is not changed. Set up the automation's failure notification to email pea@allineducation.org."
           }
         ]
       },
@@ -384,17 +401,66 @@
         "The automation ID. Confirm it is OFF.",
         "The trigger and each action with its field mappings.",
         "The final script as pasted.",
-        "The email subject and body for each branch as configured."
-      ]
+        "The email subject and body for each branch as configured.",
+        "The digest automation ID. Confirm it is OFF, and give its schedule."
+      ],
+      "digest_automation": {
+        "name": "Zoom — Resend link follow-up digest",
+        "deployment": "OFF until Checkpoint 3",
+        "trigger": {
+          "type": "scheduled",
+          "schedule_ref": "config.DIGEST_SCHEDULE"
+        },
+        "actions": [
+          {
+            "key": "collect",
+            "type": "runScript",
+            "script_ref": "scripts.digest_collect",
+            "outputs": [
+              "count",
+              "summary",
+              "ids"
+            ]
+          },
+          {
+            "type": "conditionalGroups",
+            "branches": [
+              {
+                "when": "collect.count > 0",
+                "do": [
+                  {
+                    "type": "gmailSendEmail",
+                    "connection": "same as Zoom — Welcome email",
+                    "to": "pea@allineducation.org",
+                    "subject_ref": "copy.team_digest.subject",
+                    "body_ref": "copy.team_digest.body"
+                  },
+                  {
+                    "key": "mark",
+                    "type": "runScript",
+                    "script_ref": "scripts.digest_mark",
+                    "input_variables": {
+                      "ids": "{collect.ids}"
+                    },
+                    "runs_after": "the Gmail action succeeds"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "why": "One summary email a day, however many public submissions arrive. A flood of fake emails cannot fill the team inbox or use up the email quota (issue #7)."
+      }
     },
     {
       "id": "checkpoint_2",
       "type": "HUMAN_REVIEW",
       "title": "Approve the automation configuration and the test plan before any email is sent",
       "reviewer_checks": [
+        "Both automations are OFF.",
         "The automation is OFF.",
         "The Gmail branches use the same sending account as the welcome email.",
-        "Participant emails go only to decide.toEmail, the email on the Enrollment. Team alerts go only to pea@allineducation.org.",
+        "Participant emails go only to decide.toEmail, the email on the Enrollment. The only team email is the daily digest; no email is sent per submission.",
         "No Zoom URL is written to any field or note.",
         "The test plan in phase_3 uses only staff test enrollments. The human names the test enrollment records."
       ],
@@ -412,7 +478,7 @@
         {
           "id": "T1",
           "input": "The staff test email, exactly as on the Enrollment, Language = Español",
-          "expect": "Status Sent; the Spanish email arrives at that staff inbox with the correct link; Link Resent At set; Link Resend Count = 1"
+          "expect": "Status Sent; the Spanish email arrives at that staff inbox with the correct link; Link Resent At set; Link Resend Count = 1 (written after the email sends)"
         },
         {
           "id": "T2",
@@ -427,21 +493,41 @@
         {
           "id": "T4",
           "input": "An email not in Enrollments, such as a staff alias",
-          "expect": "Status Not found; team alert to pea@; nothing sent to the typed address"
+          "expect": "Status Not found; no email to anyone right away; Alerted At empty"
         },
         {
           "id": "T5",
           "input": "An email shared by two FA26 test enrollments (the human sets this up)",
-          "expect": "Status Needs review; team alert; no participant email"
+          "expect": "Status Needs review; no participant email and no immediate team email; Alerted At empty"
         },
         {
           "id": "T6",
           "input": "A test enrollment with an empty Zoom Join URL",
-          "expect": "Status Needs review; team alert; no participant email"
+          "expect": "Status Needs review; no participant email and no immediate team email; Alerted At empty"
+        },
+        {
+          "id": "T7",
+          "input": "The T4 unknown email submitted again within 24 hours",
+          "expect": "Status Duplicate; no lookup; no email"
+        },
+        {
+          "id": "T8",
+          "input": "Temporarily set GLOBAL_CAP_PER_HOUR to 3, submit 4 requests in a row with different unknown staff aliases, then set it back to 30",
+          "expect": "The 4th request is marked Throttled; no email"
+        },
+        {
+          "id": "T9",
+          "input": "Run the digest automation with 'Test'",
+          "expect": "Exactly one email to pea@ that lists the Not found and Needs review requests from T4–T6 by record ID and reason (no Zoom links, no emails in the subject); their Alerted At is set. Run it again: no email"
+        },
+        {
+          "id": "T10",
+          "input": "Temporarily break the Gmail step (for example, remove the recipient) and submit a request for a staff test enrollment, then restore the step",
+          "expect": "The run fails and Link Resend Count does not change (issue #8)"
         }
       ],
       "phase_report": [
-        "A pass or fail table for T1–T6, with record IDs only and no emails or links.",
+        "A pass or fail table for T1–T10, with record IDs only and no emails or links.",
         "Screenshots of the received test emails, with the link blurred.",
         "Confirmation that the automation is back OFF after testing, unless the human said otherwise."
       ]
@@ -451,7 +537,7 @@
       "type": "HUMAN_REVIEW",
       "title": "Approve go-live",
       "reviewer_checks": [
-        "T1–T6 all pass.",
+        "T1–T10 all pass.",
         "The received emails read well in both languages.",
         "The human turns the automation ON personally, or tells the agent to."
       ],
@@ -462,10 +548,10 @@
       "id": "phase_4",
       "name": "Go live on the hub",
       "steps": [
-        "Confirm the automation is ON.",
+        "Confirm both automations are ON.",
         "In allineducation/apply-pea, create a branch from main. In site/assets/js/facts.js, set links.global.resend to the form's share URL. Change nothing else.",
         "Run: node maintenance/scripts/check-parity.js. It must pass.",
-        "Add a short note under 'Approved applicant content' in README.md: 'Resend my Zoom link: Airtable form → automation Zoom — Resend link (request form); team alerts go to pea@allineducation.org.'",
+        "Add a short note under 'Approved applicant content' in README.md: 'Resend my Zoom link: Airtable form → automation Zoom — Resend link (request form); follow-ups go to pea@allineducation.org in one daily digest.'",
         "Open a draft pull request that describes the change and links this spec. Do not merge; the human merges.",
         "After the human merges, confirm that the Netlify production deploy for the merge commit is ready. On the live site, open 'How to take part' and 'Questions & help' in ES and EN, and check that the resend button and link appear and open the form."
       ],
@@ -488,42 +574,57 @@
     "decide": {
       "language": "javascript (Airtable automation 'Run a script')",
       "code": [
-        "// Decide whether to resend a personal Zoom link. Reads only; writes the Link Resend Count.",
-        "// Never outputs a URL to any field other than the Gmail action that emails the owner of the enrollment.",
-        "const COHORT_ID = 'FA26';                 // confirmed at Checkpoint 1",
-        "const EXCLUDED_STATUSES = [];             // Enrollments → Status values that must not receive a link",
-        "const WINDOW_MS = 24 * 60 * 60 * 1000;    // RESEND_WINDOW_HOURS",
+        "// Decide whether to resend a personal Zoom link. Read-only: it never writes to any table.",
+        "// The automation's update steps record the outcome after the Gmail action succeeds.",
+        "const COHORT_ID = 'FA26';                  // confirmed at Checkpoint 1",
+        "const EXCLUDED_STATUSES = [];              // Enrollments → Status values that must not receive a link",
+        "const RESEND_WINDOW_MS = 24 * 3600 * 1000; // RESEND_WINDOW_HOURS",
+        "const DUPLICATE_WINDOW_MS = 24 * 3600 * 1000;",
+        "const GLOBAL_CAP_PER_HOUR = 30;",
         "",
         "async function main() {",
         "  const { requestId } = input.config();",
         "  const reqTable = base.getTable('Zoom Link Requests');",
         "  const enrTable = base.getTable('Enrollments');",
         "",
-        "  const reqs = await reqTable.selectRecordsAsync({ fields: ['Email', 'Language', 'Status', 'Processed At'] });",
+        "  const reqs = await reqTable.selectRecordsAsync({ fields: ['Email', 'Language', 'Submitted At'] });",
         "  const req = reqs.getRecord(requestId);",
         "  if (!req) throw new Error('Request not found: ' + requestId);",
         "  const typed = req.getCellValueAsString('Email').trim().toLowerCase();",
         "  const lang = req.getCellValueAsString('Language') === 'English' ? 'en' : 'es';",
+        "  const submitted = new Date(req.getCellValue('Submitted At') || Date.now()).getTime();",
         "",
         "  function done(outcome, note, extra) {",
+        "    extra = extra || {};",
         "    output.set('outcome', outcome);",
         "    output.set('note', note);",
         "    output.set('lang', lang);",
-        "    output.set('enrollmentId', (extra && extra.enrollmentId) || '');",
-        "    output.set('toEmail', (extra && extra.toEmail) || '');",
-        "    output.set('firstName', (extra && extra.firstName) || '');",
-        "    output.set('joinUrl', (extra && extra.joinUrl) || '');",
+        "    output.set('enrollmentId', extra.enrollmentId || '');",
+        "    output.set('toEmail', extra.toEmail || '');",
+        "    output.set('firstName', extra.firstName || '');",
+        "    output.set('joinUrl', extra.joinUrl || '');",
+        "    output.set('nextCount', extra.nextCount || 0);",
         "  }",
+        "",
+        "  // 1. Flood guard: too many requests in the last hour → throttle without a lookup or email.",
+        "  const others = reqs.records.filter(r => r.id !== requestId);",
+        "  const t = r => new Date(r.getCellValue('Submitted At') || 0).getTime();",
+        "  const lastHour = others.filter(r => submitted - t(r) >= 0 && submitted - t(r) < 3600 * 1000);",
+        "  if (lastHour.length >= GLOBAL_CAP_PER_HOUR) { done('throttled', 'Over ' + GLOBAL_CAP_PER_HOUR + ' requests in the last hour.'); return; }",
         "",
         "  if (!typed) { done('needs_review', 'Empty email on request.'); return; }",
         "",
+        "  // 2. Same typed email already asked recently → duplicate, no lookup or email.",
+        "  const repeat = others.some(r => r.getCellValueAsString('Email').trim().toLowerCase() === typed && submitted - t(r) >= 0 && submitted - t(r) < DUPLICATE_WINDOW_MS);",
+        "  if (repeat) { done('duplicate', 'Same email already requested within the window.'); return; }",
+        "",
+        "  // 3. Look up the enrollment.",
         "  const enr = await enrTable.selectRecordsAsync({ fields: ['Email', 'Cohort', 'Status', 'Zoom Registration Status', 'Zoom Join URL', 'First (from Person)', 'Link Resent At', 'Link Resend Count'] });",
         "  const matches = enr.records.filter(r =>",
         "    r.getCellValueAsString('Email').trim().toLowerCase() === typed &&",
         "    (r.getCellValue('Cohort') || []).some(c => c.name === COHORT_ID) &&",
         "    !EXCLUDED_STATUSES.includes(r.getCellValueAsString('Status'))",
         "  );",
-        "",
         "  if (matches.length === 0) { done('not_found', 'No ' + COHORT_ID + ' enrollment for this email.'); return; }",
         "  if (matches.length > 1) { done('needs_review', 'More than one ' + COHORT_ID + ' enrollment for this email: ' + matches.map(m => m.id).join(', ')); return; }",
         "",
@@ -533,19 +634,18 @@
         "    done('needs_review', 'Enrollment ' + m.id + ' has no ready Zoom link.', { enrollmentId: m.id });",
         "    return;",
         "  }",
-        "",
         "  const last = m.getCellValue('Link Resent At');",
-        "  if (last && (Date.now() - new Date(last).getTime()) < WINDOW_MS) {",
+        "  if (last && (submitted - new Date(last).getTime()) < RESEND_WINDOW_MS) {",
         "    done('rate_limited', 'Link already resent within the window for enrollment ' + m.id + '.', { enrollmentId: m.id });",
         "    return;",
         "  }",
         "",
-        "  await enrTable.updateRecordAsync(m.id, { 'Link Resend Count': (m.getCellValue('Link Resend Count') || 0) + 1 });",
         "  done('send', 'Resent to the email on enrollment ' + m.id + '.', {",
         "    enrollmentId: m.id,",
         "    toEmail: m.getCellValueAsString('Email').trim(),",
         "    firstName: m.getCellValueAsString('First (from Person)'),",
-        "    joinUrl: url",
+        "    joinUrl: url,",
+        "    nextCount: (m.getCellValue('Link Resend Count') || 0) + 1",
         "  });",
         "}",
         "",
@@ -553,9 +653,40 @@
       ],
       "notes": [
         "If Cohort link objects expose the Cohort ID under a different property than .name, adjust the match and report the change at Checkpoint 2.",
-        "The Gmail action sends to toEmail, which comes from the Enrollment record, never the typed value. They match after normalization, but the Enrollment is the source of truth.",
-        "Link Resent At and Processed At are set by the update steps after the Gmail action, mapped from the trigger record's 'Submitted At', so they are recorded only after a send succeeds. The count is incremented just before the send; if the Gmail step fails, the automation run fails and the team is alerted.",
+        "The Gmail action sends to toEmail, which comes from the Enrollment record, never the typed value.",
+        "The script writes nothing. Link Resent At and Link Resend Count (= nextCount) are written by the update step that runs after the Gmail action, so a failed send changes neither (issue #8).",
+        "The flood guard and the duplicate check run before any Enrollments lookup, so bot traffic costs one small read and no email (issue #7).",
         "The logic sits inside main() so the early 'return' statements are valid in any Airtable script runtime."
+      ]
+    },
+    "digest_collect": {
+      "language": "javascript (Airtable automation 'Run a script')",
+      "code": [
+        "// Collect requests that need a person and have not been reported yet. Read-only.",
+        "const FOLLOW_UP = ['Not found', 'Needs review', 'Error'];",
+        "const table = base.getTable('Zoom Link Requests');",
+        "const q = await table.selectRecordsAsync({ fields: ['Request', 'Status', 'Result Note', 'Submitted At', 'Alerted At'] });",
+        "const todo = q.records.filter(r => FOLLOW_UP.includes(r.getCellValueAsString('Status')) && !r.getCellValue('Alerted At'));",
+        "const lines = todo.map(r => '• ' + r.getCellValueAsString('Request') + ' — ' + r.getCellValueAsString('Status') + ': ' + r.getCellValueAsString('Result Note'));",
+        "output.set('count', todo.length);",
+        "output.set('summary', lines.join('\\n'));",
+        "output.set('ids', todo.map(r => r.id).join(','));"
+      ],
+      "notes": [
+        "The summary lists request numbers, statuses and reasons only; it never includes typed emails or Zoom links."
+      ]
+    },
+    "digest_mark": {
+      "language": "javascript (Airtable automation 'Run a script')",
+      "code": [
+        "// Mark reported requests so tomorrow's digest skips them. Runs only after the digest email sends.",
+        "const { ids } = input.config();",
+        "const table = base.getTable('Zoom Link Requests');",
+        "const now = new Date().toISOString();",
+        "const list = (ids || '').split(',').filter(Boolean);",
+        "for (let i = 0; i < list.length; i += 50) {",
+        "  await table.updateRecordsAsync(list.slice(i, i + 50).map(id => ({ id, fields: { 'Alerted At': now } })));",
+        "}"
       ]
     }
   },
@@ -573,25 +704,43 @@
       "subject": "Your personal Zoom link for PEA",
       "body": "Hi {firstName},\n\nHere’s your personal Zoom link for Parent Educator Academy (PEA) classes:\n\n{joinUrl}\n\nIt’s the same link for every class. It’s just for you, so please don’t share it.\n\nClasses meet Tuesdays and Thursdays, 5:00–6:30 PM Arizona time. A few minutes before each class, open the Zoom app, sign in, and click your link. Wait in the PEA Virtual Waiting Room, and we’ll bring you into class.\n\nDidn’t ask for this email? You can ignore it. Have questions? Call, text, or WhatsApp 602-759-0619.\n\nWarmly,\nThe PEA team · ALL In Education\npea@allineducation.org"
     },
-    "team_alert": {
-      "subject": "[PEA] Zoom link request needs follow-up",
-      "body": "A 'resend my Zoom link' request could not be sent automatically.\n\nOutcome: {decide.outcome}\nReason: {decide.note}\nRequest record: {trigger.record.url}\nLanguage: {trigger.record.Language}\n\nPlease check the 'Needs follow-up' view in Zoom Link Requests and contact the applicant. Do not reply to this message with a Zoom link.",
-      "note": "Do not include the typed email in the subject line."
-    },
-    "cohort_rollover": "When SP27 opens, update COHORT_ID and the class-day line in both emails. Review both emails for dates."
+    "cohort_rollover": "When SP27 opens, update COHORT_ID and the class-day line in both emails. Review both emails for dates.",
+    "team_digest": {
+      "subject": "[PEA] Zoom link requests to follow up ({collect.count})",
+      "body": "Good morning,\n\nThese 'resend my Zoom link' requests could not be sent automatically and need a person:\n\n{collect.summary}\n\nOpen the 'Needs follow-up' view in Zoom Link Requests to see each request and contact the applicant. Please do not reply to this email with a Zoom link.",
+      "note": "One email per scheduled run, only when there is something to report."
+    }
   },
   "privacy_and_safety": [
     "Anti-enumeration: the form confirmation is identical for every outcome.",
     "Delivery only to the address on file: a stranger who types someone else's email only causes that person to get their own link.",
     "Rate limit: one send per enrollment per 24 hours.",
+    "Flood protection: no email is sent per unrecognized submission. There is one daily digest to the team, repeat requests are marked Duplicate, and anything over GLOBAL_CAP_PER_HOUR is marked Throttled.",
     "No Zoom URL is stored outside the Enrollments table or shown on any page.",
     "The public repository gets only the form's share URL, never participant data.",
     "Rollback: clear links.global.resend in facts.js (the hub hides the button) and turn the automation OFF. Nothing needs to be deleted."
   ],
   "acceptance_criteria": [
-    "T1–T6 pass, and results are recorded at Checkpoint 3.",
+    "T1–T10 pass, and results are recorded at Checkpoint 3.",
     "The existing 'Zoom — Welcome email' automation is unchanged (compare its configuration before and after).",
     "The hub shows the resend button in ES and EN only after go-live.",
     "The 'Needs follow-up' view exists, and the README runbook names who checks it."
+  ],
+  "changelog": [
+    {
+      "version": "0.2.0",
+      "date": "2026-09-29",
+      "changes": [
+        "Issue #8: Link Resend Count is written only after the Gmail action succeeds. The decide script no longer writes to Enrollments; it outputs nextCount, which the post-send update step records.",
+        "Issue #7: no email is sent per unrecognized submission. Not found / Needs review requests are held for a once-a-day digest to pea@allineducation.org. Repeat requests from the same typed email within 24 hours are marked Duplicate. When more than GLOBAL_CAP_PER_HOUR requests arrive in an hour, the rest are marked Throttled. Both are handled with no email and no lookup."
+      ]
+    },
+    {
+      "version": "0.1.0",
+      "date": "2026-09-29",
+      "changes": [
+        "First draft."
+      ]
+    }
   ]
 }

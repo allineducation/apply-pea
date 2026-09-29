@@ -1,5 +1,5 @@
 /* ==================================================================
-   PEA Applicant Hub — FACTS  (v0.15.0)
+   PEA Applicant Hub — FACTS  (v0.15.1)
    ------------------------------------------------------------------
    PRIMARY DATE AND LINK REGISTRY. Also review cohort policy copy.
    Cohort dates, duration and links are maintained here.
@@ -35,6 +35,7 @@ window.PEA_FACTS = {
     email: "pea@allineducation.org",
     phone: "602-759-0619",
     phoneHref: "tel:+16027590619",
+    smsHref: "sms:+16027590619",
     waHref: "https://api.whatsapp.com/send?phone=16027590619",
     web: "https://allineducation.org"
   },

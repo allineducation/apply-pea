@@ -1,5 +1,5 @@
 /* ==================================================================
-   PEA Applicant Hub — app  (v0.15.0)
+   PEA Applicant Hub — app  (v0.15.1)
    Vanilla JS, no build step, no dependencies. State-based navigation
    (hash routes) per AIE Hub Design System §5.1. Every date, time and
    link resolves from facts.js; every string from copy.js.
@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.15.0";
+  var VERSION = "0.15.1";
   var UPDATED = "2026-09-29";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -218,7 +218,10 @@
         '<div class="step-body"><div class="step-head"><h3 class="h3">' + esc(s.t) + "</h3></div>" +
         (compact ? "<p>" + esc(s.short) + "</p>"
           : "<p>" + esc(s.d) + "</p>" +
-            (s.list ? "<" + tag + ' class="step-list">' + s.list.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</" + tag + ">" : "") +
+            (s.list ? "<" + tag + ' class="step-list">' + s.list.map(function (x) {
+              if (typeof x === "object") { if (x.whileInfo && !link("info")) return ""; x = x.t; }   /* info-session items hide once it has passed */
+              return "<li>" + esc(x) + "</li>";
+            }).join("") + "</" + tag + ">" : "") +
             (s.after ? "<p>" + esc(s.after) + "</p>" : "")) +
         (u ? btnRow(ext(u, esc(s.cta), "btn btn-sm " + (s.key ? "btn-primary" : "btn-secondary"))) : "") +
         "</div></li>";
@@ -229,8 +232,10 @@
     return '<aside class="help-card" aria-label="' + esc(L.help.contactH) + '"><p>' + esc(S.helpText) + '</p><div class="help-links">' +
       '<a class="help-link" href="mailto:' + esc(O.email) + '"><span aria-hidden="true">✉️</span><span>' + esc(S.helpEmail) + "</span></a>" +
       '<a class="help-link" href="' + esc(O.phoneHref) + '"><span aria-hidden="true">📞</span><span>' + esc(S.helpCall + " " + O.phone) + "</span></a>" +
+      '<a class="help-link" href="' + esc(O.smsHref) + '"><span aria-hidden="true">💬</span><span>' + esc(S.helpSms) + "</span></a>" +
       "</div></aside>";
   }
+  function infoNote() { return link("info") ? L.steps.infoNote : L.steps.infoPastNote; }   /* never point to an expired link */
   function infoCardHtml() {
     var infos = EV.filter(function (e) { return e.kind === "info"; });
     if (!infos.length) return "";
@@ -240,7 +245,7 @@
         return '<li class="check"><div><div class="h3">' + esc(cap(longDate(e.start))) + '</div><div class="small">' + esc(spanDash(e.start, e.end)) +
           (past ? " · " + esc(L.cal.done) : "") + "</div></div></li>";
       }).join("") + "</ul>" +
-      '<p class="small">' + esc(L.steps.infoNote) + "</p>" +
+      '<p class="small">' + esc(infoNote()) + "</p>" +
       btnRow(ext(link("info"), esc(L.cal.infoJoin), "btn btn-secondary btn-sm")) + "</div>";
   }
   function zoomHelpHtml() {
@@ -291,7 +296,7 @@
   function calDetail(e) {
     var D = L.cal.detail, over = new Date(e.end).getTime() < NOW.getTime();
     var mod = e.module && F.modules ? F.modules[e.module] : null;
-    var desc = e.kind === "info" ? L.steps.infoNote : (mod ? mod[lang] : "");
+    var desc = e.kind === "info" ? infoNote() : (mod ? mod[lang] : "");
     var b = "", notes = "";
     if (e.kind === "info") {
       if (!over && link("info", e._c)) b += ext(link("info", e._c), esc(L.cal.infoJoin), "btn btn-primary btn-sm");
@@ -378,11 +383,11 @@
   }
 
   function faqItems() {
-    var ctx = { label: lang === "es" ? lowerFirst(C.label_es) : C.label_en, lang: teachLang() || "" };
+    var ctx = { label: lang === "es" ? lowerFirst(C.label_es) : C.label_en, lang: teachLang() || "", infoOpen: !!link("info") };
     var items = [];
     L.faq.items.forEach(function (q) {
-      if (typeof q[1] === "function") { if (ctx.lang) items.push([q[0], q[1](ctx)]); }   /* needs a known teaching language */
-      else items.push(q);
+      var a = typeof q[1] === "function" ? q[1](ctx) : q[1];   /* date- and cohort-aware answers; "" hides the question */
+      if (a) items.push([q[0], a]);
     });
     return items;
   }
@@ -390,7 +395,7 @@
     var O = F.org, P = L.help, Lb = P.labels;
     return section(P.contactH, P.contactLead, '<div class="card top-blue"><dl class="kv">' +
       "<dt>" + esc(Lb.email) + '</dt><dd><a href="mailto:' + esc(O.email) + '">' + esc(O.email) + "</a></dd>" +
-      "<dt>" + esc(Lb.phone) + '</dt><dd><a href="' + esc(O.phoneHref) + '">' + esc(O.phone) + "</a></dd>" +
+      "<dt>" + esc(Lb.phone) + '</dt><dd><a href="' + esc(O.phoneHref) + '">' + esc(O.phone) + '</a> · <a href="' + esc(O.smsHref) + '">' + esc(P.smsCta) + "</a></dd>" +
       "<dt>" + esc(Lb.wa) + "</dt><dd>" + ext(O.waHref, esc(P.waCta)) + "</dd>" +
       "<dt>" + esc(Lb.web) + "</dt><dd>" + ext(O.web, esc(P.webLabel)) + "</dd>" +
       "</dl></div>");
