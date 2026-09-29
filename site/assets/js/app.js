@@ -255,7 +255,7 @@
   }
   function commitmentHtml() {
     var A = L.applicant;
-    return applicantSection(A.detailsH, '', accordion([[A.commitmentH, A.commitmentText, A.commitmentNote], [A.certificateH, A.certificateText]]));
+    return applicantSection(A.detailsH, '', accordion([[A.commitmentH, A.commitmentText, A.commitmentNote]]));
   }
   function helpCardHtml() {
     var A = L.applicant, O = F.org;

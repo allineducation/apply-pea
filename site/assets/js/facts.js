@@ -150,7 +150,6 @@ window.PEA_FACTS = {
   cohorts: {
     FA26: {
       code: "FA26", num: 12,
-      minimumAttendance: 16,
       label_es: "Otoño 2026", label_en: "Fall 2026",
       teaching_es: "español", teaching_en: "Spanish",
       weeks: 10,

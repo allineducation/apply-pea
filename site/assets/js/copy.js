@@ -218,7 +218,7 @@
           ["¿Necesito una cuenta de Zoom?", "Descargue la aplicación de Zoom en su dispositivo y asegúrese de poder iniciar sesión. Para entrar a clase, use el enlace personal de su correo de bienvenida. No necesita registrarse por separado en Zoom. La sección «Zoom paso a paso» le muestra cómo prepararse."],
           ["No encuentro mi correo de bienvenida. ¿Qué hago?", "Revise la carpeta de spam o correo no deseado. Si aún no lo encuentra, escríbanos a pea@allineducation.org o llame, mande un texto o un WhatsApp al 602-759-0619."],
           ["Trabajo en una escuela. ¿Cómo puedo ayudar a las familias?", "Ayude a las familias a llenar el formulario de interés, a encontrar su correo de bienvenida y a comunicarse con nuestro equipo si necesitan ayuda. Cada persona recibe su propio enlace personal de acceso a Zoom."],
-          ["¿Qué pasa si falto a una clase?", "Avise al equipo de PEA con anticipación si no puede asistir. Para recibir su certificado, debe asistir al menos a 16 de las 18 clases. Escríbanos si necesita apoyo para cumplir este requisito."], /* [G] */
+          ["¿Qué pasa si falto a una clase?", "Avise al equipo de PEA con anticipación si no puede asistir y pregunte cómo mantenerse al día."],
           ["¿Puedo participar desde el teléfono?", "Sí, aunque la computadora o la tableta hacen la experiencia mejor: se ven los materiales y es más fácil participar. Si el teléfono es lo que tiene, el teléfono funciona."], /* [G] */
           ["¿Qué es la encuesta de salida?", "Es una encuesta corta que se completa después de cada clase — entre cinco y ocho preguntas, dos a cuatro minutos. Nos dice qué está funcionando y qué no, y es la razón por la que el programa cambia de una cohorte a otra."], /* [G] */
           ["¿Hay algo después del programa?", "Sí. Los exalumnos siguen conectados con ALL In Education — hay grupos de enfoque, oportunidades de liderazgo y acompañamiento a las familias nuevas. La graduación es el final del curso, no del vínculo."] /* [G]; "AIE" → full name per brand §4 */
@@ -470,7 +470,7 @@
           ["Do I need a Zoom account?", "Download the Zoom app to your device and make sure you can sign in. To join class, use the personal link in your welcome email. You do not need to register separately in Zoom. The “Zoom step by step” section shows you how to get ready."],
           ["I cannot find my welcome email. What do I do?", "Check your spam or junk folder. If you still cannot find it, contact us at pea@allineducation.org or call, text, or WhatsApp 602-759-0619."],
           ["I work at a school. How can I help families?", "Please help families complete the interest form, find their welcome email, and contact our team if they need help. Each applicant receives a personal Zoom access link."],
-          ["What happens if I miss a class?", "Notify the PEA team in advance if you cannot attend. To receive your certificate, you must attend at least 16 of the 18 classes. Contact us if you need support meeting this requirement."],
+          ["What happens if I miss a class?", "Notify the PEA team in advance if you cannot attend, and ask how to stay up to date."],
           ["Can I take part from my phone?", "Yes, though a computer or tablet makes for a better experience: the materials are easier to see and it is easier to take part. If a phone is what you have, a phone works."],
           ["What is the exit ticket?", "It is a short survey completed after each class — five to eight questions, two to four minutes. It tells us what is working and what is not, and it is the reason the program changes from one cohort to the next."],
           ["Is there anything after the program?", "Yes. Alumni stay connected to ALL In Education — there are focus groups, leadership opportunities, and the chance to walk alongside families coming in. Graduation ends the course, not the relationship."]
@@ -528,7 +528,7 @@
   "helpText": "¿Tiene preguntas o no encuentra su correo de bienvenida? Revise la carpeta de spam o correo no deseado. Si aún no lo encuentra, comuníquese con nuestro equipo.",
   "helpEmail": "Escribir al equipo",
   "helpCall": "Llamar o mandar texto",
-  "detailsH": "Detalles del programa y compromiso",
+  "detailsH": "Detalles del programa",
   "audienceH": "¿Dónde está usted con PEA?",
   "audience": [
     ["Quiero unirme", "Pasos para inscribirse y la sesión informativa."],
@@ -595,8 +595,6 @@
   "commitmentH": "El tiempo que necesita reservar",
   "commitmentText": "18 sesiones de 90 minutos: 27 horas programadas en vivo. Nos reunimos los martes y jueves de 5:00 a 6:30 p. m., hora de Arizona. El calendario incluye la pausa por el Día de Acción de Gracias.",
   "commitmentNote": "Ese cálculo corresponde solo a las 18 clases, incluida la graduación. No incluye la sesión informativa opcional ni el grupo de enfoque. Consulte al equipo si necesita saber cuánto tiempo adicional requieren los materiales o las actividades.",
-  "certificateH": "Su certificado",
-  "certificateText": "Debe asistir al menos a 16 de las 18 clases para recibir su certificado. Avise con anticipación si no puede asistir. El equipo puede explicarle los demás requisitos de participación y cómo se entrega el certificado.",
   "staffH": "Para el personal escolar",
   "staffText": "Ayude a las familias a llenar el formulario de interés, a encontrar su correo de bienvenida y a comunicarse con nuestro equipo si necesitan ayuda. Cada persona recibe su propio enlace personal de acceso a Zoom.",
   "supportH": "Hablemos de lo que necesita para participar",
@@ -629,10 +627,6 @@
       "Las 18 clases de 90 minutos suman 27 horas en vivo. Las clases son los martes y jueves, de 5:00 a 6:30 p. m., hora de Arizona. La sesión informativa opcional y el grupo de enfoque son adicionales; consulte al equipo sobre el tiempo para actividades fuera de clase."
     ],
     [
-      "¿Recibiré un certificado?",
-      "Para recibir su certificado, debe asistir al menos a 16 de las 18 clases. Consulte al equipo sobre los demás requisitos de participación y la entrega del certificado."
-    ],
-    [
       "¿Se graban las clases o puedo recuperar una sesión?",
       "Antes de inscribirse, consulte al equipo sobre la política vigente de grabaciones y recuperación de clases. Si sabe que faltará a una sesión, avise con anticipación y pregunte cómo puede mantenerse al día."
     ],
@@ -659,7 +653,7 @@
   "helpText": "Questions, or missing your welcome email? Check your spam or junk folder. If you still cannot find it, contact our team.",
   "helpEmail": "Email the team",
   "helpCall": "Call or text",
-  "detailsH": "Program details and commitment",
+  "detailsH": "Program details",
   "audienceH": "Where are you with PEA?",
   "audience": [
     ["I want to join", "Steps to sign up and the information session."],
@@ -726,8 +720,6 @@
   "commitmentH": "The time to set aside",
   "commitmentText": "18 sessions of 90 minutes: 27 scheduled live hours. Classes meet Tuesdays and Thursdays, 5:00–6:30 PM Arizona time. The calendar includes the Thanksgiving break.",
   "commitmentNote": "This calculation covers the 18 classes, including graduation. It excludes the optional information session and the focus group. Ask the team how much additional time materials or activities may require.",
-  "certificateH": "Your certificate",
-  "certificateText": "You must attend at least 16 of the 18 classes to receive your certificate. Give advance notice if you cannot attend. The team can explain other participation requirements and how the certificate is delivered.",
   "staffH": "For school personnel",
   "staffText": "Please help families complete the interest form, find their welcome email, and contact our team if they need help. Each applicant receives a personal Zoom access link.",
   "supportH": "Let’s talk about what you need to participate",
@@ -758,10 +750,6 @@
     [
       "How much time should I set aside?",
       "The 18 classes of 90 minutes total 27 live hours. Classes meet Tuesdays and Thursdays, 5:00–6:30 PM Arizona time. The optional information session and focus group are additional; ask the team about time for activities outside class."
-    ],
-    [
-      "Will I receive a certificate?",
-      "You must attend at least 16 of the 18 classes to receive your certificate. Ask the team about other participation requirements and certificate delivery."
     ],
     [
       "Are classes recorded, or can I make up a session?",
