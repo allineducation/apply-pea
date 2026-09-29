@@ -79,7 +79,7 @@
         fitItems: [
           ["Su relación con el estudiante", "¿Es abuela, abuelo, tutor u otra persona que cuida a un estudiante? Usted también puede participar. Si tiene dudas, con gusto le orientamos."],
           ["Su escuela o su trabajo", "Si trabaja en una escuela —por ejemplo, como enlace con las familias o maestro—, es bienvenido. Si tiene preguntas sobre el tipo de escuela o el grado de su estudiante, escríbanos."],
-          ["Su idioma", "Las clases de otoño de 2026 son en español. La sesión informativa es bilingüe, y nuestro equipo le atiende en español y en inglés. Si busca clases en inglés, pregúntenos por las opciones."]
+          ["Su idioma", "Las clases de otoño de 2026 son en español. Si habla inglés, también puede participar: ofrecemos apoyos en inglés, como subtítulos traducidos o trabajo en grupos pequeños, según lo que necesiten las personas inscritas. Indique su idioma preferido en el formulario de interés; nuestro equipo le atiende en español y en inglés."]
         ],
         askCta: "Preguntarle al equipo →",
         benefitsH: "Lo que va a aprender",
@@ -263,7 +263,7 @@
           ["¿Cómo me inscribo en PEA?", "Llene el formulario de interés: es su solicitud. No hay proceso de selección ni formulario de compromiso. Después de recibirlo, preparamos su acceso a Zoom y le enviamos su enlace personal en un correo de bienvenida."],
           ["¿Quién puede participar?", "Madres, padres y cuidadores que quieren acompañar a sus hijos y abogar por ellos en el sistema escolar de Arizona. El personal escolar, como enlaces con las familias y maestros, también es bienvenido. Si tiene dudas sobre su caso, escríbanos."],
           ["¿Cuánto cuesta?", "Nada. PEA es gratuito para todas las personas participantes."],
-          ["¿En qué idioma son las clases?", function (c) { return "Las clases de " + c.label + " son en " + c.lang + ". La sesión informativa es bilingüe, y nuestro equipo le atiende en español y en inglés. Si busca clases en inglés, pregúntenos por las opciones."; }],
+          ["¿En qué idioma son las clases?", function (c) { return "Las clases de " + c.label + " son en " + c.lang + ", con apoyos en inglés, como subtítulos traducidos o trabajo en grupos pequeños. Organizamos las clases según lo que necesiten las personas inscritas, así que indique su idioma preferido en el formulario de interés. La sesión informativa es bilingüe, y nuestro equipo le atiende en español y en inglés."; }],
           ["¿Cómo sé que ya tengo mi lugar?", "Recibirá un correo de bienvenida con su enlace personal de Zoom, las fechas del programa y la guía para solicitantes. Guarde ese enlace: lo usará para entrar a todas las clases."],
           ["¿Es obligatoria la sesión informativa?", "No. Es opcional y no afecta su lugar. Es el jueves 1 de octubre, de 5:00 a 6:30 p. m., hora de Arizona: un espacio para conocernos y resolver sus dudas. Si no puede venir, llame o mande un mensaje al 602-759-0619."],
           ["¿Necesito una cuenta de Zoom?", "Sí. Necesita poder iniciar sesión en la aplicación de Zoom, y la cuenta es gratuita. Para entrar a clase, use el enlace personal de su correo de bienvenida; no necesita registrarse aparte en Zoom."],
@@ -349,7 +349,7 @@
         fitItems: [
           ["Your relationship to the student", "Are you a grandparent, guardian, or another caregiver? You can take part too. If you have questions, we’re happy to help."],
           ["Your school or role", "If you work at a school — for example, as a family liaison or teacher — you’re welcome to join. If you have questions about your student’s school type or grade level, write to us."],
-          ["Your language", "Fall 2026 classes are taught in Spanish. The information session is bilingual, and our team supports you in Spanish and English. If you’re looking for classes in English, ask us about your options."]
+          ["Your language", "Fall 2026 classes are taught in Spanish. English speakers are welcome too: we offer English supports, such as translated subtitles or small-group work, based on what enrolled participants need. Share your preferred language on the interest form; our team supports you in Spanish and English."]
         ],
         askCta: "Ask the team →",
         benefitsH: "What you’ll learn",
@@ -533,7 +533,7 @@
           ["How do I sign up for PEA?", "Complete the interest form — it’s your application. There is no selection process and no commitment form. Once we receive it, we set up your Zoom access and send your personal link in a welcome email."],
           ["Who can take part?", "Parents and caregivers who want to support their children and advocate for them in Arizona’s school system. School staff, such as family liaisons and teachers, are welcome too. If you’re unsure about your situation, write to us."],
           ["What does it cost?", "Nothing. PEA is free for everyone who takes part."],
-          ["What language are classes in?", function (c) { return c.label + " classes are taught in " + c.lang + ". The information session is bilingual, and our team supports you in Spanish and English. If you’re looking for classes in English, ask us about your options."; }],
+          ["What language are classes in?", function (c) { return c.label + " classes are taught in " + c.lang + ", with English supports such as translated subtitles or small-group work. We plan how classes are delivered around what applicants need, so share your preferred language on the interest form. The information session is bilingual, and our team supports you in Spanish and English."; }],
           ["How do I know I have a place?", "You’ll receive a welcome email with your personal Zoom link, the program dates, and the applicant guide. Save that link — you’ll use it to join every class."],
           ["Do I have to attend the information session?", "No. It’s optional and doesn’t affect your place. It’s on Thursday, October 1, 5:00–6:30 PM Arizona time — a chance to meet us and get your questions answered. If you can’t make it, call or text 602-759-0619."],
           ["Do I need a Zoom account?", "Yes. You need to be able to sign in to the Zoom app, and the account is free. To join class, use the personal link in your welcome email; you don’t need to register separately in Zoom."],
