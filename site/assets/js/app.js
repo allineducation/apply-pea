@@ -1,5 +1,5 @@
 /* ==================================================================
-   PEA Applicant Hub — app  (v0.15.1)
+   PEA Applicant Hub — app  (v0.16.0)
    Vanilla JS, no build step, no dependencies. State-based navigation
    (hash routes) per AIE Hub Design System §5.1. Every date, time and
    link resolves from facts.js; every string from copy.js.
@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.15.1";
+  var VERSION = "0.16.0";
   var UPDATED = "2026-09-29";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -297,18 +297,26 @@
     var D = L.cal.detail, over = new Date(e.end).getTime() < NOW.getTime();
     var mod = e.module && F.modules ? F.modules[e.module] : null;
     var desc = e.kind === "info" ? infoNote() : (mod ? mod[lang] : "");
-    var b = "", notes = "";
+    var b = "", notes = "", foot = "";
     if (e.kind === "info") {
       if (!over && link("info", e._c)) b += ext(link("info", e._c), esc(L.cal.infoJoin), "btn btn-primary btn-sm");
     } else {
       if (!e.projected) notes += "<li>" + esc(D.zoomNote) + "</li>";
-      if (mod && mod.worksheet) b += ext(mod.worksheet, esc(D.worksheet), "btn btn-secondary btn-sm");
-      if (link("lista", e._c)) b += ext(link("lista", e._c), esc(D.resources), "btn btn-secondary btn-sm");
+      /* Every class card ends with the same three actions, in the same order:
+         class materials · exit survey · resource list. An action whose link is
+         not published yet stays in its slot, visibly unavailable. */
+      foot = '<div class="det-actions" role="group" aria-label="' + esc(D.actions) + '">' +
+        [[mod && mod.worksheet, D.materials, "📄"], [link("exit", e._c), D.exit, "✅"], [link("lista", e._c), D.resources, "📚"]]
+          .map(function (a) {
+            var inner = '<span aria-hidden="true">' + a[2] + "</span><span>" + esc(a[1]) + "</span>";
+            return a[0] ? ext(a[0], inner, "btn btn-secondary btn-sm")
+              : '<span class="btn btn-secondary btn-sm is-off" aria-disabled="true">' + inner + '<span class="soon">' + esc(D.soon) + "</span></span>";
+          }).join("") + "</div>";
     }
     b += '<button type="button" class="btn btn-ghost btn-sm" data-ics="' + esc(e._c + ":" + e.code) + '">' + esc(D.addCal) + "</button>";
-    return '<div class="det"><span class="label blue">' + esc(e.kind === "info" ? D.aboutInfo : D.about) + "</span>" +
+    return '<div class="det' + (foot ? " has-actions" : "") + '"><span class="label blue">' + esc(e.kind === "info" ? D.aboutInfo : D.about) + "</span>" +
       (desc ? '<p class="det-desc">' + esc(desc) + "</p>" : "") +
-      '<div class="btnrow">' + b + "</div>" + (notes ? '<ul class="det-notes">' + notes + "</ul>" : "") + "</div>";
+      (notes ? '<ul class="det-notes">' + notes + "</ul>" : "") + '<div class="btnrow">' + b + "</div>" + foot + "</div>";
   }
   function calRows() {
     var n = 0;

@@ -1,5 +1,5 @@
 /* ==================================================================
-   PEA Applicant Hub — COPY DICTIONARY  (v0.15.1)
+   PEA Applicant Hub — COPY DICTIONARY  (v0.16.0)
    ------------------------------------------------------------------
    Every user-visible string, in two complete languages with identical
    keys (AIE Hub Design System §3). ES and EN are parallel originals,
@@ -157,7 +157,7 @@
 
       cal: {
         h: "Calendario y temas",
-        tapHint: "Toque una clase para ver de qué trata, su hoja de trabajo y la lista de recursos.",
+        tapHint: "Toque una clase para ver de qué trata, sus materiales, la encuesta de salida y la lista de recursos.",
         scheduleLabel: "Otoño de 2026",
         scheduleNote: "18 clases, los martes y jueves, del 6 de octubre al 8 de diciembre de 2026, de 5:00 a 6:30 p. m., hora de Arizona. No hay clase el jueves 26 de noviembre (Día de Acción de Gracias). Sesión informativa opcional: jueves 1 de octubre. Grupo de enfoque: jueves 10 de diciembre. ¿Las clases ya empezaron? Escríbanos y vemos cómo puede unirse.",
         filterLabel: "Mostrar",
@@ -177,7 +177,9 @@
           open: "Ver detalles de la clase", close: "Ocultar detalles", openInfo: "Ver detalles de la sesión",
           about: "Sobre esta clase", aboutInfo: "Sobre la sesión",
           zoomNote: "Entre con el enlace personal de Zoom de su correo de bienvenida; es el mismo para todas las clases.",
-          resources: "Lista de recursos", worksheet: "Hoja de trabajo (PDF)", addCal: "Agregar a mi calendario"
+          resources: "Lista de recursos", worksheet: "Hoja de trabajo (PDF)", addCal: "Agregar a mi calendario",
+          materials: "Materiales de la clase", exit: "Encuesta de salida", soon: "Disponible pronto",
+          actions: "Materiales y enlaces de esta clase"
         },
         classNote: "Entre a clase con el enlace personal de Zoom de su correo de bienvenida. Es el mismo para todas las clases; por favor, no lo comparta.",
         holidayNote: "No hay clase este día.",
@@ -430,7 +432,7 @@
 
       cal: {
         h: "Calendar & topics",
-        tapHint: "Tap a class to see what it covers, its worksheet, and the resource list.",
+        tapHint: "Tap a class to see what it covers, its materials, the exit survey, and the resource list.",
         scheduleLabel: "Fall 2026",
         scheduleNote: "18 classes on Tuesdays and Thursdays, October 6–December 8, 2026, 5:00–6:30 PM Arizona time. No class Thursday, November 26 (Thanksgiving). Optional information session: Thursday, October 1. Focus group: Thursday, December 10. Have classes already started? Write to us and we’ll see how you can join.",
         filterLabel: "Show",
@@ -450,7 +452,9 @@
           open: "See class details", close: "Hide details", openInfo: "See session details",
           about: "About this class", aboutInfo: "About the session",
           zoomNote: "Join with the personal Zoom link in your welcome email; it’s the same for every class.",
-          resources: "Resource list", worksheet: "Worksheet (PDF, in Spanish)", addCal: "Add to my calendar"
+          resources: "Resource list", worksheet: "Worksheet (PDF, in Spanish)", addCal: "Add to my calendar",
+          materials: "Class materials", exit: "Exit survey", soon: "Available soon",
+          actions: "Materials and links for this class"
         },
         classNote: "Join class with the personal Zoom link in your welcome email. It’s the same for every class; please don’t share it.",
         holidayNote: "There is no class this day.",
