@@ -1,5 +1,5 @@
 /* ==================================================================
-   PEA Applicant Hub — app  (v0.14.0)
+   PEA Applicant Hub — app  (v0.15.0)
    Vanilla JS, no build step, no dependencies. State-based navigation
    (hash routes) per AIE Hub Design System §5.1. Every date, time and
    link resolves from facts.js; every string from copy.js.
@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.14.0";
+  var VERSION = "0.15.0";
   var UPDATED = "2026-09-29";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -15,9 +15,9 @@
 
   /* ---------- sections, groups, order ---------- */
   var GROUPS = [
-    { id: "join",  color: "blue",   items: ["participar", "calendario", "zoom"] },
+    { id: "join",  color: "blue",   items: ["participar", "calendario"] },
     { id: "about", color: "pink",   items: ["historia"] },
-    { id: "help",  color: "purple", items: ["preguntas", "contacto"] }
+    { id: "help",  color: "purple", items: ["ayuda"] }
   ];
   var ORDER = ["inicio"].concat(GROUPS[0].items, GROUPS[1].items, GROUPS[2].items);
   function colorOf(id) {
@@ -136,7 +136,6 @@
     return names.slice(0, -1).join(", ") + " " + L.days.and + " " + names[names.length - 1];
   }
   function classTime(fmt) { var e = CLASSES[0]; return e ? fmt(e.start, e.end) : ""; }
-  function weekOf(e) { var n = parseInt(e.code, 10); return isNaN(n) ? null : n; }
   function evTitle(e) {
     var K = L.cal.kinds, P = L.cal.topics;
     if (e.kind === "info") return { kind: K.info, topic: P.info };
@@ -150,21 +149,41 @@
     if (!url) return '';
     return '<a class="' + (cls || '') + '" href="' + esc(url) + '"' + (extra || '') + '>' + inner + '</a>';
   }
-
   function callout(variant, label, html) {
     return '<div class="callout ' + (variant || "") + '"><span class="label">' + esc(label) + "</span><p>" + html + "</p></div>";
   }
+  function groupOf(id) { for (var i = 0; i < GROUPS.length; i++) if (GROUPS[i].items.indexOf(id) !== -1) return GROUPS[i].id; return "join"; }
   function secHead(id) {
-    var s = L.sections[id];
-    return '<div class="sec-head"><span class="label ' + (colorOf(id) === "purple" ? "purple" : colorOf(id) === "pink" ? "ink" : "blue") + '">' +
+    var s = L.sections[id], c = colorOf(id);
+    return '<div class="sec-head"><span class="label ' + (c === "purple" ? "purple" : c === "pink" ? "ink" : "blue") + '">' +
       esc(L.nav.groups[groupOf(id)]) + "</span>" +
-      '<h1 class="h-sec" tabindex="-1">' + esc(sectionTitle(id)) + "</h1>" +
+      '<h1 class="h-sec" tabindex="-1">' + esc(s.label) + "</h1>" +
       '<p class="small time">' + esc(L.ui.minutes(s.time)) + "</p></div>";
   }
-  function groupOf(id) { for (var i = 0; i < GROUPS.length; i++) if (GROUPS[i].items.indexOf(id) !== -1) return GROUPS[i].id; return "join"; }
-  function sectionTitle(id) {
-    return { participar: L.steps.h, calendario: L.cal.h, zoom: L.zoom.h,
-             historia: L.hist.h, preguntas: L.sections.preguntas.label, contacto: L.contact.h }[id] || L.sections[id].label;
+  function section(title, lead, body) {
+    return '<section class="block"><h2 class="h-sec">' + esc(title) + '</h2>' +
+      (lead ? '<p class="lead">' + esc(lead) + '</p>' : '') + body + '</section>';
+  }
+  function cards(items) {
+    return '<div class="lgrid">' + items.map(function (item) {
+      return '<div class="card top-blue"><h3 class="h3">' + esc(item[0]) + '</h3><p>' + esc(item[1]) + '</p></div>';
+    }).join('') + '</div>';
+  }
+  function accordion(items, openFirst) {
+    return '<div class="accordion">' + items.map(function (item, i) {
+      return '<details class="accordion-item"' + (openFirst && i === 0 ? " open" : "") + '><summary class="accordion-header"><span>' + esc(item[0]) +
+        '</span><span class="acc-chev" aria-hidden="true"></span></summary><div class="accordion-body"><p>' + esc(item[1]) + "</p>" +
+        (item[2] ? '<p class="small">' + esc(item[2]) + "</p>" : "") + "</div></details>";
+    }).join("") + "</div>";
+  }
+  function btnRow(inner) { return inner ? '<div class="btnrow">' + inner + "</div>" : ""; }
+  function inLink(hash, label, cls) { return '<a class="btn ' + (cls || "btn-secondary") + '" href="' + hash + '">' + esc(label) + "</a>"; }
+  function linkList(items) {                        /* [key, title, description] → link cards; missing links are skipped */
+    var lis = items.map(function (it) {
+      var u = link(it[0]); if (!u) return "";
+      return "<li>" + ext(u, '<span class="t">' + esc(it[1]) + '</span><span class="d">' + esc(it[2]) + "</span>", "lnk" + (it[0] === "apply" ? " key" : "")) + "</li>";
+    }).join("");
+    return lis ? '<ul class="lgrid">' + lis + "</ul>" : "";
   }
 
   /* ---------- header band + nav + footer ---------- */
@@ -179,14 +198,11 @@
           (l === lang ? "" : ' aria-label="' + esc(l === "en" ? L.langSwitch.toEn : L.langSwitch.toEs) + '"') + ">" + l.toUpperCase() + "</button>";
       }).join("") + "</div></div>";
   }
-
   function renderNav(active) {
-    var ids = ['inicio','participar','calendario','zoom','historia','preguntas','contacto'];
-    document.getElementById('gnav').innerHTML = '<details class="menu"><summary><span aria-hidden="true">☰</span> <span class="menu-txt">' + (lang === 'es' ? 'Menú' : 'Menu') + '</span></summary><div class="menu-links">' + ids.map(function(id) {
+    document.getElementById('gnav').innerHTML = '<details class="menu"><summary><span aria-hidden="true">☰</span> <span class="menu-txt">' + esc(L.nav.menu) + '</span></summary><div class="menu-links">' + ORDER.map(function (id) {
       return '<a href="#' + id + '"' + (id === active ? ' aria-current="page"' : '') + '>' + esc(id === 'inicio' ? L.nav.home : L.sections[id].label) + '</a>';
     }).join('') + '</div></details>';
   }
-
   function renderFoot() {
     document.getElementById("foot").innerHTML =
       '<img src="assets/img/aie-logo-primary.png" width="220" height="30" alt="' + esc(L.foot.logoAlt) + '">' +
@@ -194,103 +210,28 @@
       "<br>" + esc(L.foot.dates(ymdLong(F.syncedAt))) + "</div>";
   }
 
-  function heroHtml() {
-    return applicantSection(lang === 'es' ? '¿Qué es PEA?' : 'What is PEA?', L.hero.sub, '<div class="chips"><span class="tag gold">' + esc(L.hero.chipFree) + '</span><span class="tag blue">' + esc(L.hero.chipZoom) + '</span><span class="tag blue">' + esc(L.hero.chipLang(teachLang())) + '</span></div>');
-  }
-
-  function statsHtml() { return ''; }
-
-  function stepsHtml(compact, hx) {
-    hx = hx || "h3";
+  /* ---------- shared blocks ---------- */
+  function stepsHtml(compact) {                    /* compact: titles + one line each, for Home */
     return '<ol class="steps' + (compact ? " compact" : "") + '">' + L.steps.items.map(function (s, i) {
-      var u = link(s.link);
+      var u = link(s.link), tag = s.ordered ? "ol" : "ul";
       return '<li class="step' + (s.key ? " key" : "") + '"><span class="dot' + (s.key ? " blue" : "") + '" aria-hidden="true">' + (i + 1) + "</span>" +
-        '<div class="step-body"><div class="step-head"><' + hx + ' class="h3">' + esc(s.t) + "</" + hx + ">" +
-
-         "</div>" +
-        "<p>" + esc(s.d) + "</p>" +
-        (s.list ? "<" + (s.ordered ? "ol" : "ul") + ' class="step-list">' + s.list.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</" + (s.ordered ? "ol" : "ul") + ">" : "") +
-        (s.after ? "<p>" + esc(s.after) + "</p>" : "") +
-        (u ? '<div class="btnrow">' + ext(u, esc(s.cta), "btn btn-sm " + (s.key ? "btn-primary" : "btn-secondary")) + "</div>" : "") +
+        '<div class="step-body"><div class="step-head"><h3 class="h3">' + esc(s.t) + "</h3></div>" +
+        (compact ? "<p>" + esc(s.short) + "</p>"
+          : "<p>" + esc(s.d) + "</p>" +
+            (s.list ? "<" + tag + ' class="step-list">' + s.list.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</" + tag + ">" : "") +
+            (s.after ? "<p>" + esc(s.after) + "</p>" : "")) +
+        (u ? btnRow(ext(u, esc(s.cta), "btn btn-sm " + (s.key ? "btn-primary" : "btn-secondary"))) : "") +
         "</div></li>";
     }).join("") + "</ol>";
   }
-
-  function applicantCards(items) {
-    return '<div class="lgrid">' + items.map(function (item) {
-      return '<div class="card top-blue"><h3 class="h3">' + esc(item[0]) + '</h3><p>' + esc(item[1]) + '</p></div>';
-    }).join('') + '</div>';
-  }
-  function applicantSection(title, lead, body) {
-    return '<section class="block"><h2 class="h-sec">' + esc(title) + '</h2>' +
-      (lead ? '<p class="lead">' + esc(lead) + '</p>' : '') + body + '</section>';
-  }
-  function applicantContact() {
-    return '<div class="btnrow"><a class="btn btn-secondary" href="#contacto">' + esc(L.applicant.askCta) + '</a></div>';
-  }
-  function benefitsHtml() {
-    var A = L.applicant;
-    return applicantSection(A.benefitsH, A.benefitsLead, applicantCards(A.benefits) +
-      '<div class="btnrow"><a class="btn btn-primary" href="#calendario">' + esc(A.learnCta) + '</a></div>');
-  }
-  function accordion(items) {
-    return '<div class="accordion">' + items.map(function (item, i) {
-      return '<details class="accordion-item"' + (i === 0 ? " open" : "") + '><summary class="accordion-header"><span>' + esc(item[0]) +
-        '</span><span class="acc-chev" aria-hidden="true"></span></summary><div class="accordion-body"><p>' + esc(item[1]) + "</p>" +
-        (item[2] ? '<p class="small">' + esc(item[2]) + "</p>" : "") + "</div></details>";
-    }).join("") + "</div>";
-  }
-  function fitHtml() {
-    var A = L.applicant;
-    return applicantSection(A.fitH, A.fitLead, accordion(A.fitItems) + applicantContact());
-  }
-  function audienceHtml() {
-    var A = L.applicant, routes = ["#participar", "#calendario", "#contacto"], icons = ["📝", "🎓", "🤝"];
-    return '<nav class="audience-router" aria-label="' + esc(A.audienceH) + '"><h2 class="audience-h">' + esc(A.audienceH) + "</h2>" +
-      '<div class="audience-grid">' + A.audience.map(function (a, i) {
-        return '<a class="audience-card" href="' + routes[i] + '"><span class="audience-badge" aria-hidden="true">' + icons[i] + "</span>" +
-          '<span class="audience-body"><span class="audience-t">' + esc(a[0]) + '</span><span class="audience-d">' + esc(a[1]) + "</span></span>" +
-          '<span class="audience-go" aria-hidden="true">→</span></a>';
-      }).join("") + "</div></nav>";
-  }
-  function commitmentHtml() {
-    var A = L.applicant;
-    return applicantSection(A.detailsH, '', accordion([[A.commitmentH, A.commitmentText, A.commitmentNote]]));
-  }
   function helpCardHtml() {
-    var A = L.applicant, O = F.org;
-    return '<aside class="help-card" aria-label="' + esc(L.contact.h) + '"><p>' + esc(A.helpText) + '</p><div class="help-links">' +
-      '<a class="help-link" href="mailto:' + esc(O.email) + '"><span aria-hidden="true">✉️</span><span>' + esc(A.helpEmail) + "</span></a>" +
-      '<a class="help-link" href="' + esc(O.phoneHref) + '"><span aria-hidden="true">📞</span><span>' + esc(A.helpCall + " " + O.phone) + "</span></a>" +
+    var S = L.steps, O = F.org;
+    return '<aside class="help-card" aria-label="' + esc(L.help.contactH) + '"><p>' + esc(S.helpText) + '</p><div class="help-links">' +
+      '<a class="help-link" href="mailto:' + esc(O.email) + '"><span aria-hidden="true">✉️</span><span>' + esc(S.helpEmail) + "</span></a>" +
+      '<a class="help-link" href="' + esc(O.phoneHref) + '"><span aria-hidden="true">📞</span><span>' + esc(S.helpCall + " " + O.phone) + "</span></a>" +
       "</div></aside>";
   }
-  function supportHtml() {
-    return applicantSection(L.applicant.supportH, L.applicant.supportText, applicantContact());
-  }
-  function staffHtml() {
-    return applicantSection(L.applicant.staffH, L.applicant.staffText, applicantContact());
-  }
-  function experienceHtml() { return applicantSection(L.applicant.experienceH, L.applicant.experienceLead, applicantCards(L.applicant.experience)); }
-
-  function storiesHtml() {
-    var A = L.applicant, url = link(lang === 'es' ? 'familyStoryEs' : 'familyStoryEn');
-    var body = applicantCards(A.stories) + '<div class="btnrow">' + ext(url, esc(A.storyCta), 'btn btn-secondary') + '</div>';
-    return applicantSection(A.storiesH, A.storiesLead, body) +
-      applicantSection(A.evidenceH, A.evidenceText, '<p class="small">' + esc(A.evidenceSource) + '</p>') +
-      applicantSection(A.videoH, A.videoText, '<div class="btnrow">' + ext(link('overviewVideo'), esc(A.videoCta), 'btn btn-secondary') + '</div>');
-  }
-
-  function springHtml() {
-    return applicantSection(lang === 'es' ? 'Próximas fechas' : 'Upcoming dates', lang === 'es' ? 'Primavera de 2027: del 16 de marzo al 13 de mayo, martes y jueves, de 5:00 a 6:30 p. m., hora de Arizona.' : 'Spring 2027: March 16–May 13, Tuesdays and Thursdays, 5:00–6:30 PM Arizona time.', '');
-  }
-
-  function pageHome() {
-    return '<h1 class="home-title" tabindex="-1">' + (lang === 'es' ? 'Su próximo paso con PEA' : 'Your next step with PEA') + '</h1>' + audienceHtml() + actionsHtml(false) + heroHtml() +
-      applicantSection(L.cal.scheduleLabel, L.cal.scheduleNote, '') + benefitsHtml() +
-      applicantSection(L.home.stepsH, '', stepsHtml(true)) + fitHtml();
-  }
-
-  function infoDatesHtml() {
+  function infoCardHtml() {
     var infos = EV.filter(function (e) { return e.kind === "info"; });
     if (!infos.length) return "";
     return '<div class="card top-pink">' +
@@ -299,28 +240,61 @@
         return '<li class="check"><div><div class="h3">' + esc(cap(longDate(e.start))) + '</div><div class="small">' + esc(spanDash(e.start, e.end)) +
           (past ? " · " + esc(L.cal.done) : "") + "</div></div></li>";
       }).join("") + "</ul>" +
-      '<p class="small">' + esc(L.steps.infoDatesNote) + "</p>" +
-      (link("info") ? '<div class="btnrow">' + ext(link("info"), esc(L.next.join), "btn btn-secondary btn-sm") + "</div>" : "") + "</div>";
+      '<p class="small">' + esc(L.steps.infoNote) + "</p>" +
+      btnRow(ext(link("info"), esc(L.cal.infoJoin), "btn btn-secondary btn-sm")) + "</div>";
+  }
+  function zoomHelpHtml() {
+    var S = L.steps;
+    var vids = S.vids.map(function (v) {
+      var u = link(v[0]); if (!u) return "";
+      return "<li>" + ext(u, '<span class="t">' + esc(v[1]) + '</span><span class="d">' + esc(v[2]) + "</span>", "lnk") + "</li>";
+    }).join("");
+    var resend = link("resend");
+    return section(S.zoomH, S.zoomLead, '<ul class="lgrid">' + vids + "</ul>" +
+      '<div class="block">' + callout("gold", S.lostLabel, esc(S.lost)) + btnRow(ext(resend, esc(S.resendCta), "btn btn-primary btn-sm")) +
+      callout("mid", S.deviceLabel, esc(S.device)) + "</div>");
   }
 
-  function scheduleNote() {
-    return callout("", L.cal.scheduleLabel, esc(L.cal.scheduleNote));
+  /* ---------- pages ---------- */
+  function audienceHtml() {
+    var H = L.home, routes = ["#participar", "#calendario", "#ayuda"], icons = ["📝", "🎓", "🤝"];
+    return '<nav class="audience-router" aria-label="' + esc(H.audienceH) + '"><h2 class="audience-h">' + esc(H.audienceH) + "</h2>" +
+      '<div class="audience-grid">' + H.audience.map(function (a, i) {
+        return '<a class="audience-card" href="' + routes[i] + '"><span class="audience-badge" aria-hidden="true">' + icons[i] + "</span>" +
+          '<span class="audience-body"><span class="audience-t">' + esc(a[0]) + '</span><span class="audience-d">' + esc(a[1]) + "</span></span>" +
+          '<span class="audience-go" aria-hidden="true">→</span></a>';
+      }).join("") + "</div></nav>";
+  }
+  function pageHome() {                            /* newcomer order: what → fit → gain → dates → how to join */
+    var H = L.home;
+    var chips = '<div class="chips"><span class="tag gold">' + esc(H.chipFree) + '</span><span class="tag blue">' + esc(H.chipZoom) + "</span>" +
+      (teachLang() ? '<span class="tag blue">' + esc(H.chipLang(teachLang())) + "</span>" : "") + "</div>";
+    return '<h1 class="home-title" tabindex="-1">' + esc(H.h) + "</h1>" + audienceHtml() + actionsHtml(false) +
+      section(H.whatH, H.what, chips) +
+      section(H.fitH, H.fitLead, accordion(H.fitItems, true) + btnRow(inLink("#ayuda", H.askCta))) +
+      section(H.benefitsH, H.benefitsLead, cards(H.benefits) + btnRow(inLink("#calendario", H.topicsCta, "btn-primary"))) +
+      section(H.datesH, L.cal.scheduleNote, accordion([[H.timeH, H.timeText, H.timeNote]])) +
+      section(H.stepsH, "", stepsHtml(true) + btnRow(inLink("#participar", H.stepsCta, "btn-primary")));
+  }
+  function pageParticipar() {                      /* applicant order: apply → welcome email → get ready → first class → help */
+    var S = L.steps;
+    return secHead("participar") + '<p class="lead">' + esc(S.lead) + "</p>" +
+      '<section class="block">' + stepsHtml(false) + helpCardHtml() + "</section>" +
+      section(S.infoH, "", infoCardHtml()) +
+      zoomHelpHtml() +
+      section(S.staffH, S.staffText, "");
   }
 
-  function pageParticipar() {
-    return secHead('participar') + applicantSection(L.home.stepsH, '', stepsHtml(false) + helpCardHtml()) +
-      applicantSection(L.steps.infoDatesH, '', infoDatesHtml()) + staffHtml() + commitmentHtml();
-  }
   var calFilter = 'all';
   var calOpen = {};                                /* expanded rows — survive filter changes and the 60-second refresh */
   function expandable(e) { return e.kind === "cls" || e.kind === "info"; }
   function calDetail(e) {
-    var D = L.cal.detail, today = daysUntil(e.start, NOW) === 0, over = new Date(e.end).getTime() < NOW.getTime();
+    var D = L.cal.detail, over = new Date(e.end).getTime() < NOW.getTime();
     var mod = e.module && F.modules ? F.modules[e.module] : null;
-    var desc = e.kind === "info" ? L.steps.infoDatesNote : (mod ? mod[lang] : "");
+    var desc = e.kind === "info" ? L.steps.infoNote : (mod ? mod[lang] : "");
     var b = "", notes = "";
     if (e.kind === "info") {
-      if (!over && link("info", e._c)) b += ext(link("info", e._c), esc(L.next.join), "btn btn-primary btn-sm");
+      if (!over && link("info", e._c)) b += ext(link("info", e._c), esc(L.cal.infoJoin), "btn btn-primary btn-sm");
     } else {
       if (!e.projected) notes += "<li>" + esc(D.zoomNote) + "</li>";
       if (mod && mod.worksheet) b += ext(mod.worksheet, esc(D.worksheet), "btn btn-secondary btn-sm");
@@ -335,7 +309,7 @@
     var n = 0;
     return EV.filter(function (e) { return calFilter === "all" || (calFilter === "info" ? e.kind === "info" : e.kind === "cls"); })
       .map(function (e) {
-        var tt = evTitle(e), sd = shortDate(e.start), wk = weekOf(e), key = e._c + "-" + e.code, open = !!calOpen[key], x = expandable(e);
+        var tt = evTitle(e), sd = shortDate(e.start), key = e._c + "-" + e.code, open = !!calOpen[key], x = expandable(e);
         var past = new Date(e.end).getTime() < NOW.getTime(), today = daysUntil(e.start, NOW) === 0;
         var alt = n++ % 2 ? " alt" : "";
         var cls = alt + (past ? " is-past" : "") + (today ? " is-today" : "") + (e.kind === "info" ? " is-info" : "") + (x ? " has-det" : "") + (open ? " open" : "");
@@ -371,7 +345,7 @@
     var pills = ["all", "info", "cls"].map(function (k) {
       return '<button type="button" class="pill" data-filter="' + k + '" aria-pressed="' + (calFilter === k) + '">' + esc(f[k]) + "</button>";
     }).join("");
-    return secHead("calendario") + '<p class="lead">' + esc(K.tapHint) + "</p>" + scheduleNote() +
+    return secHead("calendario") + '<p class="lead">' + esc(K.tapHint) + "</p>" + callout("", K.scheduleLabel, esc(K.scheduleNote)) +
       (C.projected ? callout("gold", K.projectedLabel, esc(K.projected)) : "") +
       '<div class="filters" role="group" aria-label="' + esc(K.filterLabel) + '"><span class="label">' + esc(K.filterLabel) + "</span>" + pills + "</div>" +
       '<div class="tablewrap"><table class="cal"><caption class="sr-only">' + esc(K.h + " · " + cohortLabel()) + "</caption>" +
@@ -379,25 +353,10 @@
       esc(K.cols.topic) + '</th><th scope="col">' + esc(K.cols.time) + '</th></tr></thead><tbody id="calbody">' + calRows() + "</tbody></table></div>" +
       '<p class="small mt">' + esc(K.note) + "</p>" +
       '<div class="btnrow"><button type="button" class="btn btn-primary" data-ics="all">' + esc(K.ics) + "</button>" +
-      (link("cal") ? ext(link("cal"), esc(K.full), "btn btn-secondary") : "") + "</div>" +
-      '<p class="small">' + esc(K.icsHelp) + "</p>" + experienceHtml() + springHtml();
-  }
-
-  function pageZoom() {
-    var Z = L.zoom;
-    var vids = Z.vids.map(function (v) {
-      var u = link(v[0]); if (!u) return "";
-      return "<li>" + ext(u, '<span class="t">' + esc(v[1]) + '</span><span class="d">' + esc(v[2]) + "</span>", "lnk") + "</li>";
-    }).join("");
-    var order = '<ol class="steps">' + Z.order.map(function (o, i) {
-      return '<li class="step"><span class="dot' + (i === 1 ? " blue" : "") + '" aria-hidden="true">' + (i + 1) + '</span><div class="step-body"><h3 class="h3">' +
-        esc(o[0]) + "</h3><p>" + esc(o[1]) + "</p></div></li>";
-    }).join("") + "</ol>";
-    return secHead("zoom") + '<p class="lead">' + esc(Z.lead) + "</p>" +
-      '<ul class="lgrid">' + vids + "</ul>" +
-      callout("gold", Z.tipLabel, esc(Z.tip)) + supportHtml() +
-      '<section class="block"><h2 class="h-sec">' + esc(Z.orderH) + '</h2><div class="block">' + order + "</div></section>" +
-      '<div class="block">' + callout("", Z.lostLabel, esc(Z.lost)) + callout("mid", Z.deviceLabel, esc(Z.device)) + "</div>";
+      ext(link("cal"), esc(K.full), "btn btn-secondary") + "</div>" +
+      '<p class="small">' + esc(K.icsHelp) + "</p>" +
+      section(K.experienceH, K.experienceLead, cards(K.experience)) +
+      section(K.springH, K.spring, "");
   }
 
   function pageHistoria() {
@@ -408,8 +367,13 @@
       '<div class="stat"><div class="stat-n">' + C.num + '</div><div class="stat-l">' + esc(S.cohort) + '</div><div class="stat-note">' + esc(S.cohortNote) + "</div></div>" +
       '<div class="stat"><div class="stat-n">' + fg.counties + '</div><div class="stat-l">' + esc(S.counties) + '</div><div class="stat-note">' + esc(S.countiesNote) + "</div></div>" +
       '<div class="stat"><div class="stat-n">' + esc(fg.evalGrad) + '</div><div class="stat-l">' + esc(S.grad) + '</div><div class="stat-note">' + esc(S.gradNote) + "</div></div></div>";
-    return secHead("historia") + storiesHtml() + H.p.map(function (p) { return '<p class="lead">' + esc(p) + "</p>"; }).join("") +
+    var story = link(lang === 'es' ? 'familyStoryEs' : 'familyStoryEn');
+    return secHead("historia") +
+      section(H.storiesH, H.storiesLead, cards(H.stories) + btnRow(ext(story, esc(H.storyCta), 'btn btn-secondary'))) +
+      H.p.map(function (p) { return '<p class="lead">' + esc(p) + "</p>"; }).join("") +
       '<div class="block">' + stats + "</div>" +
+      section(H.evidenceH, H.evidenceText, '<p class="small">' + esc(H.evidenceSource) + '</p>') +
+      section(H.videoH, H.videoText, btnRow(ext(link('overviewVideo'), esc(H.videoCta), 'btn btn-secondary'))) +
       '<section class="block"><h2 class="h-sec">' + esc(H.missionH) + '</h2><blockquote class="quote">' + esc(H.mission) + "</blockquote></section>";
   }
 
@@ -420,12 +384,25 @@
       if (typeof q[1] === "function") { if (ctx.lang) items.push([q[0], q[1](ctx)]); }   /* needs a known teaching language */
       else items.push(q);
     });
-
     return items;
   }
-  function pagePreguntas() {
-    var items = faqItems();
-    return secHead("preguntas") +
+  function contactHtml() {
+    var O = F.org, P = L.help, Lb = P.labels;
+    return section(P.contactH, P.contactLead, '<div class="card top-blue"><dl class="kv">' +
+      "<dt>" + esc(Lb.email) + '</dt><dd><a href="mailto:' + esc(O.email) + '">' + esc(O.email) + "</a></dd>" +
+      "<dt>" + esc(Lb.phone) + '</dt><dd><a href="' + esc(O.phoneHref) + '">' + esc(O.phone) + "</a></dd>" +
+      "<dt>" + esc(Lb.wa) + "</dt><dd>" + ext(O.waHref, esc(P.waCta)) + "</dd>" +
+      "<dt>" + esc(Lb.web) + "</dt><dd>" + ext(O.web, esc(P.webLabel)) + "</dd>" +
+      "</dl></div>");
+  }
+  function pageAyuda() {                           /* help order: talk to us → answers → links → after PEA */
+    var items = faqItems(), P = L.help;
+    var links = P.linkGroups.map(function (g) {
+      var l = linkList(g.items);
+      return l ? '<h3 class="h3 mt">' + esc(g.h) + "</h3>" + l : "";
+    }).join("");
+    return secHead("ayuda") + contactHtml() +
+      '<section class="block"><h2 class="h-sec">' + esc(P.faqH) + "</h2>" +
       '<div class="search"><label class="sr-only" for="faqq">' + esc(L.ui.searchPh) + "</label>" +
       '<input id="faqq" type="search" autocomplete="off" placeholder="' + esc(L.ui.searchPh) + '">' +
       '<button type="button" class="x" id="faqx" aria-label="' + esc(L.ui.clear) + '" hidden>×</button></div>' +
@@ -435,35 +412,14 @@
           '</span><span class="sh" aria-hidden="true"><span class="s">' + esc(L.ui.show) + '</span><span class="h">' + esc(L.ui.hide) + "</span></span></summary>" +
           '<div class="a"><p>' + esc(q[1]) + "</p></div></details>";
       }).join("") + "</div>" +
-      '<div id="faqnone" hidden>' + callout("gold", L.ui.noResultsLabel, esc(L.ui.noResults) + ' <a href="#contacto">' + esc(L.contact.h) + "</a>") + "</div>" +
-      linksHtml();
+      '<div id="faqnone" hidden>' + callout("gold", L.ui.noResultsLabel, esc(L.ui.noResults)) + "</div></section>" +
+      section(P.linksH, "", links) +
+      section(P.alumniH, P.alumniText, "");
   }
 
-  function linksHtml() {                           /* help links, shown under the FAQ */
-    var groups = L.links.groups.map(function (g) {
-      var lis = g.items.map(function (it) {
-        var u = link(it[0]); if (!u) return "";
-        return "<li>" + ext(u, '<span class="t">' + esc(it[1]) + '</span><span class="d">' + esc(it[2]) + "</span>", "lnk" + (it[0] === "apply" ? " key" : "")) + "</li>";
-      }).join("");
-      return lis ? '<h3 class="h3 mt">' + esc(g.h) + '</h3><ul class="lgrid">' + lis + "</ul>" : "";
-    }).join("");
-    return '<section class="block"><h2 class="h-sec">' + esc(L.links.h) + '</h2><p class="lead">' + esc(L.links.lead) + "</p>" + groups + "</section>";
-  }
-
-  function pageContacto() {
-    var O = F.org, Lb = L.contact.labels;
-    return secHead("contacto") + applicantSection(L.applicant.teamH, L.applicant.teamText, "") + '<p class="lead">' + esc(L.contact.lead) + "</p>" +
-      '<div class="card top-blue block"><dl class="kv">' +
-      "<dt>" + esc(Lb.email) + '</dt><dd><a href="mailto:' + esc(O.email) + '">' + esc(O.email) + "</a></dd>" +
-      "<dt>" + esc(Lb.phone) + '</dt><dd><a href="' + esc(O.phoneHref) + '">' + esc(O.phone) + "</a></dd>" +
-      "<dt>" + esc(Lb.wa) + "</dt><dd>" + ext(O.waHref, esc(L.contact.waCta)) + "</dd>" +
-      "<dt>" + esc(Lb.web) + "</dt><dd>" + ext(O.web, esc(L.contact.webLabel)) + "</dd>" +
-      "</dl></div>" + applicantSection(L.applicant.supportH, L.applicant.supportText, "") + applicantSection(L.applicant.alumniH, L.applicant.alumniText, "");
-  }
-
-  var PAGES = { inicio: pageHome, participar: pageParticipar, calendario: pageCalendario, zoom: pageZoom,
-                historia: pageHistoria, preguntas: pagePreguntas, contacto: pageContacto };
-  var ALIASES = { lista: "participar", programa: "calendario", enlaces: "preguntas" };   /* retired routes */
+  var PAGES = { inicio: pageHome, participar: pageParticipar, calendario: pageCalendario, historia: pageHistoria, ayuda: pageAyuda };
+  var ALIASES = { lista: "participar", zoom: "participar", programa: "calendario",   /* retired routes */
+                  preguntas: "ayuda", enlaces: "ayuda", contacto: "ayuda" };
 
   function icsStamp(iso) { return new Date(iso).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, ""); }
   function icsEsc(s) { return String(s).replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n"); }
@@ -482,8 +438,8 @@
     evts.forEach(function (e) {
       var tt = evTitle(e), sum = L.cal.icsName + " · " + (e.kind === "cls" ? tt.topic : tt.kind);
       var desc = e.kind === "info" ? L.cal.infoWording + ". " + (link("info") || "")
-               : e.kind === "cls" ? (e.projected ? L.next.projected : L.next.classNote)
-               : e.kind === "holiday" ? L.next.holidayNote : tt.topic;
+               : e.kind === "cls" ? (e.projected ? L.cal.projected : L.cal.classNote)
+               : e.kind === "holiday" ? L.cal.holidayNote : tt.topic;
       lines.push("BEGIN:VEVENT", "UID:PEA-" + e._c + "-" + e.code + "@allineducation.org", "DTSTAMP:" + now,
         "DTSTART:" + icsStamp(e.start), "DTEND:" + icsStamp(e.end), icsFold("SUMMARY:" + icsEsc(sum)),
         icsFold("DESCRIPTION:" + icsEsc(desc)), (e.kind === "holiday" ? "LOCATION:" : "LOCATION:Zoom"), e.kind === "holiday" ? "TRANSP:TRANSPARENT" : "TRANSP:OPAQUE", "END:VEVENT");
@@ -508,15 +464,15 @@
 
   /* ---------- routing + render ---------- */
   function actionsHtml(sticky) {
-    var es = lang === 'es';
+    var A = L.actions;
     var all = {
-      home: ['#inicio', '🏠', es ? 'Inicio' : 'Home', es ? 'Inicio' : 'Home'],
-      cal:  ['#calendario', '📅', es ? 'Ver calendario' : 'View calendar', es ? 'Calendario' : 'Calendar'],
-      info: [link('info'), '👋', es ? 'Registro a la sesión informativa' : 'Info session registration', ''],
-      wa:   [F.org.waHref, '💬', es ? 'WhatsApp al equipo' : 'WhatsApp the team', 'WhatsApp']
+      home: ['#inicio', '🏠', A.home, A.home],
+      cal:  ['#calendario', '📅', A.cal, A.calShort],
+      info: [link('info'), '👋', A.info, ''],
+      wa:   [F.org.waHref, '💬', A.wa, A.waShort]
     };
     var keys = sticky ? ['home', 'cal', 'wa'] : ['cal', 'info', 'wa'];
-    return '<div class="' + (sticky ? 'sticky-actions' : 'quick-actions') + '" aria-label="' + (es ? 'Acciones rápidas' : 'Quick actions') + '">' + keys.map(function (k) {
+    return '<div class="' + (sticky ? 'sticky-actions' : 'quick-actions') + '" aria-label="' + esc(L.ui.quick) + '">' + keys.map(function (k) {
       var a = all[k]; if (!a[0]) return '';
       return ext(a[0], '<span aria-hidden="true">' + a[1] + '</span><span>' + esc(sticky ? a[3] : a[2]) + '</span>', 'quick-action action-' + k);
     }).join('') + '</div>';

@@ -1,0 +1,597 @@
+{
+  "spec": "PEA_Zoom_Link_Resend_Build_Spec",
+  "version": "0.1.0",
+  "status": "draft — not yet approved for execution",
+  "prepared": "2026-09-29",
+  "owner": "Danny Hernández, Community Impact & Learning Manager, ALL In Education",
+  "audience": "An AI agent (ChatGPT or similar) with Airtable and GitHub access, working under a human reviewer",
+  "agent_instructions": {
+    "role": "You are building a self-service 'Resend my Zoom link' flow for the Parent Educator Academy (PEA). Work phase by phase. Complete every step in a phase, write the phase report, then STOP at each checkpoint marked \"type\": \"HUMAN_REVIEW\" and wait for the reviewer to reply with the exact approval phrase. Do not continue on silence, partial approval, or your own judgment.",
+    "operating_rules": [
+      "Follow the phases in order. Do not skip or merge phases.",
+      "At a HUMAN_REVIEW checkpoint, post the listed deliverables, then stop. Resume only when the reviewer replies with the checkpoint's approval_phrase. Any other reply is feedback: apply it, re-post, and wait again.",
+      "Phase 0 is read-only. Create, change or delete nothing in Airtable during Phase 0.",
+      "Never modify, pause, duplicate or re-deploy the existing automation 'Zoom — Welcome email' (wflYtPy1BVwu81mAx). Never change the Enrollments fields 'Send Welcome', 'Welcome Sent', 'Zoom Join URL' or 'Zoom Registration Status'.",
+      "Never delete tables, fields, records or automations. If something must be undone, report it and let the human do it.",
+      "Build the new automation turned OFF. Only the human turns it on (Checkpoint 3).",
+      "Never show, log or copy a participant's Zoom join URL anywhere except the email sent to that participant. Do not write it into Result Note, reports, chat, screenshots or GitHub.",
+      "Never paste real participant names, emails or links into chat or GitHub. In reports, use record IDs and counts only.",
+      "Use only staff-owned test email addresses during testing. Do not send test emails to participants.",
+      "If a tool cannot perform a step through the API (for example, creating a form view or connecting Gmail), give the human exact click-by-click steps instead of improvising.",
+      "If anything in the live base differs from this spec (a field name, an option value, an ID), stop and report the difference. Do not guess.",
+      "Write family-facing text in a warm, clear voice that leads with the action. Never use 'empower' or 'empoderar'. In Spanish, use 'usted', 'salón' or 'clase' (never 'aula'), and 'maestros' (never 'docentes')."
+    ]
+  },
+  "goal": {
+    "problem": "Applicants who cannot find their welcome email must call, text or email the PEA team to get their personal Zoom link again.",
+    "outcome": "From the applicant hub (https://apply-pea.netlify.app), an applicant submits a short Airtable form with their email. An automation looks up their FA26 enrollment and re-sends their personal Zoom link to the email on file. The link never appears on a web page.",
+    "non_goals": [
+      "Creating Zoom registrations or join links. The existing Zoom → Make → Airtable process owns that.",
+      "Changing who receives a welcome email or when.",
+      "Showing any participant data on the hub."
+    ],
+    "fit_standard": {
+      "simple": "One form field (email) plus language; one automation; one new table.",
+      "sustainable": "It reuses the Gmail connection and the Enrollments data the welcome email already uses. It needs no new paid tools.",
+      "right_size": "It serves the FA26 cohort now. Cohort is a single config value, so it can roll over to SP27."
+    }
+  },
+  "environment": {
+    "airtable": {
+      "base": {
+        "id": "appIqlWqvk2HkHVRM",
+        "name": "PEA"
+      },
+      "existing_tables": {
+        "Enrollments": {
+          "id": "tblR9f2UmVjRz6Ezz",
+          "fields_used": {
+            "Name": "fldhLxYIQROaKnCbN",
+            "Email": "fldnd7byvnUL0Y93t",
+            "First (from Person)": "flduX1yP1zwXrZFL3",
+            "Cohort": "fldZFEbsgZXyFvbbX",
+            "Status": "fldSTtotud1wKXsvA",
+            "Language Preference": "fldADCWoIDRInq68o",
+            "Zoom Registration Status": "fldFuPBAkO4Z4k7k5",
+            "Zoom Join URL": "fld2fzKo2DFiYxIqr",
+            "Welcome Sent": "fldijXsXczxYqozSd",
+            "Send Welcome": "fldN7ItH9qjYZKND7"
+          },
+          "known_values": {
+            "Zoom Registration Status (ready)": "Registered",
+            "Language Preference": [
+              "ES",
+              "EN"
+            ]
+          }
+        },
+        "Cohorts": {
+          "id": "tblBXK2c9ul7PzyH5",
+          "primary_field": {
+            "name": "Cohort ID",
+            "id": "fldEw4P8um4F1AxsD",
+            "type": "formula"
+          }
+        },
+        "People": {
+          "id": "tblGSFPN0j0RFdtGq",
+          "note": "The interest form writes here. It is not used by this flow."
+        }
+      },
+      "reference_automation": {
+        "id": "wflYtPy1BVwu81mAx",
+        "name": "Zoom — Welcome email",
+        "status": "deployed",
+        "use_for": "Read only. Copy its Gmail connection (the same sending account) and its eligibility logic: the email matches, the Cohort is a single record, Zoom Registration Status = 'Registered', Zoom Join URL is not empty, and Language Preference is ES or EN."
+      }
+    },
+    "hub": {
+      "repo": "allineducation/apply-pea (public)",
+      "live_site": "https://apply-pea.netlify.app",
+      "config_file": "site/assets/js/facts.js",
+      "config_key": "links.global.resend",
+      "behavior": "While resend is empty, nothing shows. When it holds the form URL, a 'Pedir que me reenvíen mi enlace / Ask us to resend my link' button appears under 'Can't find your welcome email?' on How to take part, and a 'Resend my Zoom link' item appears in Questions & help → Useful links → Zoom. No other code change is needed.",
+      "check_command": "node maintenance/scripts/check-parity.js"
+    },
+    "contacts": {
+      "team_inbox": "pea@allineducation.org",
+      "team_phone": "602-759-0619 (call, text or WhatsApp)"
+    }
+  },
+  "config": {
+    "COHORT_ID": {
+      "value": "FA26",
+      "verify_in": "phase_0",
+      "note": "The exact text of Cohorts → Cohort ID for fall 2026. Confirm it before using it."
+    },
+    "RESEND_WINDOW_HOURS": 24,
+    "MAX_SENDS_PER_WINDOW": 1,
+    "TIMEZONE": "America/Phoenix",
+    "EXCLUDED_ENROLLMENT_STATUSES": {
+      "value": [],
+      "verify_in": "phase_0",
+      "note": "Fill with Enrollments → Status options that mean the person left the program (for example Withdrawn or Dropped). The human confirms at Checkpoint 1."
+    }
+  },
+  "phases": [
+    {
+      "id": "phase_0",
+      "name": "Discovery (read-only)",
+      "steps": [
+        "Read the Enrollments schema. Confirm that every field ID in environment.airtable.existing_tables.Enrollments.fields_used exists with the listed name.",
+        "List the option values of Enrollments → Status, Zoom Registration Status and Language Preference.",
+        "Read the Cohorts table and find the exact Cohort ID text for fall 2026.",
+        "Count FA26 enrollments. Report the total, how many have Zoom Registration Status = 'Registered' with a non-empty Zoom Join URL, and how many share a normalized email (trimmed, lowercased) with another FA26 enrollment.",
+        "Read automation wflYtPy1BVwu81mAx. Note which Gmail connection (sending account) it uses.",
+        "Confirm that no table named 'Zoom Link Requests' exists, and that Enrollments has no fields named 'Link Resent At' or 'Link Resend Count'.",
+        "Confirm whether the base plan allows Airtable form views and the 'Run a script' automation action."
+      ],
+      "phase_report": [
+        "A table of confirmed field IDs, with any mismatch against this spec.",
+        "The option lists for Status, Zoom Registration Status and Language Preference.",
+        "The confirmed COHORT_ID value.",
+        "The FA26 counts: total, ready to send, and duplicate emails.",
+        "The Gmail connection the welcome email uses.",
+        "Any blockers."
+      ]
+    },
+    {
+      "id": "checkpoint_1",
+      "type": "HUMAN_REVIEW",
+      "title": "Approve the data model, eligibility rules and copy before anything is built",
+      "reviewer_checks": [
+        "COHORT_ID is correct.",
+        "EXCLUDED_ENROLLMENT_STATUSES lists every status that should NOT get a link.",
+        "The duplicate-email count is acceptable. Duplicates go to 'Needs review' instead of sending.",
+        "The new table and fields in phase_1 are acceptable.",
+        "The email and form copy in the copy section reads well in both languages."
+      ],
+      "approval_phrase": "APPROVED: proceed to Phase 1",
+      "on_changes_requested": "Update the config and copy, re-post the phase_0 report with the changes marked, and wait."
+    },
+    {
+      "id": "phase_1",
+      "name": "Build the request table, the Enrollments fields and the form",
+      "steps": [
+        {
+          "action": "create_table",
+          "table": "Zoom Link Requests",
+          "description": "One row per 'resend my Zoom link' request from the applicant hub. It is written by the public form and updated by the automation.",
+          "fields": [
+            {
+              "name": "Request",
+              "type": "autoNumber",
+              "primary": true,
+              "note": "If the primary field cannot be an autonumber, use a formula: 'REQ-' & RECORD_ID()."
+            },
+            {
+              "name": "Email",
+              "type": "email",
+              "description": "The email the applicant typed. Used only to look up an enrollment."
+            },
+            {
+              "name": "Language",
+              "type": "singleSelect",
+              "options": [
+                "Español",
+                "English"
+              ]
+            },
+            {
+              "name": "Submitted At",
+              "type": "createdTime",
+              "timezone": "America/Phoenix"
+            },
+            {
+              "name": "Status",
+              "type": "singleSelect",
+              "options": [
+                "New",
+                "Sent",
+                "Not found",
+                "Rate limited",
+                "Needs review",
+                "Error"
+              ],
+              "default": "New"
+            },
+            {
+              "name": "Matched Enrollment",
+              "type": "multipleRecordLinks",
+              "linked_table": "Enrollments"
+            },
+            {
+              "name": "Processed At",
+              "type": "dateTime",
+              "timezone": "America/Phoenix"
+            },
+            {
+              "name": "Result Note",
+              "type": "multilineText",
+              "description": "Why the automation chose this outcome. Never store a Zoom URL here."
+            }
+          ]
+        },
+        {
+          "action": "add_fields",
+          "table": "Enrollments",
+          "fields": [
+            {
+              "name": "Link Resent At",
+              "type": "dateTime",
+              "timezone": "America/Phoenix",
+              "description": "The last time the resend automation emailed this person their Zoom link."
+            },
+            {
+              "name": "Link Resend Count",
+              "type": "number",
+              "precision": 0,
+              "description": "How many times the resend automation has emailed the link."
+            }
+          ]
+        },
+        {
+          "action": "create_form",
+          "table": "Zoom Link Requests",
+          "view_name": "Form — Resend Zoom link (public)",
+          "title": "Reenviar mi enlace de Zoom | Resend my Zoom link",
+          "description_ref": "copy.form.description",
+          "fields": [
+            {
+              "field": "Email",
+              "label": "Correo electrónico con el que se inscribió | Email you signed up with",
+              "required": true
+            },
+            {
+              "field": "Language",
+              "label": "Idioma del correo | Email language",
+              "required": true
+            }
+          ],
+          "hidden_fields": [
+            "Status",
+            "Matched Enrollment",
+            "Processed At",
+            "Result Note"
+          ],
+          "submit_button": "Enviar | Send",
+          "confirmation_message_ref": "copy.form.confirmation",
+          "settings": {
+            "allow_submit_another": false,
+            "show_airtable_branding": "plan default",
+            "never_redirect_to_a_url_that_contains_participant_data": true
+          },
+          "note": "If form views cannot be created through the API, give the human click steps. Do not publish the form URL anywhere yet."
+        }
+      ],
+      "phase_report": [
+        "The new table ID and all new field IDs.",
+        "The form's share URL, for the human only; do not post it to GitHub yet.",
+        "A screenshot or description of the form in both languages."
+      ]
+    },
+    {
+      "id": "phase_2",
+      "name": "Build the automation (left OFF)",
+      "automation": {
+        "name": "Zoom — Resend link (request form)",
+        "deployment": "OFF until Checkpoint 3",
+        "trigger": {
+          "type": "recordCreated",
+          "table": "Zoom Link Requests"
+        },
+        "actions": [
+          {
+            "key": "decide",
+            "type": "runScript",
+            "input_variables": {
+              "requestId": "trigger.record.id"
+            },
+            "script_ref": "scripts.decide",
+            "outputs": [
+              "outcome",
+              "enrollmentId",
+              "toEmail",
+              "firstName",
+              "joinUrl",
+              "lang",
+              "note"
+            ]
+          },
+          {
+            "type": "conditionalGroups",
+            "branches": [
+              {
+                "when": "decide.outcome = 'send' AND decide.lang = 'es'",
+                "do": [
+                  {
+                    "type": "gmailSendEmail",
+                    "connection": "same as Zoom — Welcome email",
+                    "to": "{decide.toEmail}",
+                    "subject_ref": "copy.email_es.subject",
+                    "body_ref": "copy.email_es.body"
+                  },
+                  {
+                    "type": "updateRecord",
+                    "table": "Enrollments",
+                    "record": "{decide.enrollmentId}",
+                    "fields": {
+                      "Link Resent At": "{trigger.record.Submitted At}"
+                    }
+                  },
+                  {
+                    "type": "updateRecord",
+                    "table": "Zoom Link Requests",
+                    "record": "{trigger.record.id}",
+                    "fields": {
+                      "Status": "Sent",
+                      "Matched Enrollment": [
+                        "{decide.enrollmentId}"
+                      ],
+                      "Processed At": "{trigger.record.Submitted At}",
+                      "Result Note": "{decide.note}"
+                    }
+                  }
+                ]
+              },
+              {
+                "when": "decide.outcome = 'send' AND decide.lang = 'en'",
+                "do": "Same as the branch above, but with copy.email_en."
+              },
+              {
+                "when": "decide.outcome = 'not_found' OR decide.outcome = 'needs_review'",
+                "do": [
+                  {
+                    "type": "gmailSendEmail",
+                    "connection": "same as Zoom — Welcome email",
+                    "to": "pea@allineducation.org",
+                    "subject_ref": "copy.team_alert.subject",
+                    "body_ref": "copy.team_alert.body"
+                  },
+                  {
+                    "type": "updateRecord",
+                    "table": "Zoom Link Requests",
+                    "record": "{trigger.record.id}",
+                    "fields": {
+                      "Status": "Not found or Needs review, matching decide.outcome",
+                      "Processed At": "{trigger.record.Submitted At}",
+                      "Result Note": "{decide.note}"
+                    }
+                  }
+                ]
+              },
+              {
+                "when": "decide.outcome = 'rate_limited'",
+                "do": [
+                  {
+                    "type": "updateRecord",
+                    "table": "Zoom Link Requests",
+                    "record": "{trigger.record.id}",
+                    "fields": {
+                      "Status": "Rate limited",
+                      "Processed At": "{trigger.record.Submitted At}",
+                      "Result Note": "{decide.note}"
+                    }
+                  }
+                ]
+              }
+            ],
+            "fallback": "If the script throws, Airtable marks the run as failed. Set up the automation's failure notification to email pea@allineducation.org."
+          }
+        ]
+      },
+      "phase_report": [
+        "The automation ID. Confirm it is OFF.",
+        "The trigger and each action with its field mappings.",
+        "The final script as pasted.",
+        "The email subject and body for each branch as configured."
+      ]
+    },
+    {
+      "id": "checkpoint_2",
+      "type": "HUMAN_REVIEW",
+      "title": "Approve the automation configuration and the test plan before any email is sent",
+      "reviewer_checks": [
+        "The automation is OFF.",
+        "The Gmail branches use the same sending account as the welcome email.",
+        "Participant emails go only to decide.toEmail, the email on the Enrollment. Team alerts go only to pea@allineducation.org.",
+        "No Zoom URL is written to any field or note.",
+        "The test plan in phase_3 uses only staff test enrollments. The human names the test enrollment records."
+      ],
+      "approval_phrase": "APPROVED: proceed to testing",
+      "on_changes_requested": "Apply the changes, re-post the phase_2 report, and wait."
+    },
+    {
+      "id": "phase_3",
+      "name": "Test with staff records only",
+      "setup": [
+        "The human provides 1–2 staff-owned test Enrollment records in COHORT_ID with Zoom Registration Status = 'Registered', a test Zoom Join URL, and staff email addresses. Do not create or edit participant records.",
+        "Use the automation's 'Test' feature against a test request record, or turn the automation on only while the human is watching. Ask before turning it on."
+      ],
+      "test_cases": [
+        {
+          "id": "T1",
+          "input": "The staff test email, exactly as on the Enrollment, Language = Español",
+          "expect": "Status Sent; the Spanish email arrives at that staff inbox with the correct link; Link Resent At set; Link Resend Count = 1"
+        },
+        {
+          "id": "T2",
+          "input": "The same email in upper case with leading and trailing spaces, Language = English",
+          "expect": "Within 24 hours of T1: Status Rate limited, no email sent"
+        },
+        {
+          "id": "T3",
+          "input": "A second staff test email, Language = English",
+          "expect": "Status Sent; the English email arrives"
+        },
+        {
+          "id": "T4",
+          "input": "An email not in Enrollments, such as a staff alias",
+          "expect": "Status Not found; team alert to pea@; nothing sent to the typed address"
+        },
+        {
+          "id": "T5",
+          "input": "An email shared by two FA26 test enrollments (the human sets this up)",
+          "expect": "Status Needs review; team alert; no participant email"
+        },
+        {
+          "id": "T6",
+          "input": "A test enrollment with an empty Zoom Join URL",
+          "expect": "Status Needs review; team alert; no participant email"
+        }
+      ],
+      "phase_report": [
+        "A pass or fail table for T1–T6, with record IDs only and no emails or links.",
+        "Screenshots of the received test emails, with the link blurred.",
+        "Confirmation that the automation is back OFF after testing, unless the human said otherwise."
+      ]
+    },
+    {
+      "id": "checkpoint_3",
+      "type": "HUMAN_REVIEW",
+      "title": "Approve go-live",
+      "reviewer_checks": [
+        "T1–T6 all pass.",
+        "The received emails read well in both languages.",
+        "The human turns the automation ON personally, or tells the agent to."
+      ],
+      "approval_phrase": "APPROVED: go live",
+      "on_changes_requested": "Fix the failing case, re-run the affected tests, re-post the results, and wait."
+    },
+    {
+      "id": "phase_4",
+      "name": "Go live on the hub",
+      "steps": [
+        "Confirm the automation is ON.",
+        "In allineducation/apply-pea, create a branch from main. In site/assets/js/facts.js, set links.global.resend to the form's share URL. Change nothing else.",
+        "Run: node maintenance/scripts/check-parity.js. It must pass.",
+        "Add a short note under 'Approved applicant content' in README.md: 'Resend my Zoom link: Airtable form → automation Zoom — Resend link (request form); team alerts go to pea@allineducation.org.'",
+        "Open a draft pull request that describes the change and links this spec. Do not merge; the human merges.",
+        "After the human merges, confirm that the Netlify production deploy for the merge commit is ready. On the live site, open 'How to take part' and 'Questions & help' in ES and EN, and check that the resend button and link appear and open the form."
+      ],
+      "phase_report": [
+        "The PR URL.",
+        "Confirmation of the production deploy.",
+        "Four checks: two pages × ES/EN."
+      ]
+    },
+    {
+      "id": "phase_5",
+      "name": "Handoff and monitoring",
+      "steps": [
+        "Create a view in Zoom Link Requests named 'Needs follow-up' that filters Status = Not found, Needs review or Error, sorted by Submitted At, newest first.",
+        "Write a one-paragraph runbook in the README of apply-pea. It covers where requests land, who checks 'Needs follow-up', how often (suggested: each class day before 4:30 PM Arizona time), and how to roll back (clear links.global.resend in facts.js and turn the automation OFF)."
+      ]
+    }
+  ],
+  "scripts": {
+    "decide": {
+      "language": "javascript (Airtable automation 'Run a script')",
+      "code": [
+        "// Decide whether to resend a personal Zoom link. Reads only; writes the Link Resend Count.",
+        "// Never outputs a URL to any field other than the Gmail action that emails the owner of the enrollment.",
+        "const COHORT_ID = 'FA26';                 // confirmed at Checkpoint 1",
+        "const EXCLUDED_STATUSES = [];             // Enrollments → Status values that must not receive a link",
+        "const WINDOW_MS = 24 * 60 * 60 * 1000;    // RESEND_WINDOW_HOURS",
+        "",
+        "async function main() {",
+        "  const { requestId } = input.config();",
+        "  const reqTable = base.getTable('Zoom Link Requests');",
+        "  const enrTable = base.getTable('Enrollments');",
+        "",
+        "  const reqs = await reqTable.selectRecordsAsync({ fields: ['Email', 'Language', 'Status', 'Processed At'] });",
+        "  const req = reqs.getRecord(requestId);",
+        "  if (!req) throw new Error('Request not found: ' + requestId);",
+        "  const typed = req.getCellValueAsString('Email').trim().toLowerCase();",
+        "  const lang = req.getCellValueAsString('Language') === 'English' ? 'en' : 'es';",
+        "",
+        "  function done(outcome, note, extra) {",
+        "    output.set('outcome', outcome);",
+        "    output.set('note', note);",
+        "    output.set('lang', lang);",
+        "    output.set('enrollmentId', (extra && extra.enrollmentId) || '');",
+        "    output.set('toEmail', (extra && extra.toEmail) || '');",
+        "    output.set('firstName', (extra && extra.firstName) || '');",
+        "    output.set('joinUrl', (extra && extra.joinUrl) || '');",
+        "  }",
+        "",
+        "  if (!typed) { done('needs_review', 'Empty email on request.'); return; }",
+        "",
+        "  const enr = await enrTable.selectRecordsAsync({ fields: ['Email', 'Cohort', 'Status', 'Zoom Registration Status', 'Zoom Join URL', 'First (from Person)', 'Link Resent At', 'Link Resend Count'] });",
+        "  const matches = enr.records.filter(r =>",
+        "    r.getCellValueAsString('Email').trim().toLowerCase() === typed &&",
+        "    (r.getCellValue('Cohort') || []).some(c => c.name === COHORT_ID) &&",
+        "    !EXCLUDED_STATUSES.includes(r.getCellValueAsString('Status'))",
+        "  );",
+        "",
+        "  if (matches.length === 0) { done('not_found', 'No ' + COHORT_ID + ' enrollment for this email.'); return; }",
+        "  if (matches.length > 1) { done('needs_review', 'More than one ' + COHORT_ID + ' enrollment for this email: ' + matches.map(m => m.id).join(', ')); return; }",
+        "",
+        "  const m = matches[0];",
+        "  const url = m.getCellValueAsString('Zoom Join URL').trim();",
+        "  if (m.getCellValueAsString('Zoom Registration Status') !== 'Registered' || !url) {",
+        "    done('needs_review', 'Enrollment ' + m.id + ' has no ready Zoom link.', { enrollmentId: m.id });",
+        "    return;",
+        "  }",
+        "",
+        "  const last = m.getCellValue('Link Resent At');",
+        "  if (last && (Date.now() - new Date(last).getTime()) < WINDOW_MS) {",
+        "    done('rate_limited', 'Link already resent within the window for enrollment ' + m.id + '.', { enrollmentId: m.id });",
+        "    return;",
+        "  }",
+        "",
+        "  await enrTable.updateRecordAsync(m.id, { 'Link Resend Count': (m.getCellValue('Link Resend Count') || 0) + 1 });",
+        "  done('send', 'Resent to the email on enrollment ' + m.id + '.', {",
+        "    enrollmentId: m.id,",
+        "    toEmail: m.getCellValueAsString('Email').trim(),",
+        "    firstName: m.getCellValueAsString('First (from Person)'),",
+        "    joinUrl: url",
+        "  });",
+        "}",
+        "",
+        "await main();"
+      ],
+      "notes": [
+        "If Cohort link objects expose the Cohort ID under a different property than .name, adjust the match and report the change at Checkpoint 2.",
+        "The Gmail action sends to toEmail, which comes from the Enrollment record, never the typed value. They match after normalization, but the Enrollment is the source of truth.",
+        "Link Resent At and Processed At are set by the update steps after the Gmail action, mapped from the trigger record's 'Submitted At', so they are recorded only after a send succeeds. The count is incremented just before the send; if the Gmail step fails, the automation run fails and the team is alerted.",
+        "The logic sits inside main() so the early 'return' statements are valid in any Airtable script runtime."
+      ]
+    }
+  },
+  "copy": {
+    "form": {
+      "description": "¿No encuentra su correo de bienvenida de PEA? Escriba el correo electrónico con el que se inscribió y le volveremos a enviar su enlace personal de Zoom. Revise también la carpeta de spam o correo no deseado.\n\nCan’t find your PEA welcome email? Enter the email you signed up with, and we’ll send your personal Zoom link again. Please check your spam or junk folder too.",
+      "confirmation": "Gracias. Si este correo está inscrito en PEA, recibirá su enlace en unos minutos. Revise también la carpeta de spam. ¿No le llega? Llame o mande un texto o WhatsApp al 602-759-0619.\n\nThank you. If this email is registered for PEA, you’ll receive your link within a few minutes. Check your spam folder too. Nothing arrived? Call, text, or WhatsApp 602-759-0619.",
+      "rule": "The confirmation must read the same whether or not the email is registered. Never reveal whether someone is enrolled."
+    },
+    "email_es": {
+      "subject": "Su enlace personal de Zoom para PEA",
+      "body": "Hola {firstName}:\n\nAquí tiene su enlace personal de Zoom para las clases de la Parent Educator Academy (PEA):\n\n{joinUrl}\n\nEs el mismo enlace para todas las clases. Es solo para usted, así que le pedimos no compartirlo.\n\nLas clases son los martes y jueves, de 5:00 a 6:30 p. m., hora de Arizona. Unos minutos antes de cada clase, abra la aplicación de Zoom, inicie sesión y haga clic en su enlace. Espere en la sala de espera virtual de PEA y le pasaremos a la clase.\n\n¿No pidió este correo? Puede ignorarlo. ¿Tiene preguntas? Llame o mande un texto o WhatsApp al 602-759-0619.\n\nSaludos cordiales,\nEl equipo de PEA · ALL In Education\npea@allineducation.org"
+    },
+    "email_en": {
+      "subject": "Your personal Zoom link for PEA",
+      "body": "Hi {firstName},\n\nHere’s your personal Zoom link for Parent Educator Academy (PEA) classes:\n\n{joinUrl}\n\nIt’s the same link for every class. It’s just for you, so please don’t share it.\n\nClasses meet Tuesdays and Thursdays, 5:00–6:30 PM Arizona time. A few minutes before each class, open the Zoom app, sign in, and click your link. Wait in the PEA Virtual Waiting Room, and we’ll bring you into class.\n\nDidn’t ask for this email? You can ignore it. Have questions? Call, text, or WhatsApp 602-759-0619.\n\nWarmly,\nThe PEA team · ALL In Education\npea@allineducation.org"
+    },
+    "team_alert": {
+      "subject": "[PEA] Zoom link request needs follow-up",
+      "body": "A 'resend my Zoom link' request could not be sent automatically.\n\nOutcome: {decide.outcome}\nReason: {decide.note}\nRequest record: {trigger.record.url}\nLanguage: {trigger.record.Language}\n\nPlease check the 'Needs follow-up' view in Zoom Link Requests and contact the applicant. Do not reply to this message with a Zoom link.",
+      "note": "Do not include the typed email in the subject line."
+    },
+    "cohort_rollover": "When SP27 opens, update COHORT_ID and the class-day line in both emails. Review both emails for dates."
+  },
+  "privacy_and_safety": [
+    "Anti-enumeration: the form confirmation is identical for every outcome.",
+    "Delivery only to the address on file: a stranger who types someone else's email only causes that person to get their own link.",
+    "Rate limit: one send per enrollment per 24 hours.",
+    "No Zoom URL is stored outside the Enrollments table or shown on any page.",
+    "The public repository gets only the form's share URL, never participant data.",
+    "Rollback: clear links.global.resend in facts.js (the hub hides the button) and turn the automation OFF. Nothing needs to be deleted."
+  ],
+  "acceptance_criteria": [
+    "T1–T6 pass, and results are recorded at Checkpoint 3.",
+    "The existing 'Zoom — Welcome email' automation is unchanged (compare its configuration before and after).",
+    "The hub shows the resend button in ES and EN only after go-live.",
+    "The 'Needs follow-up' view exists, and the README runbook names who checks it."
+  ]
+}
