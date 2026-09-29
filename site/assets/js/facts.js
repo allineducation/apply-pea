@@ -1,5 +1,5 @@
 /* ==================================================================
-   PEA Applicant Hub — FACTS  (v0.11.0)
+   PEA Applicant Hub — FACTS  (v0.14.0)
    ------------------------------------------------------------------
    PRIMARY DATE AND LINK REGISTRY. Also review cohort policy copy.
    Cohort dates, duration and links are maintained here.
@@ -21,6 +21,11 @@
    app.js subtracts exactly seven hours to display them.
 
    A missing link is simply not shown. Families never see a gap marker.
+
+   Entry path (Danny, 2026-09-29): the interest form is the application.
+   The team sets up each applicant's Zoom access and sends a personal Zoom
+   link in the welcome email. There is no public class Zoom registration
+   link; do not add one back.
    ================================================================== */
 window.PEA_FACTS = {
   syncedAt: "2026-09-24",
@@ -127,17 +132,15 @@ window.PEA_FACTS = {
       lista:       "https://bit.ly/pealista",
       flyer:       "https://bit.ly/peaflyer",
       vidAccount:  "https://bit.ly/peacuentadezoom",
-      vidRegister: "https://bit.ly/pearegistrozoom",
       vidName:     "https://bit.ly/peazoomnombre"
     },
     FA26: {
-      info:     "https://us06web.zoom.us/meeting/register/GpHzmL9lQe6K_7ult-Mmnw",
-      zoom:     "https://us06web.zoom.us/meeting/register/nLJgGfCITL2GURTc-eEUsw",
+      info:     "https://bit.ly/peafa26info",          /* info session only — not class registration */
       cal:      "https://bit.ly/peafa26cal",
-      whatsapp: "https://chat.whatsapp.com/KHdNf1nJalPLUW64lCkIdg?s=sh&p=i&mlu=4"
+      whatsapp: "https://bit.ly/peafa26whatsapp"
     },
     SP27: {
-      /* Spring interest is open; Zoom registration will be released later. */
+      /* Spring interest is open through the interest form. */
     }
   },
 

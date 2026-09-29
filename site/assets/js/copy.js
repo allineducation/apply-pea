@@ -1,5 +1,5 @@
 /* ==================================================================
-   PEA Applicant Hub — COPY DICTIONARY  (v0.9.4)
+   PEA Applicant Hub — COPY DICTIONARY  (v0.14.0)
    ------------------------------------------------------------------
    Every user-visible string, in two complete languages with identical
    keys (AIE Hub Design System §3). ES and EN are parallel originals,
@@ -38,13 +38,11 @@
         groups: { join: "Unirse", about: "Conozca PEA", help: "Ayuda" }
       },
       sections: {
-        participar: { label: "Cómo participar", desc: "Tres pasos. El tercero asegura su lugar.", time: "2 min" },
-        calendario: { label: "Calendario", desc: "Todas las fechas y horarios del programa.", time: "1 min" },
+        participar: { label: "Cómo participar", desc: "Del formulario de interés a su primera clase.", time: "3 min" },
+        calendario: { label: "Calendario y temas", desc: "Fechas, horarios y lo que va a aprender en cada clase.", time: "3 min" },
         zoom:       { label: "Zoom paso a paso", desc: "Videos cortos y consejos para entrar sin problema.", time: "3 min" },
-        programa:   { label: "Qué va a aprender", desc: "Los temas de las 18 clases.", time: "2 min" },
         historia:   { label: "Experiencias e historia", desc: "Historias de familias, resultados y la organización.", time: "2 min" },
-        preguntas:  { label: "Preguntas", desc: "Respuestas rápidas a las dudas más comunes.", time: "3 min" },
-        enlaces:    { label: "Enlaces", desc: "Todo lo que va a necesitar, en un solo lugar.", time: "1 min" },
+        preguntas:  { label: "Preguntas y enlaces", desc: "Respuestas rápidas y todos los enlaces útiles.", time: "4 min" },
         contacto:   { label: "Contacto", desc: "Escríbanos o mándenos un mensaje.", time: "1 min" }
       },
 
@@ -78,10 +76,9 @@
         now: "Ahora mismo",
         today: "Hoy", tomorrow: "Mañana",                                          /* [G] */
         inDays: function (n) { return "En " + n + " días"; },                    /* [G] */
-        join: "Registro para la sesión informativa",                                                   /* [G] */
-        register: "Registrarse en Zoom",                                           /* [G] */
+        join: "Registrarse solo para la sesión informativa",
         addCal: "Agregar a mi calendario",
-        classNote: "Para entrar a clase, use el enlace personal de su correo de confirmación de Zoom. No lo comparta.",
+        classNote: "Para entrar a clase, use el enlace personal de Zoom de su correo de bienvenida. Es el mismo para todas las clases. No lo comparta.",
         holidayNote: "No hay clase ese día.",
         focusNote: "El equipo de PEA compartirá las instrucciones para participar en el grupo de enfoque.",
         nothing: "No hay eventos próximos en el calendario.",                      /* [G] */
@@ -96,50 +93,52 @@
       },
 
       home: {
-        stepsH: "Otoño de 2026: tres pasos para unirse",
-        ctaLead: "El tercer paso es el que asegura su lugar.",
-        overviewH: "Todo en un solo lugar",
-        shareH: "¿Conoce a otra familia?",
-        shareLead: "Compártale esta página. El programa es gratuito y el cupo se llena por orden de registro."
+        stepsH: "Otoño de 2026: del formulario a su primera clase"
       },
 
-      steps: {                                                                     /* [G] */
+      steps: {                                                                     /* "Joining the Parent Educator Academy" (Danny, 2026-09-29) */
         h: "Cómo participar",
-        lead: "Otoño de 2026: tres pasos. El tercero es el que asegura su lugar. Para primavera de 2027, complete por ahora el formulario de interés.",
         items: [
-          { t: "Llene el formulario de interés", d: "Nos dice quién es usted y cómo comunicarnos con usted. No es una solicitud y no hay proceso de selección.", link: "apply", cta: "Ir al formulario" },
-          { t: "Asista a la sesión informativa", d: "Opcional, pero es muy recomendable asistir a una sesión. Puede registrarse para la próxima sesión o ver la grabación después. Es bilingüe: se habla español e inglés. Al final, el equipo le ayuda a completar su registro para las clases.", link: "info", cta: "Registrarse para la sesión", tag: "Opcional" },
-          { t: "Complete su registro en Zoom", d: "Este paso es el que asegura su lugar. El cupo es limitado y se llena por orden de registro.", link: "zoom", cta: "Registrarse en Zoom", key: true }
+          { t: "Llene el formulario de interés de PEA", d: "El formulario de interés es su solicitud. Escriba su nombre, correo electrónico, idioma preferido y la demás información que pide el formulario. Use un correo que revise con frecuencia: ahí le enviaremos la información de sus clases.", link: "apply", cta: "Ir al formulario", key: true },
+          { t: "Busque su correo de bienvenida y guarde su enlace personal de Zoom", d: "Su correo de bienvenida incluye:", list: [
+              "Su enlace personal de acceso a Zoom. Use este mismo enlace para entrar a todas las clases de PEA este otoño. También lo usamos para registrar su asistencia.",
+              "Las fechas y el horario del programa.",
+              "La guía para solicitantes de PEA.",
+              "Maneras opcionales de hacer preguntas y conectar con otras familias y cuidadores."
+            ], after: "Su enlace es solo para usted; por favor, no lo comparta. No necesita registrarse por separado en Zoom ni pedir un enlace nuevo cada semana." },
+          { t: "Prepárese para el programa", d: "Antes y durante la primera semana del programa:", list: [
+              "Lea la guía para solicitantes y agregue las fechas de clase a su calendario.",
+              "Entre a su primera clase el martes 6 de octubre a las 5:00 p. m.",
+              "Opcional: asista a la sesión informativa del jueves 1 de octubre, de 5:00 a 6:30 p. m., para conocer más y hacer preguntas. El enlace de registro viene en su correo de bienvenida y en esta página.",
+              "Opcional: únase al grupo de WhatsApp de su cohorte para conectar con sus compañeros de clase.",
+              "Descargue la aplicación de Zoom en su dispositivo y asegúrese de poder iniciar sesión.",
+              "Pruebe su cámara, micrófono y conexión a Wi-Fi."
+            ] },
+          { t: "Entre a su primera clase", d: "Las clases de otoño de 2026 comienzan el martes 6 de octubre a las 5:00 p. m. Nos reunimos los martes y jueves de 5:00 a 6:30 p. m. hasta el martes 8 de diciembre. No hay clase el jueves 26 de noviembre, Día de Acción de Gracias. Unos minutos antes de cada clase:", list: [
+              "Abra la aplicación de Zoom e inicie sesión.",
+              "Haga clic en su enlace personal de acceso a Zoom.",
+              "Espere en la sala de espera virtual de PEA."
+            ], ordered: true, after: "Cuando el equipo de PEA esté listo, Zoom le pasará automáticamente a la clase. Podrá ver y escuchar a los facilitadores y a las demás familias y cuidadores de su cohorte." }
         ],
-        noteLabel: "Importante",
-        note: "No hay formulario de compromiso, no hay invitación y no hay proceso de selección. Para otoño de 2026, el registro en Zoom reserva su lugar. Para primavera de 2027, por ahora solo está disponible el formulario de interés.",
-        infoDatesH: "Sesión informativa",
-        infoDatesNote: "Si no puede asistir, podrá ver la grabación después. Consulte al equipo para obtener el enlace cuando esté disponible.",
-        whoLabel: "Quién puede participar",
-        who: "Familias y cuidadores que quieren abogar por sus hijos dentro del sistema escolar de Arizona. PEA también está abierto al personal escolar, como enlaces con las familias y maestros. No hay proceso de selección: el cupo se llena por orden de registro.",
-        askH: "Qué esperamos de cada persona",                                     /* [G] */
-        ask: [
-          ["Asistir", "Asista al menos a 16 de las 18 clases para recibir su certificado. Si no puede asistir, avise al equipo con anticipación."],
-          ["Participar", "Encienda su cámara si puede, hable, pregunte. El salón funciona cuando todos aportan."],
-          ["Comunicar", "Si algo se le dificulta — la tecnología, el horario, el idioma — díganos. Casi siempre hay una solución."]
-        ],
+        infoDatesH: "Sesión informativa (opcional)",
+        infoDatesNote: "Opcional. Es para conocer más el programa y hacer preguntas. Este registro es solo para la sesión informativa; no es el registro para las clases. El enlace también viene en su correo de bienvenida. ¿No puede asistir o tiene preguntas? Llame o mande un mensaje al 602-759-0619."
       },
 
       cal: {
-        h: "Calendario",
+        h: "Calendario y temas",
         scheduleLabel: "Fechas de otoño de 2026",
-        scheduleNote: "18 clases programadas, martes y jueves, del 6 de octubre al 8 de diciembre de 2026. No hay clase el 26 de noviembre. Grupo de enfoque: 10 de diciembre. Todo de 5:00 a 6:30 p. m., hora de Arizona. Si las clases ya comenzaron, consulte al equipo sobre la posibilidad de inscribirse.",
-        lead: function (days, time) { return "Las clases son los " + days + ", de " + time + ", hora de Arizona."; },
+        scheduleNote: "18 clases programadas, martes y jueves, del 6 de octubre al 8 de diciembre de 2026. No hay clase el jueves 26 de noviembre (Día de Acción de Gracias). Sesión informativa opcional: jueves 1 de octubre. Grupo de enfoque: 10 de diciembre. Todo de 5:00 a 6:30 p. m., hora de Arizona. Si las clases ya comenzaron, consulte al equipo sobre la posibilidad de inscribirse.",
+        tapHint: "Toque una clase para ver de qué trata, la hoja de trabajo y la lista de recursos. Para entrar a clase, use el enlace personal de Zoom de su correo de bienvenida.",
         filterLabel: "Mostrar",
         filters: { all: "Todo", info: "Sesiones informativas", cls: "Clases" },
         cols: { date: "Fecha", kind: "Tipo", topic: "Tema", time: "Hora" },
         kinds: { info: "Sesión informativa", cls: "Clase", holiday: "No hay clase", focus: "Grupo de enfoque", grad: "Graduación" }, /* [G] */
         topics: {                                                                  /* [G] */
-          info: "Conozca el programa antes de decidir",
+          info: "Conozca más el programa y haga preguntas",
           holiday: "Día de Acción de Gracias",
           focus: "Conversación sobre su experiencia en PEA"
         },
-        infoWording: "Opcional, pero es muy recomendable asistir a una sesión",     /* applicant calendar wording, copyedited */
+        infoWording: "Opcional. Para conocer más el programa y hacer preguntas",
         week: function (n) { return "Semana " + n; },
         today: "Hoy", done: "Ya pasó",
         note: "Hora de Arizona. Las clases son por Zoom.",                         /* [G] */
@@ -151,8 +150,7 @@
           open: "Ver detalles de la clase", close: "Ocultar detalles",
           openInfo: "Ver detalles de la sesión",
           about: "Sobre esta clase", aboutInfo: "Sobre la sesión",
-          zoom: "Registro en Zoom",
-          zoomNote: "Si ya se registró, entre con el enlace personal de su correo de confirmación de Zoom. Si no lo encuentra, revise la carpeta de spam y comuníquese con el equipo para recuperar su enlace.",
+          zoomNote: "Entre con el enlace personal de Zoom de su correo de bienvenida; es el mismo para todas las clases. Si no lo encuentra, revise la carpeta de spam o correo no deseado y comuníquese con el equipo.",
           resources: "Lista de recursos",
           worksheet: "Hoja de trabajo (PDF)",
           addCal: "Agregar a mi calendario"
@@ -165,34 +163,26 @@
         h: "Zoom paso a paso",
         lead: "Si nunca ha usado Zoom, o si no está seguro de algún paso, estos videos cortos le muestran cómo hacerlo. Los videos están en español.", /* [G] */
         vids: [                                                                    /* [G] */
-          ["vidAccount", "Crear una cuenta de Zoom", "Necesita una cuenta activa para entrar a clase."],
-          ["vidRegister", "Completar su registro", "El paso que asegura su lugar, explicado en pantalla."],
+          ["vidAccount", "Crear una cuenta de Zoom", "Para poder iniciar sesión en la aplicación de Zoom."],
           ["vidName", "Cambiar el nombre que se muestra", "Para que le reconozcamos al entrar."]
         ],
         watch: "Ver el video",
         tipLabel: "Muy importante",
-        tip: "Use el mismo correo en su cuenta de Zoom y en el registro. Inicie sesión en Zoom con esa misma cuenta antes de entrar a clase.", /* [G] */
+        tip: "Use el enlace personal de Zoom de su correo de bienvenida para entrar a todas las clases. Es solo para usted: no lo comparta. No necesita registrarse por separado en Zoom ni pedir un enlace nuevo cada semana.",
         orderH: "En este orden",
         order: [
-          ["Cree su cuenta de Zoom", "Es gratuita. Anote el correo que usó."],
-          ["Regístrese para la cohorte", "Use el mismo correo de su cuenta de Zoom."],
-          ["Busque el correo de confirmación", "Revise su bandeja de entrada y la carpeta de spam. Guárdelo: trae su enlace personal para entrar a clase."],
-          ["Cambie el nombre que se muestra", "Ponga su nombre y apellido para que podamos registrar su asistencia."],
-          ["El día de clase, entre con su enlace", "Use el enlace de su correo de confirmación. Entre unos minutos antes."]
+          ["Descargue la aplicación de Zoom", "Instálela en su teléfono, tableta o computadora y asegúrese de poder iniciar sesión."],
+          ["Pruebe su equipo", "Revise su cámara, micrófono y conexión a Wi-Fi."],
+          ["Guarde su correo de bienvenida", "Trae su enlace personal de acceso a Zoom. Es el mismo para todas las clases."],
+          ["Unos minutos antes de clase", "Abra la aplicación de Zoom, inicie sesión y haga clic en su enlace personal."],
+          ["Espere en la sala de espera virtual de PEA", "Cuando el equipo de PEA esté listo, Zoom le pasará automáticamente a la clase."]
         ],
-        lostLabel: "¿No encuentra el correo de confirmación?",
-        lost: "Revise su bandeja de entrada y la carpeta de spam. Si no aparece, escríbanos para que le ayudemos a recuperar su enlace personal.", /* [G] */
+        lostLabel: "¿No encuentra su correo de bienvenida?",
+        lost: "Revise la carpeta de spam o correo no deseado. Si aún no lo encuentra, escríbanos a pea@allineducation.org o llame, mande un texto o un WhatsApp al 602-759-0619.",
         deviceLabel: "¿Computadora o teléfono?",
         device: "La computadora o la tableta hacen la experiencia mejor: se ven los materiales y es más fácil participar. Si el teléfono es lo que tiene, el teléfono funciona." /* [G] */
       },
 
-      prog: {
-        h: "Qué va a aprender",
-        lead: "Durante el programa nos reunimos en línea para aprender juntos cómo funciona el sistema educativo, cuáles son sus derechos, y cómo usar su voz con las escuelas, los distritos y quienes toman decisiones. Usted ya conoce a su hijo mejor que nadie. El programa le da el mapa del sistema y las herramientas para moverse dentro de él.", /* [G] */
-        classLabel: "Cómo es cada clase",
-        classText: "Nos reunimos en grupo por Zoom. Al final de cada clase hay una encuesta de salida corta: entre cinco y ocho preguntas, dos a cuatro minutos. Nos dice qué está funcionando y qué no.",
-        gradNote: "Cierre del programa"
-      },
 
       hist: {                                                                      /* [G] */
         h: "Experiencias e historia",
@@ -218,41 +208,38 @@
       faq: {
         h: "Preguntas frecuentes",
         items: [
-          ["¿Tengo que solicitar o esperar una invitación?", "No. No hay solicitud, no hay invitación y no hay proceso de selección. Para otoño de 2026, llene el formulario de interés y complete su registro en Zoom; ese registro es lo que reserva su lugar."], /* [G] */
-          ["¿Cómo sé que ya tengo mi lugar?", "Cuando complete su registro en Zoom, le llega un correo de confirmación de Zoom. Ese correo es su confirmación y trae su enlace personal para entrar a clase. Guárdelo."],
-          ["¿Quién puede participar?", "Familias y cuidadores que quieren abogar por sus hijos dentro del sistema escolar de Arizona. PEA también está abierto al personal escolar, como enlaces con las familias y maestros. No hay proceso de selección: el cupo se llena por orden de registro."],
-          ["¿Es obligatorio asistir a la sesión informativa?", "No. Es opcional, pero es muy recomendable asistir a una sesión. Es una oportunidad para conocernos, conocer el programa y hacer preguntas, y al final el equipo le ayuda a completar su registro para las clases. No asistir no afecta su lugar de ninguna manera."], /* [G] */
-          ["¿Qué pasa si no puedo asistir a la sesión informativa?", "Puede ver la grabación después. Consulte al equipo para obtener el enlace cuando esté disponible."], /* [G] */
-          ["¿En qué idioma es el programa?", function (c) { return "La cohorte de " + c.label + " se imparte en " + c.lang + ". La sesión informativa es bilingüe — se habla español e inglés — porque es la puerta de entrada y queremos que cualquier familia pueda venir a conocernos antes de decidir."; }], /* [G], cohort resolved from facts */
+          ["¿Cómo solicito un lugar en PEA?", "El formulario de interés es su solicitud. No hay proceso de aceptación ni formulario de compromiso. Después de enviarlo, preparamos su acceso a Zoom y le mandamos su enlace personal en el correo de bienvenida."],
+          ["¿Cómo sé que ya tengo mi lugar?", "Le llegará un correo de bienvenida con su enlace personal de Zoom, las fechas del programa y la guía para solicitantes de PEA. Guarde ese enlace: lo usará para entrar a todas las clases."],
+          ["¿Quién puede participar?", "Familias y cuidadores que quieren abogar por sus hijos dentro del sistema escolar de Arizona. PEA también está abierto al personal escolar, como enlaces con las familias y maestros. No hay proceso de selección: el formulario de interés es la manera de entrar."],
+          ["¿Es obligatorio asistir a la sesión informativa?", "No. Es opcional. Es el jueves 1 de octubre, de 5:00 a 6:30 p. m., hora de Arizona: una oportunidad para conocernos, conocer más el programa y hacer preguntas. El registro es solo para la sesión informativa. No asistir no afecta su lugar de ninguna manera."],
+          ["¿Qué pasa si no puedo asistir a la sesión informativa?", "No pasa nada: no es obligatoria. Si tiene preguntas, llame o mande un mensaje al 602-759-0619."],
+          ["¿En qué idioma es el programa?", function (c) { return "La cohorte de " + c.label + " se imparte en " + c.lang + ". La sesión informativa es bilingüe — se habla español e inglés — para que cualquier familia pueda conocer más el programa y hacer preguntas."; }], /* cohort resolved from facts */
           ["¿Cuánto cuesta?", "Nada. PEA es gratuito para todas las personas participantes."], /* [G], widened to all participants (Danny, 2026-09-25) */
-          ["¿Necesito una cuenta de Zoom?", "Sí. Para participar necesita una cuenta activa de Zoom, y es gratuita. El correo que use para registrarse debe ser el mismo de su cuenta de Zoom. Inicie sesión con esa cuenta antes de entrar a clase. La sección «Zoom paso a paso» le muestra cómo crearla."], /* [G], last sentence adapted */
-          ["No encuentro el correo de confirmación de Zoom. ¿Qué hago?", "Revise su bandeja de entrada y la carpeta de spam. Si no aparece, escríbanos para que le ayudemos a recuperar su enlace personal."], /* [G] */
+          ["¿Necesito una cuenta de Zoom?", "Descargue la aplicación de Zoom en su dispositivo y asegúrese de poder iniciar sesión. Para entrar a clase, use el enlace personal de su correo de bienvenida. No necesita registrarse por separado en Zoom. La sección «Zoom paso a paso» le muestra cómo prepararse."],
+          ["No encuentro mi correo de bienvenida. ¿Qué hago?", "Revise la carpeta de spam o correo no deseado. Si aún no lo encuentra, escríbanos a pea@allineducation.org o llame, mande un texto o un WhatsApp al 602-759-0619."],
+          ["Trabajo en una escuela. ¿Cómo puedo ayudar a las familias?", "Ayude a las familias a llenar el formulario de interés, a encontrar su correo de bienvenida y a comunicarse con nuestro equipo si necesitan ayuda. Cada persona recibe su propio enlace personal de acceso a Zoom."],
           ["¿Qué pasa si falto a una clase?", "Avise al equipo de PEA con anticipación si no puede asistir. Para recibir su certificado, debe asistir al menos a 16 de las 18 clases. Escríbanos si necesita apoyo para cumplir este requisito."], /* [G] */
           ["¿Puedo participar desde el teléfono?", "Sí, aunque la computadora o la tableta hacen la experiencia mejor: se ven los materiales y es más fácil participar. Si el teléfono es lo que tiene, el teléfono funciona."], /* [G] */
           ["¿Qué es la encuesta de salida?", "Es una encuesta corta que se completa después de cada clase — entre cinco y ocho preguntas, dos a cuatro minutos. Nos dice qué está funcionando y qué no, y es la razón por la que el programa cambia de una cohorte a otra."], /* [G] */
           ["¿Hay algo después del programa?", "Sí. Los exalumnos siguen conectados con ALL In Education — hay grupos de enfoque, oportunidades de liderazgo y acompañamiento a las familias nuevas. La graduación es el final del curso, no del vínculo."] /* [G]; "AIE" → full name per brand §4 */
         ],
-        nextCohortQ: "¿Cuándo es la próxima cohorte?",
-        nextCohortA: function (label) { return "Primavera de 2027: del 16 de marzo al 13 de mayo, martes y jueves, de 5:00 a 6:30 p. m., hora de Arizona. Ya puede llenar el formulario de interés. El registro de Zoom se publicará más adelante. Seleccione Primavera / Spring 2027 (S27) en el formulario de interés."; }
       },
 
       links: {
-        h: "Enlaces rápidos",
+        h: "Enlaces útiles",
         lead: "Todo lo que va a necesitar, en un solo lugar.",                    /* [G] */
         groups: [
           { h: "Para unirse", items: [
-            ["zoom", "Registro de la cohorte", "El paso que asegura su lugar."],                 /* [G] */
-            ["info", "Registro para la sesión informativa", "Regístrese para la próxima sesión o consulte al equipo sobre la grabación después."], /* [G] */
-            ["apply", "Formulario de interés", "El primer paso, si todavía no lo ha llenado."],   /* [G] */
+            ["apply", "Formulario de interés", "Su solicitud para PEA: el primer paso."],
+            ["info", "Registro solo para la sesión informativa", "Opcional. Jueves 1 de octubre, de 5:00 a 6:30 p. m. No es el registro para las clases."],
             ["cal", "Calendario publicado", "Todas las fechas del programa."]                    /* [G] */
           ]},
           { h: "Tutoriales de Zoom", items: [
-            ["vidAccount", "Crear una cuenta de Zoom", "Necesita una cuenta activa para entrar a clase."],
-            ["vidRegister", "Completar su registro", "El paso que asegura su lugar, explicado en pantalla."],
+            ["vidAccount", "Crear una cuenta de Zoom", "Para poder iniciar sesión en la aplicación de Zoom."],
             ["vidName", "Cambiar el nombre que se muestra", "Para que le reconozcamos al entrar."]
           ]},
           { h: "Durante el programa", items: [
-            ["whatsapp", "Grupo de WhatsApp", "Avisos rápidos y apoyo entre clases."],          /* [G] */
+            ["whatsapp", "Grupo de WhatsApp de otoño de 2026 (opcional)", "Para conectar con sus compañeros de clase."],
             ["exit", "Encuesta de salida", "Se completa después de cada clase."],              /* [G] */
             ["lista", "Lista de recursos", "Materiales y enlaces de apoyo."],                   /* [G] */
           ]},
@@ -260,18 +247,12 @@
             ["flyer", "Volante del programa", "Para imprimir o mandar por mensaje."]
           ]}
         ],
-        shareH: "Invite a otra familia",
-        shareLead: "Copie este mensaje o mándelo directo por WhatsApp.",
-        shareMsg: function (url) {
-          return "Hola, te comparto la Parent Educator Academy (PEA) de ALL In Education. Es un programa gratuito, por Zoom, para familias y cuidadores que quieren abogar por sus hijos en la escuela. Aquí está toda la información y cómo registrarse: " + url;
-        },
-        shareWa: "Enviar por WhatsApp"
       },
 
       contact: {
         h: "Contacto",
         lead: "Escríbanos o mándenos un mensaje. Contestamos en español y en inglés.", /* [G] */
-        labels: { email: "Correo", phone: "Teléfono", wa: "WhatsApp", web: "Sitio web" },
+        labels: { email: "Correo", phone: "Teléfono (llamada o texto)", wa: "WhatsApp", web: "Sitio web" },
         waCta: "Mandar un mensaje",
         webLabel: "allineducation.org"
       },
@@ -309,13 +290,11 @@
         groups: { join: "Join", about: "About PEA", help: "Help" }
       },
       sections: {
-        participar: { label: "How to take part", desc: "Three steps. The third one secures your place.", time: "2 min" },
-        calendario: { label: "Calendar", desc: "Every date and time in the program.", time: "1 min" },
+        participar: { label: "How to take part", desc: "From your interest form to your first class.", time: "3 min" },
+        calendario: { label: "Calendar & topics", desc: "Dates, times, and what you will learn in each class.", time: "3 min" },
         zoom:       { label: "Zoom step by step", desc: "Short videos and tips to get in without trouble.", time: "3 min" },
-        programa:   { label: "What you'll learn", desc: "Topics across the 18 classes.", time: "2 min" },
         historia:   { label: "Stories & history", desc: "Family experiences, findings, and the organization.", time: "2 min" },
-        preguntas:  { label: "Questions", desc: "Quick answers to the most common questions.", time: "3 min" },
-        enlaces:    { label: "Links", desc: "Everything you will need, in one place.", time: "1 min" },
+        preguntas:  { label: "Questions & links", desc: "Quick answers and every useful link.", time: "4 min" },
         contacto:   { label: "Contact", desc: "Write to us or send a message.", time: "1 min" }
       },
 
@@ -349,10 +328,9 @@
         now: "Happening now",
         today: "Today", tomorrow: "Tomorrow",
         inDays: function (n) { return "In " + n + " days"; },
-        join: "Information session registration",
-        register: "Register on Zoom",
+        join: "Register for the info session only",
         addCal: "Add to my calendar",
-        classNote: "To join class, use the personal link in your Zoom confirmation email. Do not share it.",
+        classNote: "To join class, use the personal Zoom link in your welcome email. It is the same for every class. Do not share it.",
         holidayNote: "There is no class that day.",
         focusNote: "The PEA team will share instructions for joining the focus group.",
         nothing: "Nothing else on the calendar right now.",
@@ -367,50 +345,52 @@
       },
 
       home: {
-        stepsH: "Fall 2026: three steps to join",
-        ctaLead: "The third step is the one that secures your place.",
-        overviewH: "Everything in one place",
-        shareH: "Know another family?",
-        shareLead: "Share this page with them. The program is free, and places fill in the order people register."
+        stepsH: "Fall 2026: from your interest form to your first class"
       },
 
-      steps: {
+      steps: {                                                                     /* "Joining the Parent Educator Academy" (Danny, 2026-09-29) */
         h: "How to take part",
-        lead: "Fall 2026: three steps. The third secures your place. For Spring 2027, complete the interest form for now.",
         items: [
-          { t: "Fill out the interest form", d: "It tells us who you are and how to reach you. It is not an application, and there is no selection process.", link: "apply", cta: "Go to the form" },
-          { t: "Come to the information session", d: "Optional, but attending one session is highly recommended. Register for the upcoming session, or watch the recording afterward. It is bilingual — Spanish and English. At the end, the team helps you complete your class registration.", link: "info", cta: "Register for the session", tag: "Optional" },
-          { t: "Complete your Zoom registration", d: "This is the step that secures your place. Space is limited and fills in the order people register.", link: "zoom", cta: "Register on Zoom", key: true }
+          { t: "Complete the PEA interest form", d: "The interest form is your application. Enter your name, email address, preferred language, and the other information requested on the form. Use an email address you check often. We will send your class information there.", link: "apply", cta: "Go to the form", key: true },
+          { t: "Find your welcome email and save your personal Zoom link", d: "Your welcome email includes:", list: [
+              "Your personal Zoom access link. Use this same link to join every PEA class this fall. We also use it to record attendance.",
+              "The program dates and schedule.",
+              "The PEA applicant guide.",
+              "Optional ways to ask questions and connect with other parents and caregivers."
+            ], after: "Your link is for you only, so please do not share it. You do not need to register separately in Zoom or get a new link each week." },
+          { t: "Get ready for the program", d: "Before and during the first week of the program:", list: [
+              "Read the applicant guide and add the class dates to your calendar.",
+              "Join your first class on Tuesday, October 6, at 5:00 PM.",
+              "Optional: attend the information session on Thursday, October 1, 5:00–6:30 PM, to learn more and ask questions. The registration link is in your welcome email and on this page.",
+              "Optional: join the WhatsApp group for your cohort to connect with classmates.",
+              "Download the Zoom app to your device and make sure you can sign in.",
+              "Test your camera, microphone, and Wi-Fi connection."
+            ] },
+          { t: "Join your first class", d: "Fall 2026 classes begin on Tuesday, October 6, at 5:00 PM. Classes meet on Tuesdays and Thursdays from 5:00–6:30 PM through Tuesday, December 8. There is no class on Thanksgiving, Thursday, November 26. A few minutes before each class:", list: [
+              "Open the Zoom app and sign in.",
+              "Click your personal Zoom access link.",
+              "Wait in the PEA Virtual Waiting Room."
+            ], ordered: true, after: "When the PEA team is ready, Zoom will automatically move you into the class. You will be able to see and hear the facilitators and the other parents and caregivers in your cohort." }
         ],
-        noteLabel: "Important",
-        note: "There is no commitment form, no invitation and no selection process. For Fall 2026, Zoom registration holds your place. For Spring 2027, complete the interest form for now; Zoom registration will be available later.",
-        infoDatesH: "Information session",
-        infoDatesNote: "If you cannot attend, you can watch the recording afterward. Contact the team for the link when it is available.",
-        whoLabel: "Who can take part",
-        who: "Families and caregivers who want to advocate for their children inside Arizona's school system. PEA is also open to school staff, such as family liaisons and teachers. There is no selection process: places fill in the order people register.",
-        askH: "What we ask of everyone",
-        ask: [
-          ["Attend", "Attend at least 16 of the 18 classes to receive your certificate. If you cannot attend, notify the team in advance."],
-          ["Take part", "Turn your camera on if you can, speak up, ask questions. The class works when everyone contributes."],
-          ["Tell us", "If something is getting in the way — the technology, the schedule, the language — tell us. There is almost always a way around it."]
-        ],
+        infoDatesH: "Information session (optional)",
+        infoDatesNote: "Optional. A chance to learn more about the program and ask questions. This registration is for the information session only; it is not class registration. The link is also in your welcome email. Unable to join or have questions? Call or text 602-759-0619."
       },
 
       cal: {
-        h: "Calendar",
+        h: "Calendar & topics",
         scheduleLabel: "Fall 2026 dates",
-        scheduleNote: "18 scheduled classes on Tuesdays and Thursdays, October 6–December 8, 2026. No class November 26. Focus group: December 10. All events run 5:00–6:30 PM Arizona time. If classes have already started, contact the team about joining.",
-        lead: function (days, time) { return "Classes meet " + days + ", " + time + " Arizona time."; },
+        scheduleNote: "18 scheduled classes on Tuesdays and Thursdays, October 6–December 8, 2026. No class Thursday, November 26 (Thanksgiving). Optional information session: Thursday, October 1. Focus group: December 10. All events run 5:00–6:30 PM Arizona time. If classes have already started, contact the team about joining.",
+        tapHint: "Tap a class to see what it covers, the worksheet, and the resource list. To join class, use the personal Zoom link in your welcome email.",
         filterLabel: "Show",
         filters: { all: "All", info: "Information sessions", cls: "Classes" },
         cols: { date: "Date", kind: "Type", topic: "Topic", time: "Time" },
         kinds: { info: "Information session", cls: "Class", holiday: "No class", focus: "Focus group", grad: "Graduation" },
         topics: {
-          info: "Meet the program before you decide",
+          info: "Learn more about the program and ask questions",
           holiday: "Thanksgiving",
           focus: "A conversation about your time in PEA"
         },
-        infoWording: "Optional, but attending one session is highly recommended",
+        infoWording: "Optional. Learn more about the program and ask questions",
         week: function (n) { return "Week " + n; },
         today: "Today", done: "Past",
         note: "Arizona time. Classes meet on Zoom.",
@@ -422,8 +402,7 @@
           open: "See class details", close: "Hide details",
           openInfo: "See session details",
           about: "About this class", aboutInfo: "About the session",
-          zoom: "Register on Zoom",
-          zoomNote: "If you have already registered, join with the personal link in your Zoom confirmation email. If you cannot find it, check your spam folder and contact the team for help recovering your link.",
+          zoomNote: "Join with the personal Zoom link in your welcome email; it is the same for every class. If you cannot find it, check your spam or junk folder and contact the team.",
           resources: "Resource list",
           worksheet: "Worksheet (PDF, in Spanish)",
           addCal: "Add to my calendar"
@@ -436,34 +415,26 @@
         h: "Zoom step by step",
         lead: "If you have never used Zoom, or are unsure about a step, these short videos walk you through it. The videos are in Spanish.",
         vids: [
-          ["vidAccount", "Create a Zoom account", "You need an active account to join class."],
-          ["vidRegister", "Complete your registration", "The step that secures your place, shown on screen."],
+          ["vidAccount", "Create a Zoom account", "So you can sign in to the Zoom app."],
           ["vidName", "Change your display name", "So we recognize you when you arrive."]
         ],
         watch: "Watch the video",
         tipLabel: "Very important",
-        tip: "Use the same email for your Zoom account and your registration. Sign in to Zoom with that same account before joining class.",
+        tip: "Use the personal Zoom link in your welcome email to join every class. It is for you only, so please do not share it. You do not need to register separately in Zoom or get a new link each week.",
         orderH: "In this order",
         order: [
-          ["Create your Zoom account", "It is free. Note the email you used."],
-          ["Register for the cohort", "Use the same email as your Zoom account."],
-          ["Find the confirmation email", "Check your inbox and your spam folder. Keep it: it carries your personal link to join class."],
-          ["Change your display name", "Use your full name so we can record your attendance."],
-          ["On class day, join with your link", "Use the link in your confirmation email. Join a few minutes early."]
+          ["Download the Zoom app", "Install it on your phone, tablet, or computer and make sure you can sign in."],
+          ["Test your device", "Check your camera, microphone, and Wi-Fi connection."],
+          ["Save your welcome email", "It has your personal Zoom access link. It is the same for every class."],
+          ["A few minutes before class", "Open the Zoom app, sign in, and click your personal link."],
+          ["Wait in the PEA Virtual Waiting Room", "When the PEA team is ready, Zoom will automatically move you into the class."]
         ],
-        lostLabel: "Can't find the confirmation email?",
-        lost: "Check your inbox and your spam folder. If it is not there, contact us for help recovering your personal link.",
+        lostLabel: "Can't find your welcome email?",
+        lost: "Check your spam or junk folder. If you still cannot find it, contact us at pea@allineducation.org or call, text, or WhatsApp 602-759-0619.",
         deviceLabel: "Computer or phone?",
         device: "A computer or tablet makes for a better experience: the materials are easier to see and it is easier to take part. If a phone is what you have, a phone works."
       },
 
-      prog: {
-        h: "What you'll learn",
-        lead: "During the program we meet online to learn together how the education system works, what your rights are, and how to use your voice with schools, districts and the people who make decisions. You already know your child better than anyone. The program gives you the map of the system and the tools to move through it.",
-        classLabel: "What each class is like",
-        classText: "We meet as a group on Zoom. Each class ends with a short exit ticket: five to eight questions, two to four minutes. It tells us what is working and what is not.",
-        gradNote: "Closing the program"
-      },
 
       hist: {
         h: "Stories & history",
@@ -489,41 +460,38 @@
       faq: {
         h: "Frequently asked questions",
         items: [
-          ["Do I have to apply or wait for an invitation?", "No. There is no application, no invitation and no selection process. For Fall 2026, fill out the interest form and complete your Zoom registration; that registration is what holds your place."],
-          ["How do I know I have a place?", "When you complete your Zoom registration, Zoom sends you a confirmation email. That email is your confirmation, and it carries your personal link to join class. Keep it."],
-          ["Who can take part?", "Families and caregivers who want to advocate for their children inside Arizona's school system. PEA is also open to school staff, such as family liaisons and teachers. There is no selection process: places fill in the order people register."],
-          ["Do I have to attend the information session?", "No. It is optional, but attending one session is highly recommended. It is a chance to meet us, learn about the program and ask questions, and the team helps you complete your class registration at the end. Not attending does not affect your place in any way."],
-          ["What if I cannot attend the information session?", "You can watch the recording afterward. Contact the team for the link when it is available."],
-          ["What language is the program in?", function (c) { return "The " + c.label + " cohort is taught in " + c.lang + ". The information session is bilingual — Spanish and English — because it is the front door, and any family should be able to come meet us before deciding."; }], /* [G], cohort resolved from facts */
+          ["How do I apply for PEA?", "The interest form is your application. There is no acceptance process and no commitment form. After you submit it, we set up your Zoom access and send your personal link in your welcome email."],
+          ["How do I know I have a place?", "You will receive a welcome email with your personal Zoom link, the program dates, and the PEA applicant guide. Save that link: you will use it to join every class."],
+          ["Who can take part?", "Families and caregivers who want to advocate for their children inside Arizona's school system. PEA is also open to school staff, such as family liaisons and teachers. There is no selection process: the interest form is the way in."],
+          ["Do I have to attend the information session?", "No. It is optional. It takes place Thursday, October 1, 5:00–6:30 PM Arizona time: a chance to meet us, learn more about the program, and ask questions. The registration is for the information session only. Not attending does not affect your place in any way."],
+          ["What if I cannot attend the information session?", "That is fine: it is not required. If you have questions, call or text 602-759-0619."],
+          ["What language is the program in?", function (c) { return "The " + c.label + " cohort is taught in " + c.lang + ". The information session is bilingual — Spanish and English — so any family can learn more about the program and ask questions."; }], /* cohort resolved from facts */
           ["What does it cost?", "Nothing. PEA is free for everyone who takes part."],
-          ["Do I need a Zoom account?", "Yes. You need an active Zoom account to take part, and it is free. The email you register with must be the same one on your Zoom account. Sign in with that account before joining class. The “Zoom step by step” section shows you how to set it up."],
-          ["I cannot find my Zoom confirmation email. What do I do?", "Check your inbox and your spam folder. If it is not there, contact us for help recovering your personal link."],
+          ["Do I need a Zoom account?", "Download the Zoom app to your device and make sure you can sign in. To join class, use the personal link in your welcome email. You do not need to register separately in Zoom. The “Zoom step by step” section shows you how to get ready."],
+          ["I cannot find my welcome email. What do I do?", "Check your spam or junk folder. If you still cannot find it, contact us at pea@allineducation.org or call, text, or WhatsApp 602-759-0619."],
+          ["I work at a school. How can I help families?", "Please help families complete the interest form, find their welcome email, and contact our team if they need help. Each applicant receives a personal Zoom access link."],
           ["What happens if I miss a class?", "Notify the PEA team in advance if you cannot attend. To receive your certificate, you must attend at least 16 of the 18 classes. Contact us if you need support meeting this requirement."],
           ["Can I take part from my phone?", "Yes, though a computer or tablet makes for a better experience: the materials are easier to see and it is easier to take part. If a phone is what you have, a phone works."],
           ["What is the exit ticket?", "It is a short survey completed after each class — five to eight questions, two to four minutes. It tells us what is working and what is not, and it is the reason the program changes from one cohort to the next."],
           ["Is there anything after the program?", "Yes. Alumni stay connected to ALL In Education — there are focus groups, leadership opportunities, and the chance to walk alongside families coming in. Graduation ends the course, not the relationship."]
         ],
-        nextCohortQ: "When is the next cohort?",
-        nextCohortA: function (label) { return "Spring 2027 runs March 16–May 13, Tuesdays and Thursdays, 5:00–6:30 PM Arizona time. The interest form is open now. Zoom registration will be available later. Select Primavera / Spring 2027 (S27) in the interest form."; }
       },
 
       links: {
-        h: "Quick links",
+        h: "Useful links",
         lead: "Everything you will need, in one place.",
         groups: [
           { h: "To join", items: [
-            ["zoom", "Cohort registration", "The step that secures your place."],
-            ["info", "Information session registration", "Register for the upcoming session or contact the team about the recording afterward."],
-            ["apply", "Interest form", "The first step, if you have not filled it out yet."],
+            ["apply", "Interest form", "Your PEA application: the first step."],
+            ["info", "Information session registration only", "Optional. Thursday, October 1, 5:00–6:30 PM. This is not class registration."],
             ["cal", "Published calendar", "Every date in the program."]
           ]},
           { h: "Zoom tutorials", items: [
-            ["vidAccount", "Create a Zoom account", "You need an active account to join class."],
-            ["vidRegister", "Complete your registration", "The step that secures your place, shown on screen."],
+            ["vidAccount", "Create a Zoom account", "So you can sign in to the Zoom app."],
             ["vidName", "Change your display name", "So we recognize you when you arrive."]
           ]},
           { h: "During the program", items: [
-            ["whatsapp", "WhatsApp group", "Quick notices and support between classes."],
+            ["whatsapp", "Fall 2026 WhatsApp group (optional)", "Connect with your classmates."],
             ["exit", "Exit ticket", "Completed after each class."],
             ["lista", "Resource list", "Supporting materials and links."],
           ]},
@@ -531,18 +499,12 @@
             ["flyer", "Program flyer", "To print or send by message."]
           ]}
         ],
-        shareH: "Invite another family",
-        shareLead: "Copy this message, or send it straight through WhatsApp.",
-        shareMsg: function (url) {
-          return "Hi! I wanted to share ALL In Education's Parent Educator Academy (PEA) with you. It is a free program on Zoom for families and caregivers who want to advocate for their children at school. Everything you need to know, and how to register, is here: " + url;
-        },
-        shareWa: "Send on WhatsApp"
       },
 
       contact: {
         h: "Contact",
         lead: "Write to us or send a message. We answer in Spanish and English.",
-        labels: { email: "Email", phone: "Phone", wa: "WhatsApp", web: "Website" },
+        labels: { email: "Email", phone: "Phone (call or text)", wa: "WhatsApp", web: "Website" },
         waCta: "Send a message",
         webLabel: "allineducation.org"
       },
@@ -563,21 +525,15 @@
   };
 
   T.es.applicant = {
-  "orientH": "Su camino a PEA en 3 pasos",
-  "orient": [
-    ["Revise quién puede participar", "Consulte los requisitos y el tiempo que necesita reservar."],
-    ["Revise las fechas", "Confirme el horario de clases y la sesión informativa."],
-    ["Envíe el formulario", "Llene el formulario de interés en línea."]
-  ],
-  "helpText": "¿Tiene preguntas sobre cómo inscribirse? Comuníquese con nuestro equipo para recibir ayuda.",
+  "helpText": "¿Tiene preguntas o no encuentra su correo de bienvenida? Revise la carpeta de spam o correo no deseado. Si aún no lo encuentra, comuníquese con nuestro equipo.",
   "helpEmail": "Escribir al equipo",
-  "helpCall": "Llamar",
+  "helpCall": "Llamar o mandar texto",
   "detailsH": "Detalles del programa y compromiso",
   "audienceH": "¿Dónde está usted con PEA?",
   "audience": [
     ["Quiero unirme", "Pasos para inscribirse y la sesión informativa."],
-    ["Ya estoy inscrito/a", "Calendario de clases, Registro en Zoom y materiales."],
-    ["Soy egresado/a", "Cómo seguir conectado después de PEA."]
+    ["Ya estoy inscrito/a", "Calendario de clases, su enlace de Zoom y materiales."],
+    ["Ya terminé PEA", "Cómo seguir conectado después de PEA."]
   ],
   "benefitsH": "Herramientas para acompañar a su estudiante",
   "benefitsLead": "Explore lo que puede aprender y cómo se relaciona con situaciones de la vida diaria. Estos son objetivos de aprendizaje; cada familia tiene su propia experiencia.",
@@ -640,26 +596,9 @@
   "commitmentText": "18 sesiones de 90 minutos: 27 horas programadas en vivo. Nos reunimos los martes y jueves de 5:00 a 6:30 p. m., hora de Arizona. El calendario incluye la pausa por el Día de Acción de Gracias.",
   "commitmentNote": "Ese cálculo corresponde solo a las 18 clases, incluida la graduación. No incluye la sesión informativa opcional ni el grupo de enfoque. Consulte al equipo si necesita saber cuánto tiempo adicional requieren los materiales o las actividades.",
   "certificateH": "Su certificado",
-  "certificateText": "El registro de Zoom de esta cohorte indica que debe asistir al menos a 16 de las 18 clases para recibir su certificado. Avise con anticipación si no puede asistir. El equipo puede explicarle los demás requisitos de participación y cómo se entrega el certificado.",
-  "welcomeH": "Después de registrarse",
-  "welcome": [
-    [
-      "Guarde su correo de Zoom",
-      "Incluye su enlace personal para entrar a clase. Revise también la carpeta de spam y no comparta ese enlace."
-    ],
-    [
-      "Prepare su acceso",
-      "Inicie sesión con la misma cuenta que usó para registrarse. Compruebe su cámara, micrófono y conexión; use su nombre y apellido completos."
-    ],
-    [
-      "Guarde el calendario",
-      "Añada las fechas a su calendario y entre unos minutos antes de la primera clase."
-    ],
-    [
-      "Busque apoyo si algo falta",
-      "Si no encuentra su enlace o necesita saber cómo recibirá materiales y avisos, escríbanos. El equipo le indicará los siguientes pasos."
-    ]
-  ],
+  "certificateText": "Debe asistir al menos a 16 de las 18 clases para recibir su certificado. Avise con anticipación si no puede asistir. El equipo puede explicarle los demás requisitos de participación y cómo se entrega el certificado.",
+  "staffH": "Para el personal escolar",
+  "staffText": "Ayude a las familias a llenar el formulario de interés, a encontrar su correo de bienvenida y a comunicarse con nuestro equipo si necesitan ayuda. Cada persona recibe su propio enlace personal de acceso a Zoom.",
   "supportH": "Hablemos de lo que necesita para participar",
   "supportText": "Puede comunicarse con el equipo en español o inglés antes de la primera clase. Cuéntenos si necesita ayuda con Zoom, si su conexión es inestable o si tiene alguna necesidad de accesibilidad. Pregunte también por subtítulos, uso de cámara, grabaciones o recuperación de una clase; el equipo le explicará las opciones y las reglas vigentes.",
   "teamH": "Conozca al equipo que le acompaña",
@@ -714,24 +653,18 @@
       "Las clases de otoño de 2026 se imparten en español. La sesión informativa es bilingüe y el equipo atiende en español e inglés. Si necesita clases en inglés, pregunte por las opciones disponibles."
     ]
   ],
-  "teamText": "El equipo de PEA es su contacto para preguntas sobre inscripción, acceso a Zoom y participación. Use el correo, WhatsApp o teléfono que aparecen abajo para pedir orientación antes de decidir o durante el programa."
+  "teamText": "El equipo de PEA es su contacto para preguntas sobre el formulario de interés, su correo de bienvenida, el acceso a Zoom y la participación. Use el correo, WhatsApp o teléfono que aparecen abajo para pedir orientación antes de decidir o durante el programa."
 };
   T.en.applicant = {
-  "orientH": "Your path to PEA in 3 steps",
-  "orient": [
-    ["Check eligibility", "Review who can join and the time commitment."],
-    ["Review dates", "Confirm the class schedule and information session."],
-    ["Submit form", "Complete the interest form online."]
-  ],
-  "helpText": "Questions about applying? Contact our team for assistance.",
+  "helpText": "Questions, or missing your welcome email? Check your spam or junk folder. If you still cannot find it, contact our team.",
   "helpEmail": "Email the team",
-  "helpCall": "Call",
+  "helpCall": "Call or text",
   "detailsH": "Program details and commitment",
   "audienceH": "Where are you with PEA?",
   "audience": [
     ["I want to join", "Steps to sign up and the information session."],
-    ["I’m registered", "Class calendar, Register on Zoom and materials."],
-    ["I’m a PEA graduate", "How to stay connected after PEA."]
+    ["I’m registered", "Class calendar, your Zoom link, and materials."],
+    ["I finished PEA", "How to stay connected after PEA."]
   ],
   "benefitsH": "Tools to support your student",
   "benefitsLead": "Explore what you can learn and how it connects to everyday situations. These are learning goals; each family’s experience is different.",
@@ -794,26 +727,9 @@
   "commitmentText": "18 sessions of 90 minutes: 27 scheduled live hours. Classes meet Tuesdays and Thursdays, 5:00–6:30 PM Arizona time. The calendar includes the Thanksgiving break.",
   "commitmentNote": "This calculation covers the 18 classes, including graduation. It excludes the optional information session and the focus group. Ask the team how much additional time materials or activities may require.",
   "certificateH": "Your certificate",
-  "certificateText": "This cohort’s Zoom registration states that you must attend at least 16 of the 18 classes to receive your certificate. Give advance notice if you cannot attend. The team can explain other participation requirements and how the certificate is delivered.",
-  "welcomeH": "After you register",
-  "welcome": [
-    [
-      "Save your Zoom email",
-      "It contains your personal class link. Check your spam folder too, and do not share the link."
-    ],
-    [
-      "Prepare to join",
-      "Sign in with the same account you used to register. Check your camera, microphone, and connection, and use your full name."
-    ],
-    [
-      "Save the calendar",
-      "Add the dates to your calendar and join a few minutes before the first class."
-    ],
-    [
-      "Ask for help if something is missing",
-      "If you cannot find your link or need to know how materials and notices will reach you, contact us. The team will explain the next steps."
-    ]
-  ],
+  "certificateText": "You must attend at least 16 of the 18 classes to receive your certificate. Give advance notice if you cannot attend. The team can explain other participation requirements and how the certificate is delivered.",
+  "staffH": "For school personnel",
+  "staffText": "Please help families complete the interest form, find their welcome email, and contact our team if they need help. Each applicant receives a personal Zoom access link.",
   "supportH": "Let’s talk about what you need to participate",
   "supportText": "You can contact the team in Spanish or English before the first class. Tell us if you need Zoom help, have an unreliable connection, or have an accessibility need. You can also ask about captions, camera use, recordings, or catching up after an absence; the team will explain the available options and current rules.",
   "teamH": "Meet the team supporting you",
@@ -868,7 +784,7 @@
       "Fall 2026 classes are taught in Spanish. The information session is bilingual, and the team provides support in Spanish and English. If you need classes in English, ask about available options."
     ]
   ],
-  "teamText": "The PEA team is your contact for registration, Zoom access, and participation questions. Use the email, WhatsApp, or phone details below to ask for guidance before deciding or during the program."
+  "teamText": "The PEA team is your contact for questions about the interest form, your welcome email, Zoom access, and participation. Use the email, WhatsApp, or phone details below to ask for guidance before deciding or during the program."
 };
   ["es", "en"].forEach(function (l) { T[l].faq.items = T[l].faq.items.concat(T[l].applicant.faq); });
 
