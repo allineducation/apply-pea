@@ -1,5 +1,5 @@
 /* ==================================================================
-   PEA Applicant Hub — app  (v0.13.0)
+   PEA Applicant Hub — app  (v0.14.0)
    Vanilla JS, no build step, no dependencies. State-based navigation
    (hash routes) per AIE Hub Design System §5.1. Every date, time and
    link resolves from facts.js; every string from copy.js.
@@ -7,8 +7,8 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.13.0";
-  var UPDATED = "2026-09-28";
+  var VERSION = "0.14.0";
+  var UPDATED = "2026-09-29";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
   var LS_LANG = "aie_lang";
@@ -16,8 +16,8 @@
   /* ---------- sections, groups, order ---------- */
   var GROUPS = [
     { id: "join",  color: "blue",   items: ["participar", "calendario", "zoom"] },
-    { id: "about", color: "pink",   items: ["programa", "historia"] },
-    { id: "help",  color: "purple", items: ["preguntas", "enlaces", "contacto"] }
+    { id: "about", color: "pink",   items: ["historia"] },
+    { id: "help",  color: "purple", items: ["preguntas", "contacto"] }
   ];
   var ORDER = ["inicio"].concat(GROUPS[0].items, GROUPS[1].items, GROUPS[2].items);
   function colorOf(id) {
@@ -112,13 +112,14 @@
   var AC = activeCohort(NOW), C = AC.cur, EV = sorted(C.events);
   var CLASSES = EV.filter(function (e) { return e.kind === "cls"; });
 
-  /* A link resolves or it does not exist. Families never see a gap marker. */
+  /* A link resolves or it does not exist. Families never see a gap marker.
+     Class Zoom access is a personal link sent in the welcome email, so the
+     only Zoom registration link here is the optional information session. */
   function link(key, code) {
     var cohort = F.cohorts[code || C.code];
-    if ((key === "zoom" || key === "info") && cohort) {
+    if (key === "info" && cohort) {
       if (cohort.projected) return null;
-      var kind = key === "info" ? "info" : "cls";
-      if (!cohort.events.some(function (e) { return e.kind === kind && new Date(e.end) > NOW; })) return null;
+      if (!cohort.events.some(function (e) { return e.kind === "info" && new Date(e.end) > NOW; })) return null;
     }
     var m = F.links[code || C.code] || {};
     return m[key] || F.links.global[key] || null;
@@ -162,8 +163,8 @@
   }
   function groupOf(id) { for (var i = 0; i < GROUPS.length; i++) if (GROUPS[i].items.indexOf(id) !== -1) return GROUPS[i].id; return "join"; }
   function sectionTitle(id) {
-    return { participar: L.steps.h, calendario: L.cal.h, zoom: L.zoom.h, programa: L.prog.h,
-             historia: L.hist.h, preguntas: L.faq.h, enlaces: L.links.h, contacto: L.contact.h }[id] || L.sections[id].label;
+    return { participar: L.steps.h, calendario: L.cal.h, zoom: L.zoom.h,
+             historia: L.hist.h, preguntas: L.sections.preguntas.label, contacto: L.contact.h }[id] || L.sections[id].label;
   }
 
   /* ---------- header band + nav + footer ---------- */
@@ -180,7 +181,7 @@
   }
 
   function renderNav(active) {
-    var ids = ['inicio','participar','calendario','zoom','programa','historia','preguntas','enlaces','contacto'];
+    var ids = ['inicio','participar','calendario','zoom','historia','preguntas','contacto'];
     document.getElementById('gnav').innerHTML = '<details class="menu"><summary><span aria-hidden="true">☰</span> <span class="menu-txt">' + (lang === 'es' ? 'Menú' : 'Menu') + '</span></summary><div class="menu-links">' + ids.map(function(id) {
       return '<a href="#' + id + '"' + (id === active ? ' aria-current="page"' : '') + '>' + esc(id === 'inicio' ? L.nav.home : L.sections[id].label) + '</a>';
     }).join('') + '</div></details>';
@@ -208,6 +209,8 @@
 
          "</div>" +
         "<p>" + esc(s.d) + "</p>" +
+        (s.list ? "<" + (s.ordered ? "ol" : "ul") + ' class="step-list">' + s.list.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</" + (s.ordered ? "ol" : "ul") + ">" : "") +
+        (s.after ? "<p>" + esc(s.after) + "</p>" : "") +
         (u ? '<div class="btnrow">' + ext(u, esc(s.cta), "btn btn-sm " + (s.key ? "btn-primary" : "btn-secondary")) + "</div>" : "") +
         "</div></li>";
     }).join("") + "</ol>";
@@ -228,7 +231,7 @@
   function benefitsHtml() {
     var A = L.applicant;
     return applicantSection(A.benefitsH, A.benefitsLead, applicantCards(A.benefits) +
-      '<div class="btnrow"><a class="btn btn-primary" href="#programa">' + esc(A.learnCta) + '</a></div>');
+      '<div class="btnrow"><a class="btn btn-primary" href="#calendario">' + esc(A.learnCta) + '</a></div>');
   }
   function accordion(items) {
     return '<div class="accordion">' + items.map(function (item, i) {
@@ -252,14 +255,7 @@
   }
   function commitmentHtml() {
     var A = L.applicant;
-    return applicantSection(A.detailsH, '', accordion([[A.commitmentH, A.commitmentText, A.commitmentNote], [A.certificateH, A.certificateText]]));
-  }
-  function orientHtml() {                          /* static orientation only — the site does not track progress */
-    var A = L.applicant;
-    return '<section class="block orient"><h2 class="h-sec">' + esc(A.orientH) + '</h2><ol class="applicant-steps">' + A.orient.map(function (o, i) {
-      return '<li class="step-item"><span class="step-number" aria-hidden="true">' + (i + 1) + '</span><div class="step-content"><strong>' +
-        esc(o[0]) + "</strong><p>" + esc(o[1]) + "</p></div></li>";
-    }).join("") + "</ol></section>";
+    return applicantSection(A.detailsH, '', accordion([[A.commitmentH, A.commitmentText, A.commitmentNote]]));
   }
   function helpCardHtml() {
     var A = L.applicant, O = F.org;
@@ -271,8 +267,8 @@
   function supportHtml() {
     return applicantSection(L.applicant.supportH, L.applicant.supportText, applicantContact());
   }
-  function welcomeHtml() {
-    return applicantSection(L.applicant.welcomeH, '', applicantCards(L.applicant.welcome) + applicantContact());
+  function staffHtml() {
+    return applicantSection(L.applicant.staffH, L.applicant.staffText, applicantContact());
   }
   function experienceHtml() { return applicantSection(L.applicant.experienceH, L.applicant.experienceLead, applicantCards(L.applicant.experience)); }
 
@@ -303,7 +299,7 @@
         return '<li class="check"><div><div class="h3">' + esc(cap(longDate(e.start))) + '</div><div class="small">' + esc(spanDash(e.start, e.end)) +
           (past ? " · " + esc(L.cal.done) : "") + "</div></div></li>";
       }).join("") + "</ul>" +
-      '<p class="small">' + esc(L.cal.infoWording) + ". " + esc(L.steps.infoDatesNote) + "</p>" +
+      '<p class="small">' + esc(L.steps.infoDatesNote) + "</p>" +
       (link("info") ? '<div class="btnrow">' + ext(link("info"), esc(L.next.join), "btn btn-secondary btn-sm") + "</div>" : "") + "</div>";
   }
 
@@ -312,8 +308,8 @@
   }
 
   function pageParticipar() {
-    return secHead('participar') + orientHtml() + applicantSection(L.home.stepsH, '', stepsHtml(false) + helpCardHtml()) +
-      applicantSection(L.steps.infoDatesH, '', infoDatesHtml()) + welcomeHtml() + commitmentHtml();
+    return secHead('participar') + applicantSection(L.home.stepsH, '', stepsHtml(false) + helpCardHtml()) +
+      applicantSection(L.steps.infoDatesH, '', infoDatesHtml()) + staffHtml() + commitmentHtml();
   }
   var calFilter = 'all';
   var calOpen = {};                                /* expanded rows — survive filter changes and the 60-second refresh */
@@ -321,15 +317,14 @@
   function calDetail(e) {
     var D = L.cal.detail, today = daysUntil(e.start, NOW) === 0, over = new Date(e.end).getTime() < NOW.getTime();
     var mod = e.module && F.modules ? F.modules[e.module] : null;
-    var desc = e.kind === "info" ? L.steps.items[1].d : (mod ? mod[lang] : "");
+    var desc = e.kind === "info" ? L.steps.infoDatesNote : (mod ? mod[lang] : "");
     var b = "", notes = "";
     if (e.kind === "info") {
       if (!over && link("info", e._c)) b += ext(link("info", e._c), esc(L.next.join), "btn btn-primary btn-sm");
     } else {
-      if (link("zoom", e._c)) { b += ext(link("zoom", e._c), esc(D.zoom), "btn btn-primary btn-sm"); notes += "<li>" + esc(D.zoomNote) + "</li>"; }
+      if (!e.projected) notes += "<li>" + esc(D.zoomNote) + "</li>";
       if (mod && mod.worksheet) b += ext(mod.worksheet, esc(D.worksheet), "btn btn-secondary btn-sm");
       if (link("lista", e._c)) b += ext(link("lista", e._c), esc(D.resources), "btn btn-secondary btn-sm");
-
     }
     b += '<button type="button" class="btn btn-ghost btn-sm" data-ics="' + esc(e._c + ":" + e.code) + '">' + esc(D.addCal) + "</button>";
     return '<div class="det"><span class="label blue">' + esc(e.kind === "info" ? D.aboutInfo : D.about) + "</span>" +
@@ -376,9 +371,8 @@
     var pills = ["all", "info", "cls"].map(function (k) {
       return '<button type="button" class="pill" data-filter="' + k + '" aria-pressed="' + (calFilter === k) + '">' + esc(f[k]) + "</button>";
     }).join("");
-    return secHead("calendario") + scheduleNote() +
+    return secHead("calendario") + '<p class="lead">' + esc(K.tapHint) + "</p>" + scheduleNote() +
       (C.projected ? callout("gold", K.projectedLabel, esc(K.projected)) : "") +
-
       '<div class="filters" role="group" aria-label="' + esc(K.filterLabel) + '"><span class="label">' + esc(K.filterLabel) + "</span>" + pills + "</div>" +
       '<div class="tablewrap"><table class="cal"><caption class="sr-only">' + esc(K.h + " · " + cohortLabel()) + "</caption>" +
       '<thead><tr><th scope="col">' + esc(K.cols.date) + '</th><th scope="col">' + esc(K.cols.kind) + '</th><th scope="col">' +
@@ -386,7 +380,7 @@
       '<p class="small mt">' + esc(K.note) + "</p>" +
       '<div class="btnrow"><button type="button" class="btn btn-primary" data-ics="all">' + esc(K.ics) + "</button>" +
       (link("cal") ? ext(link("cal"), esc(K.full), "btn btn-secondary") : "") + "</div>" +
-      '<p class="small">' + esc(K.icsHelp) + "</p>" + springHtml();
+      '<p class="small">' + esc(K.icsHelp) + "</p>" + experienceHtml() + springHtml();
   }
 
   function pageZoom() {
@@ -404,11 +398,6 @@
       callout("gold", Z.tipLabel, esc(Z.tip)) + supportHtml() +
       '<section class="block"><h2 class="h-sec">' + esc(Z.orderH) + '</h2><div class="block">' + order + "</div></section>" +
       '<div class="block">' + callout("", Z.lostLabel, esc(Z.lost)) + callout("mid", Z.deviceLabel, esc(Z.device)) + "</div>";
-  }
-
-  function pagePrograma() {
-    var cards = CLASSES.map(function(e,i) { return '<div class="card"><span class="label blue">' + (lang === 'es' ? 'Clase ' : 'Class ') + (i+1) + '</span><h3 class="h3">' + esc(evTitle(e).topic) + '</h3></div>'; }).join('');
-    return secHead('programa') + applicantSection(lang === 'es' ? 'Temas de las 18 clases' : 'Topics across 18 classes', '', '<div class="lgrid">'+cards+'</div>') + experienceHtml();
   }
 
   function pageHistoria() {
@@ -446,18 +435,19 @@
           '</span><span class="sh" aria-hidden="true"><span class="s">' + esc(L.ui.show) + '</span><span class="h">' + esc(L.ui.hide) + "</span></span></summary>" +
           '<div class="a"><p>' + esc(q[1]) + "</p></div></details>";
       }).join("") + "</div>" +
-      '<div id="faqnone" hidden>' + callout("gold", L.ui.noResultsLabel, esc(L.ui.noResults) + ' <a href="#contacto">' + esc(L.contact.h) + "</a>") + "</div>";
+      '<div id="faqnone" hidden>' + callout("gold", L.ui.noResultsLabel, esc(L.ui.noResults) + ' <a href="#contacto">' + esc(L.contact.h) + "</a>") + "</div>" +
+      linksHtml();
   }
 
-  function pageEnlaces() {
+  function linksHtml() {                           /* help links, shown under the FAQ */
     var groups = L.links.groups.map(function (g) {
       var lis = g.items.map(function (it) {
         var u = link(it[0]); if (!u) return "";
-        return "<li>" + ext(u, '<span class="t">' + esc(it[1]) + '</span><span class="d">' + esc(it[2]) + "</span>", "lnk" + (it[0] === "zoom" ? " key" : "")) + "</li>";
+        return "<li>" + ext(u, '<span class="t">' + esc(it[1]) + '</span><span class="d">' + esc(it[2]) + "</span>", "lnk" + (it[0] === "apply" ? " key" : "")) + "</li>";
       }).join("");
-      return lis ? '<section class="block"><h2 class="h-sec">' + esc(g.h) + '</h2><ul class="lgrid">' + lis + "</ul></section>" : "";
+      return lis ? '<h3 class="h3 mt">' + esc(g.h) + '</h3><ul class="lgrid">' + lis + "</ul>" : "";
     }).join("");
-    return secHead("enlaces") + '<p class="lead">' + esc(L.links.lead) + "</p>" + groups;
+    return '<section class="block"><h2 class="h-sec">' + esc(L.links.h) + '</h2><p class="lead">' + esc(L.links.lead) + "</p>" + groups + "</section>";
   }
 
   function pageContacto() {
@@ -472,7 +462,8 @@
   }
 
   var PAGES = { inicio: pageHome, participar: pageParticipar, calendario: pageCalendario, zoom: pageZoom,
-                programa: pagePrograma, historia: pageHistoria, preguntas: pagePreguntas, enlaces: pageEnlaces, contacto: pageContacto };
+                historia: pageHistoria, preguntas: pagePreguntas, contacto: pageContacto };
+  var ALIASES = { lista: "participar", programa: "calendario", enlaces: "preguntas" };   /* retired routes */
 
   function icsStamp(iso) { return new Date(iso).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, ""); }
   function icsEsc(s) { return String(s).replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n"); }
@@ -517,12 +508,17 @@
 
   /* ---------- routing + render ---------- */
   function actionsHtml(sticky) {
-    var labels = lang === 'es' ? ['Solicitar información','Registro en Zoom','Ver calendario','Sesión informativa','WhatsApp al equipo'] : ['Apply / interest form','Register on Zoom','View calendar','Info session','WhatsApp the team'];
-    var short = lang === 'es' ? ['Solicitar','Registro en Zoom','Calendario','Información','WhatsApp'] : ['Apply','Register on Zoom','Calendar','Info','WhatsApp'];
-    var urls = [link('apply'),link('zoom'),'#calendario',link('info'),F.org.waHref], icons = ['📝','🎥','📅','👋','💬'];
-    return '<div class="' + (sticky ? 'sticky-actions' : 'quick-actions') + '" aria-label="' + (lang === 'es' ? 'Acciones rápidas' : 'Quick actions') + '">' + urls.map(function(url,i) {
-      if (!url || (sticky && i===3)) return '';
-      return ext(url, '<span aria-hidden="true">' + icons[i] + '</span><span>' + esc(sticky ? short[i] : labels[i]) + '</span>', 'quick-action action-'+i);
+    var es = lang === 'es';
+    var all = {
+      home: ['#inicio', '🏠', es ? 'Inicio' : 'Home', es ? 'Inicio' : 'Home'],
+      cal:  ['#calendario', '📅', es ? 'Ver calendario' : 'View calendar', es ? 'Calendario' : 'Calendar'],
+      info: [link('info'), '👋', es ? 'Registro a la sesión informativa' : 'Info session registration', ''],
+      wa:   [F.org.waHref, '💬', es ? 'WhatsApp al equipo' : 'WhatsApp the team', 'WhatsApp']
+    };
+    var keys = sticky ? ['home', 'cal', 'wa'] : ['cal', 'info', 'wa'];
+    return '<div class="' + (sticky ? 'sticky-actions' : 'quick-actions') + '" aria-label="' + (es ? 'Acciones rápidas' : 'Quick actions') + '">' + keys.map(function (k) {
+      var a = all[k]; if (!a[0]) return '';
+      return ext(a[0], '<span aria-hidden="true">' + a[1] + '</span><span>' + esc(sticky ? a[3] : a[2]) + '</span>', 'quick-action action-' + k);
     }).join('') + '</div>';
   }
   function styleSections(main) {
@@ -535,7 +531,7 @@
   }
   function currentRoute() {
     var h = (location.hash || "").replace(/^#\/?/, "");
-    if (h === "lista") return "participar";
+    if (ALIASES[h]) return ALIASES[h];
     return PAGES[h] ? h : "inicio";
   }
   function render(focus) {
