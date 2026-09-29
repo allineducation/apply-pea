@@ -1,5 +1,5 @@
 /* ==================================================================
-   PEA Applicant Hub — app  (v0.12.0)
+   PEA Applicant Hub — app  (v0.13.0)
    Vanilla JS, no build step, no dependencies. State-based navigation
    (hash routes) per AIE Hub Design System §5.1. Every date, time and
    link resolves from facts.js; every string from copy.js.
@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.12.0";
+  var VERSION = "0.13.0";
   var UPDATED = "2026-09-28";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -233,7 +233,8 @@
   function accordion(items) {
     return '<div class="accordion">' + items.map(function (item, i) {
       return '<details class="accordion-item"' + (i === 0 ? " open" : "") + '><summary class="accordion-header"><span>' + esc(item[0]) +
-        '</span><span class="acc-chev" aria-hidden="true"></span></summary><div class="accordion-body"><p>' + esc(item[1]) + "</p></div></details>";
+        '</span><span class="acc-chev" aria-hidden="true"></span></summary><div class="accordion-body"><p>' + esc(item[1]) + "</p>" +
+        (item[2] ? '<p class="small">' + esc(item[2]) + "</p>" : "") + "</div></details>";
     }).join("") + "</div>";
   }
   function fitHtml() {
@@ -241,7 +242,7 @@
     return applicantSection(A.fitH, A.fitLead, accordion(A.fitItems) + applicantContact());
   }
   function audienceHtml() {
-    var A = L.applicant, routes = ["#participar", "#calendario", "#contacto"], icons = ["📝", "📅", "🎓"];
+    var A = L.applicant, routes = ["#participar", "#calendario", "#contacto"], icons = ["📝", "🎓", "🤝"];
     return '<nav class="audience-router" aria-label="' + esc(A.audienceH) + '"><h2 class="audience-h">' + esc(A.audienceH) + "</h2>" +
       '<div class="audience-grid">' + A.audience.map(function (a, i) {
         return '<a class="audience-card" href="' + routes[i] + '"><span class="audience-badge" aria-hidden="true">' + icons[i] + "</span>" +
@@ -251,8 +252,21 @@
   }
   function commitmentHtml() {
     var A = L.applicant;
-    return applicantSection(A.commitmentH, A.commitmentText, '<p class="small">' + esc(A.commitmentNote) + '</p>') +
-      applicantSection(A.certificateH, A.certificateText, '');
+    return applicantSection(A.detailsH, '', accordion([[A.commitmentH, A.commitmentText, A.commitmentNote], [A.certificateH, A.certificateText]]));
+  }
+  function orientHtml() {                          /* static orientation only — the site does not track progress */
+    var A = L.applicant;
+    return '<section class="block orient"><h2 class="h-sec">' + esc(A.orientH) + '</h2><ol class="applicant-steps">' + A.orient.map(function (o, i) {
+      return '<li class="step-item"><span class="step-number" aria-hidden="true">' + (i + 1) + '</span><div class="step-content"><strong>' +
+        esc(o[0]) + "</strong><p>" + esc(o[1]) + "</p></div></li>";
+    }).join("") + "</ol></section>";
+  }
+  function helpCardHtml() {
+    var A = L.applicant, O = F.org;
+    return '<aside class="help-card" aria-label="' + esc(L.contact.h) + '"><p>' + esc(A.helpText) + '</p><div class="help-links">' +
+      '<a class="help-link" href="mailto:' + esc(O.email) + '"><span aria-hidden="true">✉️</span><span>' + esc(A.helpEmail) + "</span></a>" +
+      '<a class="help-link" href="' + esc(O.phoneHref) + '"><span aria-hidden="true">📞</span><span>' + esc(A.helpCall + " " + O.phone) + "</span></a>" +
+      "</div></aside>";
   }
   function supportHtml() {
     return applicantSection(L.applicant.supportH, L.applicant.supportText, applicantContact());
@@ -298,7 +312,7 @@
   }
 
   function pageParticipar() {
-    return secHead('participar') + applicantSection(L.home.stepsH, '', stepsHtml(false)) +
+    return secHead('participar') + orientHtml() + applicantSection(L.home.stepsH, '', stepsHtml(false) + helpCardHtml()) +
       applicantSection(L.steps.infoDatesH, '', infoDatesHtml()) + welcomeHtml() + commitmentHtml();
   }
   var calFilter = 'all';
