@@ -84,14 +84,6 @@
           ["Su idioma", "Las clases de otoño de 2026 son en español. Si habla inglés, también puede participar: ofrecemos apoyos en inglés, como subtítulos traducidos o trabajo en grupos pequeños, según lo que necesiten las personas inscritas. Indique su idioma preferido en el formulario de interés; nuestro equipo le atiende en español y en inglés."]
         ],
         askCta: "Preguntarle al equipo →",
-        benefitsH: "Lo que va a aprender",
-        benefitsLead: "Estos son los objetivos del programa. Cada familia los vive a su manera.",
-        benefits: [
-          ["Prepararse para hablar con la escuela", "Pensar qué preguntar, qué información compartir y cómo dar seguimiento a una conversación con el personal escolar."],
-          ["Saber a quién acudir", "Entender cómo se organizan las escuelas y los distritos, y a quién dirigirse cuando surge una inquietud."],
-          ["Apoyar el aprendizaje en casa", "Descubrir ideas para acompañar la lectura y las matemáticas, y hablar con la escuela sobre lo que necesita su estudiante."],
-          ["Participar en su comunidad", "Compartir su experiencia, colaborar con otras familias y tomar parte en las decisiones de la escuela."]
-        ],
         timeH: "El tiempo que necesita",
         timeText: "18 clases de 90 minutos: 27 horas en vivo en total.",
         timeNote: "No incluye la sesión informativa opcional ni el grupo de enfoque. Si quiere saber cuánto tiempo toman los materiales o actividades fuera de clase, pregúntenos.",
@@ -186,13 +178,6 @@
         holidayNote: "No hay clase este día.",
         projectedLabel: "Por confirmar",
         projected: "Fechas proyectadas, aún por confirmar.",
-        experienceH: "Imagine una clase de PEA",
-        experienceLead: "Nos reunimos en vivo por Zoom para conversar, hacer preguntas y trabajar en actividades con otras familias. El formato cambia un poco según el tema.",
-        experience: [
-          ["Aprender", "Conocer el tema del día y relacionarlo con su experiencia en familia o en la escuela."],
-          ["Conversar", "Compartir preguntas e ideas con su grupo."],
-          ["Reflexionar", "Al final, responder una encuesta corta: de cinco a ocho preguntas, entre dos y cuatro minutos."]
-        ],
         springH: "Próximas fechas",
         spring: "Primavera de 2027: del 16 de marzo al 13 de mayo, los martes y jueves, de 5:00 a 6:30 p. m., hora de Arizona. Ya puede llenar el formulario de interés."
       },
@@ -277,6 +262,7 @@
           ["No encuentro mi correo de bienvenida. ¿Qué hago?", "Revise la carpeta de spam o correo no deseado. Si aún no aparece, escríbanos a pea@allineducation.org o llame, mande un texto o WhatsApp al 602-759-0619. Con gusto le volvemos a enviar su enlace."],
           ["¿Puedo participar desde el teléfono?", "Sí. Con una computadora o tableta es más fácil ver los materiales y participar, pero si solo tiene teléfono, también funciona."],
           ["¿Qué pasa si mi conexión falla o no puedo encender la cámara?", "Avísenos y le orientamos. Antes de empezar, pruebe su conexión, cámara y micrófono."],
+          ["¿Cómo es una clase de PEA?", "Nos reunimos en vivo por Zoom para conversar, hacer preguntas y trabajar en actividades con otras familias. En cada clase conocemos el tema del día y lo relacionamos con su experiencia en familia o en la escuela, compartimos preguntas e ideas en grupo y, al final, respondemos una encuesta corta. El formato cambia un poco según el tema."],
           ["¿Cuánto tiempo debo reservar?", "Las 18 clases de 90 minutos suman 27 horas en vivo, los martes y jueves de 5:00 a 6:30 p. m., hora de Arizona. La sesión informativa y el grupo de enfoque son aparte. Si quiere saber cuánto tiempo toman las actividades fuera de clase, pregúntenos."],
           ["¿Qué pasa si falto a una clase?", "Avísenos con anticipación y pregúntenos cómo ponerse al día."],
           ["¿Se graban las clases?", "Pregúntenos por la política actual de grabaciones y cómo recuperar una clase."],
@@ -360,14 +346,6 @@
           ["Your language", "Fall 2026 classes are taught in Spanish. English speakers are welcome too: we offer English supports, such as translated subtitles or small-group work, based on what enrolled participants need. Share your preferred language on the interest form; our team supports you in Spanish and English."]
         ],
         askCta: "Ask the team →",
-        benefitsH: "What you’ll learn",
-        benefitsLead: "These are the program’s learning goals. Every family experiences them in its own way.",
-        benefits: [
-          ["Prepare for school conversations", "Think through what to ask, what to share, and how to follow up with school staff."],
-          ["Know whom to contact", "Understand how schools and districts are organized, and whom to go to when a concern comes up."],
-          ["Support learning at home", "Find ideas for supporting reading and math, and talk with the school about what your student needs."],
-          ["Take part in your community", "Share your experience, work alongside other families, and have a voice in school decisions."]
-        ],
         timeH: "The time you’ll need",
         timeText: "18 classes of 90 minutes: 27 live hours in all.",
         timeNote: "This doesn’t include the optional information session or the focus group. If you’d like to know how much time materials or activities outside class take, just ask.",
@@ -462,13 +440,6 @@
         holidayNote: "There is no class this day.",
         projectedLabel: "To be confirmed",
         projected: "Projected dates, not yet confirmed.",
-        experienceH: "Picture a PEA class",
-        experienceLead: "We meet live on Zoom to talk, ask questions, and work through activities with other families. The format shifts a little with each topic.",
-        experience: [
-          ["Learn", "Explore the day’s topic and connect it to your experience at home or at school."],
-          ["Talk it through", "Share questions and ideas with your group."],
-          ["Reflect", "At the end, answer a short exit survey: five to eight questions, two to four minutes."]
-        ],
         springH: "Coming up",
         spring: "Spring 2027: March 16–May 13, Tuesdays and Thursdays, 5:00–6:30 PM Arizona time. The interest form is open now."
       },
@@ -553,6 +524,7 @@
           ["I can’t find my welcome email. What should I do?", "Check your spam or junk folder. If it’s still not there, email pea@allineducation.org or call, text, or WhatsApp 602-759-0619. We’re happy to send your link again."],
           ["Can I take part from my phone?", "Yes. A computer or tablet makes it easier to see the materials and take part, but if a phone is what you have, a phone works."],
           ["What if my connection drops or I can’t turn on my camera?", "Let us know and we’ll help. Before you start, test your connection, camera, and microphone."],
+          ["What is a PEA class like?", "We meet live on Zoom to talk, ask questions, and work through activities with other families. In each class, we explore the day’s topic and connect it to your experience at home or at school, share questions and ideas with the group, and answer a short exit survey at the end. The format shifts a little with each topic."],
           ["How much time should I set aside?", "The 18 classes of 90 minutes add up to 27 live hours, Tuesdays and Thursdays, 5:00–6:30 PM Arizona time. The information session and focus group are separate. If you’d like to know how much time activities outside class take, just ask."],
           ["What if I miss a class?", "Let us know ahead of time, and ask us how to catch up."],
           ["Are classes recorded?", "Ask us about the current recording policy and how to make up a class."],

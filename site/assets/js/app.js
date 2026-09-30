@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.18.2";
+  var VERSION = "0.18.3";
   var UPDATED = "2026-09-30";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -380,8 +380,6 @@
       '<div class="btnrow"><button type="button" class="btn btn-primary" data-ics="all">' + esc(K.ics) + "</button>" +
       ext(link("cal"), esc(K.full), "btn btn-secondary") + "</div>" +
       '<p class="small">' + esc(K.icsHelp) + "</p>" +
-      section(L.home.benefitsH, L.home.benefitsLead, cards(L.home.benefits)) +
-      section(K.experienceH, K.experienceLead, cards(K.experience)) +
       section(K.springH, K.spring, "");
   }
 
