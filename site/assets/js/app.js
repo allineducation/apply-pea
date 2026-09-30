@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.18.0";
+  var VERSION = "0.18.1";
   var UPDATED = "2026-09-30";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -280,7 +280,7 @@
     var chips = '<div class="chips"><span class="tag gold">' + esc(H.chipFree) + '</span><span class="tag blue">' + esc(H.chipZoom) + "</span>" +
       (teachLang() ? '<span class="tag blue">' + esc(H.chipLang(teachLang())) + "</span>" : "") + "</div>";
     return '<h1 class="home-title" tabindex="-1">' + esc(H.h) + "</h1>" + audienceHtml() + actionsHtml(false) +
-      section(H.whatH, H.what, chips) +
+      section(H.whatH, H.what, '<p class="lead">' + esc(H.what2) + "</p>" + chips) +
       section(H.stepsH, "", stepsHtml(true) + btnRow(inLink("#participar", H.stepsCta, "btn-primary")));
   }
   function pageParticipar() {                      /* applicant order: steps → fit → time → info session → Zoom help → staff */

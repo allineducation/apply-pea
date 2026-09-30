@@ -65,7 +65,8 @@
       home: {
         h: "Su próximo paso con PEA",
         whatH: "¿Qué es PEA?",
-        what: "La Parent Educator Academy (PEA) es un programa gratuito de ALL In Education para madres, padres y cuidadores. Juntos aprendemos cómo funciona el sistema escolar de Arizona y cómo abogar por nuestros hijos con confianza. El personal escolar, como enlaces con las familias y maestros, también es bienvenido.",
+        what: "La Academia de Padres Educadores (PEA) de ALL In Education es un programa introductorio de liderazgo y participación en la educación, dirigido principalmente a madres, padres y cuidadores de Arizona. Las familias comparten experiencias y adquieren conocimientos y herramientas para comprender y navegar el sistema escolar, abogar con confianza por sus hijos y apoyar su aprendizaje y éxito académico desde casa.",
+        what2: "También damos la bienvenida al personal escolar y a los enlaces comunitarios que desean aprender junto a las familias y fortalecer la colaboración entre el hogar y la escuela.",
         chipFree: "Gratis",
         chipZoom: "En línea, por Zoom",
         chipLang: function (l) { return "Clases en " + l; },
@@ -340,7 +341,8 @@
       home: {
         h: "Your next step with PEA",
         whatH: "What is PEA?",
-        what: "The Parent Educator Academy (PEA) is a free ALL In Education program for parents and caregivers. Together, we learn how Arizona's school system works and how to advocate for our children with confidence. School staff, such as family liaisons and teachers, are welcome too.",
+        what: "ALL In Education’s Parent Educator Academy (PEA) is an introductory leadership and family engagement program designed primarily for parents and caregivers in Arizona. Families share experiences and gain knowledge and practical tools to understand and navigate the school system, confidently advocate for their children, and support their learning and academic success at home.",
+        what2: "We also welcome school staff and community liaisons who want to learn alongside families and strengthen the connection between home and school.",
         chipFree: "Free",
         chipZoom: "Online, on Zoom",
         chipLang: function (l) { return "Taught in " + l; },
