@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.18.3";
+  var VERSION = "0.19.0";
   var UPDATED = "2026-09-30";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -330,34 +330,44 @@
       (desc ? '<p class="det-desc">' + esc(desc) + "</p>" : "") +
       (notes ? '<ul class="det-notes">' + notes + "</ul>" : "") + '<div class="btnrow">' + b + "</div>" + foot + "</div>";
   }
-  function calRows() {
-    var n = 0;
-    return EV.filter(function (e) { return calFilter === "all" || (calFilter === "info" ? e.kind === "info" : e.kind === "cls"); })
-      .map(function (e) {
-        var tt = evTitle(e), sd = shortDate(e.start), key = e._c + "-" + e.code, open = !!calOpen[key], x = expandable(e);
+  function badgeOf(e) {                          /* category badge: class · info · graduation · special (focus) · no class */
+    return e.kind === "info" ? "info" : e.kind === "focus" ? "especial" : e.kind === "holiday" ? "none" : e.grad ? "graduacion" : "clase";
+  }
+  function calRows() {                             /* date-badge cards, grouped under sticky month dividers */
+    var D = L.days, groups = [], cur = null;
+    EV.filter(function (e) { return calFilter === "all" || (calFilter === "info" ? e.kind === "info" : e.kind === "cls"); })
+      .forEach(function (e) {
+        var d = az(e.start), mk = d.getUTCFullYear() * 12 + d.getUTCMonth();
+        if (!cur || cur.mk !== mk) groups.push(cur = { mk: mk, label: cap(D.months[d.getUTCMonth()]) + " " + d.getUTCFullYear(), items: [] });
+        cur.items.push(e);
+      });
+    return groups.map(function (g) {
+      return '<section class="month-group"><h2 class="month-divider">' + esc(g.label) + '</h2><ol class="event-list">' + g.items.map(function (e) {
+        var tt = evTitle(e), d = az(e.start), key = e._c + "-" + e.code, open = !!calOpen[key], x = expandable(e);
         var past = new Date(e.end).getTime() < NOW.getTime(), today = daysUntil(e.start, NOW) === 0;
-        var alt = n++ % 2 ? " alt" : "";
-        var cls = alt + (past ? " is-past" : "") + (today ? " is-today" : "") + (e.kind === "info" ? " is-info" : "") + (x ? " has-det" : "") + (open ? " open" : "");
-        var tags = (today ? ' <span class="tag gold row-tag">' + esc(L.cal.today) + "</span>" : past ? ' <span class="tag row-tag">' + esc(L.cal.done) + "</span>" : "") +
-                   (e.kind === "info" ? ' <span class="tag pink row-tag">' + esc(L.ui.optional) + "</span>" : "");
+        var cls = "event-card" + (past ? " is-past" : "") + (today ? " is-today" : "") + (e.kind === "info" ? " is-info" : "") + (x ? " has-det" : "") + (open ? " open" : "");
+        var tags = (today ? '<span class="tag gold">' + esc(L.cal.today) + "</span>" : past ? '<span class="tag">' + esc(L.cal.done) + "</span>" : "") +
+                   (e.kind === "info" ? '<span class="tag pink">' + esc(L.ui.optional) + "</span>" : "");
         var label = esc(tt.topic);
-        var topic = x
+        var title = x
           ? '<button type="button" class="cal-open" data-row="' + esc(key) + '" aria-expanded="' + open + '" aria-controls="det-' + esc(key) + '">' +
             '<span class="ct">' + label + '</span><span class="chev" aria-hidden="true"></span><span class="sr-only"> — ' +
-            esc(open ? L.cal.detail.close : (e.kind === "info" ? L.cal.detail.openInfo : L.cal.detail.open)) + "</span></button>" + tags
-          : label + tags;
-        var row = '<tr class="' + cls.trim() + '"' + (x ? ' data-rowkey="' + esc(key) + '"' : "") + '><td class="c-date"><span class="dow">' + esc(sd.dow) + "</span> " + esc(sd.dm) + "</td>" +
-          '<td class="c-kind"><span class="tag ' + (e.kind === "info" ? "pink" : e.kind === "cls" ? (e.grad ? "gold" : "blue") : "") + '">' + esc(tt.kind) + "</span></td>" +
-          '<td class="c-topic">' + topic + "</td>" +
-          '<td class="c-time">' + (e.kind === "holiday" ? "—" : esc(spanDash(e.start, e.end))) + "</td></tr>";
-        if (x) row += '<tr class="cal-det' + alt + '" id="det-' + esc(key) + '"' + (open ? "" : " hidden") + '><td colspan="4">' + calDetail(e) + "</td></tr>";
-        return row;
-      }).join("");
+            esc(open ? L.cal.detail.close : (e.kind === "info" ? L.cal.detail.openInfo : L.cal.detail.open)) + "</span></button>"
+          : label;
+        return '<li class="' + cls + '"' + (x ? ' data-rowkey="' + esc(key) + '"' : "") + ">" +
+          '<div class="date-badge"><span class="month">' + esc(D.months[d.getUTCMonth()].slice(0, 3)) + '</span><span class="day-number">' + d.getUTCDate() +
+          '</span><span class="day-name">' + esc(D.short[d.getUTCDay()]) + "</span></div>" +
+          '<div class="event-content"><div class="event-tags"><span class="category-badge badge-' + badgeOf(e) + '">' + esc(tt.kind) + "</span>" + tags + "</div>" +
+          '<h3 class="event-title">' + title + "</h3>" +
+          (e.kind === "holiday" ? "" : '<p class="event-time"><span aria-hidden="true">🕒 </span>' + esc(spanDash(e.start, e.end)) + "</p>") + "</div>" +
+          (x ? '<div class="event-det" id="det-' + esc(key) + '"' + (open ? "" : " hidden") + ">" + calDetail(e) + "</div>" : "") + "</li>";
+      }).join("") + "</ol></section>";
+    }).join("");
   }
   function toggleRow(key) {
     calOpen[key] = !calOpen[key];
     var btn = document.querySelector('.cal-open[data-row="' + key + '"]'), det = document.getElementById("det-" + key);
-    var tr = document.querySelector('tr[data-rowkey="' + key + '"]');
+    var tr = document.querySelector('.event-card[data-rowkey="' + key + '"]');
     if (!btn || !det) return;
     btn.setAttribute("aria-expanded", String(calOpen[key]));
     det.hidden = !calOpen[key];
@@ -373,11 +383,9 @@
     return secHead("calendario") + '<p class="lead">' + esc(K.tapHint) + "</p>" + callout("", K.scheduleLabel, esc(K.scheduleNote)) +
       (C.projected ? callout("gold", K.projectedLabel, esc(K.projected)) : "") +
       '<div class="filters" role="group" aria-label="' + esc(K.filterLabel) + '"><span class="label">' + esc(K.filterLabel) + "</span>" + pills + "</div>" +
-      '<div class="tablewrap"><table class="cal"><caption class="sr-only">' + esc(K.h + " · " + cohortLabel()) + "</caption>" +
-      '<thead><tr><th scope="col">' + esc(K.cols.date) + '</th><th scope="col">' + esc(K.cols.kind) + '</th><th scope="col">' +
-      esc(K.cols.topic) + '</th><th scope="col">' + esc(K.cols.time) + '</th></tr></thead><tbody id="calbody">' + calRows() + "</tbody></table></div>" +
+      '<div class="cal-cards" id="calbody" role="region" aria-label="' + esc(K.h + " · " + cohortLabel()) + '">' + calRows() + "</div>" +
       '<p class="small mt">' + esc(K.note) + "</p>" +
-      '<div class="btnrow"><button type="button" class="btn btn-primary" data-ics="all">' + esc(K.ics) + "</button>" +
+      '<div class="btnrow cal-actions"><button type="button" class="btn btn-primary" data-ics="all">' + esc(K.ics) + "</button>" +
       ext(link("cal"), esc(K.full), "btn btn-secondary") + "</div>" +
       '<p class="small">' + esc(K.icsHelp) + "</p>" +
       section(K.springH, K.spring, "");
@@ -556,8 +564,8 @@
     var ics = t.closest("[data-ics]"); if (ics) { downloadIcs(ics.getAttribute("data-ics")); return; }
     var ob = t.closest(".cal-open");
     if (ob) { toggleRow(ob.getAttribute("data-row")); return; }
-    var rowEl = t.closest("tr.has-det");
-    if (rowEl && !t.closest("a,button")) { toggleRow(rowEl.getAttribute("data-rowkey")); return; }
+    var rowEl = t.closest(".event-card.has-det");
+    if (rowEl && !t.closest("a,button,.event-det")) { toggleRow(rowEl.getAttribute("data-rowkey")); return; }
     var fl = t.closest("[data-filter]");
     if (fl) {
       calFilter = fl.getAttribute("data-filter");
