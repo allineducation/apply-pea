@@ -90,8 +90,6 @@
           ["Apoyar el aprendizaje en casa", "Descubrir ideas para acompañar la lectura y las matemáticas, y hablar con la escuela sobre lo que necesita su estudiante."],
           ["Participar en su comunidad", "Compartir su experiencia, colaborar con otras familias y tomar parte en las decisiones de la escuela."]
         ],
-        topicsCta: "Ver los temas de las 18 clases →",
-        datesH: "Otoño de 2026: fechas y tiempo",
         timeH: "El tiempo que necesita",
         timeText: "18 clases de 90 minutos: 27 horas en vivo en total.",
         timeNote: "No incluye la sesión informativa opcional ni el grupo de enfoque. Si quiere saber cuánto tiempo toman los materiales o actividades fuera de clase, pregúntenos.",
@@ -200,6 +198,7 @@
       hist: {
         h: "Experiencias e historia",
         storiesH: "Historias de familias",
+        originH: "Cómo empezó PEA",
         storiesLead: "Estas historias se publicaron en 2023 y cuentan experiencias de años anteriores; sus fechas y detalles no describen la cohorte actual.",
         stories: [
           ["Patricia: hablar con la escuela", "Arizona Luminaria cuenta cómo Patricia Ojeda pasó de sentirse intimidada al hablar con la escuela a expresar sus inquietudes y buscar apoyo para el aprendizaje de sus hijos."],
@@ -289,7 +288,6 @@
       foot: {
         rights: "© ALL In Education. Todos los derechos reservados.",
         version: function (v, d) { return "Versión " + v + " · Actualizado el " + d; },
-        dates: function (d) { return "Fechas: calendario de PEA, verificado el " + d; },
         logoAlt: "ALL In Education — Leadership · Power · Justice"
       },
 
@@ -366,8 +364,6 @@
           ["Support learning at home", "Find ideas for supporting reading and math, and talk with the school about what your student needs."],
           ["Take part in your community", "Share your experience, work alongside other families, and have a voice in school decisions."]
         ],
-        topicsCta: "See the topics of all 18 classes →",
-        datesH: "Fall 2026: dates and time",
         timeH: "The time you’ll need",
         timeText: "18 classes of 90 minutes: 27 live hours in all.",
         timeNote: "This doesn’t include the optional information session or the focus group. If you’d like to know how much time materials or activities outside class take, just ask.",
@@ -476,6 +472,7 @@
       hist: {
         h: "Stories & history",
         storiesH: "Family stories",
+        originH: "How PEA began",
         storiesLead: "These stories were published in 2023 and describe earlier years; their dates and details don’t describe the current cohort.",
         stories: [
           ["Patricia: speaking up at school", "Arizona Luminaria tells how Patricia Ojeda went from feeling intimidated in school conversations to raising her concerns and seeking support for her children’s learning."],
@@ -565,7 +562,6 @@
       foot: {
         rights: "© ALL In Education. All rights reserved.",
         version: function (v, d) { return "Version " + v + " · Updated " + d; },
-        dates: function (d) { return "Dates: PEA calendar, checked " + d; },
         logoAlt: "ALL In Education — Leadership · Power · Justice"
       },
 
