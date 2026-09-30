@@ -293,6 +293,10 @@
   var calFilter = 'all';
   var calOpen = {};                                /* expanded rows — survive filter changes and the 60-second refresh */
   function expandable(e) { return e.kind === "cls" || e.kind === "info"; }
+  function weekOpens(e) {                         /* first class of the same week ("3R" → the "3T" class) */
+    var wk = parseInt(e.code, 10), cohort = F.cohorts[e._c];
+    return sorted(cohort.events).find(function (x) { return x.kind === "cls" && parseInt(x.code, 10) === wk; }) || e;
+  }
   function calDetail(e) {
     var D = L.cal.detail, over = new Date(e.end).getTime() < NOW.getTime();
     var mod = e.module && F.modules ? F.modules[e.module] : null;
@@ -303,14 +307,18 @@
     } else {
       if (!e.projected) notes += "<li>" + esc(D.zoomNote) + "</li>";
       /* Every class card ends with the same three actions, in the same order:
-         class materials · exit survey · resource list. An action whose link is
-         not published yet stays in its slot, visibly unavailable. */
+         class materials · exit survey · resource list. They start as placeholders
+         and unlock week by week: both classes of a week open together on the day
+         of that week's first class (Arizona time). An action whose link is not
+         published yet stays a placeholder in its slot. */
+      var open = weekOpens(e), live = !e.projected && daysUntil(open.start, NOW) <= 0;
+      var wait = live ? D.soon : D.opens(shortDate(open.start).dm);
       foot = '<div class="det-actions" role="group" aria-label="' + esc(D.actions) + '">' +
-        [[mod && mod.worksheet, D.materials, "📄"], [link("exit", e._c), D.exit, "✅"], [link("lista", e._c), D.resources, "📚"]]
+        [[mod && mod.worksheet, D.materials, "📄"], [link("exit", e._c), D.exit, "🎟️"], [link("lista", e._c), D.resources, "📚"]]
           .map(function (a) {
             var inner = '<span aria-hidden="true">' + a[2] + "</span><span>" + esc(a[1]) + "</span>";
-            return a[0] ? ext(a[0], inner, "btn btn-secondary btn-sm")
-              : '<span class="btn btn-secondary btn-sm is-off" aria-disabled="true">' + inner + '<span class="soon">' + esc(D.soon) + "</span></span>";
+            return live && a[0] ? ext(a[0], inner, "btn btn-secondary btn-sm")
+              : '<span class="btn btn-secondary btn-sm is-off" aria-disabled="true">' + inner + '<span class="soon">' + esc(wait) + "</span></span>";
           }).join("") + "</div>";
     }
     b += '<button type="button" class="btn btn-ghost btn-sm" data-ics="' + esc(e._c + ":" + e.code) + '">' + esc(D.addCal) + "</button>";

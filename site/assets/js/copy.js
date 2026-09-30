@@ -178,7 +178,8 @@
           about: "Sobre esta clase", aboutInfo: "Sobre la sesión",
           zoomNote: "Entre con el enlace personal de Zoom de su correo de bienvenida; es el mismo para todas las clases.",
           resources: "Lista de recursos", worksheet: "Hoja de trabajo (PDF)", addCal: "Agregar a mi calendario",
-          materials: "Materiales de la clase", exit: "Encuesta de salida", soon: "Disponible pronto",
+          materials: "Materiales de la clase", exit: "Encuesta", soon: "Disponible pronto",
+          opens: function (d) { return "Se abre el " + d; },
           actions: "Materiales y enlaces de esta clase"
         },
         classNote: "Entre a clase con el enlace personal de Zoom de su correo de bienvenida. Es el mismo para todas las clases; por favor, no lo comparta.",
@@ -453,7 +454,8 @@
           about: "About this class", aboutInfo: "About the session",
           zoomNote: "Join with the personal Zoom link in your welcome email; it’s the same for every class.",
           resources: "Resource list", worksheet: "Worksheet (PDF, in Spanish)", addCal: "Add to my calendar",
-          materials: "Class materials", exit: "Exit survey", soon: "Available soon",
+          materials: "Class materials", exit: "Survey", soon: "Available soon",
+          opens: function (d) { return "Opens " + d; },
           actions: "Materials and links for this class"
         },
         classNote: "Join class with the personal Zoom link in your welcome email. It’s the same for every class; please don’t share it.",
