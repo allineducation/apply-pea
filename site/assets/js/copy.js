@@ -43,6 +43,7 @@
 
       ui: {
         skip: "Saltar al contenido",
+        back: "Volver", backLabel: "Volver al inicio",
         show: "▼ Ver", hide: "▲ Ocultar",
         searchPh: "Buscar una pregunta…",
         clear: "Borrar búsqueda",
@@ -198,7 +199,7 @@
       hist: {
         h: "Experiencias e historia",
         storiesH: "Historias de familias",
-        originH: "Cómo empezó PEA",
+        originH: "Nuestras raíces",
         storiesLead: "Estas historias se publicaron en 2023 y cuentan experiencias de años anteriores; sus fechas y detalles no describen la cohorte actual.",
         stories: [
           ["Patricia: hablar con la escuela", "Arizona Luminaria cuenta cómo Patricia Ojeda pasó de sentirse intimidada al hablar con la escuela a expresar sus inquietudes y buscar apoyo para el aprendizaje de sus hijos."],
@@ -317,6 +318,7 @@
 
       ui: {
         skip: "Skip to content",
+        back: "Back", backLabel: "Back to home",
         show: "▼ Show", hide: "▲ Hide",
         searchPh: "Search the questions…",
         clear: "Clear search",
@@ -472,7 +474,7 @@
       hist: {
         h: "Stories & history",
         storiesH: "Family stories",
-        originH: "How PEA began",
+        originH: "Our roots",
         storiesLead: "These stories were published in 2023 and describe earlier years; their dates and details don’t describe the current cohort.",
         stories: [
           ["Patricia: speaking up at school", "Arizona Luminaria tells how Patricia Ojeda went from feeling intimidated in school conversations to raising her concerns and seeking support for her children’s learning."],

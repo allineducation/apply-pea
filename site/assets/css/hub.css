@@ -497,22 +497,30 @@ body{font-size:14px}
    Colours map to the 18 palette values; see the exception note above.
    ================================================================== */
 :root{
-  --color-text-primary:var(--charcoal);   /* #333333, never pure black */
-  --color-text-secondary:var(--n70);      /* #707070, 4.95:1 on white */
+  --color-text-primary:var(--charcoal);   /* #333333, never pure black; 12.63:1 on white (AAA) */
+  --color-text-secondary:var(--n70);      /* #707070, 4.95:1 on white (AA) */
+  --color-text-inverse:var(--white);
+  --color-bg-page:var(--n04);             /* #F7F7F7 */
   --color-bg-surface:var(--white);
   --color-bg-subtle:var(--n04);
+  --color-primary:var(--blue);            /* #053CAA */
+  --color-primary-hover:var(--blue-mid);  /* #2C5EC1: states swap, never darken */
   --color-border:var(--n12);
   --color-border-active:var(--blue);
-  --radius-card:16px; --radius-pill:9999px;
+  /* v0.18.0: 8pt spacing grid (4px half-step) and radius scale */
+  --space-1:.25rem; --space-2:.5rem; --space-3:.75rem; --space-4:1rem; --space-6:1.5rem; --space-8:2rem;
+  --radius-sm:8px; --radius-md:12px; --radius-lg:16px; --radius-full:9999px;
+  --radius-card:var(--radius-lg); --radius-pill:var(--radius-full);
   --shadow-sm:0 1px 3px rgba(5,60,170,.06);
   --shadow-md:0 10px 15px -3px rgba(5,60,170,.06),0 4px 6px -2px rgba(5,60,170,.03);
   --shadow-lg:0 20px 25px -5px rgba(5,60,170,.10);
+  --shadow-top:0 -4px 12px rgba(5,60,170,.05);
   --header-h:76px;
 }
 html{scroll-padding-top:calc(var(--header-h) + 12px)}
 body{color:var(--color-text-primary);line-height:1.6}
 h1,h2,h3,.h-sec,.home-title,.h3{letter-spacing:-0.02em}
-h1,h2,.h-sec,.home-title{font-weight:900}
+h1,h2,h3,.h-sec,.home-title,.h3{font-weight:900}
 .skip{z-index:60}
 
 /* ---------- sticky header ---------- */
@@ -665,3 +673,33 @@ details.sec[open]>summary>h2::after{transform:rotate(-135deg);margin-top:5px}
 details.sec:not([open])>summary>h2{margin-bottom:0!important}
 details.sec>summary:hover>h2{filter:brightness(1.12)}
 @media(prefers-reduced-motion:reduce){.section-panel>summary>h2::after{transition:none}}
+
+/* v0.18.0: design tokens in use; Back link on subpages; sticky bottom app bar.
+   Colours stay on the 18 palette values (token names follow the design spec). */
+body{background:var(--color-bg-page);color:var(--color-text-primary);line-height:1.6}
+.band-inner .band-l{display:flex;align-items:center;gap:var(--space-2)}
+.band-inner .band-l img{flex:0 1 260px;width:auto;min-width:0;max-width:260px;height:auto}
+.band .back-link,.band .back-link:hover{color:var(--color-primary)}
+.back-link{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;gap:var(--space-1);
+  min-height:44px;min-width:44px;padding:0 var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-full);
+  background:var(--color-bg-surface);color:var(--color-primary);font-weight:700;font-size:14px;text-decoration:none}
+.back-link>span:first-child{font-size:22px;line-height:1;margin-top:-2px}
+.back-link:hover{background:var(--tint-blue);color:var(--color-primary)}
+.back-link:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+@media(max-width:420px){
+  .back-txt{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+  .back-link{padding:0}
+}
+nav.quick-actions-bar{position:sticky;bottom:0;z-index:40;background:rgba(255,255,255,.9);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border-top:1px solid var(--color-border);box-shadow:var(--shadow-top);
+  padding-top:var(--space-3);padding-bottom:max(var(--space-3),env(safe-area-inset-bottom,0px))}
+@supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){ nav.quick-actions-bar{background:var(--white)} }
+nav.quick-actions-bar .quick-action{min-height:48px;min-width:48px}
+.shell{padding-bottom:var(--space-4)}   /* the sticky bar holds its own space; no overlap padding needed */
+body{display:flex;flex-direction:column;min-height:100vh;min-height:100dvh}
+body>.shell{flex:1 0 auto;width:100%}   /* short pages still seat the app bar at the viewport bottom */
+.band-l .band-logo{display:flex;flex:0 1 260px;min-width:0}
+.band-l .band-logo img{flex:1 1 auto}
+@media(max-width:560px){ .band-l .band-logo{flex:none} .band-l .band-logo img{width:36px;height:36px;flex:none;max-width:none} }   /* round mark beside Back on phones */
+@media(max-width:900px){ .band-inner:has(.back-link) .band-r>div:not(.lang-toggle){display:none} }   /* subpages: Back + logo + toggle fit on one row */

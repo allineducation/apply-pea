@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.17.0";
+  var VERSION = "0.18.0";
   var UPDATED = "2026-09-30";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -190,9 +190,12 @@
   }
 
   /* ---------- header band + nav + footer ---------- */
-  function renderBand() {
+  function renderBand(route) {                     /* subpages get a Back link to Home, left of the logo */
+    var back = route === "inicio" ? "" : '<a class="back-link" href="#inicio" aria-label="' + esc(L.ui.backLabel) + '">' +
+      '<span aria-hidden="true">‹</span><span class="back-txt">' + esc(L.ui.back) + "</span></a>";
     document.getElementById("bandinner").innerHTML =
-      '<div class="band-l"><img src="assets/img/aie-logo-primary.png" width="260" height="36" alt="ALL In Education — Leadership · Power · Justice"></div>' +
+      '<div class="band-l">' + back + (back ? '<picture class="band-logo"><source media="(max-width: 560px)" srcset="assets/img/aie-mark-96.png" width="36" height="36">' : "") +
+      '<img src="assets/img/aie-logo-primary.png" width="260" height="36" alt="ALL In Education — Leadership · Power · Justice">' + (back ? "</picture>" : "") + "</div>" +
       '<div class="band-r"><div><div class="band-title">' + esc(L.toolTitle) + "</div>" +
       '<div class="band-sub">' + esc(L.toolSub(cohortLabel())) + "</div></div>" +
       '<div class="lang-toggle" role="group" aria-label="' + esc(L.langSwitch.group) + '">' +
@@ -521,7 +524,7 @@
     document.title = (id === "inicio" ? "" : L.sections[id].label + " · ") + L.meta.title;
     var md = document.querySelector('meta[name="description"]'); if (md) md.setAttribute("content", L.meta.description);
     document.getElementById("skip").textContent = L.ui.skip;
-    renderBand(); renderNav(id); renderFoot();
+    renderBand(id); renderNav(id); renderFoot();
     var main = document.getElementById("main"), FOLD = "details.sec, details.accordion-item";
     var wasOpen = id === shownRoute ? Array.prototype.map.call(main.querySelectorAll(FOLD), function (d) { return d.open; }) : [];
     main.innerHTML = PAGES[id]();
