@@ -33,6 +33,21 @@ const esSrc = JSON.stringify(T.es, (k, v) => typeof v === "function" ? v.toStrin
   .forEach(([re, w]) => { if (re.test(esSrc)) problems.push(`ES vocabulary: ${w}`); });
 if (/\bAIE\b/.test(JSON.stringify(T.en))) problems.push("EN vocabulary: AIE in family-facing prose → ALL In Education");
 
+// Naming (Danny Hernández, 2026-09-30): "Parent Educator Academy" is "Academia de Padres
+// Educadores" in Spanish; the abbreviation stays "PEA" in both languages; "ALL In Education"
+// and the tagline "Leadership · Power · Justice" are never translated. The English title of
+// the 2022 evaluation report is a citation and is allowed.
+function namingProblems(es, en, where) {
+  const out = [];
+  if (/Parent Educator Academy(?! Evaluation Report)/.test(es)) out.push(`${where} ES: "Parent Educator Academy" → "Academia de Padres Educadores"`);
+  if (/\bAPE\b|\(APE\)/.test(es)) out.push(`${where} ES: abbreviation stays "PEA", not "APE"`);
+  if (/Academia de Padres Educadores/.test(en)) out.push(`${where} EN: use "Parent Educator Academy"`);
+  if (/Todos? en (la )?Educaci[oó]n|TODOS EN/i.test(es + en)) out.push(`${where}: "ALL In Education" is never translated`);
+  if (/Liderazgo\s*[·•]\s*Poder|Poder\s*[·•]\s*Justicia/i.test(es + en)) out.push(`${where}: tagline "Leadership · Power · Justice" is never translated`);
+  return out;
+}
+problems.push(...namingProblems(esSrc, JSON.stringify(T.en, (k, v) => typeof v === "function" ? v.toString() : v), "copy"));
+
 // Module descriptions in facts.js: both languages present, same vocabulary rules,
 // and every event's module exists.
 global.window = global.window || {};
@@ -46,6 +61,7 @@ Object.entries(MODS).forEach(([k, m]) => {
   if (/stakeholder/i.test(m.en)) problems.push(`module ${k}: "stakeholders" (institutional register)`);
   if (/nueve semanas|nine[- ]week|diez semanas|ten[- ]week/i.test(m.es + m.en)) problems.push(`module ${k}: describe 18 classes, not weeks`);
 });
+Object.entries(MODS).forEach(([k, m]) => problems.push(...namingProblems(m.es || "", m.en || "", `module ${k}`)));
 Object.values(FACTS.cohorts).forEach(c => c.events.forEach(e => {
   if (e.module && !MODS[e.module]) problems.push(`${c.code} ${e.code}: module ${e.module} missing from facts.modules`);
 }));

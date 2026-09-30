@@ -16,6 +16,29 @@ Read this README and `HANDOFF.json`, inspect the current branch and working tree
 
 This repository is public. Keep credentials, participant records, private Zoom join links and other sensitive material out of it. Documentation lives outside `site/`, so it is available in GitHub but is not part of the applicant-facing Netlify publish directory.
 
+## Names and the approved PEA description (Danny Hernández, 2026-09-30)
+
+**Naming rules** (enforced by `maintenance/scripts/check-parity.js`):
+
+| Name | Spanish | English |
+| --- | --- | --- |
+| Program | **Academia de Padres Educadores** | **Parent Educator Academy** |
+| Abbreviation | **PEA** (never “APE”) | **PEA** |
+| Organization | **ALL In Education** — never translated | **ALL In Education** |
+| Tagline | **Leadership · Power · Justice** — never translated, no Spanish pairing on this site | **Leadership · Power · Justice** |
+
+The one allowed English program name in Spanish text is the citation title *Parent Educator Academy Evaluation Report* (2022). Shared bilingual surfaces (og:title, the no-JavaScript fallback, the 404 page) show “Academia de Padres Educadores / Parent Educator Academy”.
+
+**Approved description** — use verbatim wherever PEA is described (Home “¿Qué es PEA? / What is PEA?” = `home.what` + `home.what2`):
+
+> La Academia de Padres Educadores (PEA) de ALL In Education es un programa introductorio de liderazgo y participación en la educación, dirigido principalmente a madres, padres y cuidadores de Arizona. Las familias comparten experiencias y adquieren conocimientos y herramientas para comprender y navegar el sistema escolar, abogar con confianza por sus hijos y apoyar su aprendizaje y éxito académico desde casa.
+>
+> También damos la bienvenida al personal escolar y a los enlaces comunitarios que desean aprender junto a las familias y fortalecer la colaboración entre el hogar y la escuela.
+
+> ALL In Education’s Parent Educator Academy (PEA) is an introductory leadership and family engagement program designed primarily for parents and caregivers in Arizona. Families share experiences and gain knowledge and practical tools to understand and navigate the school system, confidently advocate for their children, and support their learning and academic success at home.
+>
+> We also welcome school staff and community liaisons who want to learn alongside families and strengthen the connection between home and school.
+
 ## Architecture and file map
 
 Static HTML, CSS and vanilla JavaScript. No package installation, bundler, application server or database is required. Node 22 runs the deployment’s content check. Lato fonts and brand images are local assets.
@@ -120,7 +143,8 @@ Earlier QA: v0.10.0 checked nine routes in both languages at phone/desktop width
 - v0.11.0: expandable class details in Calendar (module descriptions, Zoom registration, worksheet, resources and individual calendar downloads); financial-incentive FAQ and before/now section removed; school staff welcomed; free for every participant; “docentes” → “maestros”; parity gate now checks module descriptions and flags “docentes” and week-count language.
 - v0.12.0: design tokens mapped to the palette, sticky header with ES | EN pill toggle, floating bottom action bar with safe-area padding and icon-above-label layout, Home audience router cards, accordion eligibility and FAQ, reserved skeleton utility. See [maintenance/qa/v0.12.0.md](maintenance/qa/v0.12.0.md).
 - v0.13.0: Participar gains a 3-step applicant orientation timeline, a help card (email/call, 48px targets) beside the join CTAs, and a program-details/commitment accordion; audience icons 📝 🎓 🤝. See [maintenance/qa/v0.13.0.md](maintenance/qa/v0.13.0.md).
-- v0.18.1 (text supplied by Danny Hernández, 2026-09-30): Home “¿Qué es PEA? / What is PEA?” replaced verbatim with the new two-paragraph description (`home.what` + `home.what2`): an introductory leadership and family engagement program, primarily for parents and caregivers in Arizona, also welcoming school staff and community liaisons. The Spanish text names the program **Academia de Padres Educadores (PEA)**; elsewhere the site still uses “Parent Educator Academy” in Spanish.
+- v0.18.2 (Danny Hernández, 2026-09-30): Spanish program name is **Academia de Padres Educadores** everywhere (page title, header, meta description, History origin paragraph, MORIE class description, web-app name, and ES/EN pairs on og:title, the no-JavaScript fallback and the 404 page). “PEA”, “ALL In Education” and the tagline stay untranslated. The parity gate now fails on any breach. New `CLAUDE.md` carries these rules and the approved description for future sessions.
+- v0.18.1 (text supplied by Danny Hernández, 2026-09-30): Home “¿Qué es PEA? / What is PEA?” replaced verbatim with the new two-paragraph description (`home.what` + `home.what2`): an introductory leadership and family engagement program, primarily for parents and caregivers in Arizona, also welcoming school staff and community liaisons. The Spanish text names the program **Academia de Padres Educadores (PEA)** (applied site-wide in v0.18.2).
 - v0.18.0 (approved by Danny Hernández, 2026-09-30): History panel renamed **Nuestras raíces / Our roots**. Design-spec tokens added with the spec's names but **palette values** (Danny's choice): `--color-text-primary` #333333, `--color-text-secondary` #707070 (AA, not AAA), `--color-text-inverse` white, `--color-bg-page` #F7F7F7, `--color-primary` Blue, `--color-primary-hover` Blue Mid; 8pt spacing scale `--space-1…8`; `--radius-sm/md/lg/full` (8/12/16/9999); `--shadow-top`. Shadows stay Blue-tinted. `h3` joins `h1`/`h2` at weight 900. Subpages show a **‹ Volver / Back** link (to Home) left of the logo; on phones (≤560px) it sits beside the round AIE mark, and up to 900px the header title text hides on subpages so the logo is never squeezed. The bottom bar (`nav.quick-actions-bar`) is now `position: sticky` with `--shadow-top`, 12px padding, a safe-area bottom inset and 48×48px minimum buttons; the body is a flex column so the bar sits at the screen bottom on short pages and never covers the footer. Header controls stay at the 44px brand minimum.
 - v0.17.0 (approved by Danny Hernández, 2026-09-30): every titled section on every page is a collapsible panel, closed by default (the coloured heading bar is the toggle; eligibility and FAQ items also start closed). Open panels stay open through the 60-second refresh and a language switch. Home trimmed to a router — “Is PEA a fit for me?” and “The time you'll need” moved to How to take part; “What you'll learn” moved to Calendar (whose schedule note already covers fall dates). History's origin paragraphs and stats sit in a new “How PEA began / Cómo empezó PEA” panel. The footer no longer shows the “Dates: PEA calendar, verified…” line. Kept open on purpose: the Calendar table and the four steps on How to take part.
 - v0.16.0: every class card in Calendar ends with the same three buttons, aligned along the bottom — 📄 Class materials, 🎟️ Survey / Encuesta, 📚 Resource list (one column on phones). Buttons are placeholders until their week opens, then unlock two classes at a time on the day of the week's first class; a class without a worksheet keeps a greyed “Available soon” Class materials button; calendar hint updated in both languages.

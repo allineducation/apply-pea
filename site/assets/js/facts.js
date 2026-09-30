@@ -59,10 +59,11 @@ window.PEA_FACTS = {
      Edits: MPIP1 EN "stakeholders" → "key people" (brand §5.2; matches ES);
      MCOMM ES "docentes" → "maestros" (Danny, 2026-09-25: "docentes" is not in common use);
      MORIE ES/EN "nueve semanas"/"nine-week" → "18 clases"/"18-class" (repo rule: describe
-     scheduled classes, not weeks); MORIE ES program name kept as "Parent Educator Academy". */
+     scheduled classes, not weeks); MORIE ES program name → "Academia de Padres Educadores" (Danny, 2026-09-30: the
+     program name is translated in Spanish; "PEA", "ALL In Education" and the tagline never are). */
   modules: {
     MORIE: { id: "PEA-M01",
-      es: "Este curso de apertura presenta a las familias ALL In Education, la Parent Educator Academy y los acuerdos y apoyos que guían la experiencia de las 18 clases. Las personas participantes empiezan a conocerse, comparten sus esperanzas para sus estudiantes y establecen compromisos de participación, comunicación y apoyo mutuo.",
+      es: "Este curso de apertura presenta a las familias ALL In Education, la Academia de Padres Educadores y los acuerdos y apoyos que guían la experiencia de las 18 clases. Las personas participantes empiezan a conocerse, comparten sus esperanzas para sus estudiantes y establecen compromisos de participación, comunicación y apoyo mutuo.",
       en: "This opening course introduces participants to ALL In Education, the Parent Educator Academy, and the expectations and supports that shape the 18-class learning experience. Families build relationships with their cohort, identify shared hopes for their students, and establish agreements for participation, communication, and mutual support." },
     MHIST: { id: "PEA-M02",
       es: "Este curso examina los acontecimientos, las políticas y las decisiones que formaron la educación pública en Arizona y que continúan influyendo en las oportunidades estudiantiles. Las familias relacionan esta historia con sus propias experiencias escolares y consideran cómo el contexto histórico puede orientar el aprendizaje, la participación comunitaria y la defensa educativa.",

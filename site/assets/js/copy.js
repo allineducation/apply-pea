@@ -26,10 +26,10 @@
     es: {
       _lang: "es",
       meta: {
-        title: "Únase a PEA — Parent Educator Academy",
-        description: "Todo lo que necesita para unirse a la Parent Educator Academy de ALL In Education: cómo inscribirse, fechas, temas y ayuda."
+        title: "Únase a PEA — Academia de Padres Educadores",
+        description: "Todo lo que necesita para unirse a la Academia de Padres Educadores de ALL In Education: cómo inscribirse, fechas, temas y ayuda."
       },
-      toolTitle: "Parent Educator Academy",
+      toolTitle: "Academia de Padres Educadores",
       toolSub: function (c) { return "Centro de inscripción · " + c; },
       langSwitch: { toEn: "Switch to English", toEs: "Cambiar a español", group: "Idioma", announced: "Página en español" },
 
@@ -208,7 +208,7 @@
         ],
         storyCta: "Leer la historia en Arizona Luminaria",
         p: [
-          "PEA nació durante la pandemia. ALL In Education vio que la distancia entre las escuelas y las familias se había vuelto el mayor obstáculo, y creó la Parent Educator Academy para que madres, padres y cuidadores pudieran navegar el aprendizaje virtual, entender el sistema escolar y abogar por sus hijos con confianza.",
+          "PEA nació durante la pandemia. ALL In Education vio que la distancia entre las escuelas y las familias se había vuelto el mayor obstáculo, y creó la Academia de Padres Educadores para que madres, padres y cuidadores pudieran navegar el aprendizaje virtual, entender el sistema escolar y abogar por sus hijos con confianza.",
           "La primera cohorte se graduó en la primavera de 2021, con 27 personas. Según la evaluación de LeCroy & Milligan de agosto de 2022, la asistencia promedio a las 15 sesiones centrales fue del 96.4%, y las 111 personas de la cohorte de primavera de 2022 se graduaron.",
           "Cada cohorte ha dejado algo: preguntas que hoy son parte del currículo, lecciones sobre dónde se atora el sistema, y personas que terminaron PEA y ahora acompañan a las familias que llegan."
         ],
