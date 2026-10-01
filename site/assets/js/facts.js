@@ -126,13 +126,13 @@ window.PEA_FACTS = {
       en: "This culminating course celebrates participants’ completion of PEA and creates space to reflect on learning, relationships, and growth across the cohort. Graduates identify how they will continue using their knowledge and advocacy skills as family leaders, alumni, and partners in strengthening educational opportunities for students." }
   },
 
-  /* PEA team page (Danny Hernández, 2026-10-01). Emails: firstname@allineducation.org.
-     PENDING: Denia Uriarte's title (ES/EN) and approval of Danny's Spanish title.
-     An empty title is simply not shown. Photos: site/assets/img/staff/, 480x600. */
+  /* PEA team page. Names, titles (ES/EN) and emails confirmed by Danny Hernández, 2026-10-01.
+     Emails: firstname@allineducation.org. An empty title is simply not shown.
+     Photos: site/assets/img/staff/, 480x600. */
   staff: [
     { name: "Danny Hernández", title_es: "Gerente de Impacto Comunitario y Aprendizaje", title_en: "Community Impact & Learning Manager",
       email: "danny@allineducation.org", photo: "assets/img/staff/danny-hernandez.jpg" },
-    { name: "Denia Uriarte", title_es: "", title_en: "",
+    { name: "Denia Uriarte", title_es: "Gerente de programas de liderazgo", title_en: "Leadership Programs Manager",
       email: "denia@allineducation.org", photo: "assets/img/staff/denia-uriarte.jpg" }
   ],
 
@@ -195,9 +195,12 @@ window.PEA_FACTS = {
         { code: "9R",  kind: "cls", module: "MPIP2", start: "2026-12-04T00:00:00Z", end: "2026-12-04T01:30:00Z", title_es: "Poniéndolo en práctica II", title_en: "Putting It Into Practice II" },
         { code: "10T", kind: "cls", module: "MGRAD", start: "2026-12-09T00:00:00Z", end: "2026-12-09T01:30:00Z", title_es: "Graduación", title_en: "Graduation", grad: true, milestone: "end" },
         { code: "10R", kind: "focus",   start: "2026-12-11T00:00:00Z", end: "2026-12-11T01:30:00Z" },
-        /* Date to be confirmed: undated events are kept here but never shown. Add start/end (UTC) to publish it. */
-        { code: "REC", kind: "milestone", sub: "recognition", start: null, end: null,
-          title_es: "Reconocimiento de graduados de los condados Maricopa y Yuma", title_en: "Maricopa & Yuma County Graduate Recognition" }
+        /* Graduate recognitions (Danny, 2026-10-01). Maricopa: Mon Dec 14, 9:00–11:00 AM Arizona.
+           Yuma: date to be confirmed. Undated events stay here but are never shown; add start/end (UTC) to publish. */
+        { code: "RECM", kind: "milestone", sub: "recognition", start: "2026-12-14T16:00:00Z", end: "2026-12-14T18:00:00Z",
+          title_es: "Reconocimiento de graduados del condado Maricopa", title_en: "Maricopa County Graduate Recognition" },
+        { code: "RECY", kind: "milestone", sub: "recognition", start: null, end: null,
+          title_es: "Reconocimiento de graduados del condado Yuma", title_en: "Yuma County Graduate Recognition" }
       ]
     },
     SP27: {

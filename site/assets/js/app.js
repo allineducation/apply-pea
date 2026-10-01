@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.20.0";
+  var VERSION = "0.20.1";
   var UPDATED = "2026-10-01";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -528,8 +528,8 @@
       lines.push("BEGIN:VEVENT", "UID:PEA-" + e._c + "-" + e.code + "@allineducation.org", "DTSTAMP:" + now,
         e.allDay ? "DTSTART;VALUE=DATE:" + icsDay(e.start) : "DTSTART:" + icsStamp(e.start),
         e.allDay ? "DTEND;VALUE=DATE:" + icsDay(e.end) : "DTEND:" + icsStamp(e.end), icsFold("SUMMARY:" + icsEsc(sum)),
-        icsFold("DESCRIPTION:" + icsEsc(desc)), (e.kind === "holiday" || e.allDay ? "LOCATION:" : "LOCATION:Zoom"),
-        e.kind === "holiday" || e.allDay ? "TRANSP:TRANSPARENT" : "TRANSP:OPAQUE", "END:VEVENT");
+        icsFold("DESCRIPTION:" + icsEsc(desc)), (e.kind === "holiday" || e.kind === "milestone" ? "LOCATION:" : "LOCATION:Zoom"),   /* no venue is published for milestones */
+        e.kind === "holiday" || e.kind === "milestone" ? "TRANSP:TRANSPARENT" : "TRANSP:OPAQUE", "END:VEVENT");
     });
     lines.push("END:VCALENDAR");
     return lines.join("\r\n") + "\r\n";
