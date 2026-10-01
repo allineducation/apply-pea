@@ -126,6 +126,16 @@ window.PEA_FACTS = {
       en: "This culminating course celebrates participants’ completion of PEA and creates space to reflect on learning, relationships, and growth across the cohort. Graduates identify how they will continue using their knowledge and advocacy skills as family leaders, alumni, and partners in strengthening educational opportunities for students." }
   },
 
+  /* PEA team page (Danny Hernández, 2026-10-01). Emails: firstname@allineducation.org.
+     PENDING: Denia Uriarte's title (ES/EN) and approval of Danny's Spanish title.
+     An empty title is simply not shown. Photos: site/assets/img/staff/, 480x600. */
+  staff: [
+    { name: "Danny Hernández", title_es: "Gerente de Impacto Comunitario y Aprendizaje", title_en: "Community Impact & Learning Manager",
+      email: "danny@allineducation.org", photo: "assets/img/staff/danny-hernandez.jpg" },
+    { name: "Denia Uriarte", title_es: "", title_en: "",
+      email: "denia@allineducation.org", photo: "assets/img/staff/denia-uriarte.jpg" }
+  ],
+
   links: {
     global: {
       overviewVideo: "https://www.youtube.com/watch?v=FEV_87qoqjc",
@@ -151,7 +161,7 @@ window.PEA_FACTS = {
     }
   },
 
-  /* kind: info | cls | holiday | focus
+  /* kind: info | cls | holiday | focus | milestone   (milestone: "start" | "end" flags a class as a cohort milestone)
      Only confirmed cohorts can be promoted automatically; projected future
      cohorts are mentioned in the FAQ without opening registration. */
   cohorts: {
@@ -160,9 +170,12 @@ window.PEA_FACTS = {
       label_es: "Otoño 2026", label_en: "Fall 2026",
       teaching_es: "español", teaching_en: "Spanish",
       weeks: 10,
+      /* Applications switch to the next cohort the Wednesday after class 3 (computed in app.js).
+         The interest form stays open year-round; on that day it defaults to "opens" and adds "adds". */
+      applySwitch: { opens: "SP27", adds_es: "Otoño 2027", adds_en: "Fall 2027" },
       events: [
         { code: "IS2", kind: "info",    start: "2026-10-02T00:00:00Z", end: "2026-10-02T01:30:00Z" },
-        { code: "1T",  kind: "cls", module: "MORIE", start: "2026-10-07T00:00:00Z", end: "2026-10-07T01:30:00Z", title_es: "Orientación", title_en: "Orientation" },
+        { code: "1T",  kind: "cls", module: "MORIE", start: "2026-10-07T00:00:00Z", end: "2026-10-07T01:30:00Z", title_es: "Orientación", title_en: "Orientation", milestone: "start" },
         { code: "1R",  kind: "cls", module: "MHIST", start: "2026-10-09T00:00:00Z", end: "2026-10-09T01:30:00Z", title_es: "La historia de la educación pública en Arizona", title_en: "History of Public Education in Arizona" },
         { code: "2T",  kind: "cls", module: "MSDOE", start: "2026-10-14T00:00:00Z", end: "2026-10-14T01:30:00Z", title_es: "Determinantes sociales de la educación", title_en: "Social Determinants of Education" },
         { code: "2R",  kind: "cls", module: "MBIAS", start: "2026-10-16T00:00:00Z", end: "2026-10-16T01:30:00Z", title_es: "Sesgo, identidad y el mito de la oportunidad", title_en: "Bias, Identity & the Opportunity Myth" },
@@ -180,8 +193,11 @@ window.PEA_FACTS = {
         { code: "8R",  kind: "holiday", start: "2026-11-27T00:00:00Z", end: "2026-11-27T01:30:00Z" },
         { code: "9T",  kind: "cls", module: "MPIP1", start: "2026-12-02T00:00:00Z", end: "2026-12-02T01:30:00Z", title_es: "Poniéndolo en práctica I", title_en: "Putting It Into Practice I" },
         { code: "9R",  kind: "cls", module: "MPIP2", start: "2026-12-04T00:00:00Z", end: "2026-12-04T01:30:00Z", title_es: "Poniéndolo en práctica II", title_en: "Putting It Into Practice II" },
-        { code: "10T", kind: "cls", module: "MGRAD", start: "2026-12-09T00:00:00Z", end: "2026-12-09T01:30:00Z", title_es: "Graduación", title_en: "Graduation", grad: true },
-        { code: "10R", kind: "focus",   start: "2026-12-11T00:00:00Z", end: "2026-12-11T01:30:00Z" }
+        { code: "10T", kind: "cls", module: "MGRAD", start: "2026-12-09T00:00:00Z", end: "2026-12-09T01:30:00Z", title_es: "Graduación", title_en: "Graduation", grad: true, milestone: "end" },
+        { code: "10R", kind: "focus",   start: "2026-12-11T00:00:00Z", end: "2026-12-11T01:30:00Z" },
+        /* Date to be confirmed: undated events are kept here but never shown. Add start/end (UTC) to publish it. */
+        { code: "REC", kind: "milestone", sub: "recognition", start: null, end: null,
+          title_es: "Reconocimiento de graduados de los condados Maricopa y Yuma", title_en: "Maricopa & Yuma County Graduate Recognition" }
       ]
     },
     SP27: {

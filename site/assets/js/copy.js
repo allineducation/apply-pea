@@ -38,6 +38,7 @@
         participar: { label: "Cómo participar", time: "3 min" },
         calendario: { label: "Calendario y temas", time: "3 min" },
         historia:   { label: "Historias", time: "2 min" },
+        equipo:     { label: "Equipo de PEA", time: "1 min" },
         ayuda:      { label: "Preguntas y ayuda", time: "4 min" }
       },
 
@@ -64,6 +65,7 @@
 
       home: {
         h: "Su próximo paso con PEA",
+        upNextH: "Lo que viene", upNextCta: "Ver detalles →",
         whatH: "¿Qué es PEA?",
         what: "La Academia de Padres Educadores (PEA) de ALL In Education es un programa introductorio de liderazgo y participación en la educación, dirigido principalmente a madres, padres y cuidadores de Arizona. Las familias comparten experiencias y adquieren conocimientos y herramientas para comprender y navegar el sistema escolar, abogar con confianza por sus hijos y apoyar su aprendizaje y éxito académico desde casa.",
         what2: "También damos la bienvenida al personal escolar y a los enlaces comunitarios que desean aprender junto a las familias y fortalecer la colaboración entre el hogar y la escuela.",
@@ -153,12 +155,16 @@
         scheduleLabel: "Otoño de 2026",
         scheduleNote: "18 clases, los martes y jueves, del 6 de octubre al 8 de diciembre de 2026, de 5:00 a 6:30 p. m., hora de Arizona. No hay clase el jueves 26 de noviembre (Día de Acción de Gracias). Sesión informativa opcional: jueves 1 de octubre. Grupo de enfoque: jueves 10 de diciembre. ¿Las clases ya empezaron? Escríbanos y vemos cómo puede unirse.",
         filterLabel: "Mostrar",
-        filters: { all: "Todo", info: "Sesión informativa", cls: "Clases" },
-        kinds: { info: "Sesión informativa", cls: "Clase", holiday: "No hay clase", focus: "Grupo de enfoque", grad: "Graduación" },
+        filters: { all: "Todo", milestone: "Fechas clave", info: "Sesión informativa", cls: "Clases" },
+        kinds: { info: "Sesión informativa", cls: "Clase", holiday: "No hay clase", focus: "Grupo de enfoque", grad: "Graduación", milestone: "Fecha clave" },
         topics: { info: "Conozca el programa y haga sus preguntas", holiday: "Día de Acción de Gracias", focus: "Conversación sobre su experiencia en PEA" },
         infoWording: "Opcional. Para conocer el programa y hacer sus preguntas",
         infoJoin: "Registrarse solo para la sesión informativa",
         today: "Hoy", done: "Ya pasó",
+        allDay: "Todo el día",
+        mStart: "Inicio del curso", mEnd: "Cierre del curso",
+        applyOpens: function (next) { return "Abre la solicitud para " + next; },
+        applyOpensDesc: function (next, adds) { return "El formulario de interés siempre está abierto. Desde este día, recibe solicitudes para " + next + " como opción principal y agrega " + adds + " como opción."; },
         note: "Hora de Arizona. Todas las clases son por Zoom.",
         full: "Ver en calendario público",
         ics: "Descargar todas las fechas (.ics)",
@@ -166,7 +172,7 @@
         icsName: "PEA",
         detail: {
           open: "Ver detalles de la clase", close: "Ocultar detalles", openInfo: "Ver detalles de la sesión",
-          about: "Sobre esta clase", aboutInfo: "Sobre la sesión",
+          about: "Sobre esta clase", aboutInfo: "Sobre la sesión", aboutMilestone: "Sobre esta fecha", openMilestone: "Ver detalles de esta fecha",
           zoomNote: "Entre con el enlace personal de Zoom de su correo de bienvenida; es el mismo para todas las clases.",
           resources: "Lista de recursos", worksheet: "Hoja de trabajo (PDF)", addCal: "Agregar a mi calendario",
           materials: "Materiales de la clase", exit: "Encuesta", soon: "Disponible pronto",
@@ -219,6 +225,7 @@
       help: {
         contactH: "Hable con nuestro equipo",
         contactLead: "Le respondemos en español y en inglés. Escríbanos antes de decidir, antes de la primera clase o en cualquier momento del programa: con gusto le ayudamos con Zoom, su conexión, subtítulos u otra necesidad de accesibilidad.",
+        teamCta: "Conozca al equipo de PEA →",
         labels: { email: "Correo", phone: "Teléfono (llamada o texto)", wa: "WhatsApp", web: "Sitio web" },
         waCta: "Mandar un mensaje",
         smsCta: "Mandar texto",
@@ -272,6 +279,11 @@
         ]
       },
 
+      team: {
+        lead: "Estas son las personas que coordinan PEA. Escríbanos cuando quiera: le respondemos en español y en inglés.",
+        photoAlt: function (n) { return "Foto de " + n; }
+      },
+
       foot: {
         rights: "© ALL In Education. Todos los derechos reservados.",
         version: function (v, d) { return "Versión " + v + " · Actualizado el " + d; },
@@ -299,6 +311,7 @@
         participar: { label: "How to take part", time: "3 min" },
         calendario: { label: "Calendar & topics", time: "3 min" },
         historia:   { label: "Stories", time: "2 min" },
+        equipo:     { label: "PEA team", time: "1 min" },
         ayuda:      { label: "Questions & help", time: "4 min" }
       },
 
@@ -325,6 +338,7 @@
 
       home: {
         h: "Your next step with PEA",
+        upNextH: "Up next", upNextCta: "See details →",
         whatH: "What is PEA?",
         what: "ALL In Education’s Parent Educator Academy (PEA) is an introductory leadership and family engagement program designed primarily for parents and caregivers in Arizona. Families share experiences and gain knowledge and practical tools to understand and navigate the school system, confidently advocate for their children, and support their learning and academic success at home.",
         what2: "We also welcome school staff and community liaisons who want to learn alongside families and strengthen the connection between home and school.",
@@ -414,12 +428,16 @@
         scheduleLabel: "Fall 2026",
         scheduleNote: "18 classes on Tuesdays and Thursdays, October 6–December 8, 2026, 5:00–6:30 PM Arizona time. No class Thursday, November 26 (Thanksgiving). Optional information session: Thursday, October 1. Focus group: Thursday, December 10. Have classes already started? Write to us and we’ll see how you can join.",
         filterLabel: "Show",
-        filters: { all: "All", info: "Information session", cls: "Classes" },
-        kinds: { info: "Information session", cls: "Class", holiday: "No class", focus: "Focus group", grad: "Graduation" },
+        filters: { all: "All", milestone: "Milestones", info: "Information session", cls: "Classes" },
+        kinds: { info: "Information session", cls: "Class", holiday: "No class", focus: "Focus group", grad: "Graduation", milestone: "Milestone" },
         topics: { info: "Get to know the program and ask your questions", holiday: "Thanksgiving", focus: "A conversation about your time in PEA" },
         infoWording: "Optional. Get to know the program and ask your questions",
         infoJoin: "Register for the info session only",
         today: "Today", done: "Past",
+        allDay: "All day",
+        mStart: "Cohort begins", mEnd: "Cohort ends",
+        applyOpens: function (next) { return "Applications open for " + next; },
+        applyOpensDesc: function (next, adds) { return "The interest form is always open. Starting this day, it takes applications for " + next + " as the main option and adds " + adds + " as an option."; },
         note: "Arizona time. All classes meet on Zoom.",
         full: "View the public calendar",
         ics: "Download every date (.ics)",
@@ -427,7 +445,7 @@
         icsName: "PEA",
         detail: {
           open: "See class details", close: "Hide details", openInfo: "See session details",
-          about: "About this class", aboutInfo: "About the session",
+          about: "About this class", aboutInfo: "About the session", aboutMilestone: "About this date", openMilestone: "See details for this date",
           zoomNote: "Join with the personal Zoom link in your welcome email; it’s the same for every class.",
           resources: "Resource list", worksheet: "Worksheet (PDF, in Spanish)", addCal: "Add to my calendar",
           materials: "Class materials", exit: "Survey", soon: "Available soon",
@@ -480,6 +498,7 @@
       help: {
         contactH: "Talk with our team",
         contactLead: "We answer in Spanish and English. Reach out before you decide, before your first class, or any time during the program — we’re glad to help with Zoom, your connection, captions, or any accessibility need.",
+        teamCta: "Meet the PEA team →",
         labels: { email: "Email", phone: "Phone (call or text)", wa: "WhatsApp", web: "Website" },
         waCta: "Send a message",
         smsCta: "Send a text",
@@ -531,6 +550,11 @@
           ["I work at a school. How can I help families?", "You can help them complete the interest form, find their welcome email, and contact our team if they need help. Each applicant receives their own personal Zoom link."],
           ["Is there anything after the program?", "Yes. People who finish PEA stay connected with ALL In Education through focus groups, leadership opportunities, and the chance to walk alongside new families. Graduation ends the course, not the relationship."]
         ]
+      },
+
+      team: {
+        lead: "These are the people who run PEA. Write to us anytime — we answer in Spanish and English.",
+        photoAlt: function (n) { return "Photo of " + n; }
       },
 
       foot: {

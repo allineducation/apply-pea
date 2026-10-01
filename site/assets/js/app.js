@@ -7,8 +7,8 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.19.0";
-  var UPDATED = "2026-09-30";
+  var VERSION = "0.20.0";
+  var UPDATED = "2026-10-01";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
   var LS_LANG = "aie_lang";
@@ -16,7 +16,7 @@
   /* ---------- sections, groups, order ---------- */
   var GROUPS = [
     { id: "join",  color: "blue",   items: ["participar", "calendario"] },
-    { id: "about", color: "pink",   items: ["historia"] },
+    { id: "about", color: "pink",   items: ["historia", "equipo"] },
     { id: "help",  color: "purple", items: ["ayuda"] }
   ];
   var ORDER = ["inicio"].concat(GROUPS[0].items, GROUPS[1].items, GROUPS[2].items);
@@ -109,6 +109,18 @@
     return { cur: selected.c, next: list[index + 1] ? list[index + 1].c : null };
   }
   Object.keys(F.cohorts).forEach(function (k) { F.cohorts[k].events.forEach(function (e) { e._c = k; }); });
+  /* Undated events (a date still to be confirmed) stay in facts.js but are never shown. */
+  Object.keys(F.cohorts).forEach(function (k) { var c = F.cohorts[k]; c.events = c.events.filter(function (e) { return e.start && e.end; }); });
+  /* "Applications open" milestone: all day on the Wednesday after the cohort's 3rd class (Arizona time). */
+  function appSwitch(c) {
+    var cls = sorted(c.events).filter(function (e) { return e.kind === "cls"; });
+    if (!c.applySwitch || cls.length < 3) return null;
+    var d = az(cls[2].start), add = (3 - d.getUTCDay() + 7) % 7 || 7;
+    var day = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() + add) - AZ;   /* midnight in Arizona, as UTC */
+    return { code: "APP", kind: "milestone", sub: "apply", allDay: true, _c: c.code,
+             start: new Date(day).toISOString(), end: new Date(day + 864e5).toISOString() };
+  }
+  Object.keys(F.cohorts).forEach(function (k) { var m = appSwitch(F.cohorts[k]); if (m) F.cohorts[k].events.push(m); });
   var AC = activeCohort(NOW), C = AC.cur, EV = sorted(C.events);
   var CLASSES = EV.filter(function (e) { return e.kind === "cls"; });
 
@@ -125,6 +137,12 @@
     return m[key] || F.links.global[key] || null;
   }
 
+  function opensLabel(e) {                         /* the cohort an "applications open" milestone switches to */
+    var s = F.cohorts[e._c].applySwitch, o = F.cohorts[s.opens];
+    return o ? (lang === "es" ? o.label_es : o.label_en) : s.opens;
+  }
+  function isMilestone(e) { return e.kind === "milestone" || !!e.milestone; }
+  function eventKey(e) { return e._c + "-" + e.code; }
   function cohortLabel() { return lang === "es" ? C.label_es : C.label_en; }
   function teachLang() { return lang === "es" ? C.teaching_es : C.teaching_en; }
   function classDays() {                              /* "martes y jueves" / "Tuesdays and Thursdays" */
@@ -141,6 +159,7 @@
     if (e.kind === "info") return { kind: K.info, topic: P.info };
     if (e.kind === "holiday") return { kind: K.holiday, topic: P.holiday };
     if (e.kind === "focus") return { kind: K.focus, topic: P.focus };
+    if (e.kind === "milestone") return { kind: K.milestone, topic: e.sub === "apply" ? L.cal.applyOpens(opensLabel(e)) : (lang === "es" ? e.title_es : e.title_en) };
     return { kind: e.grad ? K.grad : K.cls, topic: lang === "es" ? e.title_es : e.title_en };
   }
 
@@ -275,11 +294,24 @@
           '<span class="audience-go" aria-hidden="true">→</span></a>';
       }).join("") + "</div></nav>";
   }
-  function pageHome() {                            /* short router: what PEA is → how to join; details live on their pages */
+  function upNextHtml() {                         /* the next 2 dated events (no "no class" days), linked to their Calendar cards */
+    var H = L.home, items = EV.filter(function (e) { return e.kind !== "holiday" && !e.projected && new Date(e.end) > NOW; }).slice(0, 2);
+    if (!items.length) return "";
+    return '<section class="up-next" aria-labelledby="upnext-h"><h2 class="up-next-h" id="upnext-h">' + esc(H.upNextH) + '</h2><ul class="up-next-list">' +
+      items.map(function (e) {
+        var tt = evTitle(e), today = daysUntil(e.start, NOW) === 0;
+        return '<li><a class="up-next-card" href="#calendario/' + esc(eventKey(e)) + '">' + dateBadge(e) +
+          '<span class="up-next-body"><span class="event-tags"><span class="category-badge badge-' + badgeOf(e) + '">' + esc(tt.kind) + "</span>" +
+          (today ? '<span class="tag gold">' + esc(L.cal.today) + "</span>" : "") + "</span>" +
+          '<span class="up-next-t">' + esc(tt.topic) + '</span><span class="event-time">' + whenHtml(e) + "</span>" +
+          '<span class="up-next-cta">' + esc(H.upNextCta) + "</span></span></a></li>";
+      }).join("") + "</ul></section>";
+  }
+  function pageHome() {                            /* short router: up next → what PEA is → how to join; details live on their pages */
     var H = L.home;
     var chips = '<div class="chips"><span class="tag gold">' + esc(H.chipFree) + '</span><span class="tag blue">' + esc(H.chipZoom) + "</span>" +
       (teachLang() ? '<span class="tag blue">' + esc(H.chipLang(teachLang())) + "</span>" : "") + "</div>";
-    return '<h1 class="home-title" tabindex="-1">' + esc(H.h) + "</h1>" + audienceHtml() + actionsHtml(false) +
+    return '<h1 class="home-title" tabindex="-1">' + esc(H.h) + "</h1>" + upNextHtml() + audienceHtml() + actionsHtml(false) +
       section(H.whatH, H.what, '<p class="lead">' + esc(H.what2) + "</p>" + chips) +
       section(H.stepsH, "", stepsHtml(true) + btnRow(inLink("#participar", H.stepsCta, "btn-primary")));
   }
@@ -296,7 +328,7 @@
 
   var calFilter = 'all';
   var calOpen = {};                                /* expanded rows — survive filter changes and the 60-second refresh */
-  function expandable(e) { return e.kind === "cls" || e.kind === "info"; }
+  function expandable(e) { return e.kind === "cls" || e.kind === "info" || e.kind === "milestone"; }
   function weekOpens(e) {                         /* first class of the same week ("3R" → the "3T" class) */
     var wk = parseInt(e.code, 10), cohort = F.cohorts[e._c];
     return sorted(cohort.events).find(function (x) { return x.kind === "cls" && parseInt(x.code, 10) === wk; }) || e;
@@ -304,11 +336,12 @@
   function calDetail(e) {
     var D = L.cal.detail, over = new Date(e.end).getTime() < NOW.getTime();
     var mod = e.module && F.modules ? F.modules[e.module] : null;
-    var desc = e.kind === "info" ? infoNote() : (mod ? mod[lang] : "");
+    var sw = e.sub === "apply" ? F.cohorts[e._c].applySwitch : null;
+    var desc = e.kind === "info" ? infoNote() : sw ? L.cal.applyOpensDesc(opensLabel(e), lang === "es" ? sw.adds_es : sw.adds_en) : (mod ? mod[lang] : "");
     var b = "", notes = "", foot = "";
     if (e.kind === "info") {
       if (!over && link("info", e._c)) b += ext(link("info", e._c), esc(L.cal.infoJoin), "btn btn-primary btn-sm");
-    } else {
+    } else if (e.kind === "cls") {
       if (!e.projected) notes += "<li>" + esc(D.zoomNote) + "</li>";
       /* Every class card ends with the same three actions, in the same order:
          class materials · exit survey · resource list. They start as placeholders
@@ -326,40 +359,48 @@
           }).join("") + "</div>";
     }
     b += '<button type="button" class="btn btn-ghost btn-sm" data-ics="' + esc(e._c + ":" + e.code) + '">' + esc(D.addCal) + "</button>";
-    return '<div class="det' + (foot ? " has-actions" : "") + '"><span class="label blue">' + esc(e.kind === "info" ? D.aboutInfo : D.about) + "</span>" +
+    return '<div class="det' + (foot ? " has-actions" : "") + '"><span class="label blue">' + esc(e.kind === "info" ? D.aboutInfo : e.kind === "milestone" ? D.aboutMilestone : D.about) + "</span>" +
       (desc ? '<p class="det-desc">' + esc(desc) + "</p>" : "") +
       (notes ? '<ul class="det-notes">' + notes + "</ul>" : "") + '<div class="btnrow">' + b + "</div>" + foot + "</div>";
   }
   function badgeOf(e) {                          /* category badge: class · info · graduation · special (focus) · no class */
-    return e.kind === "info" ? "info" : e.kind === "focus" ? "especial" : e.kind === "holiday" ? "none" : e.grad ? "graduacion" : "clase";
+    return e.kind === "info" ? "info" : e.kind === "milestone" ? "hito" : e.kind === "focus" ? "especial" : e.kind === "holiday" ? "none" : e.grad ? "graduacion" : "clase";
+  }
+  function dateBadge(e) {
+    var d = az(e.start), D = L.days;
+    return '<span class="date-badge"><span class="month">' + esc(D.months[d.getUTCMonth()].slice(0, 3)) + '</span><span class="day-number">' + d.getUTCDate() +
+      '</span><span class="day-name">' + esc(D.short[d.getUTCDay()]) + "</span></span>";
+  }
+  function whenHtml(e) { return '<span aria-hidden="true">🕒 </span>' + esc(e.allDay ? L.cal.allDay : spanDash(e.start, e.end)); }
+  function openLabel(kind) { var D = L.cal.detail; return kind === "info" ? D.openInfo : kind === "milestone" ? D.openMilestone : D.open; }
+  function calMatch(e) {
+    return calFilter === "all" || (calFilter === "info" ? e.kind === "info" : calFilter === "milestone" ? isMilestone(e) : e.kind === "cls");
   }
   function calRows() {                             /* date-badge cards, grouped under sticky month dividers */
     var D = L.days, groups = [], cur = null;
-    EV.filter(function (e) { return calFilter === "all" || (calFilter === "info" ? e.kind === "info" : e.kind === "cls"); })
-      .forEach(function (e) {
+    EV.filter(calMatch).forEach(function (e) {
         var d = az(e.start), mk = d.getUTCFullYear() * 12 + d.getUTCMonth();
         if (!cur || cur.mk !== mk) groups.push(cur = { mk: mk, label: cap(D.months[d.getUTCMonth()]) + " " + d.getUTCFullYear(), items: [] });
         cur.items.push(e);
       });
     return groups.map(function (g) {
       return '<section class="month-group"><h2 class="month-divider">' + esc(g.label) + '</h2><ol class="event-list">' + g.items.map(function (e) {
-        var tt = evTitle(e), d = az(e.start), key = e._c + "-" + e.code, open = !!calOpen[key], x = expandable(e);
+        var tt = evTitle(e), key = eventKey(e), open = !!calOpen[key], x = expandable(e);
         var past = new Date(e.end).getTime() < NOW.getTime(), today = daysUntil(e.start, NOW) === 0;
-        var cls = "event-card" + (past ? " is-past" : "") + (today ? " is-today" : "") + (e.kind === "info" ? " is-info" : "") + (x ? " has-det" : "") + (open ? " open" : "");
-        var tags = (today ? '<span class="tag gold">' + esc(L.cal.today) + "</span>" : past ? '<span class="tag">' + esc(L.cal.done) + "</span>" : "") +
+        var cls = "event-card" + (past ? " is-past" : "") + (today ? " is-today" : "") + (e.kind === "info" ? " is-info" : "") + (e.kind === "milestone" ? " is-milestone" : "") + (x ? " has-det" : "") + (open ? " open" : "");
+        var tags = (e.milestone ? '<span class="tag gold">' + esc(e.milestone === "start" ? L.cal.mStart : L.cal.mEnd) + "</span>" : "") +
+                   (today ? '<span class="tag gold">' + esc(L.cal.today) + "</span>" : past ? '<span class="tag">' + esc(L.cal.done) + "</span>" : "") +
                    (e.kind === "info" ? '<span class="tag pink">' + esc(L.ui.optional) + "</span>" : "");
         var label = esc(tt.topic);
         var title = x
           ? '<button type="button" class="cal-open" data-row="' + esc(key) + '" aria-expanded="' + open + '" aria-controls="det-' + esc(key) + '">' +
             '<span class="ct">' + label + '</span><span class="chev" aria-hidden="true"></span><span class="sr-only"> — ' +
-            esc(open ? L.cal.detail.close : (e.kind === "info" ? L.cal.detail.openInfo : L.cal.detail.open)) + "</span></button>"
+            esc(open ? L.cal.detail.close : openLabel(e.kind)) + "</span></button>"
           : label;
-        return '<li class="' + cls + '"' + (x ? ' data-rowkey="' + esc(key) + '"' : "") + ">" +
-          '<div class="date-badge"><span class="month">' + esc(D.months[d.getUTCMonth()].slice(0, 3)) + '</span><span class="day-number">' + d.getUTCDate() +
-          '</span><span class="day-name">' + esc(D.short[d.getUTCDay()]) + "</span></div>" +
+        return '<li class="' + cls + '"' + (x ? ' data-rowkey="' + esc(key) + '"' : "") + ">" + dateBadge(e) +
           '<div class="event-content"><div class="event-tags"><span class="category-badge badge-' + badgeOf(e) + '">' + esc(tt.kind) + "</span>" + tags + "</div>" +
           '<h3 class="event-title">' + title + "</h3>" +
-          (e.kind === "holiday" ? "" : '<p class="event-time"><span aria-hidden="true">🕒 </span>' + esc(spanDash(e.start, e.end)) + "</p>") + "</div>" +
+          (e.kind === "holiday" ? "" : '<p class="event-time">' + whenHtml(e) + "</p>") + "</div>" +
           (x ? '<div class="event-det" id="det-' + esc(key) + '"' + (open ? "" : " hidden") + ">" + calDetail(e) + "</div>" : "") + "</li>";
       }).join("") + "</ol></section>";
     }).join("");
@@ -373,11 +414,11 @@
     det.hidden = !calOpen[key];
     if (tr) tr.classList.toggle("open", calOpen[key]);
     var sr = btn.querySelector(".sr-only");
-    if (sr) sr.textContent = " — " + (calOpen[key] ? L.cal.detail.close : (tr && tr.classList.contains("is-info") ? L.cal.detail.openInfo : L.cal.detail.open));
+    if (sr) sr.textContent = " — " + (calOpen[key] ? L.cal.detail.close : openLabel(tr && tr.classList.contains("is-info") ? "info" : tr && tr.classList.contains("is-milestone") ? "milestone" : "cls"));
   }
   function pageCalendario() {
     var K = L.cal, f = K.filters;
-    var pills = ["all", "info", "cls"].map(function (k) {
+    var pills = ["all", "milestone", "info", "cls"].map(function (k) {
       return '<button type="button" class="pill" data-filter="' + k + '" aria-pressed="' + (calFilter === k) + '">' + esc(f[k]) + "</button>";
     }).join("");
     return secHead("calendario") + '<p class="lead">' + esc(K.tapHint) + "</p>" + callout("", K.scheduleLabel, esc(K.scheduleNote)) +
@@ -409,6 +450,16 @@
       panel(H.missionH, '<blockquote class="quote">' + esc(H.mission) + "</blockquote>");
   }
 
+  function pageEquipo() {
+    var M = L.team;
+    return secHead("equipo") + '<p class="lead">' + esc(M.lead) + '</p><ul class="team-grid">' + F.staff.map(function (p) {
+      var title = lang === "es" ? p.title_es : p.title_en;
+      return '<li class="team-card"><img class="team-photo" src="' + esc(p.photo) + '" width="480" height="600" alt="' + esc(M.photoAlt(p.name)) + '">' +
+        '<div class="team-body"><h2 class="team-name">' + esc(p.name) + "</h2>" + (title ? '<p class="team-title">' + esc(title) + "</p>" : "") +
+        '<a class="team-email" href="mailto:' + esc(p.email) + '"><span aria-hidden="true">✉️</span><span>' + esc(p.email) + "</span></a></div></li>";
+    }).join("") + "</ul>";
+  }
+
   function faqItems() {
     var ctx = { label: lang === "es" ? lowerFirst(C.label_es) : C.label_en, lang: teachLang() || "", infoOpen: !!link("info") };
     var items = [];
@@ -425,7 +476,7 @@
       "<dt>" + esc(Lb.phone) + '</dt><dd><a href="' + esc(O.phoneHref) + '">' + esc(O.phone) + '</a> · <a href="' + esc(O.smsHref) + '">' + esc(P.smsCta) + "</a></dd>" +
       "<dt>" + esc(Lb.wa) + "</dt><dd>" + ext(O.waHref, esc(P.waCta)) + "</dd>" +
       "<dt>" + esc(Lb.web) + "</dt><dd>" + ext(O.web, esc(P.webLabel)) + "</dd>" +
-      "</dl></div>");
+      "</dl></div>" + btnRow(inLink("#equipo", P.teamCta)));
   }
   function pageAyuda() {                           /* help order: talk to us → answers → links → after PEA */
     var items = faqItems(), P = L.help;
@@ -448,7 +499,7 @@
       section(P.alumniH, P.alumniText, "");
   }
 
-  var PAGES = { inicio: pageHome, participar: pageParticipar, calendario: pageCalendario, historia: pageHistoria, ayuda: pageAyuda };
+  var PAGES = { inicio: pageHome, participar: pageParticipar, calendario: pageCalendario, historia: pageHistoria, equipo: pageEquipo, ayuda: pageAyuda };
   var ALIASES = { lista: "participar", zoom: "participar", programa: "calendario",   /* retired routes */
                   preguntas: "ayuda", enlaces: "ayuda", contacto: "ayuda" };
 
@@ -463,17 +514,22 @@
     });
     out.push(cur); return out.join("\r\n");
   }
+  function icsDay(iso) { var d = az(iso); return String(d.getUTCFullYear()) + String(d.getUTCMonth() + 1).padStart(2, "0") + String(d.getUTCDate()).padStart(2, "0"); }
   function buildIcs(evts) {
     var now = icsStamp(new Date().toISOString());
     var lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//ALL In Education//PEA Applicant Hub " + VERSION + "//" + lang.toUpperCase(), "CALSCALE:GREGORIAN", "METHOD:PUBLISH"];
     evts.forEach(function (e) {
-      var tt = evTitle(e), sum = L.cal.icsName + " · " + (e.kind === "cls" ? tt.topic : tt.kind);
-      var desc = e.kind === "info" ? L.cal.infoWording + ". " + (link("info") || "")
+      var tt = evTitle(e), sum = L.cal.icsName + " · " + (e.kind === "cls" || e.kind === "milestone" ? tt.topic : tt.kind);
+      var sw = e.sub === "apply" ? F.cohorts[e._c].applySwitch : null;
+      var desc = sw ? L.cal.applyOpensDesc(opensLabel(e), lang === "es" ? sw.adds_es : sw.adds_en)
+               : e.kind === "info" ? L.cal.infoWording + ". " + (link("info") || "")
                : e.kind === "cls" ? (e.projected ? L.cal.projected : L.cal.classNote)
                : e.kind === "holiday" ? L.cal.holidayNote : tt.topic;
       lines.push("BEGIN:VEVENT", "UID:PEA-" + e._c + "-" + e.code + "@allineducation.org", "DTSTAMP:" + now,
-        "DTSTART:" + icsStamp(e.start), "DTEND:" + icsStamp(e.end), icsFold("SUMMARY:" + icsEsc(sum)),
-        icsFold("DESCRIPTION:" + icsEsc(desc)), (e.kind === "holiday" ? "LOCATION:" : "LOCATION:Zoom"), e.kind === "holiday" ? "TRANSP:TRANSPARENT" : "TRANSP:OPAQUE", "END:VEVENT");
+        e.allDay ? "DTSTART;VALUE=DATE:" + icsDay(e.start) : "DTSTART:" + icsStamp(e.start),
+        e.allDay ? "DTEND;VALUE=DATE:" + icsDay(e.end) : "DTEND:" + icsStamp(e.end), icsFold("SUMMARY:" + icsEsc(sum)),
+        icsFold("DESCRIPTION:" + icsEsc(desc)), (e.kind === "holiday" || e.allDay ? "LOCATION:" : "LOCATION:Zoom"),
+        e.kind === "holiday" || e.allDay ? "TRANSP:TRANSPARENT" : "TRANSP:OPAQUE", "END:VEVENT");
     });
     lines.push("END:VCALENDAR");
     return lines.join("\r\n") + "\r\n";
@@ -516,8 +572,13 @@
     main.querySelectorAll('section.block, details.sec').forEach(function(el) { el.classList.add('section-panel'); });
     main.querySelectorAll('.section-panel').forEach(function(el,i) { el.classList.toggle('pink-section', i%2===1); });
   }
+  function routeParts() {                         /* "#calendario/FA26-1T" → ["calendario", "FA26-1T"] */
+    var h = (location.hash || "").replace(/^#\/?/, ""), i = h.indexOf("/");
+    return i === -1 ? [h, ""] : [h.slice(0, i), h.slice(i + 1)];
+  }
+  var pendingDeep = true;                          /* scroll to a linked card once per navigation, not on every refresh */
   function currentRoute() {
-    var h = (location.hash || "").replace(/^#\/?/, "");
+    var h = routeParts()[0];
     if (ALIASES[h]) return ALIASES[h];
     return PAGES[h] ? h : "inicio";
   }
@@ -531,6 +592,13 @@
     var md = document.querySelector('meta[name="description"]'); if (md) md.setAttribute("content", L.meta.description);
     document.getElementById("skip").textContent = L.ui.skip;
     renderBand(id); renderNav(id); renderFoot();
+    var deep = "";
+    if (id === "calendario" && pendingDeep) {
+      try { deep = decodeURIComponent(routeParts()[1]); } catch (e) {}
+      if (deep && !EV.some(function (e) { return eventKey(e) === deep && expandable(e); })) deep = "";
+      if (deep) { calFilter = "all"; calOpen[deep] = true; }
+    }
+    pendingDeep = false;
     var main = document.getElementById("main"), FOLD = "details.sec, details.accordion-item";
     var wasOpen = id === shownRoute ? Array.prototype.map.call(main.querySelectorAll(FOLD), function (d) { return d.open; }) : [];
     main.innerHTML = PAGES[id]();
@@ -538,7 +606,14 @@
     shownRoute = id;
     styleSections(main);
     document.getElementById("quickbar").innerHTML = actionsHtml(true);
-    if (focus) {
+    if (deep) {                                    /* open card sits just below the header and its month divider */
+      var card = main.querySelector('.event-card[data-rowkey="' + deep + '"]'), div = card && card.closest(".month-group").querySelector(".month-divider");
+      if (card) {
+        var hh = document.querySelector("header.site-header").offsetHeight;
+        window.scrollTo(0, card.getBoundingClientRect().top + window.scrollY - hh - (div ? div.offsetHeight : 0) - 12);
+        card.querySelector(".cal-open").focus({ preventScroll: true });
+      }
+    } else if (focus) {
       window.scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
       var h1 = main.querySelector("h1"); if (h1) h1.focus({ preventScroll: true });
     }
@@ -590,6 +665,7 @@
   }
   window.addEventListener("hashchange", function () {
     if (location.hash === "#main") { document.getElementById("main").focus(); return; }
+    pendingDeep = true;
     render(true);
   });
 
