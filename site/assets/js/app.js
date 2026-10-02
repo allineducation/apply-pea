@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.20.1";
+  var VERSION = "0.20.2";
   var UPDATED = "2026-10-01";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -558,11 +558,13 @@
       info: [link('info'), '👋', A.info, ''],
       wa:   [F.org.waHref, '💬', A.wa, A.waShort]
     };
-    var keys = sticky ? ['home', 'cal', 'wa'] : ['cal', 'info', 'wa'];
-    return '<div class="' + (sticky ? 'sticky-actions' : 'quick-actions') + '" aria-label="' + esc(L.ui.quick) + '">' + keys.map(function (k) {
+    var keys = sticky ? ['home', 'cal', 'wa'] : ['info'];   /* calendar + WhatsApp live in the sticky bar only */
+    var btns = keys.map(function (k) {
       var a = all[k]; if (!a[0]) return '';
       return ext(a[0], '<span aria-hidden="true">' + a[1] + '</span><span>' + esc(sticky ? a[3] : a[2]) + '</span>', 'quick-action action-' + k);
-    }).join('') + '</div>';
+    }).join('');
+    if (!btns) return '';
+    return '<div class="' + (sticky ? 'sticky-actions' : 'quick-actions') + '" aria-label="' + esc(L.ui.quick) + '">' + btns + '</div>';
   }
   function styleSections(main) {
     if (currentRoute() !== 'inicio') {
