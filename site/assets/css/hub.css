@@ -805,3 +805,25 @@ body>.shell{flex:1 0 auto;width:100%}   /* short pages still seat the app bar at
 .team-title{margin:0;font-size:14px;color:var(--color-text-primary)}
 .team-email{display:inline-flex;align-items:center;gap:var(--space-2);min-height:44px;margin-top:var(--space-1);font-weight:700;color:var(--brand-blue-primary);overflow-wrap:anywhere}
 @media(max-width:560px){ .team-grid{grid-template-columns:1fr} .team-card{max-width:400px} }
+
+/* v0.21.0: description on every card, session materials and resources, "Esta semana" page */
+.event-card{align-items:start}
+.event-desc{margin:.45rem 0 0;font-size:14px;line-height:1.6;color:var(--color-text-primary);max-width:68ch;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.event-card.open .event-desc{display:block;-webkit-line-clamp:unset;overflow:visible}
+.det-sec + .det-sec{margin-top:.75rem}
+.det-h{font-size:13px;font-weight:900;color:var(--brand-blue-primary);text-transform:uppercase;letter-spacing:.06em;margin:0 0 .3rem}
+.mat-list{list-style:none;margin:0;padding:0;font-size:14px;line-height:1.5}
+.mat-list li{display:flex;flex-wrap:wrap;align-items:center;gap:.25rem .5rem;padding:.35rem 0;border-bottom:1px solid var(--n12)}
+.mat-list li:last-child{border-bottom:0}
+.mat-link{display:inline-flex;align-items:center;gap:.3rem;min-height:44px;font-weight:700;color:var(--brand-blue-primary)}
+.mat-off{display:inline-flex;align-items:center;gap:.3rem;min-height:44px;color:var(--n70)}
+.mat-off .soon{font-size:12px}
+.mat-sep{color:var(--n70)}
+.lc{font-size:11px;font-weight:900;letter-spacing:.06em;padding:.1rem .35rem;border-radius:var(--radius-sm);background:var(--tint-blue-fill);color:var(--brand-blue-primary)}
+.mat-off .lc{background:var(--n05);color:var(--n70)}
+.week-range{font-size:1.125rem;font-weight:900;color:var(--brand-blue-primary);margin:var(--space-4) 0 var(--space-3)}
+.week-list{margin-top:var(--space-3)}
+.week-card{cursor:default}
+.week-next{margin-top:var(--space-6)}
+@media(max-width:560px){ .mat-list li{flex-direction:column;align-items:flex-start;gap:0} .mat-sep{display:none} .mat-link,.mat-off{min-height:40px} }

@@ -62,6 +62,21 @@ Object.entries(MODS).forEach(([k, m]) => {
   if (/nueve semanas|nine[- ]week|diez semanas|ten[- ]week/i.test(m.es + m.en)) problems.push(`module ${k}: describe 18 classes, not weeks`);
 });
 Object.entries(MODS).forEach(([k, m]) => problems.push(...namingProblems(m.es || "", m.en || "", `module ${k}`)));
+// Weekly notes ("Esta semana") need both languages; material titles follow the same vocabulary rules.
+Object.values(FACTS.cohorts).forEach(c => Object.entries(c.weekNotes || {}).forEach(([w, n]) => {
+  if (!n || !n.es || !n.en) problems.push(`${c.code} weekNotes ${w}: needs both es and en`);
+  else {
+    if (/empower|empodera/i.test(n.es + n.en)) problems.push(`${c.code} weekNotes ${w}: empower/empoderar`);
+    if (/docente/i.test(n.es)) problems.push(`${c.code} weekNotes ${w}: docentes → maestros`);
+    problems.push(...namingProblems(n.es, n.en, `${c.code} weekNotes ${w}`));
+  }
+}));
+const TYPES = FACTS.materialTypes || {};
+Object.entries(TYPES).forEach(([k, t]) => { if (!t.es || !t.en) problems.push(`materialTypes ${k}: needs es and en titles`); });
+Object.entries(MODS).forEach(([k, m]) => ["materials", "resources"].forEach(list => (m[list] || []).forEach((it, i) => {
+  if (!TYPES[it.type] && !(it.title_es && it.title_en)) problems.push(`module ${k} ${list}[${i}]: unknown type "${it.type}" without titles`);
+  if (!it.es && !it.en) problems.push(`module ${k} ${list}[${i}]: no URL in either language`);
+})));
 Object.values(FACTS.cohorts).forEach(c => c.events.forEach(e => {
   if (e.module && !MODS[e.module]) problems.push(`${c.code} ${e.code}: module ${e.module} missing from facts.modules`);
 }));

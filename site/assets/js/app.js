@@ -1,5 +1,5 @@
 /* ==================================================================
-   PEA Applicant Hub — app  (v0.16.0)
+   PEA Applicant Hub — app  (v0.21.0)
    Vanilla JS, no build step, no dependencies. State-based navigation
    (hash routes) per AIE Hub Design System §5.1. Every date, time and
    link resolves from facts.js; every string from copy.js.
@@ -7,15 +7,15 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.20.2";
-  var UPDATED = "2026-10-01";
+  var VERSION = "0.21.0";
+  var UPDATED = "2026-10-06";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
   var LS_LANG = "aie_lang";
 
   /* ---------- sections, groups, order ---------- */
   var GROUPS = [
-    { id: "join",  color: "blue",   items: ["participar", "calendario"] },
+    { id: "join",  color: "blue",   items: ["participar", "esta-semana", "calendario"] },
     { id: "about", color: "pink",   items: ["historia", "equipo"] },
     { id: "help",  color: "purple", items: ["ayuda"] }
   ];
@@ -144,7 +144,6 @@
   function isMilestone(e) { return e.kind === "milestone" || !!e.milestone; }
   function eventKey(e) { return e._c + "-" + e.code; }
   function cohortLabel() { return lang === "es" ? C.label_es : C.label_en; }
-  function teachLang() { return lang === "es" ? C.teaching_es : C.teaching_en; }
   function classDays() {                              /* "martes y jueves" / "Tuesdays and Thursdays" */
     var seen = [];
     CLASSES.forEach(function (e) { var w = az(e.start).getUTCDay(); if (seen.indexOf(w) === -1) seen.push(w); });
@@ -286,7 +285,7 @@
 
   /* ---------- pages ---------- */
   function audienceHtml() {
-    var H = L.home, routes = ["#participar", "#calendario", "#ayuda"], icons = ["📝", "🎓", "🤝"];
+    var H = L.home, routes = ["#participar", "#esta-semana", "#ayuda"], icons = ["📝", "🎓", "🤝"];
     return '<nav class="audience-router" aria-label="' + esc(H.audienceH) + '"><h2 class="audience-h">' + esc(H.audienceH) + "</h2>" +
       '<div class="audience-grid">' + H.audience.map(function (a, i) {
         return '<a class="audience-card" href="' + routes[i] + '"><span class="audience-badge" aria-hidden="true">' + icons[i] + "</span>" +
@@ -297,20 +296,22 @@
   function upNextHtml() {                         /* the next 2 dated events (no "no class" days), linked to their Calendar cards */
     var H = L.home, items = EV.filter(function (e) { return e.kind !== "holiday" && !e.projected && new Date(e.end) > NOW; }).slice(0, 2);
     if (!items.length) return "";
-    return '<section class="up-next" aria-labelledby="upnext-h"><h2 class="up-next-h" id="upnext-h">' + esc(H.upNextH) + '</h2><ul class="up-next-list">' +
-      items.map(function (e) {
-        var tt = evTitle(e), today = daysUntil(e.start, NOW) === 0;
-        return '<li><a class="up-next-card" href="#calendario/' + esc(eventKey(e)) + '">' + dateBadge(e) +
-          '<span class="up-next-body"><span class="event-tags"><span class="category-badge badge-' + badgeOf(e) + '">' + esc(tt.kind) + "</span>" +
-          (today ? '<span class="tag gold">' + esc(L.cal.today) + "</span>" : "") + "</span>" +
-          '<span class="up-next-t">' + esc(tt.topic) + '</span><span class="event-time">' + whenHtml(e) + "</span>" +
-          '<span class="up-next-cta">' + esc(H.upNextCta) + "</span></span></a></li>";
-      }).join("") + "</ul></section>";
+    return '<section class="up-next" aria-labelledby="upnext-h"><h2 class="up-next-h" id="upnext-h">' + esc(H.upNextH) + '</h2>' + upList(items) + "</section>";
+  }
+  function upList(items) {                         /* compact date cards, each linked to its Calendar card */
+    return '<ul class="up-next-list">' + items.map(function (e) {
+      var tt = evTitle(e), today = daysUntil(e.start, NOW) === 0;
+      return '<li><a class="up-next-card" href="#calendario/' + esc(eventKey(e)) + '">' + dateBadge(e) +
+        '<span class="up-next-body"><span class="event-tags"><span class="category-badge badge-' + badgeOf(e) + '">' + esc(tt.kind) + "</span>" +
+        (today ? '<span class="tag gold">' + esc(L.cal.today) + "</span>" : "") + "</span>" +
+        '<span class="up-next-t">' + esc(tt.topic) + '</span>' + (e.kind === "holiday" ? "" : '<span class="event-time">' + whenHtml(e) + "</span>") +
+        '<span class="up-next-cta">' + esc(L.home.upNextCta) + "</span></span></a></li>";
+    }).join("") + "</ul>";
   }
   function pageHome() {                            /* short router: up next → what PEA is → how to join; details live on their pages */
     var H = L.home;
     var chips = '<div class="chips"><span class="tag gold">' + esc(H.chipFree) + '</span><span class="tag blue">' + esc(H.chipZoom) + "</span>" +
-      (teachLang() ? '<span class="tag blue">' + esc(H.chipLang(teachLang())) + "</span>" : "") + "</div>";
+      '<span class="tag blue">' + esc(H.chipLang) + "</span></div>";
     return '<h1 class="home-title" tabindex="-1">' + esc(H.h) + "</h1>" + upNextHtml() + audienceHtml() + actionsHtml(false) +
       section(H.whatH, H.what, '<p class="lead">' + esc(H.what2) + "</p>" + chips) +
       section(H.stepsH, "", stepsHtml(true) + btnRow(inLink("#participar", H.stepsCta, "btn-primary")));
@@ -333,34 +334,67 @@
     var wk = parseInt(e.code, 10), cohort = F.cohorts[e._c];
     return sorted(cohort.events).find(function (x) { return x.kind === "cls" && parseInt(x.code, 10) === wk; }) || e;
   }
+  function eventDesc(e) {                         /* shown on the card itself; the details add the rest */
+    var mod = e.module && F.modules ? F.modules[e.module] : null;
+    var sw = e.sub === "apply" ? F.cohorts[e._c].applySwitch : null;
+    return e.kind === "info" ? infoNote() : sw ? L.cal.applyOpensDesc(opensLabel(e), lang === "es" ? sw.adds_es : sw.adds_en) : (mod ? mod[lang] : "");
+  }
+  function pad2(n) { return (n < 10 ? "0" : "") + n; }
+  function exitUrl(e) {                            /* the exit ticket, prefilled with this class (Airtable "Event ID": "FA26 - 10/06/2026") */
+    var u = link("exit", e._c), f = F.links.global.exitClassField, d = az(e.start);
+    if (!u || !f) return u;
+    var id = e._c + " - " + pad2(d.getUTCMonth() + 1) + "/" + pad2(d.getUTCDate()) + "/" + d.getUTCFullYear();
+    return u + (u.indexOf("?") === -1 ? "?" : "&") + "prefill_" + encodeURIComponent(f) + "=" + encodeURIComponent(id);
+  }
+  function absenceHref(e) {                        /* opens the visitor's mail app: to pea@, subject "Ausencia / Absence — {date}" */
+    return "mailto:" + F.org.email + "?subject=" + encodeURIComponent(L.cal.detail.absenceSubject(cap(longDate(e.start))));
+  }
+  function matRows(items) {                        /* one row per item: Spanish title · ES | English title · EN */
+    var MT = F.materialTypes || {}, D = L.cal.detail;
+    return '<ul class="mat-list">' + items.map(function (it) {
+      var t = MT[it.type] || MT.resource || {};
+      function side(l) {
+        var inner = esc(it["title_" + l] || t[l] || "") + ' <span class="lc">' + l.toUpperCase() + "</span>";
+        return it[l] ? ext(it[l], inner, "mat-link", ' lang="' + l + '"')
+          : '<span class="mat-off" lang="' + l + '">' + inner + '<span class="soon" lang="' + lang + '"> · ' + esc(D.soon) + "</span></span>";
+      }
+      return "<li>" + side("es") + '<span class="mat-sep" aria-hidden="true">|</span>' + side("en") + "</li>";
+    }).join("") + "</ul>";
+  }
+  function matSection(h, items, live, wait) {
+    var D = L.cal.detail;
+    var body = !live ? '<p class="small">' + esc(wait) + "</p>"
+      : items && items.length ? matRows(items) : '<p class="small">' + esc(D.soon) + "</p>";
+    return '<div class="det-sec"><h4 class="det-h">' + esc(h) + "</h4>" + body + "</div>";
+  }
   function calDetail(e) {
     var D = L.cal.detail, over = new Date(e.end).getTime() < NOW.getTime();
     var mod = e.module && F.modules ? F.modules[e.module] : null;
-    var sw = e.sub === "apply" ? F.cohorts[e._c].applySwitch : null;
-    var desc = e.kind === "info" ? infoNote() : sw ? L.cal.applyOpensDesc(opensLabel(e), lang === "es" ? sw.adds_es : sw.adds_en) : (mod ? mod[lang] : "");
-    var b = "", notes = "", foot = "";
+    var b = "", secs = "", notes = "", foot = "";
     if (e.kind === "info") {
       if (!over && link("info", e._c)) b += ext(link("info", e._c), esc(L.cal.infoJoin), "btn btn-primary btn-sm");
     } else if (e.kind === "cls") {
-      if (!e.projected) notes += "<li>" + esc(D.zoomNote) + "</li>";
-      /* Every class card ends with the same three actions, in the same order:
-         class materials · exit survey · resource list. They start as placeholders
-         and unlock week by week: both classes of a week open together on the day
-         of that week's first class (Arizona time). An action whose link is not
-         published yet stays a placeholder in its slot. */
+      /* Session materials and resources unlock week by week: both classes of a week open
+         together on the day of that week's first class (Arizona time). Every class card
+         ends with the same three actions: exit ticket (unlocks with its week), resend my
+         Zoom link, and report an absence (until the class starts). */
       var open = weekOpens(e), live = !e.projected && daysUntil(open.start, NOW) <= 0;
-      var wait = live ? D.soon : D.opens(shortDate(open.start).dm);
-      foot = '<div class="det-actions" role="group" aria-label="' + esc(D.actions) + '">' +
-        [[mod && mod.worksheet, D.materials, "📄"], [link("exit", e._c), D.exit, "🎟️"], [link("lista", e._c), D.resources, "📚"]]
-          .map(function (a) {
-            var inner = '<span aria-hidden="true">' + a[2] + "</span><span>" + esc(a[1]) + "</span>";
-            return live && a[0] ? ext(a[0], inner, "btn btn-secondary btn-sm")
-              : '<span class="btn btn-secondary btn-sm is-off" aria-disabled="true">' + inner + '<span class="soon">' + esc(wait) + "</span></span>";
-          }).join("") + "</div>";
+      var wait = D.opens(shortDate(open.start).dm), started = new Date(e.start).getTime() <= NOW.getTime();
+      secs = matSection(D.materials, mod && mod.materials, live, wait) + matSection(D.resources, mod && mod.resources, live, wait);
+      if (!e.projected) notes += "<li>" + esc(D.zoomNote) + "</li>";
+      var acts = [
+        [live && exitUrl(e), D.exit, "🎟️", live ? D.soon : wait],
+        [!e.projected && link("resend", e._c), D.resend, "🔁", D.soon],
+        [!e.projected && !started && absenceHref(e), D.absence, "✉️", started ? D.past : D.soon]
+      ];
+      foot = '<div class="det-actions" role="group" aria-label="' + esc(D.actions) + '">' + acts.map(function (a) {
+        var inner = '<span aria-hidden="true">' + a[2] + "</span><span>" + esc(a[1]) + "</span>";
+        return a[0] ? ext(a[0], inner, "btn btn-secondary btn-sm")
+          : '<span class="btn btn-secondary btn-sm is-off" aria-disabled="true">' + inner + '<span class="soon">' + esc(a[3]) + "</span></span>";
+      }).join("") + "</div>";
     }
     b += '<button type="button" class="btn btn-ghost btn-sm" data-ics="' + esc(e._c + ":" + e.code) + '">' + esc(D.addCal) + "</button>";
-    return '<div class="det' + (foot ? " has-actions" : "") + '"><span class="label blue">' + esc(e.kind === "info" ? D.aboutInfo : e.kind === "milestone" ? D.aboutMilestone : D.about) + "</span>" +
-      (desc ? '<p class="det-desc">' + esc(desc) + "</p>" : "") +
+    return '<div class="det' + (foot ? " has-actions" : "") + '">' + secs +
       (notes ? '<ul class="det-notes">' + notes + "</ul>" : "") + '<div class="btnrow">' + b + "</div>" + foot + "</div>";
   }
   function badgeOf(e) {                          /* category badge: class · info · graduation · special (focus) · no class */
@@ -385,25 +419,30 @@
       });
     return groups.map(function (g) {
       return '<section class="month-group"><h2 class="month-divider">' + esc(g.label) + '</h2><ol class="event-list">' + g.items.map(function (e) {
-        var tt = evTitle(e), key = eventKey(e), open = !!calOpen[key], x = expandable(e);
-        var past = new Date(e.end).getTime() < NOW.getTime(), today = daysUntil(e.start, NOW) === 0;
-        var cls = "event-card" + (past ? " is-past" : "") + (today ? " is-today" : "") + (e.kind === "info" ? " is-info" : "") + (e.kind === "milestone" ? " is-milestone" : "") + (x ? " has-det" : "") + (open ? " open" : "");
-        var tags = (e.milestone ? '<span class="tag gold">' + esc(e.milestone === "start" ? L.cal.mStart : L.cal.mEnd) + "</span>" : "") +
-                   (today ? '<span class="tag gold">' + esc(L.cal.today) + "</span>" : past ? '<span class="tag">' + esc(L.cal.done) + "</span>" : "") +
-                   (e.kind === "info" ? '<span class="tag pink">' + esc(L.ui.optional) + "</span>" : "");
-        var label = esc(tt.topic);
-        var title = x
-          ? '<button type="button" class="cal-open" data-row="' + esc(key) + '" aria-expanded="' + open + '" aria-controls="det-' + esc(key) + '">' +
-            '<span class="ct">' + label + '</span><span class="chev" aria-hidden="true"></span><span class="sr-only"> — ' +
-            esc(open ? L.cal.detail.close : openLabel(e.kind)) + "</span></button>"
-          : label;
-        return '<li class="' + cls + '"' + (x ? ' data-rowkey="' + esc(key) + '"' : "") + ">" + dateBadge(e) +
-          '<div class="event-content"><div class="event-tags"><span class="category-badge badge-' + badgeOf(e) + '">' + esc(tt.kind) + "</span>" + tags + "</div>" +
-          '<h3 class="event-title">' + title + "</h3>" +
-          (e.kind === "holiday" ? "" : '<p class="event-time">' + whenHtml(e) + "</p>") + "</div>" +
-          (x ? '<div class="event-det" id="det-' + esc(key) + '"' + (open ? "" : " hidden") + ">" + calDetail(e) + "</div>" : "") + "</li>";
+        return eventCard(e, false);
       }).join("") + "</ol></section>";
     }).join("");
+  }
+  function eventCard(e, week) {                    /* week: "Esta semana" shows every detail, always open */
+    var tt = evTitle(e), key = eventKey(e), x = expandable(e), open = week ? x : !!calOpen[key];
+    var past = new Date(e.end).getTime() < NOW.getTime(), today = daysUntil(e.start, NOW) === 0, desc = x ? eventDesc(e) : "";
+    var cls = "event-card" + (week ? " week-card" : "") + (past ? " is-past" : "") + (today ? " is-today" : "") + (e.kind === "info" ? " is-info" : "") +
+      (e.kind === "milestone" ? " is-milestone" : "") + (x && !week ? " has-det" : "") + (open ? " open" : "");
+    var tags = (e.milestone ? '<span class="tag gold">' + esc(e.milestone === "start" ? L.cal.mStart : L.cal.mEnd) + "</span>" : "") +
+               (today ? '<span class="tag gold">' + esc(L.cal.today) + "</span>" : past ? '<span class="tag">' + esc(L.cal.done) + "</span>" : "") +
+               (e.kind === "info" ? '<span class="tag pink">' + esc(L.ui.optional) + "</span>" : "");
+    var label = esc(tt.topic);
+    var title = x && !week
+      ? '<button type="button" class="cal-open" data-row="' + esc(key) + '" aria-expanded="' + open + '" aria-controls="det-' + esc(key) + '">' +
+        '<span class="ct">' + label + '</span><span class="chev" aria-hidden="true"></span><span class="sr-only"> — ' +
+        esc(open ? L.cal.detail.close : openLabel(e.kind)) + "</span></button>"
+      : label;
+    return '<li class="' + cls + '"' + (x && !week ? ' data-rowkey="' + esc(key) + '"' : "") + ">" + dateBadge(e) +
+      '<div class="event-content"><div class="event-tags"><span class="category-badge badge-' + badgeOf(e) + '">' + esc(tt.kind) + "</span>" + tags + "</div>" +
+      '<h3 class="event-title">' + title + "</h3>" +
+      (e.kind === "holiday" ? "" : '<p class="event-time">' + whenHtml(e) + "</p>") +
+      (desc ? '<p class="event-desc">' + esc(desc) + "</p>" : "") + "</div>" +
+      (x ? '<div class="event-det"' + (week ? "" : ' id="det-' + esc(key) + '"') + (open ? "" : " hidden") + ">" + calDetail(e) + "</div>" : "") + "</li>";
   }
   function toggleRow(key) {
     calOpen[key] = !calOpen[key];
@@ -461,7 +500,7 @@
   }
 
   function faqItems() {
-    var ctx = { label: lang === "es" ? lowerFirst(C.label_es) : C.label_en, lang: teachLang() || "", infoOpen: !!link("info") };
+    var ctx = { label: lang === "es" ? lowerFirst(C.label_es) : C.label_en, infoOpen: !!link("info") };
     var items = [];
     L.faq.items.forEach(function (q) {
       var a = typeof q[1] === "function" ? q[1](ctx) : q[1];   /* date- and cohort-aware answers; "" hides the question */
@@ -499,7 +538,45 @@
       section(P.alumniH, P.alumniText, "");
   }
 
-  var PAGES = { inicio: pageHome, participar: pageParticipar, calendario: pageCalendario, historia: pageHistoria, equipo: pageEquipo, ayuda: pageAyuda };
+  /* "Esta semana / This week": the one link shared in class. The week runs Monday–Sunday,
+     Arizona time, so Friday–Sunday still show the week that just ended (late exit tickets). */
+  function weekStartKey(date) { var k = dayKey(date), dow = new Date(k).getUTCDay(); return k - ((dow + 6) % 7) * 864e5; }
+  function inWeek(e, ws) { var k = dayKey(new Date(e.start)); return k >= ws && k < ws + 7 * 864e5; }
+  function weekRange(ws) {
+    var a = new Date(ws), b = new Date(ws + 6 * 864e5), M = L.days.months, cross = a.getUTCMonth() !== b.getUTCMonth();
+    return lang === "es"
+      ? L.week.range(a.getUTCDate() + (cross ? " de " + M[a.getUTCMonth()] : ""), b.getUTCDate() + " de " + M[b.getUTCMonth()] + " de " + b.getUTCFullYear())
+      : L.week.range(M[a.getUTCMonth()] + " " + a.getUTCDate(), (cross ? M[b.getUTCMonth()] + " " : "") + b.getUTCDate() + ", " + b.getUTCFullYear());
+  }
+  function pageSemana() {
+    var W = L.week, ws = weekStartKey(NOW);
+    var shown = function (e) { return !e.projected; };
+    var wk = EV.filter(function (e) { return shown(e) && inWeek(e, ws); });
+    var nxt = EV.filter(function (e) { return shown(e) && inWeek(e, ws + 7 * 864e5); });
+    var cls = CLASSES.filter(shown), first = cls[0], last = cls[cls.length - 1];
+    var hasCls = wk.some(function (e) { return e.kind === "cls"; });
+    var top = "";
+    wk.filter(function (e) { return e.kind === "cls" && daysUntil(e.start, NOW) === 0; }).forEach(function (e) {
+      top += callout("gold", W.todayLabel, esc(W.today(evTitle(e).topic, spanWords(e.start, e.end))));
+    });
+    var wn = hasCls ? parseInt(wk.filter(function (e) { return e.kind === "cls"; })[0].code, 10) : null;
+    var note = wn && C.weekNotes && C.weekNotes[String(wn)];
+    if (note && note[lang]) top += callout("purple", W.notesLabel, esc(note[lang]));
+    if (!hasCls) {
+      if (first && NOW.getTime() < new Date(first.start).getTime()) top += callout("", W.beforeLabel, esc(W.before(longDate(first.start))));
+      else if (!last || NOW.getTime() > new Date(last.end).getTime()) top += callout("", W.doneLabel, esc(W.done)) + btnRow(inLink("#ayuda", W.doneCta));
+      else if (!wk.length) top += callout("", W.emptyLabel, esc(W.empty));
+    }
+    return secHead("esta-semana") + '<p class="lead">' + esc(W.lead) + "</p>" +
+      '<h2 class="week-range">' + esc(weekRange(ws)) + "</h2>" + top +
+      (wk.length ? '<ol class="event-list week-list">' + wk.map(function (e) { return eventCard(e, true); }).join("") + "</ol>" : "") +
+      helpCardHtml() +
+      (nxt.length ? '<section class="up-next week-next" aria-labelledby="wknext-h"><h2 class="up-next-h" id="wknext-h">' + esc(W.nextH) +
+        " · " + esc(weekRange(ws + 7 * 864e5)) + "</h2>" + upList(nxt) + "</section>" : "") +
+      btnRow(inLink("#calendario", W.calCta));
+  }
+
+  var PAGES = { inicio: pageHome, participar: pageParticipar, "esta-semana": pageSemana, calendario: pageCalendario, historia: pageHistoria, equipo: pageEquipo, ayuda: pageAyuda };
   var ALIASES = { lista: "participar", zoom: "participar", programa: "calendario",   /* retired routes */
                   preguntas: "ayuda", enlaces: "ayuda", contacto: "ayuda" };
 
@@ -673,7 +750,7 @@
 
   render(false);
   setInterval(function () {
-    if (!document.hidden && ["inicio", "calendario"].indexOf(currentRoute()) !== -1 &&
+    if (!document.hidden && ["inicio", "esta-semana", "calendario"].indexOf(currentRoute()) !== -1 &&
         !(document.activeElement && document.activeElement.closest("#main"))) render(false);
   }, 60000);
 })();
