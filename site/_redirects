@@ -3,6 +3,8 @@
 /en  /?lang=en  302
 /inscripcion  /?lang=es#participar  302
 /join  /?lang=en#participar  302
+/esta-semana  /?lang=es#esta-semana  302
+/this-week  /?lang=en#esta-semana  302
 /README.md  /404.html  404!
 /CHANGELOG.md  /404.html  404!
 /scripts/*  /404.html  404!

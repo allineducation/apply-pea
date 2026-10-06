@@ -51,11 +51,29 @@ window.PEA_FACTS = {
     evalAttend: "96.4%"
   },
 
-  /* Curriculum modules — canonical, cohort-independent descriptions and the
-     participant worksheet (Spanish PDF, public link) where one exists.
+  /* Shared titles for session materials and resources. A class card shows one row per
+     item: the Spanish version (title · ES) | the English version (title · EN). A version
+     without a URL shows its title without a link. Override with title_es / title_en. */
+  materialTypes: {
+    worksheet: { es: "Hoja de trabajo", en: "Participant worksheet" },
+    comm:      { es: "Herramienta de comunicación", en: "Communication tool" },
+    handout:   { es: "Material de apoyo", en: "Handout" },
+    resource:  { es: "Recurso", en: "Resource" }
+  },
+
+  /* Curriculum modules — canonical, cohort-independent descriptions, session
+     materials and resources. Each list item: { type, es: url, en: url }.
      Source: Airtable · PEA base · Modules table tblPkSBzSYKE4cBC6
-     (Description (ES) / Description (EN) / Participant Worksheet (ES) — PDF),
-     read 2026-09-25. Calendar events link to a module by its planning ID.
+     (Description (ES) / Description (EN) / Participant Worksheet (ES) — PDF /
+     Participant Communication Tool (ES) — PDF / Participant Resource - Other (ES) — PDF),
+     descriptions read 2026-09-25, materials read 2026-10-06. Only files shared
+     "anyone with the link" are published (checked 2026-10-06). Held back until shared:
+     MORIE worksheet (1kv5bHHZ0ylsL4dr6HbCo-pVTdLlmmc6M), MRGHT worksheet
+     (1kmwiDnjCCI0KCMebtYlJGQNeVHCyYW6i) and MRGHT communication tool
+     (1zCTm31aRz4OcDhNtLg0WkpePcHEOx_Ju). No English versions or "Other" resources
+     exist in Airtable yet; a new resource database is forthcoming. The MDIGI
+     communication tool is one bilingual file, so both versions point to it.
+     Calendar events link to a module by its planning ID.
      Edits: MPIP1 EN "stakeholders" → "key people" (brand §5.2; matches ES);
      MCOMM ES "docentes" → "maestros" (Danny, 2026-09-25: "docentes" is not in common use);
      MORIE ES/EN "nueve semanas"/"nine-week" → "18 clases"/"18-class" (repo rule: describe
@@ -69,30 +87,38 @@ window.PEA_FACTS = {
       en: "This opening course introduces participants to ALL In Education, the Parent Educator Academy, and the expectations and supports that shape the 18-class learning experience. It also introduces the program’s learning goals, which every family experiences in its own way: preparing for school conversations (what to ask, what to share, and how to follow up with school staff); knowing whom to contact, by understanding how schools and districts are organized and whom to go to when a concern comes up; supporting learning at home, with ideas for reading and math and for talking with the school about what your student needs; and taking part in your community by sharing your experience, working alongside other families, and having a voice in school decisions." },
     MHIST: { id: "PEA-M02",
       es: "Este curso examina los acontecimientos, las políticas y las decisiones que formaron la educación pública en Arizona y que continúan influyendo en las oportunidades estudiantiles. Las familias relacionan esta historia con sus propias experiencias escolares y consideran cómo el contexto histórico puede orientar el aprendizaje, la participación comunitaria y la defensa educativa.",
-      en: "This course examines the historical events, policies, and decisions that shaped public education in Arizona and continue to influence students’ opportunities today. Families connect this history to their own school experiences and consider how historical context can inform learning, community involvement, and education advocacy." },
+      en: "This course examines the historical events, policies, and decisions that shaped public education in Arizona and continue to influence students’ opportunities today. Families connect this history to their own school experiences and consider how historical context can inform learning, community involvement, and education advocacy.",
+      materials: [{ type: "comm", es: "https://drive.google.com/file/d/1_AdiISrF03a3XtDlvb9RsIJNPsFa5ZH8/view?usp=drivesdk" }] },
     MSDOE: { id: "PEA-M03",
       es: "Este curso explora cómo la vivienda, la salud, el transporte, los ingresos, el acceso lingüístico y los recursos comunitarios pueden influir en las experiencias y los resultados educativos. Las familias identifican fortalezas y barreras en sus comunidades, relacionan estos factores con la equidad y la justicia y consideran cómo abogar por los apoyos que necesitan sus estudiantes.",
-      en: "This course explores how conditions such as housing, health, transportation, income, language access, and neighborhood resources can influence students’ educational experiences and outcomes. Families identify strengths and barriers in their communities, connect these factors to equity and justice, and consider ways to advocate for the supports their students need." },
+      en: "This course explores how conditions such as housing, health, transportation, income, language access, and neighborhood resources can influence students’ educational experiences and outcomes. Families identify strengths and barriers in their communities, connect these factors to equity and justice, and consider ways to advocate for the supports their students need.",
+      materials: [{ type: "comm", es: "https://drive.google.com/file/d/18yXbpyLsCcEsQQMihOi7l2BMmuQ5_7mB/view?usp=drivesdk" }] },
     MBIAS: { id: "PEA-M04",
       es: "Este curso invita a las personas participantes a examinar la identidad, el sentido de pertenencia, los prejuicios conscientes e inconscientes y cómo influyen en las experiencias escolares y el acceso a oportunidades. Mediante la reflexión y el diálogo, las familias relacionan sus vivencias con patrones más amplios e identifican maneras de apoyar entornos de aprendizaje más equitativos e inclusivos.",
-      en: "This course invites participants to examine identity, belonging, conscious and unconscious bias, and the ways these forces shape students’ school experiences and access to opportunity. Through reflection and dialogue, families connect personal experiences to broader patterns and identify ways to support more equitable and inclusive learning environments." },
+      en: "This course invites participants to examine identity, belonging, conscious and unconscious bias, and the ways these forces shape students’ school experiences and access to opportunity. Through reflection and dialogue, families connect personal experiences to broader patterns and identify ways to support more equitable and inclusive learning environments.",
+      materials: [{ type: "comm", es: "https://drive.google.com/file/d/1tZ3oEPuYE9RYuLW_F-tEp8DiSsKL4rWs/view?usp=drivesdk" }] },
     MQUAL: { id: "PEA-M05",
       es: "Este curso ayuda a las familias a definir una educación de alta calidad y comprender las opciones de escuelas públicas disponibles en Arizona, dentro y fuera de la escuela asignada. Las personas participantes analizan información sobre las escuelas, consideran cómo cada opción apoya el aprendizaje y la equidad y practican preguntas que orienten decisiones para sus estudiantes.",
       en: "This course helps families define high-quality education and understand Arizona’s public school options, including choices available within and beyond their assigned school. Participants examine information about schools, consider how different options support learning and equity, and practice asking questions that can inform decisions for their students.",
-      worksheet: "https://drive.google.com/file/d/1sPH61eRkEwEuunsItmxGeZ7rbPhdZKgc/view?usp=drivesdk" },
+      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1sPH61eRkEwEuunsItmxGeZ7rbPhdZKgc/view?usp=drivesdk" },
+        { type: "comm", es: "https://drive.google.com/file/d/14kHKI9cmlBmhxj6ZaCyBn8czkMSkMX7_/view?usp=drivesdk" }] },
     MCOMM: { id: "PEA-M06",
       es: "Este curso explica cómo se organizan los salones, las escuelas y los distritos e identifica a las personas y las rutas de comunicación que las familias pueden usar cuando surgen preguntas o inquietudes. Las personas participantes practican estrategias de comunicación de dos vías con maestros, directores, consejeros y otro personal escolar para construir alianzas enfocadas en las necesidades estudiantiles.",
       en: "This course explains how classrooms, schools, and districts are organized and identifies the people and communication pathways families can use when questions or concerns arise. Participants practice strategies for two-way communication with teachers, principals, counselors, and other school staff so they can build productive partnerships around student needs.",
-      worksheet: "https://drive.google.com/file/d/1otX4R1zltnbdQwJaEXv0oXOVee-WPf0O/view?usp=drivesdk" },
+      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1otX4R1zltnbdQwJaEXv0oXOVee-WPf0O/view?usp=drivesdk" },
+        { type: "comm", es: "https://drive.google.com/file/d/136CDY-W8sOpUPDnSx170Hj21y7aBfxqd/view?usp=drivesdk" }] },
     MREAD: { id: "PEA-M07",
       es: "Este curso presenta las habilidades fundamentales de la lectura y cómo puede verse una enseñanza eficaz mientras los estudiantes se desarrollan como lectores. Las familias aprenden a reconocer señales de que un estudiante podría necesitar apoyo adicional, revisan preguntas para el personal educativo y practican cómo abogar por una enseñanza de lectura apropiada y al nivel de grado.",
-      en: "This course introduces foundational reading skills and what effective literacy instruction can look like as students develop as readers. Families learn how to recognize signs that a student may need additional support, review questions they can ask educators, and practice advocating for appropriate, grade-level literacy instruction." },
+      en: "This course introduces foundational reading skills and what effective literacy instruction can look like as students develop as readers. Families learn how to recognize signs that a student may need additional support, review questions they can ask educators, and practice advocating for appropriate, grade-level literacy instruction.",
+      materials: [{ type: "comm", es: "https://drive.google.com/file/d/1lehKQddljRicY2DK2j-AX-T1RL9BiBGP/view?usp=drivesdk" }] },
     MHOME: { id: "PEA-M08",
       es: "Este curso se enfoca en formas prácticas y culturalmente relevantes de apoyar el desarrollo de la lectura en casa y en cualquier idioma. Las familias practican estrategias para leer juntas, hacer preguntas, ampliar el vocabulario y crear rutinas que fortalezcan la confianza y conecten la lectura en casa con el aprendizaje escolar.",
-      en: "This course focuses on practical, culturally responsive ways families can support reading development at home and in any language. Participants practice strategies for reading together, asking questions, building vocabulary, and creating routines that strengthen confidence and connect home literacy experiences with classroom learning." },
+      en: "This course focuses on practical, culturally responsive ways families can support reading development at home and in any language. Participants practice strategies for reading together, asking questions, building vocabulary, and creating routines that strengthen confidence and connect home literacy experiences with classroom learning.",
+      materials: [{ type: "comm", es: "https://drive.google.com/file/d/1dW105bHTB9QZa8XBl5iEjAFWOs_NQ-m-/view?usp=drivesdk" }] },
     MDIGI: { id: "PEA-M09",
       es: "Este curso presenta conceptos de alfabetización digital que afectan a estudiantes y familias, incluyendo la seguridad en línea, el uso de medios, la desinformación, la privacidad y el acceso a herramientas de aprendizaje. Las personas participantes practican cómo evaluar información digital e identifican estrategias y recursos para orientar el uso responsable de la tecnología, comunicarse con las escuelas y apoyar el aprendizaje en casa.",
-      en: "This course introduces digital literacy concepts that affect students and families, including online safety, media use, misinformation, privacy, and access to learning tools. Participants practice evaluating online information and identify strategies and resources for guiding responsible technology use, communicating with schools, and supporting learning at home." },
+      en: "This course introduces digital literacy concepts that affect students and families, including online safety, media use, misinformation, privacy, and access to learning tools. Participants practice evaluating online information and identify strategies and resources for guiding responsible technology use, communicating with schools, and supporting learning at home.",
+      materials: [{ type: "comm", es: "https://drive.google.com/file/d/1WEa6qLDxOsMN_eAUqVgdOJl45HQXXobI/view?usp=drivesdk", en: "https://drive.google.com/file/d/1WEa6qLDxOsMN_eAUqVgdOJl45HQXXobI/view?usp=drivesdk" }] },
     MRGHT: { id: "PEA-M10",
       es: "Este curso presenta los derechos y las responsabilidades clave de las familias y los estudiantes en la educación pública de Arizona, incluyendo protecciones para aprendices de inglés, estudiantes con discapacidades y familias con estatus migratorio mixto. Las personas participantes aprenden dónde encontrar información confiable, cómo expresar inquietudes y qué rutas de defensa pueden proteger el acceso, la inclusión y el éxito estudiantil.",
       en: "This course introduces key rights and responsibilities of families and students in Arizona public education, including protections for English Learners, students with disabilities, and mixed-status families. Participants learn where to locate reliable information, how to raise concerns, and which advocacy pathways can help protect access, inclusion, and student success." },
@@ -102,19 +128,19 @@ window.PEA_FACTS = {
     MOPHS: { id: "PEA-M12",
       es: "Este curso presenta caminos disponibles después de la preparatoria, incluyendo colegios comunitarios, universidades, educación técnica y profesional, aprendizajes, servicio militar e ingreso directo al trabajo. Las familias consideran los intereses y las metas de sus estudiantes, exploran preguntas de planificación y ayuda financiera e identifican maneras de apoyar decisiones informadas sobre educación, capacitación y carreras.",
       en: "This course introduces pathways available after high school, including community college, universities, career and technical education, apprenticeships, military service, and direct entry into the workforce. Families consider students’ interests and goals, explore planning and financial-aid questions, and identify ways to support informed decisions about education, training, and careers.",
-      worksheet: "https://drive.google.com/file/d/18Ta0-1JoumzowXE1ZJx4vevMfzN5oFJs/view?usp=drivesdk" },
+      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/18Ta0-1JoumzowXE1ZJx4vevMfzN5oFJs/view?usp=drivesdk" }] },
     MEXCP: { id: "PEA-M13",
       es: "Este curso explica cómo las escuelas identifican y apoyan a estudiantes excepcionales y presenta sistemas como educación especial, Programas de Educación Individualizados (IEP), planes de la Sección 504 y apoyos de varios niveles. Las familias comparan los apoyos disponibles, preparan preguntas para los equipos escolares y practican cómo abogar por servicios y oportunidades inclusivas que respondan a las fortalezas y necesidades de cada estudiante.",
       en: "This course explains how schools identify and support exceptional students and introduces common systems such as special education, Individualized Education Programs (IEPs), Section 504 plans, and multi-tiered supports. Families compare available supports, prepare questions for school teams, and practice advocating for services and inclusive opportunities aligned with each student’s strengths and needs.",
-      worksheet: "https://drive.google.com/file/d/1cRa0toDWW4-n61eosAVWFCs2y01wxZ-r/view?usp=drivesdk" },
+      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1cRa0toDWW4-n61eosAVWFCs2y01wxZ-r/view?usp=drivesdk" }] },
     MCENG: { id: "PEA-M14",
       es: "Este curso examina cómo se ve la participación familiar y comunitaria auténtica cuando las familias colaboran como socias en decisiones que afectan a estudiantes y escuelas. Las personas participantes exploran principios de participación significativa, distinguen entre asistir y compartir decisiones e identifican oportunidades para contribuir a la mejora escolar dentro y fuera de la escuela.",
       en: "This course examines what authentic family and community engagement looks like when families participate as partners in decisions that affect students and schools. Participants explore principles of meaningful engagement, distinguish participation from shared decision-making, and identify opportunities to contribute to school improvement within and beyond the school building.",
-      worksheet: "https://drive.google.com/file/d/172jJ4Ur3DwHS6DnRcY3ePA2gMXffPPrF/view?usp=drivesdk" },
+      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/172jJ4Ur3DwHS6DnRcY3ePA2gMXffPPrF/view?usp=drivesdk" }] },
     MSELF: { id: "PEA-M15",
       es: "Este curso ayuda a las personas participantes a desarrollar una Historia Personal que conecte su identidad, experiencias, valores, desafíos y decisiones con su liderazgo y defensa educativa. Las familias practican cómo construir y compartir una narrativa que comunique por qué la educación es importante para ellas y que apoye acciones con propósito a favor de estudiantes y comunidades.",
       en: "This course helps participants develop a Story of Self by connecting identity, lived experience, values, challenges, and choices to their leadership and advocacy. Families practice shaping and sharing a personal narrative that communicates why education matters to them and supports purposeful action on behalf of students and communities.",
-      worksheet: "https://drive.google.com/file/d/1bWohNr9jlSV2JvznJcOHe__W1wh1C1cD/view?usp=drivesdk" },
+      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1bWohNr9jlSV2JvznJcOHe__W1wh1C1cD/view?usp=drivesdk" }] },
     MPIP1: { id: "PEA-M16",
       es: "Este curso reúne los aprendizajes de sesiones anteriores de PEA y apoya a las personas participantes para aplicarlos a una situación escolar, del salón o de la comunidad que quieran abordar. Las familias definen la situación, aclaran su meta, identifican personas clave y recursos y comienzan un plan de defensa que puedan llevar a la práctica con comentarios de sus compañeros y facilitadores.",
       en: "This course brings together learning from earlier PEA sessions and supports participants in applying it to a school, classroom, or community issue they want to address. Families define the issue, clarify their goal, identify key people and resources, and begin an actionable advocacy plan with feedback from peers and facilitators." },
@@ -142,19 +168,23 @@ window.PEA_FACTS = {
       familyStoryEn: "https://azluminaria.org/2023/05/18/a-program-helping-parents-navigate-arizonas-education-system-as-leaders-and-advocates-for-their-kids/",
       familyStoryEs: "https://azluminaria.org/2023/05/19/un-programa-que-ayuda-a-padres-latinos-a-navegar-el-sistema-educativo-de-arizona-como-lideres-y-defensores-de-sus-hijos/",
       apply:       "https://airtable.com/appIqlWqvk2HkHVRM/pagKt0dz2HEbrxL0d/form",
+      /* Exit ticket (Airtable form "Encuesta de salida / Exit Ticket"). Each class card adds
+         ?prefill_Event+ID=<cohort> - MM/DD/YYYY so the read-only class field names that class
+         (field "Event ID", linked to the Calendar table, whose primary field reads e.g.
+         "FA26 - 10/06/2026"). The resource list (bit.ly/pealista) was retired on 2026-10-06. */
       exit:        "https://airtable.com/appIqlWqvk2HkHVRM/pagsaimIoBv1ZTWYd/form",
-      lista:       "https://bit.ly/pealista",
+      exitClassField: "Event ID",
       flyer:       "https://bit.ly/peaflyer",
       vidAccount:  "https://bit.ly/peacuentadezoom",
       vidName:     "https://bit.ly/peazoomnombre",
-      /* "Resend my Zoom link" request form (Airtable). Leave empty until the
-         form and its automation are live; an empty link is simply not shown. */
-      resend:      ""
+      /* "Resend my Zoom link" request form (Airtable), supplied by Danny Hernández 2026-10-06. */
+      resend:      "https://airtable.com/appIqlWqvk2HkHVRM/paghCk5ZbEsieUtwb/form"
     },
     FA26: {
       info:     "https://bit.ly/peafa26info",          /* info session only — not class registration */
       cal:      "https://bit.ly/peafa26cal",
-      whatsapp: "https://bit.ly/peafa26whatsapp"
+      whatsapp: "https://bit.ly/peafa26whatsapp",
+      week:     "https://bit.ly/peafa26semana"          /* "Esta semana" page; Spanish by default */
     },
     SP27: {
       /* Spring interest is open through the interest form. */
@@ -168,8 +198,11 @@ window.PEA_FACTS = {
     FA26: {
       code: "FA26", num: 12,
       label_es: "Otoño 2026", label_en: "Fall 2026",
-      teaching_es: "español", teaching_en: "Spanish",
       weeks: 10,
+      /* Notes for the "Esta semana / This week" page, by class week ("1" = classes 1T and 1R).
+         Both languages are required (the parity check enforces it). Example:
+         "2": { es: "Traiga la boleta de calificaciones de su estudiante el jueves.", en: "Bring your student's report card on Thursday." } */
+      weekNotes: {},
       /* Applications switch to the next cohort the Wednesday after class 3 (computed in app.js).
          The interest form stays open year-round; on that day it defaults to "opens" and adds "adds". */
       applySwitch: { opens: "SP27", adds_es: "Otoño 2027", adds_en: "Fall 2027" },
@@ -206,7 +239,6 @@ window.PEA_FACTS = {
     SP27: {
       code: "SP27", num: 13,
       label_es: "Primavera 2027", label_en: "Spring 2027",
-      teaching_es: null, teaching_en: null,
       weeks: 9,
       projected: true,          /* full session calendar is not published in this hub */
       interestOpen: true,
