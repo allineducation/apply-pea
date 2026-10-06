@@ -824,3 +824,4 @@ body>.shell{flex:1 0 auto;width:100%}   /* short pages still seat the app bar at
 .week-card{cursor:default}
 .week-next{margin-top:var(--space-6)}
 @media(max-width:560px){ .mat-list li{flex-direction:column;align-items:flex-start;gap:0} .mat-sep{display:none} .mat-link{min-height:40px} }
+.det .det-cal{gap:.4rem;border-width:2px;min-height:44px;padding:8px 14px}

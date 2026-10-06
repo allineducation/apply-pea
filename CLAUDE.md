@@ -15,5 +15,5 @@ Read `README.md` first; it is the handoff and the rulebook for this site. These 
   We also welcome school staff and community liaisons who want to learn alongside families and strengthen the connection between home and school.
 
 - Colours stay on the 18 AIE palette values (see README, v0.12.0 and v0.18.0 notes). Never use “empower” or any variant, in either language.
-- **Shared links default to Spanish** (Danny Hernández, 2026-10-06): any link to a page that is shared with participants (class chat, WhatsApp, QR codes, shortlinks) opens the Spanish version — e.g. `/esta-semana` or `bit.ly/peafa26semana`, not `/this-week`.
+- **Shared links default to Spanish** (Danny Hernández, 2026-10-06): any link to a page that is shared with participants (class chat, WhatsApp, QR codes, shortlinks) opens the Spanish version — e.g. `/esta-semana` or `https://aie.s.gy/esta-semana`, not `/this-week`. Do not use bit.ly shortlinks for this Netlify site (they do not work; Danny Hernández, 2026-10-06).
 - Run `node maintenance/scripts/check-parity.js` before every push; it enforces the naming rules and controlled vocabulary.

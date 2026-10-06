@@ -52,13 +52,16 @@ window.PEA_FACTS = {
   },
 
   /* Shared titles for session materials and resources. A class card shows one row per
-     item: the Spanish version (title · ES) | the English version (title · EN). A version
-     without a URL shows its title without a link. Override with title_es / title_en. */
+     item: the Spanish version (title · ES) | the English version (title · EN); a version
+     without a URL is left out. An item with `any` (one link for both languages) shows one
+     link titled in the page language. Override with title_es / title_en. */
   materialTypes: {
     worksheet: { es: "Hoja de trabajo", en: "Participant worksheet" },
     comm:      { es: "Herramienta de comunicación", en: "Communication tool" },
     handout:   { es: "Material de apoyo", en: "Handout" },
-    resource:  { es: "Recurso", en: "Resource" }
+    resource:  { es: "Recurso", en: "Resource" },
+    whatsapp:  { es: "Unirse al grupo de WhatsApp de la cohorte", en: "Join the cohort WhatsApp group" },
+    cal:       { es: "Ver el calendario de PEA", en: "View the PEA calendar" }
   },
 
   /* Curriculum modules — canonical, cohort-independent descriptions, session
@@ -186,7 +189,7 @@ window.PEA_FACTS = {
       info:     "https://bit.ly/peafa26info",          /* info session only — not class registration */
       cal:      "https://bit.ly/peafa26cal",
       whatsapp: "https://bit.ly/peafa26whatsapp",
-      week:     "https://bit.ly/peafa26semana"          /* "Esta semana" page; Spanish by default */
+      week:     "https://aie.s.gy/esta-semana"          /* "Esta semana" page; Spanish by default. Not bit.ly (Danny, 2026-10-06) */
     },
     SP27: {
       /* Spring interest is open through the interest form. */
@@ -205,6 +208,9 @@ window.PEA_FACTS = {
          Both languages are required (the parity check enforces it). Example:
          "2": { es: "Traiga la boleta de calificaciones de su estudiante el jueves.", en: "Bring your student's report card on Thursday." } */
       weekNotes: {},
+      /* Cohort links listed under Recursos / Resources on every class card (keys of links.<cohort>;
+         one link, titled in the page language). Danny Hernández, 2026-10-06. */
+      classResources: ["whatsapp", "cal"],
       /* Applications switch to the next cohort the Wednesday after class 3 (computed in app.js).
          The interest form stays open year-round; on that day it defaults to "opens" and adds "adds". */
       applySwitch: { opens: "SP27", adds_es: "Otoño 2027", adds_en: "Fall 2027" },
