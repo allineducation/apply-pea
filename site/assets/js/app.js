@@ -1,5 +1,5 @@
 /* ==================================================================
-   PEA Applicant Hub — app  (v0.21.0)
+   PEA Applicant Hub — app  (v0.21.1)
    Vanilla JS, no build step, no dependencies. State-based navigation
    (hash routes) per AIE Hub Design System §5.1. Every date, time and
    link resolves from facts.js; every string from copy.js.
@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.21.0";
+  var VERSION = "0.21.1";
   var UPDATED = "2026-10-06";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -349,23 +349,19 @@
   function absenceHref(e) {                        /* opens the visitor's mail app: to pea@, subject "Ausencia / Absence — {date}" */
     return "mailto:" + F.org.email + "?subject=" + encodeURIComponent(L.cal.detail.absenceSubject(cap(longDate(e.start))));
   }
-  function matRows(items) {                        /* one row per item: Spanish title · ES | English title · EN */
-    var MT = F.materialTypes || {}, D = L.cal.detail;
+  function matRows(items) {                        /* one row per item: Spanish title · ES | English title · EN; only versions with a link */
+    var MT = F.materialTypes || {};
     return '<ul class="mat-list">' + items.map(function (it) {
       var t = MT[it.type] || MT.resource || {};
-      function side(l) {
+      return "<li>" + ["es", "en"].filter(function (l) { return it[l]; }).map(function (l) {
         var inner = esc(it["title_" + l] || t[l] || "") + ' <span class="lc">' + l.toUpperCase() + "</span>";
-        return it[l] ? ext(it[l], inner, "mat-link", ' lang="' + l + '"')
-          : '<span class="mat-off" lang="' + l + '">' + inner + '<span class="soon" lang="' + lang + '"> · ' + esc(D.soon) + "</span></span>";
-      }
-      return "<li>" + side("es") + '<span class="mat-sep" aria-hidden="true">|</span>' + side("en") + "</li>";
+        return ext(it[l], inner, "mat-link", ' lang="' + l + '"');
+      }).join('<span class="mat-sep" aria-hidden="true">|</span>') + "</li>";
     }).join("") + "</ul>";
   }
-  function matSection(h, items, live, wait) {
-    var D = L.cal.detail;
-    var body = !live ? '<p class="small">' + esc(wait) + "</p>"
-      : items && items.length ? matRows(items) : '<p class="small">' + esc(D.soon) + "</p>";
-    return '<div class="det-sec"><h4 class="det-h">' + esc(h) + "</h4>" + body + "</div>";
+  function matSection(h, items, live) {           /* a section appears only when its week is open and it has at least one link */
+    var linked = live && items ? items.filter(function (it) { return it.es || it.en; }) : [];
+    return linked.length ? '<div class="det-sec"><h4 class="det-h">' + esc(h) + "</h4>" + matRows(linked) + "</div>" : "";
   }
   function calDetail(e) {
     var D = L.cal.detail, over = new Date(e.end).getTime() < NOW.getTime();
@@ -375,12 +371,13 @@
       if (!over && link("info", e._c)) b += ext(link("info", e._c), esc(L.cal.infoJoin), "btn btn-primary btn-sm");
     } else if (e.kind === "cls") {
       /* Session materials and resources unlock week by week: both classes of a week open
-         together on the day of that week's first class (Arizona time). Every class card
+         together on the day of that week's first class (Arizona time); a section with no
+         links is left out (Danny Hernández, 2026-10-06). Every class card
          ends with the same three actions: exit ticket (unlocks with its week), resend my
          Zoom link, and report an absence (until the class starts). */
       var open = weekOpens(e), live = !e.projected && daysUntil(open.start, NOW) <= 0;
       var wait = D.opens(shortDate(open.start).dm), started = new Date(e.start).getTime() <= NOW.getTime();
-      secs = matSection(D.materials, mod && mod.materials, live, wait) + matSection(D.resources, mod && mod.resources, live, wait);
+      secs = matSection(D.materials, mod && mod.materials, live) + matSection(D.resources, mod && mod.resources, live);
       if (!e.projected) notes += "<li>" + esc(D.zoomNote) + "</li>";
       var acts = [
         [live && exitUrl(e), D.exit, "🎟️", live ? D.soon : wait],

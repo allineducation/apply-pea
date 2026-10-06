@@ -817,13 +817,10 @@ body>.shell{flex:1 0 auto;width:100%}   /* short pages still seat the app bar at
 .mat-list li{display:flex;flex-wrap:wrap;align-items:center;gap:.25rem .5rem;padding:.35rem 0;border-bottom:1px solid var(--n12)}
 .mat-list li:last-child{border-bottom:0}
 .mat-link{display:inline-flex;align-items:center;gap:.3rem;min-height:44px;font-weight:700;color:var(--brand-blue-primary)}
-.mat-off{display:inline-flex;align-items:center;gap:.3rem;min-height:44px;color:var(--n70)}
-.mat-off .soon{font-size:12px}
 .mat-sep{color:var(--n70)}
 .lc{font-size:11px;font-weight:900;letter-spacing:.06em;padding:.1rem .35rem;border-radius:var(--radius-sm);background:var(--tint-blue-fill);color:var(--brand-blue-primary)}
-.mat-off .lc{background:var(--n05);color:var(--n70)}
 .week-range{font-size:1.125rem;font-weight:900;color:var(--brand-blue-primary);margin:var(--space-4) 0 var(--space-3)}
 .week-list{margin-top:var(--space-3)}
 .week-card{cursor:default}
 .week-next{margin-top:var(--space-6)}
-@media(max-width:560px){ .mat-list li{flex-direction:column;align-items:flex-start;gap:0} .mat-sep{display:none} .mat-link,.mat-off{min-height:40px} }
+@media(max-width:560px){ .mat-list li{flex-direction:column;align-items:flex-start;gap:0} .mat-sep{display:none} .mat-link{min-height:40px} }
