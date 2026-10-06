@@ -1,18 +1,18 @@
 # PEA applicant portal
 
-Prepared by Danny Hernández · Handoff updated September 27, 2026 · Site release **v0.11.0**
+Prepared by Danny Hernández · Entry guidance checked October 5, 2026 · Current repository code **v0.20.2**
 
 The Parent Educator Academy (PEA) applicant portal is a public, bilingual information site for families, caregivers and school staff. It explains the program and routes visitors to the interest form, class registration, information session, calendar and team support. It does not track an applicant’s progress.
 
 - Live site: https://apply-pea.netlify.app/
 - Repository: https://github.com/allineducation/apply-pea
 - Netlify project: https://app.netlify.com/projects/apply-pea
-- Machine-readable handoff: [HANDOFF.json](HANDOFF.json) (dated snapshot from before v0.14.0; where it mentions class Zoom registration, this README governs)
-- Latest production verification: [v0.11.0 production receipt](maintenance/qa/production-v0.11.0-2026-09-27.json)
+- Historical machine-readable handoff: [HANDOFF.json](HANDOFF.json), a snapshot from before v0.14.0; retained for provenance, not current entry guidance.
+- Historical production verification: [v0.11.0 production receipt](maintenance/qa/production-v0.11.0-2026-09-27.json). This receipt does not verify current code or production parity.
 
 ## Start here
 
-Read this README and `HANDOFF.json`, inspect the current branch and working tree, then check the live site before making changes. The JSON is a dated snapshot, not a live data feed. `site/assets/js/facts.js` is the application’s fact registry; authoritative program sources and Danny Hernández’s approved corrections take precedence over this snapshot.
+Read this README and [CLAUDE.md](CLAUDE.md), then inspect the current branch and working tree. Confirm the code version in [site/index.html](site/index.html) and [app.js](site/assets/js/app.js); both identify v0.20.2 at this documentation check. Check the live site when reviewing applicant-facing changes, and verify production against its deployed commit before claiming release parity. [facts.js](site/assets/js/facts.js) is the application’s fact registry; authoritative program sources and Danny Hernández’s approved corrections govern content. The historical JSON and release notes preserve earlier states and must not override current guidance. No production deployment or external program-data audit was performed for this documentation correction.
 
 This repository is public. Keep credentials, participant records, private Zoom join links and other sensitive material out of it. Documentation lives outside `site/`, so it is available in GitHub but is not part of the applicant-facing Netlify publish directory.
 
@@ -130,6 +130,8 @@ Netlify project `apply-pea` (team `azdanhz`, site ID `47e247f5-7ecd-45a1-b487-9c
 Rollback by reverting the faulty commit in GitHub and deploying that revert. A Netlify restore can provide an emergency recovery, but reconcile the repository afterward so the next automatic deployment does not restore the defect. Never force-reset shared history as a routine rollback.
 
 ## Verification and release history
+
+The dated entries below describe their respective releases, including superseded behavior and past pending decisions. Use current entry guidance and later approved corrections for new work.
 
 On September 25, all **18 served files** matched site revision `d7af9ce6dab19973936b634777f70473c695c951` byte for byte; the four aliases returned successful destinations and the production CSP header was present. See the receipt for hashes. This is site parity evidence, not a new Airtable audit or proof that an external form submission succeeds.
 
