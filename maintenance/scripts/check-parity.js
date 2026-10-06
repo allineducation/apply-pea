@@ -75,8 +75,12 @@ const TYPES = FACTS.materialTypes || {};
 Object.entries(TYPES).forEach(([k, t]) => { if (!t.es || !t.en) problems.push(`materialTypes ${k}: needs es and en titles`); });
 Object.entries(MODS).forEach(([k, m]) => ["materials", "resources"].forEach(list => (m[list] || []).forEach((it, i) => {
   if (!TYPES[it.type] && !(it.title_es && it.title_en)) problems.push(`module ${k} ${list}[${i}]: unknown type "${it.type}" without titles`);
-  if (!it.es && !it.en) problems.push(`module ${k} ${list}[${i}]: no URL in either language`);
+  if (!it.es && !it.en && !it.any) problems.push(`module ${k} ${list}[${i}]: no URL in either language`);
 })));
+Object.values(FACTS.cohorts).forEach(c => (c.classResources || []).forEach(k => {
+  if (!TYPES[k]) problems.push(`${c.code} classResources: "${k}" needs a materialTypes title`);
+  if (!(FACTS.links[c.code] || {})[k] && !FACTS.links.global[k]) problems.push(`${c.code} classResources: no link "${k}"`);
+}));
 Object.values(FACTS.cohorts).forEach(c => c.events.forEach(e => {
   if (e.module && !MODS[e.module]) problems.push(`${c.code} ${e.code}: module ${e.module} missing from facts.modules`);
 }));

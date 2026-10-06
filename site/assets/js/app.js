@@ -1,5 +1,5 @@
 /* ==================================================================
-   PEA Applicant Hub — app  (v0.21.1)
+   PEA Applicant Hub — app  (v0.21.2)
    Vanilla JS, no build step, no dependencies. State-based navigation
    (hash routes) per AIE Hub Design System §5.1. Every date, time and
    link resolves from facts.js; every string from copy.js.
@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.21.1";
+  var VERSION = "0.21.2";
   var UPDATED = "2026-10-06";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -353,6 +353,7 @@
     var MT = F.materialTypes || {};
     return '<ul class="mat-list">' + items.map(function (it) {
       var t = MT[it.type] || MT.resource || {};
+      if (it.any) return "<li>" + ext(it.any, esc(it["title_" + lang] || t[lang] || ""), "mat-link") + "</li>";
       return "<li>" + ["es", "en"].filter(function (l) { return it[l]; }).map(function (l) {
         var inner = esc(it["title_" + l] || t[l] || "") + ' <span class="lc">' + l.toUpperCase() + "</span>";
         return ext(it[l], inner, "mat-link", ' lang="' + l + '"');
@@ -360,7 +361,7 @@
     }).join("") + "</ul>";
   }
   function matSection(h, items, live) {           /* a section appears only when its week is open and it has at least one link */
-    var linked = live && items ? items.filter(function (it) { return it.es || it.en; }) : [];
+    var linked = live && items ? items.filter(function (it) { return it.es || it.en || it.any; }) : [];
     return linked.length ? '<div class="det-sec"><h4 class="det-h">' + esc(h) + "</h4>" + matRows(linked) + "</div>" : "";
   }
   function calDetail(e) {
@@ -377,7 +378,8 @@
          Zoom link, and report an absence (until the class starts). */
       var open = weekOpens(e), live = !e.projected && daysUntil(open.start, NOW) <= 0;
       var wait = D.opens(shortDate(open.start).dm), started = new Date(e.start).getTime() <= NOW.getTime();
-      secs = matSection(D.materials, mod && mod.materials, live) + matSection(D.resources, mod && mod.resources, live);
+      var cres = (F.cohorts[e._c].classResources || []).map(function (k) { return { type: k, any: link(k, e._c) }; });
+      secs = matSection(D.materials, mod && mod.materials, live) + matSection(D.resources, ((mod && mod.resources) || []).concat(cres), live);
       if (!e.projected) notes += "<li>" + esc(D.zoomNote) + "</li>";
       var acts = [
         [live && exitUrl(e), D.exit, "🎟️", live ? D.soon : wait],
@@ -390,7 +392,7 @@
           : '<span class="btn btn-secondary btn-sm is-off" aria-disabled="true">' + inner + '<span class="soon">' + esc(a[3]) + "</span></span>";
       }).join("") + "</div>";
     }
-    b += '<button type="button" class="btn btn-ghost btn-sm" data-ics="' + esc(e._c + ":" + e.code) + '">' + esc(D.addCal) + "</button>";
+    b += '<button type="button" class="btn btn-secondary btn-sm det-cal" data-ics="' + esc(e._c + ":" + e.code) + '"><span aria-hidden="true">📅</span><span>' + esc(D.addCal) + "</span></button>";
     return '<div class="det' + (foot ? " has-actions" : "") + '">' + secs +
       (notes ? '<ul class="det-notes">' + notes + "</ul>" : "") + '<div class="btnrow">' + b + "</div>" + foot + "</div>";
   }

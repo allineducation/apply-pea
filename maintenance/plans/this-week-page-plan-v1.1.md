@@ -1,6 +1,6 @@
-# PEA “Esta semana / This week” page — plan v1.0
+# PEA “Esta semana / This week” page — plan v1.1
 
-Prepared for Danny Hernández · October 6, 2026 · Implemented in site release **v0.21.0** · Audience: internal (PEA team)
+Prepared for Danny Hernández · October 6, 2026 · Implemented in site releases **v0.21.0–v0.21.2** · Audience: internal (PEA team)
 
 ## The ask
 
@@ -13,7 +13,7 @@ Give participants one link, shared in every class, where they find everything fo
 | Default | Links shared with participants open the **Spanish** version of a page. |
 | 1 | Survey button is **“Encuesta de salida / Exit Ticket.”** |
 | 2 | Friday–Sunday keep showing the **week that just ended** (the week runs Monday–Sunday, Arizona time). |
-| 3 | Paths **`/esta-semana`** (Spanish) and **`/this-week`** (English); shortlink **`bit.ly/peafa26semana`**; QR code in AIE palette colors. |
+| 3 | Paths **`/esta-semana`** (Spanish) and **`/this-week`** (English); shortlink **`https://aie.s.gy/esta-semana`** (v1.1: bit.ly does not work for this site); QR code in AIE palette colors. |
 | 4 | Exit-ticket prefill: build it if the form has a class field. |
 | 5 | Weekly notes come in **both ES and EN**. |
 | 6 | This plan lives in the repository's `maintenance/` folder. |
@@ -39,19 +39,25 @@ Changes requested in the same message:
 | Unlocking | Materials, resources and the exit ticket open on the day of the week's first class (unchanged rule). Report an absence is available until the class starts. Resend Zoom link is always available. |
 | Exit ticket prefill | `?prefill_Event ID=FA26 - MM/DD/YYYY` per class (form field “Event ID”, linked to the Calendar table, primary field format confirmed in Airtable). |
 | Materials data | Airtable Modules table (read 2026-10-06): participant worksheets and communication tools shared “anyone with the link.” No English versions or “Other” resources exist yet. |
-| Shortlink | `bit.ly/peafa26semana` → `https://apply-pea.netlify.app/esta-semana` (Bitly group *PEA*). |
-| QR code | Bitly's plan returned *UPGRADE_REQUIRED* for QR codes, so a static QR code was generated that encodes `https://bit.ly/peafa26semana` (scans still count as Bitly clicks). Colors: Blue `#053CAA` modules and finder rings, Pink `#EC108D` finder centers, White ground. Files in `maintenance/assets/qr/`, verified by decoding. |
+| Shortlink | `https://aie.s.gy/esta-semana` (supplied by Danny, v1.1). The earlier `bit.ly/peafa26semana` is retired. |
+| QR code | Bitly's plan returned *UPGRADE_REQUIRED* for QR codes, so a static QR code was generated. v1.1.0 encodes `https://aie.s.gy/esta-semana`. Colors: Blue `#053CAA` modules and finder rings, Pink `#EC108D` finder centers, White ground. Files in `maintenance/assets/qr/`, verified by decoding. |
+
+## v1.1 changes (Danny Hernández, 2026-10-06)
+
+- Shortlink switched to `https://aie.s.gy/esta-semana`; QR code regenerated (v1.1.0).
+- Every class card's **Recursos / Resources** lists the cohort WhatsApp group (`bit.ly/peafa26whatsapp`) and the PEA calendar (`bit.ly/peafa26cal`).
+- *Agregar a mi calendario* is a clearly outlined button with a 📅 icon.
+- 1T worksheet published (ES + EN); sections with no links, and “available soon” notes, are left out (v0.21.1).
 
 ## Open items for Danny
 
-1. **Share three Drive files “anyone with the link”** (currently owner-only, so they are held back from the site):
-   - 1T Orientación worksheet — `1kv5bHHZ0ylsL4dr6HbCo-pVTdLlmmc6M` (**tonight's class**)
+1. **Share two Drive files “anyone with the link”** (currently owner-only, so they are held back from the site; the 1T worksheet was shared and published in v0.21.1):
    - 5R Derechos worksheet — `1kmwiDnjCCI0KCMebtYlJGQNeVHCyYW6i`
    - 5R Derechos communication tool — `1zCTm31aRz4OcDhNtLg0WkpePcHEOx_Ju`
 2. **Exit-ticket form default:** the read-only class field defaults to **SP26 - 05/12/2026**. Submit one test from a class card to confirm the prefill overrides it, then clear the default in Airtable.
 3. **English versions** of worksheets and tools: add `en:` URLs in `facts.js` as they exist.
 4. **Resources:** add to `modules[*].resources` when the new resource database is ready.
-5. **Merge and deploy:** the shortlink and QR code work only after v0.21.0 is live on Netlify.
+5. **Retire `bit.ly/peafa26semana`** in Bitly if you no longer want it.
 
 ## Fit check
 
