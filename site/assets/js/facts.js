@@ -72,9 +72,9 @@ window.PEA_FACTS = {
      descriptions read 2026-09-25, materials read 2026-10-06. Only files shared
      "anyone with the link" are published (checked 2026-10-06). Held back until shared:
      MRGHT worksheet (1kmwiDnjCCI0KCMebtYlJGQNeVHCyYW6i) and MRGHT communication tool
-     (1zCTm31aRz4OcDhNtLg0WkpePcHEOx_Ju). MORIE worksheet ES + EN PDFs supplied and
-     shared by Danny Hernández 2026-10-06 (an editable ES Google Doc also exists:
-     1jmznjpjN7Gwi6vYVGuk-4-_QtAN-syRJrlUqshUMq-g). Other English versions and "Other"
+     (1zCTm31aRz4OcDhNtLg0WkpePcHEOx_Ju). MORIE worksheet: v1.1.1 ES + EN PDFs from the Session
+     Materials folder (PEA_FA26_1T_Hoja_de_Trabajo_ES_v1_1_1.pdf, PEA_FA26_1T_Participant_Worksheet_EN_v1_1_1.pdf),
+     shared "anyone with the link"; they replace the v1.0.0 PDFs (Danny Hernández, 2026-10-06). Other English versions and "Other"
      resources do not exist in Airtable yet; a new resource database is forthcoming. The MDIGI
      communication tool is one bilingual file, so both versions point to it.
      Calendar events link to a module by its planning ID.
@@ -89,7 +89,7 @@ window.PEA_FACTS = {
     MORIE: { id: "PEA-M01",
       es: "Este curso de apertura presenta a las familias ALL In Education, la Academia de Padres Educadores y los acuerdos y apoyos que guían la experiencia de las 18 clases. También presenta los objetivos del programa, que cada familia vive a su manera: prepararse para hablar con la escuela (qué preguntar, qué información compartir y cómo dar seguimiento a una conversación con el personal escolar); saber a quién acudir, entendiendo cómo se organizan las escuelas y los distritos y a quién dirigirse cuando surge una inquietud; apoyar el aprendizaje en casa, con ideas para acompañar la lectura y las matemáticas y para hablar con la escuela sobre lo que necesita su estudiante; y participar en su comunidad, compartiendo su experiencia, colaborando con otras familias y tomando parte en las decisiones de la escuela.",
       en: "This opening course introduces participants to ALL In Education, the Parent Educator Academy, and the expectations and supports that shape the 18-class learning experience. It also introduces the program’s learning goals, which every family experiences in its own way: preparing for school conversations (what to ask, what to share, and how to follow up with school staff); knowing whom to contact, by understanding how schools and districts are organized and whom to go to when a concern comes up; supporting learning at home, with ideas for reading and math and for talking with the school about what your student needs; and taking part in your community by sharing your experience, working alongside other families, and having a voice in school decisions.",
-      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1kv5bHHZ0ylsL4dr6HbCo-pVTdLlmmc6M/view?usp=drivesdk", en: "https://drive.google.com/file/d/19OimuYU1F5QX5aLpDKZ7KUzCx6UXrXsM/view?usp=drivesdk" }] },
+      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1rtHSJogz_FTi7VFTPHvMWDBkK4iKxvpq/view?usp=drivesdk", en: "https://drive.google.com/file/d/1o52Fa0oSKtvjY-NCWzKvmYsuhz55ZXMB/view?usp=drivesdk" }] },
     MHIST: { id: "PEA-M02",
       es: "Este curso examina los acontecimientos, las políticas y las decisiones que formaron la educación pública en Arizona y que continúan influyendo en las oportunidades estudiantiles. Las familias relacionan esta historia con sus propias experiencias escolares y consideran cómo el contexto histórico puede orientar el aprendizaje, la participación comunitaria y la defensa educativa.",
       en: "This course examines the historical events, policies, and decisions that shaped public education in Arizona and continue to influence students’ opportunities today. Families connect this history to their own school experiences and consider how historical context can inform learning, community involvement, and education advocacy.",
