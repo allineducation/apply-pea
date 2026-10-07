@@ -179,6 +179,9 @@ window.PEA_FACTS = {
          "FA26 - 10/06/2026"). The resource list (bit.ly/pealista) was retired on 2026-10-06. */
       exit:        "https://airtable.com/appIqlWqvk2HkHVRM/pagsaimIoBv1ZTWYd/form",
       exitClassField: "Event ID",
+      /* The exit ticket button is hidden (not greyed) until it is live: from this date (Arizona
+         time) and, after that, from the day of each week's first class (Danny Hernández, 2026-10-07). */
+      exitOpensOn: "2026-10-08",
       flyer:       "https://bit.ly/peaflyer",
       vidAccount:  "https://bit.ly/peacuentadezoom",
       vidName:     "https://bit.ly/peazoomnombre",

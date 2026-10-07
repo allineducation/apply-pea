@@ -1,5 +1,5 @@
 /* ==================================================================
-   PEA Applicant Hub — app  (v0.21.3)
+   PEA Applicant Hub — app  (v0.21.4)
    Vanilla JS, no build step, no dependencies. State-based navigation
    (hash routes) per AIE Hub Design System §5.1. Every date, time and
    link resolves from facts.js; every string from copy.js.
@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.21.3";
+  var VERSION = "0.21.4";
   var UPDATED = "2026-10-06";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -377,16 +377,17 @@
          ends with the same three actions: exit ticket (unlocks with its week), resend my
          Zoom link, and report an absence (until the class starts). */
       var open = weekOpens(e), live = !e.projected && daysUntil(open.start, NOW) <= 0;
-      var wait = D.opens(shortDate(open.start).dm), started = new Date(e.start).getTime() <= NOW.getTime();
+      var started = new Date(e.start).getTime() <= NOW.getTime();
       var cres = (F.cohorts[e._c].classResources || []).map(function (k) { return { type: k, any: link(k, e._c) }; });
       secs = matSection(D.materials, mod && mod.materials, live) + matSection(D.resources, ((mod && mod.resources) || []).concat(cres), live);
       if (!e.projected) notes += "<li>" + esc(D.zoomNote) + "</li>";
+      var exitFrom = F.links.global.exitOpensOn, exitLive = live && !(exitFrom && daysUntil(exitFrom + "T12:00:00-07:00", NOW) > 0);
       var acts = [
-        [live && exitUrl(e), D.exit, "🎟️", live ? D.soon : wait],
+        exitLive ? [exitUrl(e), D.exit, "🎟️", D.soon] : null,   /* hidden until live */
         [!e.projected && link("resend", e._c), D.resend, "🔁", D.soon],
         [!e.projected && !started && absenceHref(e), D.absence, "✉️", started ? D.past : D.soon]
       ];
-      foot = '<div class="det-actions" role="group" aria-label="' + esc(D.actions) + '">' + acts.map(function (a) {
+      foot = '<div class="det-actions" role="group" aria-label="' + esc(D.actions) + '">' + acts.filter(Boolean).map(function (a) {
         var inner = '<span aria-hidden="true">' + a[2] + "</span><span>" + esc(a[1]) + "</span>";
         return a[0] ? ext(a[0], inner, "btn btn-secondary btn-sm")
           : '<span class="btn btn-secondary btn-sm is-off" aria-disabled="true">' + inner + '<span class="soon">' + esc(a[3]) + "</span></span>";

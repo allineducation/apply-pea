@@ -247,7 +247,7 @@ tr.cal-det td{padding:0 .65rem .9rem;border-bottom:1px solid var(--n12)}
 .det-notes li + li{margin-top:.2rem}
 /* class card footer: the same three actions, aligned along the bottom of every class card */
 .det.has-actions{display:flex;flex-direction:column}
-.det-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:.85rem;padding-top:.8rem;border-top:1px solid var(--n12)}
+.det-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:8px;margin-top:.85rem;padding-top:.8rem;border-top:1px solid var(--n12)}
 .det-actions .btn{width:100%;flex-wrap:wrap;text-align:center;line-height:1.25}
 .det-actions .is-off{color:var(--n70);border-color:var(--n12);background:var(--n08);cursor:default}
 .det-actions .is-off:hover{background:var(--n08);color:var(--n70)}
