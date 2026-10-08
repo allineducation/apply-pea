@@ -1,5 +1,5 @@
 /* ==================================================================
-   PEA Applicant Hub — app  (v0.21.6)
+   PEA Applicant Hub — app  (v0.21.7)
    Vanilla JS, no build step, no dependencies. State-based navigation
    (hash routes) per AIE Hub Design System §5.1. Every date, time and
    link resolves from facts.js; every string from copy.js.
@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.21.6";
+  var VERSION = "0.21.7";
   var UPDATED = "2026-10-06";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -428,26 +428,27 @@
       }).join("") + "</ol></section>";
     }).join("");
   }
-  function eventCard(e, week) {                    /* week: "Esta semana" shows every detail, always open */
-    var tt = evTitle(e), key = eventKey(e), x = expandable(e), open = week ? x : !!calOpen[key];
+  function eventCard(e, week, fold) {              /* week: "Esta semana" shows every detail, always open;
+                                                     fold: an earlier day of that week — collapsed, opens on tap */
+    var tt = evTitle(e), key = eventKey(e), x = expandable(e), tog = x && (!week || fold), open = tog ? !!calOpen[key] : x;
     var past = new Date(e.end).getTime() < NOW.getTime(), today = daysUntil(e.start, NOW) === 0, desc = x ? eventDesc(e) : "";
     var cls = "event-card" + (week ? " week-card" : "") + (past ? " is-past" : "") + (today ? " is-today" : "") + (e.kind === "info" ? " is-info" : "") +
-      (e.kind === "milestone" ? " is-milestone" : "") + (x && !week ? " has-det" : "") + (open ? " open" : "");
+      (e.kind === "milestone" ? " is-milestone" : "") + (tog ? " has-det" : "") + (fold ? " folded" : "") + (open ? " open" : "");
     var tags = (e.milestone ? '<span class="tag gold">' + esc(e.milestone === "start" ? L.cal.mStart : L.cal.mEnd) + "</span>" : "") +
                (today ? '<span class="tag gold">' + esc(L.cal.today) + "</span>" : past ? '<span class="tag">' + esc(L.cal.done) + "</span>" : "") +
                (e.kind === "info" ? '<span class="tag pink">' + esc(L.ui.optional) + "</span>" : "");
     var label = esc(tt.topic);
-    var title = x && !week
+    var title = tog
       ? '<button type="button" class="cal-open" data-row="' + esc(key) + '" aria-expanded="' + open + '" aria-controls="det-' + esc(key) + '">' +
         '<span class="ct">' + label + '</span><span class="chev" aria-hidden="true"></span><span class="sr-only"> — ' +
         esc(open ? L.cal.detail.close : openLabel(e.kind)) + "</span></button>"
       : label;
-    return '<li class="' + cls + '"' + (x && !week ? ' data-rowkey="' + esc(key) + '"' : "") + ">" + dateBadge(e) +
+    return '<li class="' + cls + '"' + (tog ? ' data-rowkey="' + esc(key) + '"' : "") + ">" + dateBadge(e) +
       '<div class="event-content"><div class="event-tags"><span class="category-badge badge-' + badgeOf(e) + '">' + esc(tt.kind) + "</span>" + tags + "</div>" +
       '<h3 class="event-title">' + title + "</h3>" +
       (e.kind === "holiday" ? "" : '<p class="event-time">' + whenHtml(e) + "</p>") +
       (desc ? '<p class="event-desc">' + esc(desc) + "</p>" : "") + "</div>" +
-      (x ? '<div class="event-det"' + (week ? "" : ' id="det-' + esc(key) + '"') + (open ? "" : " hidden") + ">" + calDetail(e) + "</div>" : "") + "</li>";
+      (x ? '<div class="event-det"' + (tog ? ' id="det-' + esc(key) + '"' : "") + (open ? "" : " hidden") + ">" + calDetail(e) + "</div>" : "") + "</li>";
   }
   function toggleRow(key) {
     calOpen[key] = !calOpen[key];
@@ -560,6 +561,10 @@
     var nxt = EV.filter(function (e) { return shown(e) && inWeek(e, ws + 7 * 864e5); });
     var cls = CLASSES.filter(shown), first = cls[0], last = cls[cls.length - 1];
     var hasCls = wk.some(function (e) { return e.kind === "cls"; });
+    /* Once an earlier day of the week has passed, its cards fold (still one tap away) and the page opens at
+       today's or the next class. When every class of the week has passed, all cards stay open. */
+    var current = wk.some(function (e) { return expandable(e) && daysUntil(e.start, NOW) >= 0; });
+    var fold = function (e) { return current && expandable(e) && daysUntil(e.start, NOW) < 0; };
     var top = "";
     wk.filter(function (e) { return e.kind === "cls" && daysUntil(e.start, NOW) === 0; }).forEach(function (e) {
       top += callout("gold", W.todayLabel, esc(W.today(evTitle(e).topic, spanWords(e.start, e.end))));
@@ -574,7 +579,7 @@
     }
     return secHead("esta-semana") + '<p class="lead">' + esc(W.lead) + "</p>" +
       '<h2 class="week-range">' + esc(weekRange(ws)) + "</h2>" + top +
-      (wk.length ? '<ol class="event-list week-list">' + wk.map(function (e) { return eventCard(e, true); }).join("") + "</ol>" : "") +
+      (wk.length ? '<ol class="event-list week-list">' + wk.map(function (e) { return eventCard(e, true, fold(e)); }).join("") + "</ol>" : "") +
       helpCardHtml() +
       (nxt.length ? '<section class="up-next week-next" aria-labelledby="wknext-h"><h2 class="up-next-h" id="wknext-h">' + esc(W.nextH) +
         " · " + esc(weekRange(ws + 7 * 864e5)) + "</h2>" + upList(nxt) + "</section>" : "") +
@@ -682,6 +687,7 @@
       if (deep && !EV.some(function (e) { return eventKey(e) === deep && expandable(e); })) deep = "";
       if (deep) { calFilter = "all"; calOpen[deep] = true; }
     }
+    var weekJump = id === "esta-semana" && pendingDeep;
     pendingDeep = false;
     var main = document.getElementById("main"), FOLD = "details.sec, details.accordion-item";
     var wasOpen = id === shownRoute ? Array.prototype.map.call(main.querySelectorAll(FOLD), function (d) { return d.open; }) : [];
@@ -696,6 +702,12 @@
         var hh = document.querySelector("header.site-header").offsetHeight;
         window.scrollTo(0, card.getBoundingClientRect().top + window.scrollY - hh - (div ? div.offsetHeight : 0) - 12);
         card.querySelector(".cal-open").focus({ preventScroll: true });
+      }
+    } else if (weekJump && main.querySelector(".week-list > .folded")) {   /* open at today's (or the next) class */
+      var tgt = main.querySelector(".week-list > .event-card:not(.folded)");
+      if (tgt) {
+        window.scrollTo(0, tgt.getBoundingClientRect().top + window.scrollY - document.querySelector("header.site-header").offsetHeight - 12);
+        var h = main.querySelector("h1"); if (h) h.focus({ preventScroll: true });
       }
     } else if (focus) {
       window.scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
