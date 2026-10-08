@@ -181,7 +181,8 @@
           absenceSubject: function (d) { return "Ausencia / Absence — " + d; },
           past: "La clase ya pasó",
           opens: function (d) { return "Se abre el " + d; },
-          actions: "Enlaces de esta clase"
+          actions: "Enlaces de esta clase",
+          objectives: "Objetivos de aprendizaje", objectivesLead: "Al final de la sesión, las familias podrán:"
         },
         classNote: "Entre a clase con el enlace personal de Zoom de su correo de bienvenida. Es el mismo para todas las clases; por favor, no lo comparta.",
         holidayNote: "No hay clase este día.",
@@ -474,7 +475,8 @@
           absenceSubject: function (d) { return "Ausencia / Absence — " + d; },
           past: "This class has passed",
           opens: function (d) { return "Opens " + d; },
-          actions: "Links for this class"
+          actions: "Links for this class",
+          objectives: "Learning objectives", objectivesLead: "By the end of the session, families will be able to:"
         },
         classNote: "Join class with the personal Zoom link in your welcome email. It’s the same for every class; please don’t share it.",
         holidayNote: "There is no class this day.",

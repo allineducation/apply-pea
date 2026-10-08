@@ -95,6 +95,24 @@ window.PEA_FACTS = {
       es: "Este curso examina los acontecimientos, las políticas y las decisiones que formaron la educación pública en Arizona y que continúan influyendo en las oportunidades estudiantiles. Las familias relacionan esta historia con sus propias experiencias escolares y consideran cómo el contexto histórico puede orientar el aprendizaje, la participación comunitaria y la defensa educativa.",
       en: "This course examines the historical events, policies, and decisions that shaped public education in Arizona and continue to influence students’ opportunities today. Families connect this history to their own school experiences and consider how historical context can inform learning, community involvement, and education advocacy.",
       materials: [{ type: "comm", es: "https://drive.google.com/file/d/1_AdiISrF03a3XtDlvb9RsIJNPsFa5ZH8/view?usp=drivesdk" }] },
+    /* MSAFE replaces MSDOE for FA26 2T (Airtable Modules PEA-M19, created 2026-10-08). Description and
+       objectives as supplied by Danny Hernández, 2026-10-08; the Airtable descriptions still carry an extra
+       "nine social determinants" sentence that was left out here. */
+    MSAFE: { id: "PEA-M19",
+      es: "Este curso se centra en condiciones que muchas familias consideran decisivas para sus estudiantes: si se sienten seguros en la escuela, si hay adultos que los conocen y si reciben apoyo para su bienestar. Las familias aprenden a reconocer señales de preocupación, describir por escrito lo que han observado, identificar a quién contactar y dar seguimiento cuando una situación no se resuelve. El curso gira en torno a una pregunta que cada familia puede poner en práctica esta semana.",
+      en: "This course focuses on school safety, supportive relationships, and student well-being. Families learn to recognize signs of concern, describe what they have observed in writing, choose whom to contact, and follow up when a concern remains unresolved.",
+      objectives_es: [
+        "Nombrar al menos tres señales concretas que indican que algo no está bien para su hijo o hija en la escuela.",
+        "Explicar por qué las observaciones de madres, padres y cuidadores aportan información valiosa a la escuela.",
+        "Reconocer qué tipo de preocupación tienen —acoso escolar u hostigamiento, seguridad, una necesidad relacionada con una discapacidad, discriminación o un asunto general del salón— y escribir un relato breve basado en hechos.",
+        "Identificar a quién contactar primero para su preocupación y cuál es el siguiente paso si no se resuelve."
+      ],
+      objectives_en: [
+        "Name at least three concrete signs that something is wrong for their child at school.",
+        "Explain how parents’ and caregivers’ observations provide valuable information to the school.",
+        "Recognize the type of concern—bullying or harassment, safety, a disability-related need, discrimination, or a general classroom issue—and write a brief account based on facts.",
+        "Identify whom to contact first and the next step if the concern is not resolved."
+      ] },
     MSDOE: { id: "PEA-M03",
       es: "Este curso explora cómo la vivienda, la salud, el transporte, los ingresos, el acceso lingüístico y los recursos comunitarios pueden influir en las experiencias y los resultados educativos. Las familias identifican fortalezas y barreras en sus comunidades, relacionan estos factores con la equidad y la justicia y consideran cómo abogar por los apoyos que necesitan sus estudiantes.",
       en: "This course explores how conditions such as housing, health, transportation, income, language access, and neighborhood resources can influence students’ educational experiences and outcomes. Families identify strengths and barriers in their communities, connect these factors to equity and justice, and consider ways to advocate for the supports their students need.",
@@ -228,7 +246,7 @@ window.PEA_FACTS = {
           exit: "https://form.jotform.com/team/261975497443068/pea_fa26_pre" },
         { code: "1R",  kind: "cls", module: "MHIST", start: "2026-10-09T00:00:00Z", end: "2026-10-09T01:30:00Z", title_es: "La historia de la educación pública en Arizona", title_en: "History of Public Education in Arizona",
           presentation_en: "https://canva.link/nmb3yhwv4thuvpd", exit: "https://form.jotform.com/team/261975497443068/pea_fa26_pre" },
-        { code: "2T",  kind: "cls", module: "MSDOE", start: "2026-10-14T00:00:00Z", end: "2026-10-14T01:30:00Z", title_es: "Determinantes sociales de la educación", title_en: "Social Determinants of Education" },
+        { code: "2T",  kind: "cls", module: "MSAFE", start: "2026-10-14T00:00:00Z", end: "2026-10-14T01:30:00Z", title_es: "Seguridad y bienestar en la escuela", title_en: "School Safety and Well-Being" },
         { code: "2R",  kind: "cls", module: "MBIAS", start: "2026-10-16T00:00:00Z", end: "2026-10-16T01:30:00Z", title_es: "Sesgo, identidad y el mito de la oportunidad", title_en: "Bias, Identity & the Opportunity Myth" },
         { code: "3T",  kind: "cls", module: "MQUAL", start: "2026-10-21T00:00:00Z", end: "2026-10-21T01:30:00Z", title_es: "Acceso a una educación de calidad y la elección escolar", title_en: "Access to Quality Education & School Choice" },
         { code: "3R",  kind: "cls", module: "MCOMM", start: "2026-10-23T00:00:00Z", end: "2026-10-23T01:30:00Z", title_es: "Navegando salones, escuelas y distritos escolares", title_en: "Navigating Classrooms, Schools, and School Districts" },
