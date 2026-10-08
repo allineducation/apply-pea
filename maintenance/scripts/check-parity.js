@@ -55,6 +55,12 @@ require(path.join(__dirname, "../../site/assets/js/facts.js"));
 const FACTS = global.window.PEA_FACTS, MODS = FACTS.modules || {};
 Object.entries(MODS).forEach(([k, m]) => {
   if (!m.es || !m.en) problems.push(`module ${k}: missing ${!m.es ? "es" : "en"} description`);
+  if ((m.objectives_es || m.objectives_en) && (m.objectives_es || []).length !== (m.objectives_en || []).length)
+    problems.push(`module ${k}: objectives_es and objectives_en differ in length`);
+  const objES = (m.objectives_es || []).join(" "), objEN = (m.objectives_en || []).join(" ");
+  if (/empower|empodera/i.test(objES + objEN)) problems.push(`module ${k} objectives: empower/empoderar`);
+  if (/\baula(s)?\b|docente/i.test(objES)) problems.push(`module ${k} objectives: aula/docentes`);
+  if (/stakeholder/i.test(objEN)) problems.push(`module ${k} objectives: "stakeholders"`);
   if (/empower|empodera/i.test(m.es + m.en)) problems.push(`module ${k}: empower/empoderar`);
   if (/\baula(s)?\b/i.test(m.es)) problems.push(`module ${k}: aula → salón/clase`);
   if (/docente/i.test(m.es)) problems.push(`module ${k}: docentes → maestros`);

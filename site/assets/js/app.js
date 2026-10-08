@@ -1,5 +1,5 @@
 /* ==================================================================
-   PEA Applicant Hub — app  (v0.21.5)
+   PEA Applicant Hub — app  (v0.21.6)
    Vanilla JS, no build step, no dependencies. State-based navigation
    (hash routes) per AIE Hub Design System §5.1. Every date, time and
    link resolves from facts.js; every string from copy.js.
@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.21.5";
+  var VERSION = "0.21.6";
   var UPDATED = "2026-10-06";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -381,7 +381,10 @@
       var started = new Date(e.start).getTime() <= NOW.getTime();
       var cres = (F.cohorts[e._c].classResources || []).map(function (k) { return { type: k, any: link(k, e._c) }; });
       var mats = ((mod && mod.materials) || []).concat(lang === "en" && e.presentation_en ? [{ type: "presentation", en: e.presentation_en }] : []);
-      secs = matSection(D.materials, mats, live) + matSection(D.resources, ((mod && mod.resources) || []).concat(cres), live);
+      var objs = mod && mod["objectives_" + lang];   /* shown whenever the module has them, before materials */
+      secs = (objs && objs.length ? '<div class="det-sec"><h4 class="det-h">' + esc(D.objectives) + '</h4><p class="det-lead">' + esc(D.objectivesLead) + '</p><ol class="obj-list">' +
+        objs.map(function (o) { return "<li>" + esc(o) + "</li>"; }).join("") + "</ol></div>" : "") +
+        matSection(D.materials, mats, live) + matSection(D.resources, ((mod && mod.resources) || []).concat(cres), live);
       if (!e.projected) notes += "<li>" + esc(D.zoomNote) + "</li>";
       var exitFrom = F.links.global.exitOpensOn, exitLive = live && !(exitFrom && daysUntil(exitFrom + "T12:00:00-07:00", NOW) > 0);
       var acts = [
