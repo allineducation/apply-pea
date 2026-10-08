@@ -60,6 +60,7 @@ window.PEA_FACTS = {
     comm:      { es: "Herramienta de comunicación", en: "Communication tool" },
     handout:   { es: "Material de apoyo", en: "Handout" },
     resource:  { es: "Recurso", en: "Resource" },
+    presentation: { es: "Presentación", en: "Presentation" },
     whatsapp:  { es: "Unirse al grupo de WhatsApp de la cohorte", en: "Join the cohort WhatsApp group" },
     cal:       { es: "Ver el calendario de PEA", en: "View the PEA calendar" }
   },
@@ -200,6 +201,10 @@ window.PEA_FACTS = {
   },
 
   /* kind: info | cls | holiday | focus | milestone   (milestone: "start" | "end" flags a class as a cohort milestone)
+     Optional on a class: presentation_en = English presentation, view-only (shown on the English page only, under
+     Session materials). 1R's link was entered on the 1T row of the Airtable Calendar
+     "Presentation URL (View Only) - EN" field; Danny confirmed it belongs to 1R (2026-10-08); exit = a class-specific exit survey that replaces the Airtable exit
+     ticket (no prefill). 1T and 1R use the Jotform FA26 pre-survey (Danny Hernández, 2026-10-08).
      Only confirmed cohorts can be promoted automatically; projected future
      cohorts are mentioned in the FAQ without opening registration. */
   cohorts: {
@@ -219,8 +224,10 @@ window.PEA_FACTS = {
       applySwitch: { opens: "SP27", adds_es: "Otoño 2027", adds_en: "Fall 2027" },
       events: [
         { code: "IS2", kind: "info",    start: "2026-10-02T00:00:00Z", end: "2026-10-02T01:30:00Z" },
-        { code: "1T",  kind: "cls", module: "MORIE", start: "2026-10-07T00:00:00Z", end: "2026-10-07T01:30:00Z", title_es: "Orientación", title_en: "Orientation", milestone: "start" },
-        { code: "1R",  kind: "cls", module: "MHIST", start: "2026-10-09T00:00:00Z", end: "2026-10-09T01:30:00Z", title_es: "La historia de la educación pública en Arizona", title_en: "History of Public Education in Arizona" },
+        { code: "1T",  kind: "cls", module: "MORIE", start: "2026-10-07T00:00:00Z", end: "2026-10-07T01:30:00Z", title_es: "Orientación", title_en: "Orientation", milestone: "start",
+          exit: "https://form.jotform.com/team/261975497443068/pea_fa26_pre" },
+        { code: "1R",  kind: "cls", module: "MHIST", start: "2026-10-09T00:00:00Z", end: "2026-10-09T01:30:00Z", title_es: "La historia de la educación pública en Arizona", title_en: "History of Public Education in Arizona",
+          presentation_en: "https://canva.link/nmb3yhwv4thuvpd", exit: "https://form.jotform.com/team/261975497443068/pea_fa26_pre" },
         { code: "2T",  kind: "cls", module: "MSDOE", start: "2026-10-14T00:00:00Z", end: "2026-10-14T01:30:00Z", title_es: "Determinantes sociales de la educación", title_en: "Social Determinants of Education" },
         { code: "2R",  kind: "cls", module: "MBIAS", start: "2026-10-16T00:00:00Z", end: "2026-10-16T01:30:00Z", title_es: "Sesgo, identidad y el mito de la oportunidad", title_en: "Bias, Identity & the Opportunity Myth" },
         { code: "3T",  kind: "cls", module: "MQUAL", start: "2026-10-21T00:00:00Z", end: "2026-10-21T01:30:00Z", title_es: "Acceso a una educación de calidad y la elección escolar", title_en: "Access to Quality Education & School Choice" },
