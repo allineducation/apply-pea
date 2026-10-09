@@ -95,9 +95,11 @@ window.PEA_FACTS = {
       es: "Este curso examina los acontecimientos, las políticas y las decisiones que formaron la educación pública en Arizona y que continúan influyendo en las oportunidades estudiantiles. Las familias relacionan esta historia con sus propias experiencias escolares y consideran cómo el contexto histórico puede orientar el aprendizaje, la participación comunitaria y la defensa educativa.",
       en: "This course examines the historical events, policies, and decisions that shaped public education in Arizona and continue to influence students’ opportunities today. Families connect this history to their own school experiences and consider how historical context can inform learning, community involvement, and education advocacy.",
       /* 1R materials reviewed 2026-10-09 (Airtable Modules): worksheet ES + EN PDFs v1.0.0 (added 2026-10-08)
-         and the bilingual communication tool (PEA_FA26_1R_Communication_Tool_BIL), all "anyone with the link". */
+         and the communication tool, all "anyone with the link". The communication tool is a Spanish-participant
+         tool (Danny Hernández, 2026-10-09; its filename says BIL because it shows the English phrasing), so it is
+         listed in Spanish only. */
       materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1Sh6qNxMDMRcvEjSBVMGq4WVNKZtzhHUD/view?usp=drivesdk", en: "https://drive.google.com/file/d/1dh3ZWTiHhqdxOJfPxMtgMsE9DlNhNyCA/view?usp=drivesdk" },
-        { type: "comm", es: "https://drive.google.com/file/d/1_AdiISrF03a3XtDlvb9RsIJNPsFa5ZH8/view?usp=drivesdk", en: "https://drive.google.com/file/d/1_AdiISrF03a3XtDlvb9RsIJNPsFa5ZH8/view?usp=drivesdk" }] },
+        { type: "comm", es: "https://drive.google.com/file/d/1_AdiISrF03a3XtDlvb9RsIJNPsFa5ZH8/view?usp=drivesdk" }] },
     /* MSAFE replaces MSDOE for FA26 2T (Airtable Modules PEA-M19, created 2026-10-08). Description and
        objectives as supplied by Danny Hernández, 2026-10-08; the Airtable descriptions still carry an extra
        "nine social determinants" sentence that was left out here. */
