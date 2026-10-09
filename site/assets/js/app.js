@@ -7,8 +7,8 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.21.10";
-  var UPDATED = "2026-10-06";
+  var VERSION = "0.22.0";
+  var UPDATED = "2026-10-09";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
   var LS_LANG = "aie_lang";
@@ -16,10 +16,9 @@
   /* ---------- sections, groups, order ---------- */
   var GROUPS = [
     { id: "join",  color: "blue",   items: ["participar", "esta-semana", "calendario"] },
-    { id: "about", color: "pink",   items: ["historia", "equipo"] },
-    { id: "help",  color: "purple", items: ["ayuda"] }
+    { id: "help",  color: "purple", items: ["ayuda"] }      /* Información y ayuda: help, team and story on one page (v0.22.0) */
   ];
-  var ORDER = ["inicio"].concat(GROUPS[0].items, GROUPS[1].items, GROUPS[2].items);
+  var ORDER = [].concat.apply(["inicio"], GROUPS.map(function (g) { return g.items; }));
   function colorOf(id) {
     for (var i = 0; i < GROUPS.length; i++) if (GROUPS[i].items.indexOf(id) !== -1) return GROUPS[i].color;
     return "blue";
@@ -178,13 +177,15 @@
       '<h1 class="h-sec" tabindex="-1">' + esc(s.label) + "</h1>" +
       '<p class="small time">' + esc(L.ui.minutes(s.time)) + "</p></div>";
   }
-  function panel(title, inner) {                  /* every titled section collapses and starts closed */
-    return '<details class="block sec"><summary class="sec-sum"><h2 class="h-sec">' + esc(title) + '</h2></summary>' +
+  function panel(title, inner, o) {               /* every titled section collapses and starts closed; o: { level: 3, id: "p-…" } */
+    var h = o && o.level === 3 ? "h3" : "h2";
+    return '<details class="block sec"' + (o && o.id ? ' id="' + o.id + '"' : "") + '><summary class="sec-sum"><' + h + ' class="h-sec">' + esc(title) + "</" + h + "></summary>" +
       '<div class="sec-body">' + inner + '</div></details>';
   }
-  function section(title, lead, body) {
-    return panel(title, (lead ? '<p class="lead">' + esc(lead) + '</p>' : '') + body);
+  function section(title, lead, body, o) {
+    return panel(title, (lead ? '<p class="lead">' + esc(lead) + '</p>' : '') + body, o);
   }
+
   function cards(items) {
     return '<div class="lgrid">' + items.map(function (item) {
       return '<div class="card top-blue"><h3 class="h3">' + esc(item[0]) + '</h3><p>' + esc(item[1]) + '</p></div>';
@@ -285,7 +286,7 @@
 
   /* ---------- pages ---------- */
   function audienceHtml() {
-    var H = L.home, routes = ["#participar", "#esta-semana", "#ayuda"], icons = ["📝", "🎓", "🤝"];
+    var H = L.home, routes = ["#participar", "#esta-semana", "#ayuda/despues"], icons = ["📝", "🎓", "🤝"];
     return '<nav class="audience-router" aria-label="' + esc(H.audienceH) + '"><h2 class="audience-h">' + esc(H.audienceH) + "</h2>" +
       '<div class="audience-grid">' + H.audience.map(function (a, i) {
         return '<a class="audience-card" href="' + routes[i] + '"><span class="audience-badge" aria-hidden="true">' + icons[i] + "</span>" +
@@ -320,7 +321,7 @@
     var S = L.steps, H = L.home;
     return secHead("participar") + '<p class="lead">' + esc(S.lead) + "</p>" +
       '<section class="block">' + stepsHtml(false) + helpCardHtml() + "</section>" +
-      section(H.fitH, H.fitLead, accordion(H.fitItems) + btnRow(inLink("#ayuda", H.askCta))) +
+      section(H.fitH, H.fitLead, accordion(H.fitItems) + btnRow(inLink("#ayuda/contacto", H.askCta))) +
       section(H.timeH, H.timeText, '<p class="small">' + esc(H.timeNote) + "</p>") +
       section(S.infoH, "", infoCardHtml()) +
       zoomHelpHtml() +
@@ -477,32 +478,54 @@
       section(K.springH, K.spring, "");
   }
 
-  function pageHistoria() {
-    var H = L.hist, fg = F.figures, S = H.stats;
+  /* ---------- Información y ayuda: help → team → our story, one page (v0.22.0) ---------- */
+  var LEARN = [["preguntas", "❓"], ["equipo", "👥"], ["historia", "📖"]];
+  function mediaMonth(ymd) {                       /* "2023-05-19" → "mayo de 2023" / "May 2023" */
+    var y = ymd.slice(0, 4), mo = L.days.months[parseInt(ymd.slice(5, 7), 10) - 1];
+    return lang === "es" ? mo + " de " + y : cap(mo) + " " + y;
+  }
+  function storyHtml() {                         /* where we started → what each cohort builds → why → who we are → what others say */
+    var H = L.hist, fg = F.figures, S = H.stats, o = { level: 3 };
     var stats = '<div class="stats">' +
       '<div class="stat"><div class="stat-n">' + fg.alumni + '</div><div class="stat-l">' + esc(S.alumni) + '</div><div class="stat-note">' +
       esc(S.alumniNote(fg.alumniCohorts, fg.alumniYears, ymdLong(fg.alumniAsOf))) + "</div></div>" +
-      '<div class="stat"><div class="stat-n">' + C.num + '</div><div class="stat-l">' + esc(S.cohort) + '</div><div class="stat-note">' + esc(S.cohortNote) + "</div></div>" +
-      '<div class="stat"><div class="stat-n">' + fg.counties + '</div><div class="stat-l">' + esc(S.counties) + '</div><div class="stat-note">' + esc(S.countiesNote) + "</div></div>" +
-      '<div class="stat"><div class="stat-n">' + esc(fg.evalGrad) + '</div><div class="stat-l">' + esc(S.grad) + '</div><div class="stat-note">' + esc(S.gradNote) + "</div></div></div>";
-    var story = link(lang === 'es' ? 'familyStoryEs' : 'familyStoryEn');
-    return secHead("historia") +
-      section(H.storiesH, H.storiesLead, cards(H.stories) + btnRow(ext(story, esc(H.storyCta), 'btn btn-secondary'))) +
-      panel(H.originH, H.p.map(function (p) { return '<p class="lead">' + esc(p) + "</p>"; }).join("") +
-        '<div class="block">' + stats + "</div>") +
-      section(H.evidenceH, H.evidenceText, '<p class="small">' + esc(H.evidenceSource) + '</p>') +
-      section(H.videoH, H.videoText, btnRow(ext(link('overviewVideo'), esc(H.videoCta), 'btn btn-secondary'))) +
-      panel(H.missionH, '<blockquote class="quote">' + esc(H.mission) + "</blockquote>");
+      '<div class="stat"><div class="stat-n">' + C.num + '</div><div class="stat-l">' + esc(S.cohort) + '</div><div class="stat-note">' + esc(cohortLabel()) + "</div></div></div>";
+    var media = F.media.slice().sort(function (a, b) { return (b.date || "").localeCompare(a.date || ""); }).map(function (m) {
+      var url = m["url_" + lang] || m.url_es || m.url_en, art = m["url_" + lang] ? lang : (m.url_es ? "es" : "en");
+      var other = art === "es" ? "en" : "es", alt = m["url_" + other];
+      var meta = [m.outlet, m.date ? mediaMonth(m.date) : "", m.kind === "video" ? H.mediaVideo : "",
+                  art !== lang ? H.mediaLang[art] : ""].filter(Boolean).join(" · ");
+      return "<li>" + ext(url, '<span class="t">' + esc(m[lang]) + '</span><span class="d">' + esc(meta) + "</span>", "lnk") +
+        (alt ? '<a class="media-alt" href="' + esc(alt) + '">' + esc(H.mediaAlt[other]) + "</a>" : "") + "</li>";
+    }).join("");
+    return panel(H.originH, '<p class="lead">' + esc(H.p[0]) + "</p>", o) +
+      panel(H.cohortH, '<p class="lead">' + esc(H.p[1]) + "</p>" +
+        '<p class="lead">' + esc(H.evalLine) + '<sup class="fn-ref" aria-describedby="nota-1">1</sup></p>' +
+        '<div class="block">' + stats + "</div>" +
+        '<p class="footnote" id="nota-1"><span class="sr-only">' + esc(H.noteLabel) + " </span><sup>1</sup> " + esc(H.footnote) + "</p>", o) +
+      panel(H.missionH, '<p class="lead">' + esc(H.missionLead) + '</p><blockquote class="quote">' + esc(H.mission) + "</blockquote>", o) +
+      section(H.videoH, H.videoText, btnRow(ext(link("overviewVideo"), esc(H.videoCta), "btn btn-secondary")), o) +
+      panel(H.mediaH, '<p class="lead">' + esc(H.mediaLead) + '</p><ul class="lgrid media-list">' + media + "</ul>", o);
   }
-
-  function pageEquipo() {
+  function teamHtml() {
     var M = L.team;
-    return secHead("equipo") + '<p class="lead">' + esc(M.lead) + '</p><ul class="team-grid">' + F.staff.map(function (p) {
+    return '<p class="lead">' + esc(M.lead) + '</p><ul class="team-grid">' + F.staff.map(function (p) {
       var title = lang === "es" ? p.title_es : p.title_en;
       return '<li class="team-card"><img class="team-photo" src="' + esc(p.photo) + '" width="480" height="600" alt="' + esc(M.photoAlt(p.name)) + '">' +
-        '<div class="team-body"><h2 class="team-name">' + esc(p.name) + "</h2>" + (title ? '<p class="team-title">' + esc(title) + "</p>" : "") +
+        '<div class="team-body"><h3 class="team-name">' + esc(p.name) + "</h3>" + (title ? '<p class="team-title">' + esc(title) + "</p>" : "") +
         '<a class="team-email" href="mailto:' + esc(p.email) + '"><span aria-hidden="true">✉️</span><span>' + esc(p.email) + "</span></a></div></li>";
     }).join("") + "</ul>";
+  }
+  function learnNavHtml() {
+    var R = L.learn;
+    return '<nav class="learn-nav" aria-label="' + esc(R.onPage) + '"><span class="learn-nav-l">' + esc(R.onPage) + '</span><ul>' + LEARN.map(function (x) {
+      return '<li><a class="learn-pill" href="#ayuda/' + x[0] + '" data-part="' + x[0] + '"><span aria-hidden="true">' + x[1] + "</span> " + esc(R.parts[x[0]]) + "</a></li>";
+    }).join("") + "</ul></nav>";
+  }
+  function learnGroup(id, body) {
+    var R = L.learn, intro = R.intros[id];
+    return '<section class="learn-group" id="g-' + id + '" aria-labelledby="gh-' + id + '"><h2 class="learn-h" id="gh-' + id + '" tabindex="-1">' + esc(R.parts[id]) + "</h2>" +
+      (intro ? '<p class="lead">' + esc(intro) + "</p>" : "") + body + "</section>";
   }
 
   function faqItems() {
@@ -521,15 +544,15 @@
       "<dt>" + esc(Lb.phone) + '</dt><dd><a href="' + esc(O.phoneHref) + '">' + esc(O.phone) + '</a> · <a href="' + esc(O.smsHref) + '">' + esc(P.smsCta) + "</a></dd>" +
       "<dt>" + esc(Lb.wa) + "</dt><dd>" + ext(O.waHref, esc(P.waCta)) + "</dd>" +
       "<dt>" + esc(Lb.web) + "</dt><dd>" + ext(O.web, esc(P.webLabel)) + "</dd>" +
-      "</dl></div>" + btnRow(inLink("#equipo", P.teamCta)));
+      "</dl></div>" + btnRow(inLink("#ayuda/equipo", P.teamCta)), { level: 3, id: "p-contacto" });
   }
-  function pageAyuda() {                           /* help order: talk to us → answers → links → after PEA */
-    var items = faqItems(), P = L.help;
+  function pageAyuda() {                           /* help (talk to us → answers → links → after PEA) → team → our story */
+    var items = faqItems(), P = L.help, o = { level: 3 };
     var links = P.linkGroups.map(function (g) {
       var l = linkList(g.items);
-      return l ? '<h3 class="h3 mt">' + esc(g.h) + "</h3>" + l : "";
+      return l ? '<h4 class="h3 mt">' + esc(g.h) + "</h4>" + l : "";
     }).join("");
-    return secHead("ayuda") + contactHtml() +
+    var help = contactHtml() +
       panel(P.faqH, '<div class="search"><label class="sr-only" for="faqq">' + esc(L.ui.searchPh) + "</label>" +
       '<input id="faqq" type="search" autocomplete="off" placeholder="' + esc(L.ui.searchPh) + '">' +
       '<button type="button" class="x" id="faqx" aria-label="' + esc(L.ui.clear) + '" hidden>×</button></div>' +
@@ -539,13 +562,12 @@
           '</span><span class="sh" aria-hidden="true"><span class="s">' + esc(L.ui.show) + '</span><span class="h">' + esc(L.ui.hide) + "</span></span></summary>" +
           '<div class="a"><p>' + esc(q[1]) + "</p></div></details>";
       }).join("") + "</div>" +
-      '<div id="faqnone" hidden>' + callout("gold", L.ui.noResultsLabel, esc(L.ui.noResults)) + "</div>") +
-      section(P.linksH, "", links) +
-      section(P.alumniH, P.alumniText, "");
+      '<div id="faqnone" hidden>' + callout("gold", L.ui.noResultsLabel, esc(L.ui.noResults)) + "</div>", o) +
+      section(P.linksH, "", links, o) +
+      section(P.alumniH, P.alumniText, "", { level: 3, id: "p-despues" });
+    return secHead("ayuda") + learnNavHtml() + learnGroup("preguntas", help) + learnGroup("equipo", teamHtml()) + learnGroup("historia", storyHtml());
   }
 
-  /* "Esta semana / This week": the one link shared in class. The week runs Monday–Sunday,
-     Arizona time, so Friday–Sunday still show the week that just ended (late exit tickets). */
   function weekStartKey(date) { var k = dayKey(date), dow = new Date(k).getUTCDay(); return k - ((dow + 6) % 7) * 864e5; }
   function inWeek(e, ws) { var k = dayKey(new Date(e.start)); return k >= ws && k < ws + 7 * 864e5; }
   function weekRange(ws) {
@@ -574,7 +596,7 @@
     if (note && note[lang]) top += callout("purple", W.notesLabel, esc(note[lang]));
     if (!hasCls) {
       if (first && NOW.getTime() < new Date(first.start).getTime()) top += callout("", W.beforeLabel, esc(W.before(longDate(first.start))));
-      else if (!last || NOW.getTime() > new Date(last.end).getTime()) top += callout("", W.doneLabel, esc(W.done)) + btnRow(inLink("#ayuda", W.doneCta));
+      else if (!last || NOW.getTime() > new Date(last.end).getTime()) top += callout("", W.doneLabel, esc(W.done)) + btnRow(inLink("#ayuda/despues", W.doneCta));
       else if (!wk.length) top += callout("", W.emptyLabel, esc(W.empty));
     }
     return secHead("esta-semana") + '<p class="lead">' + esc(W.lead) + "</p>" +
@@ -586,9 +608,10 @@
       btnRow(inLink("#calendario", W.calCta));
   }
 
-  var PAGES = { inicio: pageHome, participar: pageParticipar, "esta-semana": pageSemana, calendario: pageCalendario, historia: pageHistoria, equipo: pageEquipo, ayuda: pageAyuda };
+  var PAGES = { inicio: pageHome, participar: pageParticipar, "esta-semana": pageSemana, calendario: pageCalendario, ayuda: pageAyuda };
   var ALIASES = { lista: "participar", zoom: "participar", programa: "calendario",   /* retired routes */
-                  preguntas: "ayuda", enlaces: "ayuda", contacto: "ayuda" };
+                  preguntas: "ayuda/preguntas", enlaces: "ayuda/preguntas", contacto: "ayuda/preguntas",
+                  historia: "ayuda/historia", equipo: "ayuda/equipo" };   /* pages folded into Información y ayuda (v0.22.0) */
 
   function icsStamp(iso) { return new Date(iso).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, ""); }
   function icsEsc(s) { return String(s).replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n"); }
@@ -663,12 +686,13 @@
   }
   function routeParts() {                         /* "#calendario/FA26-1T" → ["calendario", "FA26-1T"] */
     var h = (location.hash || "").replace(/^#\/?/, ""), i = h.indexOf("/");
-    return i === -1 ? [h, ""] : [h.slice(0, i), h.slice(i + 1)];
+    var r = i === -1 ? [h, ""] : [h.slice(0, i), h.slice(i + 1)], a = ALIASES[r[0]];   /* aliases may carry a part: "#equipo" → ["ayuda", "equipo"] */
+    if (a) { var j = a.indexOf("/"); r = [j === -1 ? a : a.slice(0, j), r[1] || (j === -1 ? "" : a.slice(j + 1))]; }
+    return r;
   }
   var pendingDeep = true;                          /* scroll to a linked card once per navigation, not on every refresh */
   function currentRoute() {
     var h = routeParts()[0];
-    if (ALIASES[h]) return ALIASES[h];
     return PAGES[h] ? h : "inicio";
   }
   var shownRoute = null;
@@ -688,6 +712,8 @@
       if (deep) { calFilter = "all"; calOpen[deep] = true; }
     }
     var weekJump = id === "esta-semana" && pendingDeep;
+    var part = id === "ayuda" && pendingDeep ? routeParts()[1] : "";
+    if (spy) { spy.disconnect(); spy = null; }
     pendingDeep = false;
     var main = document.getElementById("main"), FOLD = "details.sec, details.accordion-item";
     var wasOpen = id === shownRoute ? Array.prototype.map.call(main.querySelectorAll(FOLD), function (d) { return d.open; }) : [];
@@ -703,6 +729,11 @@
         window.scrollTo(0, card.getBoundingClientRect().top + window.scrollY - hh - (div ? div.offsetHeight : 0) - 12);
         card.querySelector(".cal-open").focus({ preventScroll: true });
       }
+    } else if (part && (main.querySelector("#g-" + part) || main.querySelector("#p-" + part))) {   /* a part or panel of Información y ayuda */
+      var el = main.querySelector("#g-" + part) || main.querySelector("#p-" + part), nav = main.querySelector(".learn-nav");
+      if (el.tagName === "DETAILS") el.open = true;
+      window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - document.querySelector("header.site-header").offsetHeight - (nav ? nav.offsetHeight : 0) - 12);
+      var hd = el.querySelector(".learn-h, summary"); if (hd) hd.focus({ preventScroll: true });
     } else if (weekJump && main.querySelector(".week-list > .folded")) {   /* open at today's (or the next) class */
       var tgt = main.querySelector(".week-list > .event-card:not(.folded)");
       if (tgt) {
@@ -713,6 +744,19 @@
       window.scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
       var h1 = main.querySelector("h1"); if (h1) h1.focus({ preventScroll: true });
     }
+    if (id === "ayuda") learnSpy(main);
+  }
+  var spy = null;
+  function learnSpy(main) {                        /* highlight the part on screen in the "En esta página" menu */
+    var pills = main.querySelectorAll(".learn-pill"), groups = main.querySelectorAll(".learn-group");
+    if (!pills.length || !("IntersectionObserver" in window)) return;
+    var seen = {};
+    spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { seen[en.target.id] = en.isIntersecting ? en.intersectionRect.height : 0; });
+      var best = null; groups.forEach(function (g) { if (seen[g.id] > 0 && (best === null || seen[g.id] > seen[best])) best = g.id; });
+      if (best) pills.forEach(function (p) { if ("g-" + p.getAttribute("data-part") === best) p.setAttribute("aria-current", "true"); else p.removeAttribute("aria-current"); });
+    }, { rootMargin: "-120px 0px -40% 0px", threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] });
+    groups.forEach(function (g) { spy.observe(g); });
   }
   function setLang(l) {
     lang = l; lsSet(LS_LANG, l);

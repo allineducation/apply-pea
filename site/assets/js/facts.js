@@ -46,10 +46,41 @@ window.PEA_FACTS = {
     alumniCohorts: 11,
     alumniYears: "2021–2026",
     alumniAsOf: "2026-09-24",
+    /* Source records only — no longer displayed (Danny Hernández, 2026-10-09): the evaluation is
+       referenced indirectly in "Lo que deja cada cohorte" and cited in its footnote. */
     counties: 3,
     evalGrad: "100%",            /* LeCroy & Milligan, PEA Evaluation Report, Aug 2022 */
     evalAttend: "96.4%"
   },
+
+  /* "En los medios / In the media" (Info & help → Nuestra historia), newest first; undated items last.
+     Summaries are written for this site (not quoted headlines). date: "YYYY-MM-DD" from the article
+     URL, or null until confirmed. url_es / url_en: the edition in each language (one may be absent).
+     Chosen 2026-10-09; excluded on purpose: ABC15's 2020 pilot story (describes a 4-week teaching-
+     assistant pathway), Yuma Sun enrollment notices, KJZZ's funding story, opinion pieces. */
+  media: [
+    { outlet: "azFamily · La Familia de Arizona", date: "2026-04-16", kind: "video",
+      url_es: "https://www.azfamily.com/video/2026/04/16/educacin-en-arizona-la-familia-de-arizona/",
+      es: "Stephanie Parra, directora ejecutiva de ALL In Education, habla sobre la educación en Arizona y los programas para familias latinas.",
+      en: "ALL In Education CEO Stephanie Parra talks about education in Arizona and programs for Latino families." },
+    { outlet: "Arizona Luminaria", date: "2023-05-19",
+      url_es: "https://azluminaria.org/2023/05/19/un-programa-que-ayuda-a-padres-latinos-a-navegar-el-sistema-educativo-de-arizona-como-lideres-y-defensores-de-sus-hijos/",
+      url_en: "https://azluminaria.org/2023/05/18/a-program-helping-parents-navigate-arizonas-education-system-as-leaders-and-advocates-for-their-kids/",
+      es: "Cómo PEA ayuda a madres y padres a navegar el sistema educativo de Arizona como líderes y defensores de sus hijos.",
+      en: "How PEA helps parents navigate Arizona’s education system as leaders and advocates for their children." },
+    { outlet: "KJZZ", date: "2021-02-05",
+      url_en: "https://www.kjzz.org/2021-02-05/content-1656870-new-arizona-program-teach-parents-how-support-students-education-during-covid-19-and",
+      es: "Un nuevo programa en Arizona prepara a las familias para apoyar la educación de sus hijos durante la pandemia.",
+      en: "A new Arizona program prepares families to support their children’s education during the pandemic." },
+    { outlet: "ABC15", date: null,          /* published early 2022 (inferred from the article); confirm */
+      url_en: "https://www.abc15.com/rebound/state-of-education/demand-soars-for-parent-educator-academy-amidst-turbulent-school-year",
+      es: "La demanda por la Academia de Padres Educadores crece durante un año escolar difícil.",
+      en: "Demand for the Parent Educator Academy grows during a turbulent school year." },
+    { outlet: "Yuma Sun", date: null,       /* date to confirm */
+      url_en: "https://www.yumasun.com/news/parent-educator-academy-strives-to-give-parents-confidence-information/article_9c316a7f-e64d-499c-8175-0a8c571563ac.html",
+      es: "Una madre de Somerton cuenta cómo PEA da a las familias confianza e información sobre la educación en Arizona.",
+      en: "A Somerton parent shares how PEA gives families confidence and information about education in Arizona." }
+  ],
 
   /* Shared titles for session materials and resources. A class card shows one row per
      item: the Spanish version (title · ES) | the English version (title · EN); a version
