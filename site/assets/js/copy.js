@@ -38,9 +38,7 @@
         participar: { label: "Cómo participar", time: "3 min" },
         "esta-semana": { label: "Esta semana", time: "2 min" },
         calendario: { label: "Calendario y temas", time: "3 min" },
-        historia:   { label: "Historias", time: "2 min" },
-        equipo:     { label: "Equipo de PEA", time: "1 min" },
-        ayuda:      { label: "Preguntas y ayuda", time: "4 min" }
+        ayuda:      { label: "Información y ayuda", time: "5 min" }
       },
 
       ui: {
@@ -211,32 +209,26 @@
 
       hist: {
         h: "Experiencias e historia",
-        storiesH: "Historias de familias",
         originH: "Nuestras raíces",
-        storiesLead: "Estas historias se publicaron en 2023 y cuentan experiencias de años anteriores; sus fechas y detalles no describen la cohorte actual.",
-        stories: [
-          ["Patricia: hablar con la escuela", "Arizona Luminaria cuenta cómo Patricia Ojeda pasó de sentirse intimidada al hablar con la escuela a expresar sus inquietudes y buscar apoyo para el aprendizaje de sus hijos."],
-          ["Gloria: otra forma de navegar el sistema", "Gloria Castejón, madre y exmaestra, cuenta cómo PEA le dio la oportunidad de compartir lo que sabía y descubrir otras maneras de navegar el sistema educativo."]
-        ],
-        storyCta: "Leer la historia en Arizona Luminaria",
+        cohortH: "Lo que deja cada cohorte",
+        evalLine: "Al terminar el programa, las familias de una cohorte anterior dijeron sentirse más capaces de comunicarse con los maestros.",
+        footnote: "Parent Educator Academy Evaluation Report, LeCroy & Milligan, agosto de 2022, página 25; encuestas antes y después del programa, cohorte de primavera de 2022, 109 participantes.",
+        noteLabel: "Nota",
+        missionLead: "Todo esto responde a la misión de ALL In Education:",
+        mediaH: "En los medios",
+        mediaLead: "Lo que otros han contado sobre PEA y ALL In Education.",
+        mediaLang: { es: "en español", en: "en inglés" },
+        mediaVideo: "video",
+        mediaAlt: { es: "Leer en español", en: "Leer en inglés" },
         p: [
           "PEA nació durante la pandemia. ALL In Education vio que la distancia entre las escuelas y las familias se había vuelto el mayor obstáculo, y creó la Academia de Padres Educadores para que madres, padres y cuidadores pudieran navegar el aprendizaje virtual, entender el sistema escolar y abogar por sus hijos con confianza.",
-          "La primera cohorte se graduó en la primavera de 2021, con 27 personas. Según la evaluación de LeCroy & Milligan de agosto de 2022, la asistencia promedio a las 15 sesiones centrales fue del 96.4%, y las 111 personas de la cohorte de primavera de 2022 se graduaron.",
           "Cada cohorte ha dejado algo: preguntas que hoy son parte del currículo, lecciones sobre dónde se atora el sistema, y personas que terminaron PEA y ahora acompañan a las familias que llegan."
         ],
         stats: {
           alumni: "Personas que han terminado PEA",
           alumniNote: function (cohorts, years, date) { return "Registro histórico al " + date + ". No es la matrícula actual."; },
-          cohort: "Número de cohorte",
-          cohortNote: "la cohorte de esta página",
-          counties: "Condados principales",
-          countiesNote: "Maricopa, Pima y Yuma",
-          grad: "Graduación",
-          gradNote: "cohorte de primavera de 2022; 111 participantes"
+          cohort: "Número de cohorte"
         },
-        evidenceH: "Lo que encontró una evaluación anterior",
-        evidenceText: "La evaluación de LeCroy & Milligan de 2022 encontró que las personas participantes se sentían más capaces de comunicarse con los maestros. Es un resultado de esa cohorte, no una garantía para cada participante.",
-        evidenceSource: "Fuente: Parent Educator Academy Evaluation Report, agosto de 2022, página 25; encuestas antes y después del programa, 109 participantes.",
         videoH: "Conozca ALL In Education",
         videoText: "Video «ALL In Education — Who We Are» (6 minutos y 44 segundos). Está en inglés, con subtítulos automáticos en inglés en YouTube. Presenta a la organización y su misión.",
         videoCta: "Ver el video en YouTube",
@@ -300,6 +292,15 @@
         ]
       },
 
+      learn: {
+        onPage: "En esta página",
+        parts: { preguntas: "Preguntas y ayuda", equipo: "Equipo de PEA", historia: "Nuestra historia" },
+        intros: {
+          preguntas: "Hable con nosotros, encuentre respuestas y enlaces útiles.",
+          historia: "De dónde venimos, lo que construye cada cohorte y lo que otros han contado."
+        }
+      },
+
       team: {
         lead: "Estas son las personas que coordinan PEA. Escríbanos cuando quiera: le respondemos en español y en inglés.",
         photoAlt: function (n) { return "Foto de " + n; }
@@ -332,9 +333,7 @@
         participar: { label: "How to take part", time: "3 min" },
         "esta-semana": { label: "This week", time: "2 min" },
         calendario: { label: "Calendar & topics", time: "3 min" },
-        historia:   { label: "Stories", time: "2 min" },
-        equipo:     { label: "PEA team", time: "1 min" },
-        ayuda:      { label: "Questions & help", time: "4 min" }
+        ayuda:      { label: "Info & help", time: "5 min" }
       },
 
       ui: {
@@ -505,32 +504,26 @@
 
       hist: {
         h: "Stories & history",
-        storiesH: "Family stories",
         originH: "Our roots",
-        storiesLead: "These stories were published in 2023 and describe earlier years; their dates and details don’t describe the current cohort.",
-        stories: [
-          ["Patricia: speaking up at school", "Arizona Luminaria tells how Patricia Ojeda went from feeling intimidated in school conversations to raising her concerns and seeking support for her children’s learning."],
-          ["Gloria: a new way through the system", "Gloria Castejón, a mother and former teacher, shares how PEA gave her a chance to share what she knew and find new ways to navigate the education system."]
-        ],
-        storyCta: "Read the story in Arizona Luminaria",
+        cohortH: "What every cohort leaves behind",
+        evalLine: "When they finished the program, families in an earlier cohort said they felt more able to communicate with teachers.",
+        footnote: "Parent Educator Academy Evaluation Report, LeCroy & Milligan, August 2022, page 25; pre- and post-program surveys, spring 2022 cohort, 109 participants.",
+        noteLabel: "Note",
+        missionLead: "All of this serves ALL In Education’s mission:",
+        mediaH: "In the media",
+        mediaLead: "What others have reported about PEA and ALL In Education.",
+        mediaLang: { es: "in Spanish", en: "in English" },
+        mediaVideo: "video",
+        mediaAlt: { es: "Read in Spanish", en: "Read in English" },
         p: [
           "PEA began during the pandemic. ALL In Education saw that the distance between schools and families had become the biggest barrier, and created the Parent Educator Academy so parents and caregivers could navigate virtual learning, understand the school system, and advocate for their children with confidence.",
-          "The first cohort graduated in spring 2021, with 27 people. According to LeCroy & Milligan’s August 2022 evaluation, average attendance across the 15 core sessions was 96.4%, and all 111 participants in the spring 2022 cohort graduated.",
           "Every cohort has left something behind: questions that are now part of the curriculum, lessons about where the system gets stuck, and people who finished PEA and now walk alongside the families coming in."
         ],
         stats: {
           alumni: "People who have finished PEA",
           alumniNote: function (cohorts, years, date) { return "Historical record as of " + date + ". This is not current enrollment."; },
-          cohort: "Cohort number",
-          cohortNote: "the cohort on this page",
-          counties: "Primary counties",
-          countiesNote: "Maricopa, Pima and Yuma",
-          grad: "Graduation rate",
-          gradNote: "spring 2022 cohort; 111 participants"
+          cohort: "Cohort number"
         },
-        evidenceH: "What an earlier evaluation found",
-        evidenceText: "LeCroy & Milligan’s 2022 evaluation found that participants felt more able to communicate with teachers. This finding describes that cohort and isn’t a guarantee for every participant.",
-        evidenceSource: "Source: Parent Educator Academy Evaluation Report, August 2022, page 25; pre- and post-program surveys, 109 participants.",
         videoH: "Get to know ALL In Education",
         videoText: "“ALL In Education — Who We Are” (6 minutes, 44 seconds). In English, with automatic English captions on YouTube. It introduces the organization and its mission.",
         videoCta: "Watch on YouTube",
@@ -592,6 +585,15 @@
           ["I work at a school. How can I help families?", "You can help them complete the interest form, find their welcome email, and contact our team if they need help. Each applicant receives their own personal Zoom link."],
           ["Is there anything after the program?", "Yes. People who finish PEA stay connected with ALL In Education through focus groups, leadership opportunities, and the chance to walk alongside new families. Graduation ends the course, not the relationship."]
         ]
+      },
+
+      learn: {
+        onPage: "On this page",
+        parts: { preguntas: "Questions & help", equipo: "PEA team", historia: "Our story" },
+        intros: {
+          preguntas: "Talk with us, find answers and useful links.",
+          historia: "Where we started, what each cohort builds, and what others have said."
+        }
       },
 
       team: {
