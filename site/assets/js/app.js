@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.22.0";
+  var VERSION = "0.22.1";
   var UPDATED = "2026-10-09";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -729,11 +729,7 @@
         window.scrollTo(0, card.getBoundingClientRect().top + window.scrollY - hh - (div ? div.offsetHeight : 0) - 12);
         card.querySelector(".cal-open").focus({ preventScroll: true });
       }
-    } else if (part && (main.querySelector("#g-" + part) || main.querySelector("#p-" + part))) {   /* a part or panel of Información y ayuda */
-      var el = main.querySelector("#g-" + part) || main.querySelector("#p-" + part), nav = main.querySelector(".learn-nav");
-      if (el.tagName === "DETAILS") el.open = true;
-      window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - document.querySelector("header.site-header").offsetHeight - (nav ? nav.offsetHeight : 0) - 12);
-      var hd = el.querySelector(".learn-h, summary"); if (hd) hd.focus({ preventScroll: true });
+    } else if (part && goToPart(main, part)) {     /* a part or panel of Información y ayuda */
     } else if (weekJump && main.querySelector(".week-list > .folded")) {   /* open at today's (or the next) class */
       var tgt = main.querySelector(".week-list > .event-card:not(.folded)");
       if (tgt) {
@@ -745,6 +741,14 @@
       var h1 = main.querySelector("h1"); if (h1) h1.focus({ preventScroll: true });
     }
     if (id === "ayuda") learnSpy(main);
+  }
+  function goToPart(main, part) {                 /* scroll a part (#g-…) or panel (#p-…) just below the header and section menu */
+    var el = main.querySelector("#g-" + part) || main.querySelector("#p-" + part), nav = main.querySelector(".learn-nav");
+    if (!el) return false;
+    if (el.tagName === "DETAILS") el.open = true;
+    window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - document.querySelector("header.site-header").offsetHeight - (nav ? nav.offsetHeight : 0) - 12);
+    var hd = el.querySelector(".learn-h, summary"); if (hd) hd.focus({ preventScroll: true });
+    return true;
   }
   var spy = null;
   function learnSpy(main) {                        /* highlight the part on screen in the "En esta página" menu */
@@ -773,6 +777,10 @@
   document.addEventListener("click", function (ev) {
     var t = ev.target.closest ? ev.target : null; if (!t) return;
     if (t.closest(".menu a")) document.querySelector(".menu").open = false;
+    var same = t.closest('a[href^="#ayuda/"]');     /* same hash → no hashchange fires, so scroll here (a pill tapped again after scrolling away) */
+    if (same && same.getAttribute("href") === location.hash && currentRoute() === "ayuda") {
+      if (goToPart(document.getElementById("main"), routeParts()[1])) { ev.preventDefault(); return; }
+    }
     var lp = t.closest(".lang-pill");
     if (lp) { var nl = lp.getAttribute("data-lang"); if (nl !== lang) setLang(nl); return; }
     if (t.closest("#skip")) { ev.preventDefault(); document.getElementById("main").focus(); return; }
