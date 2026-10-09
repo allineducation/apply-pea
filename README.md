@@ -1,6 +1,6 @@
 # PEA applicant portal
 
-Prepared by Danny Hernández · Entry guidance checked October 6, 2026 · Current repository code **v0.21.8**
+Prepared by Danny Hernández · Entry guidance checked October 6, 2026 · Current repository code **v0.21.9**
 
 The Parent Educator Academy (PEA) applicant portal is a public, bilingual information site for families, caregivers and school staff. It explains the program and routes visitors to the interest form, class registration, information session, calendar and team support. It does not track an applicant’s progress.
 
@@ -12,7 +12,7 @@ The Parent Educator Academy (PEA) applicant portal is a public, bilingual inform
 
 ## Start here
 
-Read this README and [CLAUDE.md](CLAUDE.md), then inspect the current branch and working tree. Confirm the code version in [site/index.html](site/index.html) and [app.js](site/assets/js/app.js); both identify v0.21.8 at this documentation check. Check the live site when reviewing applicant-facing changes, and verify production against its deployed commit before claiming release parity. [facts.js](site/assets/js/facts.js) is the application’s fact registry; authoritative program sources and Danny Hernández’s approved corrections govern content. The historical JSON and release notes preserve earlier states and must not override current guidance. No production deployment or external program-data audit was performed for this documentation correction.
+Read this README and [CLAUDE.md](CLAUDE.md), then inspect the current branch and working tree. Confirm the code version in [site/index.html](site/index.html) and [app.js](site/assets/js/app.js); both identify v0.21.9 at this documentation check. Check the live site when reviewing applicant-facing changes, and verify production against its deployed commit before claiming release parity. [facts.js](site/assets/js/facts.js) is the application’s fact registry; authoritative program sources and Danny Hernández’s approved corrections govern content. The historical JSON and release notes preserve earlier states and must not override current guidance. No production deployment or external program-data audit was performed for this documentation correction.
 
 This repository is public. Keep credentials, participant records, private Zoom join links and other sensitive material out of it. Documentation lives outside `site/`, so it is available in GitHub but is not part of the applicant-facing Netlify publish directory.
 
@@ -147,6 +147,7 @@ Earlier QA: v0.10.0 checked nine routes in both languages at phone/desktop width
 - v0.11.0: expandable class details in Calendar (module descriptions, Zoom registration, worksheet, resources and individual calendar downloads); financial-incentive FAQ and before/now section removed; school staff welcomed; free for every participant; “docentes” → “maestros”; parity gate now checks module descriptions and flags “docentes” and week-count language.
 - v0.12.0: design tokens mapped to the palette, sticky header with ES | EN pill toggle, floating bottom action bar with safe-area padding and icon-above-label layout, Home audience router cards, accordion eligibility and FAQ, reserved skeleton utility. See [maintenance/qa/v0.12.0.md](maintenance/qa/v0.12.0.md).
 - v0.13.0: Participar gains a 3-step applicant orientation timeline, a help card (email/call, 48px targets) beside the join CTAs, and a program-details/commitment accordion; audience icons 📝 🎓 🤝. See [maintenance/qa/v0.13.0.md](maintenance/qa/v0.13.0.md).
+- v0.21.9 (Danny Hernández, 2026-10-09): **1R session materials updated from the Airtable Modules table** — participant worksheet in Spanish and English (v1.0.0 PDFs, `1Sh6qNxM…` / `1dh3ZWTi…`) and the communication tool, a bilingual file now shown under both ES and EN. All three shared “anyone with the link.”
 - v0.21.8 (Danny Hernández, 2026-10-09): every Exit Ticket button is hidden again until **Tuesday, October 13, 2026** (`links.global.exitOpensOn`, start of day, Arizona time); after that, the weekly rule applies.
 - v0.21.7 (Danny Hernández, 2026-10-08): **Esta semana opens at today.** Once an earlier day of the week has passed, its class cards fold to a header (tap to open, like Calendar) and the page scrolls to today's class, or the next one. When every class of the week has passed (Friday–Sunday), all cards stay open.
 - v0.21.6 (Danny Hernández, 2026-10-08): **2T is now “Seguridad y bienestar en la escuela / School Safety and Well-Being”** (Airtable module MSAFE, PEA-M19, replacing MSDOE “Determinantes sociales de la educación” for FA26). Description and four learning objectives per language as supplied by Danny; class cards now show an optional **Objetivos de aprendizaje / Learning objectives** section (`objectives_es` / `objectives_en` on a module). The MSDOE communication tool no longer appears on 2T. Airtable’s MSAFE descriptions still include a “nine social determinants” sentence that the site leaves out.
