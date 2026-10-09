@@ -199,8 +199,9 @@ window.PEA_FACTS = {
       exit:        "https://airtable.com/appIqlWqvk2HkHVRM/pagsaimIoBv1ZTWYd/form",
       exitClassField: "Event ID",
       /* The exit ticket button is hidden (not greyed) until it is live: from this date (Arizona
-         time) and, after that, from the day of each week's first class (Danny Hernández, 2026-10-07). */
-      exitOpensOn: "2026-10-08",
+         time) and, after that, from the day of each week's first class (Danny Hernández, 2026-10-07).
+         2026-10-09: hidden again until Tuesday's class, October 13 (Danny Hernández). */
+      exitOpensOn: "2026-10-13",
       flyer:       "https://bit.ly/peaflyer",
       vidAccount:  "https://bit.ly/peacuentadezoom",
       vidName:     "https://bit.ly/peazoomnombre",
