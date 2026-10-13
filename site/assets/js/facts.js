@@ -148,7 +148,12 @@ window.PEA_FACTS = {
         "Explain how parents’ and caregivers’ observations provide valuable information to the school.",
         "Recognize the type of concern—bullying or harassment, safety, a disability-related need, discrimination, or a general classroom issue—and write a brief account based on facts.",
         "Identify whom to contact first and the next step if the concern is not resolved."
-      ] },
+      ],
+      /* 2T materials from the Session Materials folder (Danny Hernández, 2026-10-13): worksheet ES + EN PDFs
+         v1.0.0 and the communication tool v1.0.1, all shared "anyone with the link". The communication tool is a
+         Spanish-participant tool (its filename says BIL), so it is listed in Spanish only. */
+      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1dUOmLrxqAVD6VGvZKCSeMyYJZQxP1Nyi/view?usp=drivesdk", en: "https://drive.google.com/file/d/1ltm-a-ap9vTd_MYHPQqW47OYWrVAZdIY/view?usp=drivesdk" },
+        { type: "comm", es: "https://drive.google.com/file/d/1_Pyn4N1rPLFC9dF9TbTjQVNMFtUux0km/view?usp=drivesdk" }] },
     MSDOE: { id: "PEA-M03",
       es: "Este curso explora cómo la vivienda, la salud, el transporte, los ingresos, el acceso lingüístico y los recursos comunitarios pueden influir en las experiencias y los resultados educativos. Las familias identifican fortalezas y barreras en sus comunidades, relacionan estos factores con la equidad y la justicia y consideran cómo abogar por los apoyos que necesitan sus estudiantes.",
       en: "This course explores how conditions such as housing, health, transportation, income, language access, and neighborhood resources can influence students’ educational experiences and outcomes. Families identify strengths and barriers in their communities, connect these factors to equity and justice, and consider ways to advocate for the supports their students need.",
