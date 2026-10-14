@@ -7,8 +7,8 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.22.2";
-  var UPDATED = "2026-10-09";
+  var VERSION = "0.22.3";
+  var UPDATED = "2026-10-14";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
   var LS_LANG = "aie_lang";
@@ -224,7 +224,7 @@
       }).join("") + "</div></div>";
   }
   function renderNav(active) {
-    document.getElementById('gnav').innerHTML = '<details class="menu"><summary><span aria-hidden="true">☰</span> <span class="menu-txt">' + esc(L.nav.menu) + '</span></summary><div class="menu-links">' + ORDER.map(function (id) {
+    document.getElementById('gnav').innerHTML = '<details class="menu"><summary><span aria-hidden="true">☰</span> <span class="menu-txt">' + esc(L.nav.menu) + '</span></summary><div class="menu-links">' + ORDER.filter(function (id) { return id !== 'esta-semana'; }).map(function (id) {   /* Esta semana stays reachable by its shared link, not the menu (Danny Hernández, 2026-10-14) */
       return '<a href="#' + id + '"' + (id === active ? ' aria-current="page"' : '') + '>' + esc(id === 'inicio' ? L.nav.home : L.sections[id].label) + '</a>';
     }).join('') + '</div></details>';
   }
@@ -533,7 +533,7 @@
     var items = [];
     L.faq.items.forEach(function (q) {
       var a = typeof q[1] === "function" ? q[1](ctx) : q[1];   /* date- and cohort-aware answers; "" hides the question */
-      if (a) items.push([q[0], a]);
+      if (a) items.push([q[0], a, q[2] && link(q[2][0]) ? q[2] : null]);   /* optional [link key, button label] */
     });
     return items;
   }
@@ -560,7 +560,7 @@
       '<div id="faqlist">' + items.map(function (q) {
         return '<details class="qa accordion-item" data-q="' + esc(norm(q[0] + " " + q[1])) + '"' + '><summary class="accordion-header"><span class="q">' + esc(q[0]) +
           '</span><span class="sh" aria-hidden="true"><span class="s">' + esc(L.ui.show) + '</span><span class="h">' + esc(L.ui.hide) + "</span></span></summary>" +
-          '<div class="a"><p>' + esc(q[1]) + "</p></div></details>";
+          '<div class="a"><p>' + esc(q[1]) + "</p>" + (q[2] ? btnRow(ext(link(q[2][0]), esc(q[2][1]), "btn btn-primary btn-sm")) : "") + "</div></details>";
       }).join("") + "</div>" +
       '<div id="faqnone" hidden>' + callout("gold", L.ui.noResultsLabel, esc(L.ui.noResults)) + "</div>", o) +
       section(P.linksH, "", links, o) +
