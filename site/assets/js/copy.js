@@ -271,23 +271,22 @@
 
       faq: {
         items: [
-          ["¿Cómo me inscribo en PEA?", "Llene el formulario de interés: es su solicitud. No hay proceso de selección ni formulario de compromiso. Después de recibirlo, preparamos su acceso a Zoom y le enviamos su enlace personal en un correo de bienvenida."],
+          ["¿Cómo me inscribo en PEA?", "Llene el formulario de interés: es su solicitud. No hay proceso de selección ni formulario de compromiso. Después de recibirlo, preparamos su acceso a Zoom y le enviamos su enlace personal en un correo de bienvenida.", ["apply", "Llenar el formulario de interés"]],
           ["¿Quién puede participar?", "Madres, padres y cuidadores que quieren acompañar a sus hijos y abogar por ellos en el sistema escolar de Arizona. El personal escolar, como enlaces con las familias y maestros, también es bienvenido. Si tiene dudas sobre su caso, escríbanos."],
           ["¿Cuánto cuesta?", "Nada. PEA es gratuito para todas las personas participantes."],
           ["¿En qué idioma son las clases?", "PEA se ofrece en español y en inglés. Las opciones y el formato de cada cohorte pueden ajustarse según la capacidad de nuestro equipo y el interés de las personas inscritas, así que indique su idioma preferido en el formulario de interés. Nuestro equipo le atiende en español y en inglés."],
           ["¿Cómo sé que ya tengo mi lugar?", "Recibirá un correo de bienvenida con su enlace personal de Zoom, las fechas del programa y la guía para solicitantes. Guarde ese enlace: lo usará para entrar a todas las clases."],
-          ["¿Es obligatoria la sesión informativa?", function (c) { return c.infoOpen ? "No. Es opcional y no afecta su lugar. Es el jueves 1 de octubre, de 5:00 a 6:30 p. m., hora de Arizona: un espacio para conocernos y resolver sus dudas. Si no puede venir, llame o mande un mensaje al 602-759-0619." : "No. Es opcional y no afecta su lugar. La sesión de este otoño ya pasó; si tiene preguntas, llame o mande un mensaje al 602-759-0619."; }],
+          ["¿Es obligatoria la sesión informativa?", function (c) { return c.infoOpen ? "No. Es opcional y no afecta su lugar. Es el jueves 1 de octubre, de 5:00 a 6:30 p. m., hora de Arizona: un espacio para conocernos y resolver sus dudas. Si no puede venir, llame o mande un mensaje al 602-759-0619." : "No. Es opcional y no afecta su lugar."; }],
           ["¿Necesito una cuenta de Zoom?", "Sí. Necesita poder iniciar sesión en la aplicación de Zoom, y la cuenta es gratuita. Para entrar a clase, use el enlace personal de su correo de bienvenida; no necesita registrarse aparte en Zoom."],
-          ["No encuentro mi correo de bienvenida. ¿Qué hago?", "Revise la carpeta de spam o correo no deseado. Si aún no aparece, escríbanos a pea@allineducation.org o llame, mande un texto o WhatsApp al 602-759-0619. Con gusto le volvemos a enviar su enlace."],
+          ["No encuentro mi correo de bienvenida. ¿Qué hago?", "Revise la carpeta de spam o correo no deseado. Si aún no aparece, escríbanos a pea@allineducation.org o llame, mande un texto o WhatsApp al 602-759-0619. Con gusto le volvemos a enviar su enlace.", ["resend", "Reenviar mi enlace de Zoom"]],
           ["¿Puedo participar desde el teléfono?", "Sí. Con una computadora o tableta es más fácil ver los materiales y participar, pero si solo tiene teléfono, también funciona."],
           ["¿Qué pasa si mi conexión falla o no puedo encender la cámara?", "Avísenos y le orientamos. Antes de empezar, pruebe su conexión, cámara y micrófono."],
           ["¿Cómo es una clase de PEA?", "Nos reunimos en vivo por Zoom para conversar, hacer preguntas y trabajar en actividades con otras familias. En cada clase conocemos el tema del día y lo relacionamos con su experiencia en familia o en la escuela, compartimos preguntas e ideas en grupo y, al final, respondemos una encuesta corta. El formato cambia un poco según el tema."],
-          ["¿Cuánto tiempo debo reservar?", "Las 18 clases de 90 minutos suman 27 horas en vivo, los martes y jueves de 5:00 a 6:30 p. m., hora de Arizona. La sesión informativa y el grupo de enfoque son aparte. Si quiere saber cuánto tiempo toman las actividades fuera de clase, pregúntenos."],
-          ["¿Qué pasa si falto a una clase?", "Avísenos con anticipación y pregúntenos cómo ponerse al día."],
-          ["¿Se graban las clases?", "Pregúntenos por la política actual de grabaciones y cómo recuperar una clase."],
-          ["¿Puedo pedir subtítulos u otro apoyo de accesibilidad?", "Sí. Cuéntenos lo que necesita antes de la primera clase y le explicamos qué apoyos hay y cómo pedirlos."],
-          ["¿Qué es la encuesta de salida?", "Una encuesta corta al final de cada clase: de cinco a ocho preguntas, entre dos y cuatro minutos. Sus respuestas nos ayudan a mejorar el programa de una cohorte a otra."],
-          ["Trabajo en una escuela. ¿Cómo puedo ayudar a las familias?", "Puede ayudarles a llenar el formulario de interés, a encontrar su correo de bienvenida y a comunicarse con nuestro equipo si necesitan apoyo. Cada persona recibe su propio enlace personal de Zoom."],
+          ["¿Cuánto tiempo debo reservar?", "Las 18 clases de 90 minutos suman 27 horas en vivo, los martes y jueves de 5:00 a 6:30 p. m., hora de Arizona. La sesión informativa y el grupo de enfoque son aparte."],
+          ["¿Qué pasa si falto a una clase?", "Avísenos con anticipación. No ofrecemos clases de reposición, y las grabaciones de clase no están disponibles para las personas participantes."],
+          ["¿Se graban las clases?", "A veces grabamos las clases solo para uso interno del equipo, con fines de evaluación y planificación. Como algunos temas de clase pueden ser personales, las grabaciones no están disponibles para ningún otro uso."],
+          ["¿Puedo pedir subtítulos u otro apoyo de accesibilidad?", "Sí. Todas las clases tienen subtítulos y subtítulos traducidos de forma predeterminada. Avísenos si necesita otro apoyo."],
+          ["¿Qué es la encuesta de salida?", "En varios momentos de la cohorte, pedimos a las personas participantes que respondan una encuesta de salida. Así medimos el impacto del programa y, según sus comentarios, sabemos qué cambiar en las próximas cohortes."],
           ["¿Hay algo después del programa?", "Sí. Quienes terminan PEA siguen en contacto con ALL In Education: hay grupos de enfoque, oportunidades de liderazgo y la oportunidad de acompañar a las familias nuevas. La graduación cierra el curso, no la relación."]
         ]
       },
@@ -566,23 +565,22 @@
 
       faq: {
         items: [
-          ["How do I sign up for PEA?", "Complete the interest form — it’s your application. There is no selection process and no commitment form. Once we receive it, we set up your Zoom access and send your personal link in a welcome email."],
+          ["How do I sign up for PEA?", "Complete the interest form — it’s your application. There is no selection process and no commitment form. Once we receive it, we set up your Zoom access and send your personal link in a welcome email.", ["apply", "Complete the interest form"]],
           ["Who can take part?", "Parents and caregivers who want to support their children and advocate for them in Arizona’s school system. School staff, such as family liaisons and teachers, are welcome too. If you’re unsure about your situation, write to us."],
           ["What does it cost?", "Nothing. PEA is free for everyone who takes part."],
           ["What language are classes in?", "PEA is offered in Spanish and English. Each cohort’s options and format may be adjusted based on our team’s capacity and participant interest, so share your preferred language on the interest form. Our team supports you in Spanish and English."],
           ["How do I know I have a place?", "You’ll receive a welcome email with your personal Zoom link, the program dates, and the applicant guide. Save that link — you’ll use it to join every class."],
-          ["Do I have to attend the information session?", function (c) { return c.infoOpen ? "No. It’s optional and doesn’t affect your place. It’s on Thursday, October 1, 5:00–6:30 PM Arizona time — a chance to meet us and get your questions answered. If you can’t make it, call or text 602-759-0619." : "No. It’s optional and doesn’t affect your place. This fall’s session has already taken place; if you have questions, call or text 602-759-0619."; }],
+          ["Do I have to attend the information session?", function (c) { return c.infoOpen ? "No. It’s optional and doesn’t affect your place. It’s on Thursday, October 1, 5:00–6:30 PM Arizona time — a chance to meet us and get your questions answered. If you can’t make it, call or text 602-759-0619." : "No. It’s optional and doesn’t affect your place."; }],
           ["Do I need a Zoom account?", "Yes. You need to be able to sign in to the Zoom app, and the account is free. To join class, use the personal link in your welcome email; you don’t need to register separately in Zoom."],
-          ["I can’t find my welcome email. What should I do?", "Check your spam or junk folder. If it’s still not there, email pea@allineducation.org or call, text, or WhatsApp 602-759-0619. We’re happy to send your link again."],
+          ["I can’t find my welcome email. What should I do?", "Check your spam or junk folder. If it’s still not there, email pea@allineducation.org or call, text, or WhatsApp 602-759-0619. We’re happy to send your link again.", ["resend", "Resend my Zoom link"]],
           ["Can I take part from my phone?", "Yes. A computer or tablet makes it easier to see the materials and take part, but if a phone is what you have, a phone works."],
           ["What if my connection drops or I can’t turn on my camera?", "Let us know and we’ll help. Before you start, test your connection, camera, and microphone."],
           ["What is a PEA class like?", "We meet live on Zoom to talk, ask questions, and work through activities with other families. In each class, we explore the day’s topic and connect it to your experience at home or at school, share questions and ideas with the group, and answer a short exit ticket at the end. The format shifts a little with each topic."],
-          ["How much time should I set aside?", "The 18 classes of 90 minutes add up to 27 live hours, Tuesdays and Thursdays, 5:00–6:30 PM Arizona time. The information session and focus group are separate. If you’d like to know how much time activities outside class take, just ask."],
-          ["What if I miss a class?", "Let us know ahead of time, and ask us how to catch up."],
-          ["Are classes recorded?", "Ask us about the current recording policy and how to make up a class."],
-          ["Can I ask for captions or other accessibility support?", "Yes. Tell us what you need before your first class, and we’ll explain which supports are available and how to request them."],
-          ["What is the exit ticket?", "A short survey at the end of each class: five to eight questions, two to four minutes. Your answers help us improve the program from one cohort to the next."],
-          ["I work at a school. How can I help families?", "You can help them complete the interest form, find their welcome email, and contact our team if they need help. Each applicant receives their own personal Zoom link."],
+          ["How much time should I set aside?", "The 18 classes of 90 minutes add up to 27 live hours, Tuesdays and Thursdays, 5:00–6:30 PM Arizona time. The information session and focus group are separate."],
+          ["What if I miss a class?", "Let us know ahead of time. We don’t offer make-up classes, and class recordings aren’t available to participants."],
+          ["Are classes recorded?", "Classes are sometimes recorded for internal staff use only, for assessment and planning. Because some class topics can be personal, recordings aren’t made available for any other use."],
+          ["Can I ask for captions or other accessibility support?", "Yes. Every class has captions and translated captions by default. Let us know if you need other support."],
+          ["What is the exit ticket?", "At different points during a cohort, we ask participants to complete an exit survey. It’s how we measure the program’s impact and, based on your feedback, learn what to change in future cohorts."],
           ["Is there anything after the program?", "Yes. People who finish PEA stay connected with ALL In Education through focus groups, leadership opportunities, and the chance to walk alongside new families. Graduation ends the course, not the relationship."]
         ]
       },
