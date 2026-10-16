@@ -259,7 +259,7 @@
           ]},
           { h: "Durante el programa", items: [
             ["whatsapp", "Grupo de WhatsApp de otoño de 2026", "Opcional. Para conectar con sus compañeros de clase."],
-            ["exit", "Encuesta de salida", "Al final de cada clase."]
+            ["exit", "Encuesta de salida", "Tres veces por cohorte: al inicio, a mitad y al final."]
           ]},
           { h: "Para compartir", items: [
             ["flyer", "Volante del programa", "Para imprimir o compartir por mensaje."]
@@ -281,12 +281,12 @@
           ["No encuentro mi correo de bienvenida. ¿Qué hago?", "Revise la carpeta de spam o correo no deseado. Si aún no aparece, escríbanos a pea@allineducation.org o llame, mande un texto o WhatsApp al 602-759-0619. Con gusto le volvemos a enviar su enlace.", ["resend", "Reenviar mi enlace de Zoom"]],
           ["¿Puedo participar desde el teléfono?", "Sí. Con una computadora o tableta es más fácil ver los materiales y participar, pero si solo tiene teléfono, también funciona."],
           ["¿Qué pasa si mi conexión falla o no puedo encender la cámara?", "Avísenos y le orientamos. Antes de empezar, pruebe su conexión, cámara y micrófono."],
-          ["¿Cómo es una clase de PEA?", "Nos reunimos en vivo por Zoom para conversar, hacer preguntas y trabajar en actividades con otras familias. En cada clase conocemos el tema del día y lo relacionamos con su experiencia en familia o en la escuela, compartimos preguntas e ideas en grupo y, al final, respondemos una encuesta corta. El formato cambia un poco según el tema."],
+          ["¿Cómo es una clase de PEA?", "Nos reunimos en vivo por Zoom para conversar, hacer preguntas y trabajar en actividades con otras familias. En cada clase conocemos el tema del día y lo relacionamos con su experiencia en familia o en la escuela, y compartimos preguntas e ideas en grupo. El formato cambia un poco según el tema."],
           ["¿Cuánto tiempo debo reservar?", "Las 18 clases de 90 minutos suman 27 horas en vivo, los martes y jueves de 5:00 a 6:30 p. m., hora de Arizona. La sesión informativa y el grupo de enfoque son aparte."],
           ["¿Qué pasa si falto a una clase?", "Avísenos con anticipación. No ofrecemos clases de reposición, y las grabaciones de clase no están disponibles para las personas participantes."],
           ["¿Se graban las clases?", "A veces grabamos las clases solo para uso interno del equipo, con fines de evaluación y planificación. Como algunos temas de clase pueden ser personales, las grabaciones no están disponibles para ningún otro uso."],
           ["¿Puedo pedir subtítulos u otro apoyo de accesibilidad?", "Sí. Todas las clases tienen subtítulos y subtítulos traducidos de forma predeterminada. Avísenos si necesita otro apoyo."],
-          ["¿Qué es la encuesta de salida?", "En varios momentos de la cohorte, pedimos a las personas participantes que respondan una encuesta de salida. Así medimos el impacto del programa y, según sus comentarios, sabemos qué cambiar en las próximas cohortes."],
+          ["¿Qué es la encuesta de salida?", "En varios momentos de la cohorte, pedimos a las personas participantes que respondan una encuesta de salida. Así medimos el impacto del programa y, según sus comentarios, sabemos qué cambiar en las próximas cohortes. Son tres encuestas: al inicio, a mitad y al final de la cohorte, siempre con el mismo enlace."],
           ["¿Hay algo después del programa?", "Sí. Quienes terminan PEA siguen en contacto con ALL In Education: hay grupos de enfoque, oportunidades de liderazgo y la oportunidad de acompañar a las familias nuevas. La graduación cierra el curso, no la relación."]
         ]
       },
@@ -553,7 +553,7 @@
           ]},
           { h: "During the program", items: [
             ["whatsapp", "Fall 2026 WhatsApp group", "Optional. Connect with your classmates."],
-            ["exit", "Exit Ticket", "At the end of each class."]
+            ["exit", "Exit Ticket", "Three times per cohort: at the start, midpoint, and end."]
           ]},
           { h: "To share", items: [
             ["flyer", "Program flyer", "To print or share by message."]
@@ -575,12 +575,12 @@
           ["I can’t find my welcome email. What should I do?", "Check your spam or junk folder. If it’s still not there, email pea@allineducation.org or call, text, or WhatsApp 602-759-0619. We’re happy to send your link again.", ["resend", "Resend my Zoom link"]],
           ["Can I take part from my phone?", "Yes. A computer or tablet makes it easier to see the materials and take part, but if a phone is what you have, a phone works."],
           ["What if my connection drops or I can’t turn on my camera?", "Let us know and we’ll help. Before you start, test your connection, camera, and microphone."],
-          ["What is a PEA class like?", "We meet live on Zoom to talk, ask questions, and work through activities with other families. In each class, we explore the day’s topic and connect it to your experience at home or at school, share questions and ideas with the group, and answer a short exit ticket at the end. The format shifts a little with each topic."],
+          ["What is a PEA class like?", "We meet live on Zoom to talk, ask questions, and work through activities with other families. In each class, we explore the day’s topic and connect it to your experience at home or at school, and share questions and ideas with the group. The format shifts a little with each topic."],
           ["How much time should I set aside?", "The 18 classes of 90 minutes add up to 27 live hours, Tuesdays and Thursdays, 5:00–6:30 PM Arizona time. The information session and focus group are separate."],
           ["What if I miss a class?", "Let us know ahead of time. We don’t offer make-up classes, and class recordings aren’t available to participants."],
           ["Are classes recorded?", "Classes are sometimes recorded for internal staff use only, for assessment and planning. Because some class topics can be personal, recordings aren’t made available for any other use."],
           ["Can I ask for captions or other accessibility support?", "Yes. Every class has captions and translated captions by default. Let us know if you need other support."],
-          ["What is the exit ticket?", "At different points during a cohort, we ask participants to complete an exit survey. It’s how we measure the program’s impact and, based on your feedback, learn what to change in future cohorts."],
+          ["What is the exit ticket?", "At different points during a cohort, we ask participants to complete an exit survey. It’s how we measure the program’s impact and, based on your feedback, learn what to change in future cohorts. There are three surveys — at the start, midpoint, and end of the cohort — and the link is always the same."],
           ["Is there anything after the program?", "Yes. People who finish PEA stay connected with ALL In Education through focus groups, leadership opportunities, and the chance to walk alongside new families. Graduation ends the course, not the relationship."]
         ]
       },
