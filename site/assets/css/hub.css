@@ -835,6 +835,21 @@ body>.shell{flex:1 0 auto;width:100%}   /* short pages still seat the app bar at
 .obj-list li + li{margin-top:.25rem}
 .week-card.has-det{cursor:pointer}
 
+/* v0.22.6: "Esta semana" — cards answer the pointer with a small lift and a Blue Mid border; week headings,
+   dates and class titles fade in as they scroll into view (app.js adds .reveal only with IntersectionObserver
+   and without reduced motion, so nothing starts hidden otherwise) */
+.week-card,.week-next .up-next-card{transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+@media(hover:hover){
+  .week-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-card-hover);border-color:var(--blue-mid)}
+  .week-card.is-info:hover{border-left-color:var(--pink)}
+  .week-card.is-today:hover{border-color:var(--gold)}
+  .week-next .up-next-card:hover{border-color:var(--blue-mid)}
+}
+.reveal{opacity:0;transform:translateY(4px);transition:opacity .45s ease,transform .45s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){ .week-card,.week-next .up-next-card,.reveal{transition:none} .reveal{opacity:1;transform:none} }
+@media print{ .reveal{opacity:1;transform:none} }
+
 /* v0.22.0: Información y ayuda — sticky "En esta página" menu, part headings, footnote, media list */
 .learn-nav{position:sticky;top:var(--header-h);z-index:20;display:flex;align-items:center;gap:var(--space-2);
   margin:0 0 var(--space-4);padding:var(--space-2) 0;background:rgba(214,224,245,.95);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}

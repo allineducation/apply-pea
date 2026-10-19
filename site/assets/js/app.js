@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.22.5";
+  var VERSION = "0.22.6";
   var UPDATED = "2026-10-16";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -714,6 +714,8 @@
     var weekJump = id === "esta-semana" && pendingDeep;
     var part = id === "ayuda" && pendingDeep ? routeParts()[1] : "";
     if (spy) { spy.disconnect(); spy = null; }
+    if (reveal) { reveal.disconnect(); reveal = null; }
+    var fresh = id !== shownRoute;                 /* fade in on arrival only, not on the minute refresh or a language switch */
     pendingDeep = false;
     var main = document.getElementById("main"), FOLD = "details.sec, details.accordion-item";
     var wasOpen = id === shownRoute ? Array.prototype.map.call(main.querySelectorAll(FOLD), function (d) { return d.open; }) : [];
@@ -741,6 +743,17 @@
       var h1 = main.querySelector("h1"); if (h1) h1.focus({ preventScroll: true });
     }
     if (id === "ayuda") learnSpy(main);
+    if (id === "esta-semana" && fresh) revealOnScroll(main);
+  }
+  var reveal = null;
+  function revealOnScroll(main) {                  /* "Esta semana": week headings, dates and class titles fade in as they scroll into view */
+    if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    reveal = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); obs.unobserve(en.target); } });
+    }, { threshold: 0.2 });
+    main.querySelectorAll(".week-range, .week-next .up-next-h, .week-card .date-badge, .week-card .event-title").forEach(function (el) {
+      el.classList.add("reveal"); reveal.observe(el);
+    });
   }
   function goToPart(main, part) {                 /* scroll a part (#g-…) or panel (#p-…) just below the header and section menu */
     var el = main.querySelector("#g-" + part) || main.querySelector("#p-" + part), nav = main.querySelector(".learn-nav");
