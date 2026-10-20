@@ -165,13 +165,42 @@ window.PEA_FACTS = {
     MQUAL: { id: "PEA-M05",
       es: "Este curso ayuda a las familias a definir una educación de alta calidad y comprender las opciones de escuelas públicas disponibles en Arizona, dentro y fuera de la escuela asignada. Las personas participantes analizan información sobre las escuelas, consideran cómo cada opción apoya el aprendizaje y la equidad y practican preguntas que orienten decisiones para sus estudiantes.",
       en: "This course helps families define high-quality education and understand Arizona’s public school options, including choices available within and beyond their assigned school. Participants examine information about schools, consider how different options support learning and equity, and practice asking questions that can inform decisions for their students.",
-      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1sPH61eRkEwEuunsItmxGeZ7rbPhdZKgc/view?usp=drivesdk" },
-        { type: "comm", es: "https://drive.google.com/file/d/14kHKI9cmlBmhxj6ZaCyBn8czkMSkMX7_/view?usp=drivesdk" }] },
+      /* 3T materials from the 3T class folder (Danny Hernández, 2026-10-20), PDFs only, all shared "anyone with the
+         link": worksheet ES + EN v1.0.1, family handout ES + EN v1.0.0 (Hoja informativa / Family handout), and the
+         communication tool ES v1.0.0 (Spanish only, per the package README), which replaces the earlier BIL v1_0_0
+         tool. The Opciones escolares resource is Spanish only. The small-group guide is staff-only and not published. */
+      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1RM8Qf41_zncpYnB6MibjiSPIHFxuBz2T/view?usp=drivesdk", en: "https://drive.google.com/file/d/1-OrN4LLqtP4EV6-7NoLhIFlezN4kvl60/view?usp=drivesdk" },
+        { type: "handout", es: "https://drive.google.com/file/d/1N1gR0F-7daYwawI227ZQqV_8jxyH00FU/view?usp=drivesdk", en: "https://drive.google.com/file/d/11xZsalIftWo7nW6K7wjV-OHiucvYuHyw/view?usp=drivesdk" },
+        { type: "comm", es: "https://drive.google.com/file/d/1KJRzBjdX1VqpssK2v6qzCCS1NqewH4JJ/view?usp=drivesdk" }],
+      /* 3T resources (Danny Hernández, 2026-10-20), ordered: Spanish first, then Arizona sources, then national
+         school-search tools. The two videos are one row (ES | EN), as is the ADE Parents page (Spanish via Google
+         Translate | English original). GreatSchools is bilingual, so it is one link titled in the page language.
+         Other English-only sites show their English title on both pages. YouTube share trackers (?si=) dropped. */
+      resources: [
+        { type: "resource", title_es: "Video: Conozca sus opciones escolares en Arizona", es: "https://youtu.be/KiCpFerMUhk",
+          title_en: "Video: Your School Choice Guide in Arizona", en: "https://youtu.be/Xis_7NExf_A" },
+        { type: "resource", title_es: "Opciones escolares en Arizona", es: "https://drive.google.com/file/d/1LyNjb40IY_53ee4ek8mcTeP_gJFHE471/view?usp=drivesdk" },
+        { type: "resource", title_es: "Departamento de Educación de Arizona: Familias (traducción de Google)", es: "https://www-azed-gov.translate.goog/parents?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=en&_x_tr_pto=wapp",
+          title_en: "Arizona Department of Education: Parents", en: "https://www.azed.gov/parents" },
+        { type: "resource", title_en: "Arizona ESA Program", en: "https://www.azed.gov/esa" },
+        { type: "resource", title_en: "AZ School Report Cards", en: "https://azreportcards.azed.gov" },
+        { type: "resource", title_en: "Arizona Charter Schools Association", en: "https://azcharters.org" },
+        { type: "resource", title_en: "Arizona School Choice Resources", en: "https://schoolchoiceweek.com/states/arizona/" },
+        { type: "resource", title_es: "GreatSchools (inglés y español)", title_en: "GreatSchools (English and Spanish)", any: "https://www.greatschools.org" },
+        { type: "resource", title_en: "SchoolDigger", en: "https://www.schooldigger.com" },
+        { type: "resource", title_en: "Niche: School Rankings & Reviews", en: "https://www.niche.com/?ref=k12" },
+        { type: "resource", title_en: "U.S. Department of Education: Search for Public Schools", en: "https://nces.ed.gov/ccd/schoolsearch" },
+        { type: "resource", title_en: "U.S. News: K–12 Schools", en: "https://www.usnews.com/education/k12" }
+      ] },
     MCOMM: { id: "PEA-M06",
       es: "Este curso explica cómo se organizan los salones, las escuelas y los distritos e identifica a las personas y las rutas de comunicación que las familias pueden usar cuando surgen preguntas o inquietudes. Las personas participantes practican estrategias de comunicación de dos vías con maestros, directores, consejeros y otro personal escolar para construir alianzas enfocadas en las necesidades estudiantiles.",
       en: "This course explains how classrooms, schools, and districts are organized and identifies the people and communication pathways families can use when questions or concerns arise. Participants practice strategies for two-way communication with teachers, principals, counselors, and other school staff so they can build productive partnerships around student needs.",
-      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1otX4R1zltnbdQwJaEXv0oXOVee-WPf0O/view?usp=drivesdk" },
-        { type: "comm", es: "https://drive.google.com/file/d/136CDY-W8sOpUPDnSx170Hj21y7aBfxqd/view?usp=drivesdk" }] },
+      /* 3R materials from the 3R class folder (Danny Hernández, 2026-10-20), PDFs only, all v1.0.0 and shared "anyone
+         with the link": worksheet ES + EN, family handout ES + EN, and the communication tool (Spanish only). They
+         replace the earlier Airtable worksheet and communication tool. The small-group guide is staff-only. */
+      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1reKedVg1QMLh_Zn2ksDIS68_s1BYY0eT/view?usp=drivesdk", en: "https://drive.google.com/file/d/1uhR-vD1SVxZJXr-PeWaZq1M3Ryv34IKP/view?usp=drivesdk" },
+        { type: "handout", es: "https://drive.google.com/file/d/1i_TI9kyKUFPBY1iih1adkJ7lq6g6NKSC/view?usp=drivesdk", en: "https://drive.google.com/file/d/1HTCr5k6pO559wAfpnXULpw_NLD18eYLz/view?usp=drivesdk" },
+        { type: "comm", es: "https://drive.google.com/file/d/1UVF14UCjfX0koIWgqV2ARgpZa6vA5Pkm/view?usp=drivesdk" }] },
     MREAD: { id: "PEA-M07",
       es: "Este curso presenta las habilidades fundamentales de la lectura y cómo puede verse una enseñanza eficaz mientras los estudiantes se desarrollan como lectores. Las familias aprenden a reconocer señales de que un estudiante podría necesitar apoyo adicional, revisan preguntas para el personal educativo y practican cómo abogar por una enseñanza de lectura apropiada y al nivel de grado.",
       en: "This course introduces foundational reading skills and what effective literacy instruction can look like as students develop as readers. Families learn how to recognize signs that a student may need additional support, review questions they can ask educators, and practice advocating for appropriate, grade-level literacy instruction.",
@@ -263,7 +292,7 @@ window.PEA_FACTS = {
   /* kind: info | cls | holiday | focus | milestone   (milestone: "start" | "end" flags a class as a cohort milestone)
      Optional on a class: presentation_en = English presentation, view-only (shown on the English page only, under
      Session materials). 1R's link was entered on the 1T row of the Airtable Calendar
-     "Presentation URL (View Only) - EN" field; Danny confirmed it belongs to 1R (2026-10-08). 2R link supplied by Danny Hernández, 2026-10-15; exit = a class-specific exit survey that replaces the Airtable exit
+     "Presentation URL (View Only) - EN" field; Danny confirmed it belongs to 1R (2026-10-08). 2R link supplied by Danny Hernández, 2026-10-15; 3T and 3R links, 2026-10-20; exit = a class-specific exit survey that replaces the Airtable exit
      ticket (no prefill). 1T and 1R use the Jotform FA26 pre-survey (Danny Hernández, 2026-10-08).
      Only confirmed cohorts can be promoted automatically; projected future
      cohorts are mentioned in the FAQ without opening registration. */
@@ -291,8 +320,10 @@ window.PEA_FACTS = {
         { code: "2T",  kind: "cls", module: "MSAFE", start: "2026-10-14T00:00:00Z", end: "2026-10-14T01:30:00Z", title_es: "Seguridad y bienestar en la escuela", title_en: "School Safety and Well-Being" },
         { code: "2R",  kind: "cls", module: "MBIAS", start: "2026-10-16T00:00:00Z", end: "2026-10-16T01:30:00Z", title_es: "Sesgo, identidad y el mito de la oportunidad", title_en: "Bias, Identity & the Opportunity Myth",
           presentation_en: "https://canva.link/k4c2u53eb9nteal" },
-        { code: "3T",  kind: "cls", module: "MQUAL", start: "2026-10-21T00:00:00Z", end: "2026-10-21T01:30:00Z", title_es: "Acceso a una educación de calidad y la elección escolar", title_en: "Access to Quality Education & School Choice" },
-        { code: "3R",  kind: "cls", module: "MCOMM", start: "2026-10-23T00:00:00Z", end: "2026-10-23T01:30:00Z", title_es: "Navegando salones, escuelas y distritos escolares", title_en: "Navigating Classrooms, Schools, and School Districts" },
+        { code: "3T",  kind: "cls", module: "MQUAL", start: "2026-10-21T00:00:00Z", end: "2026-10-21T01:30:00Z", title_es: "Acceso a una educación de calidad y la elección escolar", title_en: "Access to Quality Education & School Choice",
+          presentation_en: "https://canva.link/9z0bhmaqneftpq5" },
+        { code: "3R",  kind: "cls", module: "MCOMM", start: "2026-10-23T00:00:00Z", end: "2026-10-23T01:30:00Z", title_es: "Navegando salones, escuelas y distritos escolares", title_en: "Navigating Classrooms, Schools, and School Districts",
+          presentation_en: "https://canva.link/xpsjah3iu3387cx" },
         { code: "4T",  kind: "cls", module: "MREAD", start: "2026-10-28T00:00:00Z", end: "2026-10-28T01:30:00Z", title_es: "Fundamentos de la lectura y cómo abogar por los estudiantes", title_en: "Foundational Reading Skills & Advocating for Students in the Literacy Classroom" },
         { code: "4R",  kind: "cls", module: "MHOME", start: "2026-10-30T00:00:00Z", end: "2026-10-30T01:30:00Z", title_es: "Lectura en casa", title_en: "Reading at Home" },
         { code: "5T",  kind: "cls", module: "MDIGI", start: "2026-11-04T00:00:00Z", end: "2026-11-04T01:30:00Z", title_es: "Alfabetización digital para padres y cuidadores", title_en: "Digital Literacy for Parents & Caregivers" },
