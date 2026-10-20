@@ -172,7 +172,26 @@ window.PEA_FACTS = {
       materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1RM8Qf41_zncpYnB6MibjiSPIHFxuBz2T/view?usp=drivesdk", en: "https://drive.google.com/file/d/1-OrN4LLqtP4EV6-7NoLhIFlezN4kvl60/view?usp=drivesdk" },
         { type: "handout", es: "https://drive.google.com/file/d/1N1gR0F-7daYwawI227ZQqV_8jxyH00FU/view?usp=drivesdk", en: "https://drive.google.com/file/d/11xZsalIftWo7nW6K7wjV-OHiucvYuHyw/view?usp=drivesdk" },
         { type: "comm", es: "https://drive.google.com/file/d/1KJRzBjdX1VqpssK2v6qzCCS1NqewH4JJ/view?usp=drivesdk" }],
-      resources: [{ type: "resource", title_es: "Opciones escolares en Arizona", es: "https://drive.google.com/file/d/1LyNjb40IY_53ee4ek8mcTeP_gJFHE471/view?usp=drivesdk" }] },
+      /* 3T resources (Danny Hernández, 2026-10-20), ordered: Spanish first, then Arizona sources, then national
+         school-search tools. The two videos are one row (ES | EN), as is the ADE Parents page (Spanish via Google
+         Translate | English original). GreatSchools is bilingual, so it is one link titled in the page language.
+         Other English-only sites show their English title on both pages. YouTube share trackers (?si=) dropped. */
+      resources: [
+        { type: "resource", title_es: "Video: Conozca sus opciones escolares en Arizona", es: "https://youtu.be/KiCpFerMUhk",
+          title_en: "Video: Your School Choice Guide in Arizona", en: "https://youtu.be/Xis_7NExf_A" },
+        { type: "resource", title_es: "Opciones escolares en Arizona", es: "https://drive.google.com/file/d/1LyNjb40IY_53ee4ek8mcTeP_gJFHE471/view?usp=drivesdk" },
+        { type: "resource", title_es: "Departamento de Educación de Arizona: Familias (traducción de Google)", es: "https://www-azed-gov.translate.goog/parents?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=en&_x_tr_pto=wapp",
+          title_en: "Arizona Department of Education: Parents", en: "https://www.azed.gov/parents" },
+        { type: "resource", title_en: "Arizona ESA Program", en: "https://www.azed.gov/esa" },
+        { type: "resource", title_en: "AZ School Report Cards", en: "https://azreportcards.azed.gov" },
+        { type: "resource", title_en: "Arizona Charter Schools Association", en: "https://azcharters.org" },
+        { type: "resource", title_en: "Arizona School Choice Resources", en: "https://schoolchoiceweek.com/states/arizona/" },
+        { type: "resource", title_es: "GreatSchools (inglés y español)", title_en: "GreatSchools (English and Spanish)", any: "https://www.greatschools.org" },
+        { type: "resource", title_en: "SchoolDigger", en: "https://www.schooldigger.com" },
+        { type: "resource", title_en: "Niche: School Rankings & Reviews", en: "https://www.niche.com/?ref=k12" },
+        { type: "resource", title_en: "U.S. Department of Education: Search for Public Schools", en: "https://nces.ed.gov/ccd/schoolsearch" },
+        { type: "resource", title_en: "U.S. News: K–12 Schools", en: "https://www.usnews.com/education/k12" }
+      ] },
     MCOMM: { id: "PEA-M06",
       es: "Este curso explica cómo se organizan los salones, las escuelas y los distritos e identifica a las personas y las rutas de comunicación que las familias pueden usar cuando surgen preguntas o inquietudes. Las personas participantes practican estrategias de comunicación de dos vías con maestros, directores, consejeros y otro personal escolar para construir alianzas enfocadas en las necesidades estudiantiles.",
       en: "This course explains how classrooms, schools, and districts are organized and identifies the people and communication pathways families can use when questions or concerns arise. Participants practice strategies for two-way communication with teachers, principals, counselors, and other school staff so they can build productive partnerships around student needs.",
