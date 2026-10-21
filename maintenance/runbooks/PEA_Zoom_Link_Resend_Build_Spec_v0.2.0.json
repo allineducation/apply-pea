@@ -458,7 +458,6 @@
       "title": "Approve the automation configuration and the test plan before any email is sent",
       "reviewer_checks": [
         "Both automations are OFF.",
-        "The automation is OFF.",
         "The Gmail branches use the same sending account as the welcome email.",
         "Participant emails go only to decide.toEmail, the email on the Enrollment. The only team email is the daily digest; no email is sent per submission.",
         "No Zoom URL is written to any field or note.",
