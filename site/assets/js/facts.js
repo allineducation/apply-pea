@@ -219,7 +219,8 @@ window.PEA_FACTS = {
          conference row now pairs the same checklist in both languages; Understood math EN gets /en/; ADE family
          engagement moved to /titlei/familyengagement; English newcomer guide added; "Helping Your Child Through School
          Partnerships" (www2.ed.gov) and "Raise the Bar: Parents" removed (both return 404); the 2021 reopening
-         checklist is labelled as historical guidance. Other links not checked from the build environment. */
+         checklist is labelled as historical guidance; ADE special-education guide EN moved to /sites/default/files;
+         Yuma board list moved to yumaesa.org; open groups are remembered by class and position. Other links not checked from the build environment. */
       resources: [
         { title_es: "Quién es quién en la escuela", title_en: "Who’s who at school", items: [
           { type: "resource", title_es: "Quién es quién en la escuela de su hijo o hija (Colorín Colorado)", es: "https://www.colorincolorado.org/es/articulo/gu%C3%ADa-para-los-padres-qui%C3%A9n-es-qui%C3%A9n-en-la-escuela-de-su-ni%C3%B1o", title_en: "Who’s Who at Your Child’s School (Colorín Colorado)", en: "https://www.colorincolorado.org/article/parent-guide-whos-who-your-childs-school" },
@@ -240,7 +241,7 @@ window.PEA_FACTS = {
           { type: "resource", title_es: "Preguntas de matemáticas para la reunión con el maestro (Understood)", es: "https://assets.ctfassets.net/p0qf7j048i0q/5d0Jz4e6LCJ5YnA8BubfPI/d92f6aab5703f2311af6b897a196b606/Preguntas_de_matem__ticas_para_la_reuni__n_de_padres_y_maestros_Understood.pdf", title_en: "Math Questions for a Parent-Teacher Conference (Understood)", en: "https://assets.ctfassets.net/p0qf7j048i0q/3aKsBwV58UzhwJ01JM2RDf/5f395c57e7918c754228ac3c82363bf0/Parent-Teacher_Conference_Checklist_for_Math_Understood.pdf" },
           { type: "resource", title_es: "Dificultades en matemáticas: cómo hablar con el maestro (Understood)", es: "https://www.understood.org/es-mx/articles/math-trouble-conversation-starters-to-use-with-your-childs-teacher", title_en: "Math Trouble: Talking to Your Child’s Teacher (Understood)", en: "https://www.understood.org/en/articles/math-trouble-conversation-starters-to-use-with-your-childs-teacher" },
           { type: "resource", title_es: "Preguntas frecuentes de las familias sobre la educación especial (Center for Parent Information and Resources)", es: "https://www.parentcenterhub.org/lg1sp/", title_en: "Questions Often Asked by Parents About Special Education Services (Center for Parent Information and Resources)", en: "https://www.parentcenterhub.org/lg1/" },
-          { type: "resource", title_es: "El camino de la educación especial (Departamento de Educación de Arizona)", es: "https://www.azed.gov/sites/default/files/2020/12/Traveling%20the%20Special%20Education%20Highway%20Spa%20%2719%20acc.pdf", title_en: "Traveling the Special Education Highway (Arizona Department of Education)", en: "https://cms.azed.gov/home/GetDocumentFile?id=585aec6aaadebe12481b8572" },
+          { type: "resource", title_es: "El camino de la educación especial (Departamento de Educación de Arizona)", es: "https://www.azed.gov/sites/default/files/2020/12/Traveling%20the%20Special%20Education%20Highway%20Spa%20%2719%20acc.pdf", title_en: "Traveling the Special Education Highway (Arizona Department of Education)", en: "https://www.azed.gov/sites/default/files/2016/12/Traveling%20the%20Special%20Education%20Highway%20%2719.pdf" },
           { type: "resource", title_es: "Guía para familias de estudiantes aprendiendo inglés (Education Northwest)", es: "https://educationnorthwest.org/sites/default/files/resources/parent-guide-el-spanish.pdf", title_en: "Parent Guide for English Learners (Education Northwest)", en: "https://educationnorthwest.org/sites/default/files/resources/parent-guide-el-english.pdf" }
         ] },
         { title_es: "Participar en la escuela", title_en: "Getting involved at school", items: [
@@ -255,7 +256,7 @@ window.PEA_FACTS = {
           { type: "resource", title_en: "Maricopa County: District Superintendents", en: "https://mcss.knack.com/school-districts#district-superintendents" },
           { type: "resource", title_en: "Maricopa County: Governing Board Members", en: "https://mcss.knack.com/school-districts#governing-board-members" },
           { type: "resource", title_en: "Pima County: Governing Board Members and Terms", en: "https://www.schools.pima.gov/elections/governing-board-members-and-terms" },
-          { type: "resource", title_en: "Yuma County: School Board Members", en: "https://www.yumasupt.org/board-members.html" }
+          { type: "resource", title_en: "Yuma County: School Board Members", en: "https://yumaesa.org/board-members.html" }
         ] }
       ] },
     MREAD: { id: "PEA-M07",
