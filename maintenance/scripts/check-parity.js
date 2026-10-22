@@ -79,17 +79,19 @@ Object.values(FACTS.cohorts).forEach(c => Object.entries(c.weekNotes || {}).forE
 }));
 const TYPES = FACTS.materialTypes || {};
 Object.entries(TYPES).forEach(([k, t]) => { if (!t.es || !t.en) problems.push(`materialTypes ${k}: needs es and en titles`); });
-const checkItem = (it, where) => {
+const checkItem = (it, where, own) => {           /* own: resources need their own title per linked language; materials may use the type title */
   if (it.items) {                                  /* a resource group: titled in both languages, with linked items */
     if (!(it.title_es && it.title_en)) problems.push(`${where}: group needs title_es and title_en`);
     if (!it.items.length) problems.push(`${where}: empty group`);
-    return it.items.forEach((x, j) => checkItem(x, `${where}.items[${j}]`));
+    return it.items.forEach((x, j) => checkItem(x, `${where}.items[${j}]`, own));
   }
   if (!TYPES[it.type] && !(it.title_es && it.title_en)) problems.push(`${where}: unknown type "${it.type}" without titles`);
   if (!it.es && !it.en && !it.any) problems.push(`${where}: no URL in either language`);
-  if (it.es && !it.any && !(it.title_es || TYPES[it.type])) problems.push(`${where}: Spanish link needs a Spanish title`);
+  if (it.es && !it.any && !(it.title_es || (!own && TYPES[it.type]))) problems.push(`${where}: Spanish link needs a Spanish title`);
+  if (own && it.en && !it.any && !it.title_en) problems.push(`${where}: English link needs an English title`);
+  if (own && it.any && !(it.title_es && it.title_en)) problems.push(`${where}: shared link needs title_es and title_en`);
 };
-Object.entries(MODS).forEach(([k, m]) => ["materials", "resources"].forEach(list => (m[list] || []).forEach((it, i) => checkItem(it, `module ${k} ${list}[${i}]`))));
+Object.entries(MODS).forEach(([k, m]) => ["materials", "resources"].forEach(list => (m[list] || []).forEach((it, i) => checkItem(it, `module ${k} ${list}[${i}]`, list === "resources"))));
 Object.values(FACTS.cohorts).forEach(c => (c.classResources || []).forEach(k => {
   if (!TYPES[k]) problems.push(`${c.code} classResources: "${k}" needs a materialTypes title`);
   if (!(FACTS.links[c.code] || {})[k] && !FACTS.links.global[k]) problems.push(`${c.code} classResources: no link "${k}"`);
