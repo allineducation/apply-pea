@@ -203,12 +203,15 @@ window.PEA_FACTS = {
     MCOMM: { id: "PEA-M06",
       es: "Este curso explica cómo se organizan los salones, las escuelas y los distritos e identifica a las personas y las rutas de comunicación que las familias pueden usar cuando surgen preguntas o inquietudes. Las personas participantes practican estrategias de comunicación de dos vías con maestros, directores, consejeros y otro personal escolar para construir alianzas enfocadas en las necesidades estudiantiles.",
       en: "This course explains how classrooms, schools, and districts are organized and identifies the people and communication pathways families can use when questions or concerns arise. Participants practice strategies for two-way communication with teachers, principals, counselors, and other school staff so they can build productive partnerships around student needs.",
-      /* 3R materials from the 3R class folder (Danny Hernández, 2026-10-20), PDFs only, all v1.0.0 and shared "anyone
-         with the link": worksheet ES + EN, family handout ES + EN, and the communication tool (Spanish only). They
-         replace the earlier Airtable worksheet and communication tool. The small-group guide is staff-only. */
-      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1reKedVg1QMLh_Zn2ksDIS68_s1BYY0eT/view?usp=drivesdk", en: "https://drive.google.com/file/d/1uhR-vD1SVxZJXr-PeWaZq1M3Ryv34IKP/view?usp=drivesdk" },
-        { type: "handout", es: "https://drive.google.com/file/d/1i_TI9kyKUFPBY1iih1adkJ7lq6g6NKSC/view?usp=drivesdk", en: "https://drive.google.com/file/d/1HTCr5k6pO559wAfpnXULpw_NLD18eYLz/view?usp=drivesdk" },
-        { type: "comm", es: "https://drive.google.com/file/d/1UVF14UCjfX0koIWgqV2ARgpZa6vA5Pkm/view?usp=drivesdk" }] },
+      /* 3R materials from the 3R class folder (Danny Hernández, 2026-10-22), PDFs only, all shared "anyone with the
+         link": worksheet ES + EN, family handout ES + EN and the communication tool (Spanish only), all v2.0.1, replacing
+         the v1.0.0 PDFs of 2026-10-20; and the new "Quién es quién / Who's Who in Arizona Education" reference sheet
+         ES + EN v1.0.2. The small-group guide is staff-only and not published. */
+      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1ufDExff91mNsyP-l3e-1vslcerAgMGFE/view?usp=drivesdk", en: "https://drive.google.com/file/d/1kHTmO34KPxdZgcXCvCY-T-Fnu7FufPyu/view?usp=drivesdk" },
+        { type: "handout", es: "https://drive.google.com/file/d/1QYuARuM8YB1puA30bx4rLyFVfRhbWV4a/view?usp=drivesdk", en: "https://drive.google.com/file/d/1S3qk8aYpHyZbGGpMj3SrFN-gRYTfZOxD/view?usp=drivesdk" },
+        { type: "comm", es: "https://drive.google.com/file/d/1uVqed9XN9O-P5BTekR2E7TNtGiLFp7ol/view?usp=drivesdk" },
+        { type: "handout", title_es: "Quién es quién en la educación de Arizona", es: "https://drive.google.com/file/d/14R5zCJP5rtVxucqL7VYfNclvPQcIaWmp/view?usp=drivesdk",
+          title_en: "Who’s Who in Arizona Education", en: "https://drive.google.com/file/d/1HgynF1O7FfBK_5H4w6AEmtDf9Ha42EMd/view?usp=drivesdk" }] },
     MREAD: { id: "PEA-M07",
       es: "Este curso presenta las habilidades fundamentales de la lectura y cómo puede verse una enseñanza eficaz mientras los estudiantes se desarrollan como lectores. Las familias aprenden a reconocer señales de que un estudiante podría necesitar apoyo adicional, revisan preguntas para el personal educativo y practican cómo abogar por una enseñanza de lectura apropiada y al nivel de grado.",
       en: "This course introduces foundational reading skills and what effective literacy instruction can look like as students develop as readers. Families learn how to recognize signs that a student may need additional support, review questions they can ask educators, and practice advocating for appropriate, grade-level literacy instruction.",
