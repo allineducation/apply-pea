@@ -725,7 +725,7 @@
     if (reveal) { reveal.disconnect(); reveal = null; }
     var fresh = id !== shownRoute;                 /* fade in on arrival only, not on the minute refresh or a language switch */
     pendingDeep = false;
-    var main = document.getElementById("main"), FOLD = "details.sec, details.accordion-item";
+    var main = document.getElementById("main"), FOLD = "details.sec, details.accordion-item, details.mat-group";
     var wasOpen = id === shownRoute ? Array.prototype.map.call(main.querySelectorAll(FOLD), function (d) { return d.open; }) : [];
     main.innerHTML = PAGES[id]();
     main.querySelectorAll(FOLD).forEach(function (d, i) { if (wasOpen[i]) d.open = true; });   /* refresh and language switch keep open panels open */
