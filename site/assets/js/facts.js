@@ -211,7 +211,53 @@ window.PEA_FACTS = {
         { type: "handout", es: "https://drive.google.com/file/d/1QYuARuM8YB1puA30bx4rLyFVfRhbWV4a/view?usp=drivesdk", en: "https://drive.google.com/file/d/1S3qk8aYpHyZbGGpMj3SrFN-gRYTfZOxD/view?usp=drivesdk" },
         { type: "comm", es: "https://drive.google.com/file/d/1uVqed9XN9O-P5BTekR2E7TNtGiLFp7ol/view?usp=drivesdk" },
         { type: "handout", title_es: "Quién es quién en la educación de Arizona", es: "https://drive.google.com/file/d/14R5zCJP5rtVxucqL7VYfNclvPQcIaWmp/view?usp=drivesdk",
-          title_en: "Who’s Who in Arizona Education", en: "https://drive.google.com/file/d/1HgynF1O7FfBK_5H4w6AEmtDf9Ha42EMd/view?usp=drivesdk" }] },
+          title_en: "Who’s Who in Arizona Education", en: "https://drive.google.com/file/d/1HgynF1O7FfBK_5H4w6AEmtDf9Ha42EMd/view?usp=drivesdk" }],
+      /* 3R resources (Danny Hernández, 2026-10-22): 28 rows in five closed groups so the card stays short. ES and EN
+         versions of a resource share a row; Spanish links carry Spanish titles. Within a group, specific resources
+         (articles, guides, checklists, videos, PDFs) come before general sites and directories. Dropped tracking
+         params (?si=) and a trailing "#". Flagged for review: the www2.ed.gov, Raise the Bar and "Returning to
+         In-Person Learning" pages (U.S. Department of Education) may be archived. Links not checked from the build
+         environment (no outbound access). */
+      resources: [
+        { title_es: "Quién es quién en la escuela", title_en: "Who’s who at school", items: [
+          { type: "resource", title_es: "Quién es quién en la escuela de su hijo o hija (Colorín Colorado)", es: "https://www.colorincolorado.org/es/articulo/gu%C3%ADa-para-los-padres-qui%C3%A9n-es-qui%C3%A9n-en-la-escuela-de-su-ni%C3%B1o", title_en: "Who’s Who at Your Child’s School (Colorín Colorado)", en: "https://www.colorincolorado.org/article/parent-guide-whos-who-your-childs-school" },
+          { type: "resource", title_es: "Preguntas que hacen las familias sobre las escuelas (Departamento de Educación de EE. UU.)", es: "https://drive.google.com/file/d/1oHno51Aloln6t5r2Vz2oeSMOk93xboQT/view?usp=drivesdk" },
+          { type: "resource", title_es: "La escuela en Estados Unidos: guía para familias recién llegadas (Departamento de Educación de EE. UU.)", es: "https://ies.ed.gov/ncee/edlabs/regions/northwest/pdf/newcomer-guide-infographic-es.pdf" },
+          { type: "resource", title_es: "Video: ¿Qué es una escuela de Título I?", es: "https://youtu.be/yN7otTSSbXk" }
+        ] },
+        { title_es: "Hablar con el maestro y la escuela", title_en: "Talking with teachers and the school", items: [
+          { type: "resource", title_es: "Consejos para la reunión con el maestro (Colorín Colorado)", es: "https://www.colorincolorado.org/es/articulo/consejos-para-padres-conferencias-de-padres-y-maestros", title_en: "Tips for Parent-Teacher Conferences (Colorín Colorado)", en: "https://www.colorincolorado.org/article/tips-parents-parent-teacher-conferences" },
+          { type: "resource", title_es: "Reuniones con el maestro: hoja de consejos (Illinois Early Learning Project)", es: "https://illinoisearlylearning.org/es/tipsheets/conferences-sp", title_en: "Parent-Teacher Conferences: Tip Sheet (Illinois Early Learning Project)", en: "https://illinoisearlylearning.org/tipsheets/conferences" },
+          { type: "resource", title_es: "Preguntas para llevar a la reunión con el maestro (Understood)", es: "https://www.understood.org/articles/es-mx/checklist-questions-to-ask-at-your-parent-teacher-conference", title_en: "Tips for a Successful Parent-Teacher Conference (Understood)", en: "https://www.understood.org/en/articles/tips-successful-parent-teacher-conference" },
+          { type: "resource", title_es: "Consejos para hablar con los maestros sobre el rendimiento escolar (Saber es Poder)", es: "https://saberespoder.com/articles/education/consejos-para-hablar-del-rendimiento-escolar-de-su-hijo-con-sus-maestros" },
+          { type: "resource", title_es: "Preguntas para hacerle al director de la escuela (Keep Learning California)", es: "https://keeplearningca.org/es/recursos-para-familias/preguntas-que-los-padres-deberian-de-hacerle-a-los-directores/", title_en: "Questions Parents Should Ask School Leaders (Keep Learning California)", en: "https://keeplearningca.org/resources-for-families/questions-parents-should-ask" },
+          { type: "resource", title_es: "Preguntas y pasos para que su hijo o hija triunfe en la escuela (Departamento de Educación de EE. UU.)", es: "https://www2.ed.gov/documents/family-community/parent-checklist-es.pdf", title_en: "Questions and Steps for Children to Succeed in School (U.S. Department of Education)", en: "https://www2.ed.gov/documents/family-community/parent-checklist.pdf" },
+          { type: "resource", title_es: "Regreso a clases en persona: recurso para familias (Departamento de Educación de EE. UU.)", es: "https://sites.ed.gov/roadmap/recurso-padres/", title_en: "Returning to In-Person Learning: Parent Resource (U.S. Department of Education)", en: "https://sites.ed.gov/roadmap/parent-checklist/" }
+        ] },
+        { title_es: "Matemáticas, educación especial e inglés", title_en: "Math, special education and English learners", items: [
+          { type: "resource", title_es: "Preguntas de matemáticas para la reunión con el maestro (Understood)", es: "https://assets.ctfassets.net/p0qf7j048i0q/5d0Jz4e6LCJ5YnA8BubfPI/d92f6aab5703f2311af6b897a196b606/Preguntas_de_matem__ticas_para_la_reuni__n_de_padres_y_maestros_Understood.pdf", title_en: "Math Questions for a Parent-Teacher Conference (Understood)", en: "https://assets.ctfassets.net/p0qf7j048i0q/3aKsBwV58UzhwJ01JM2RDf/5f395c57e7918c754228ac3c82363bf0/Parent-Teacher_Conference_Checklist_for_Math_Understood.pdf" },
+          { type: "resource", title_es: "Dificultades en matemáticas: cómo hablar con el maestro (Understood)", es: "https://www.understood.org/es-mx/articles/math-trouble-conversation-starters-to-use-with-your-childs-teacher", title_en: "Math Trouble: Talking to Your Child’s Teacher (Understood)", en: "https://www.understood.org/articles/math-trouble-conversation-starters-to-use-with-your-childs-teacher" },
+          { type: "resource", title_es: "Preguntas frecuentes de las familias sobre la educación especial (Center for Parent Information and Resources)", es: "https://www.parentcenterhub.org/lg1sp/", title_en: "Questions Often Asked by Parents About Special Education Services (Center for Parent Information and Resources)", en: "https://www.parentcenterhub.org/lg1/" },
+          { type: "resource", title_es: "El camino de la educación especial (Departamento de Educación de Arizona)", es: "https://www.azed.gov/sites/default/files/2020/12/Traveling%20the%20Special%20Education%20Highway%20Spa%20%2719%20acc.pdf", title_en: "Traveling the Special Education Highway (Arizona Department of Education)", en: "https://cms.azed.gov/home/GetDocumentFile?id=585aec6aaadebe12481b8572" },
+          { type: "resource", title_es: "Guía para familias de estudiantes aprendiendo inglés (Education Northwest)", es: "https://educationnorthwest.org/sites/default/files/resources/parent-guide-el-spanish.pdf", title_en: "Parent Guide for English Learners (Education Northwest)", en: "https://educationnorthwest.org/sites/default/files/resources/parent-guide-el-english.pdf" }
+        ] },
+        { title_es: "Participar en la escuela", title_en: "Getting involved at school", items: [
+          { type: "resource", title_es: "Cómo participar en las actividades escolares (Colorín Colorado)", es: "https://www.colorincolorado.org/es/articulo/participaci%C3%B3n-de-los-padres-c%C3%B3mo-mantenerse-involucrado-en-las-actividades-escolares-de-su", title_en: "Parent Participation: Getting Involved in School Activities (Colorín Colorado)", en: "https://www.colorincolorado.org/article/parent-participation-how-get-involved-your-childs-school-activities" },
+          { type: "resource", title_en: "Helping Your Child Through School Partnerships (U.S. Department of Education)", en: "https://www2.ed.gov/parents/academic/help/partnership.html" },
+          { type: "resource", title_es: "Escuelas y familias: colección de artículos (Colorín Colorado)", es: "https://www.colorincolorado.org/es/node/36889/articles", title_en: "Schools and Families: Article Collection (Colorín Colorado)", en: "https://www.colorincolorado.org/node/36889/articles" },
+          { type: "resource", title_es: "Biblioteca de recursos para familias (Encircle Families)", es: "https://encirclefamilies.org/es/resources/", title_en: "Family Resource Library (Encircle Families)", en: "https://encirclefamilies.org/resources/" },
+          { type: "resource", title_en: "Family Engagement (Arizona Department of Education)", en: "https://www.azed.gov/familyengagement/" },
+          { type: "resource", title_en: "Raise the Bar: Parents (U.S. Department of Education)", en: "https://www.ed.gov/raisethebar/parents" },
+          { type: "resource", title_en: "Arizona PTA", en: "https://azpta.org" }
+        ] },
+        { title_es: "Quién decide en su distrito", title_en: "Who decides in your district", items: [
+          { type: "resource", title_en: "Arizona School Boards Association", en: "https://azsba.org" },
+          { type: "resource", title_en: "Maricopa County: District Superintendents", en: "https://mcss.knack.com/school-districts#district-superintendents" },
+          { type: "resource", title_en: "Maricopa County: Governing Board Members", en: "https://mcss.knack.com/school-districts#governing-board-members" },
+          { type: "resource", title_en: "Pima County: Governing Board Members and Terms", en: "https://www.schools.pima.gov/elections/governing-board-members-and-terms" },
+          { type: "resource", title_en: "Yuma County: School Board Members", en: "https://www.yumasupt.org/board-members.html" }
+        ] }
+      ] },
     MREAD: { id: "PEA-M07",
       es: "Este curso presenta las habilidades fundamentales de la lectura y cómo puede verse una enseñanza eficaz mientras los estudiantes se desarrollan como lectores. Las familias aprenden a reconocer señales de que un estudiante podría necesitar apoyo adicional, revisan preguntas para el personal educativo y practican cómo abogar por una enseñanza de lectura apropiada y al nivel de grado.",
       en: "This course introduces foundational reading skills and what effective literacy instruction can look like as students develop as readers. Families learn how to recognize signs that a student may need additional support, review questions they can ask educators, and practice advocating for appropriate, grade-level literacy instruction.",

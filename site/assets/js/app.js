@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.22.10";
+  var VERSION = "0.22.11";
   var UPDATED = "2026-10-16";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -362,9 +362,17 @@
       }).join('<span class="mat-sep" aria-hidden="true">|</span>') + "</li>";
     }).join("") + "</ul>";
   }
+  function hasLink(it) { return it.es || it.en || it.any; }
   function matSection(h, items, live) {           /* a section appears only when its week is open and it has at least one link */
-    var linked = live && items ? items.filter(function (it) { return it.es || it.en || it.any; }) : [];
-    return linked.length ? '<div class="det-sec"><h4 class="det-h">' + esc(h) + "</h4>" + matRows(linked) + "</div>" : "";
+    var linked = live && items ? items.filter(function (it) { return it.items ? it.items.some(hasLink) : hasLink(it); }) : [];
+    if (!linked.length) return "";
+    /* Groups ({ title_es, title_en, items }) render as closed sub-panels with a count, so a long resource
+       list stays short until a family opens the topic it needs; plain items follow as one list (v0.22.11). */
+    var groups = linked.filter(function (it) { return it.items; }), plain = linked.filter(function (it) { return !it.items; });
+    return '<div class="det-sec"><h4 class="det-h">' + esc(h) + "</h4>" + groups.map(function (g) {
+      var rows = g.items.filter(hasLink);
+      return '<details class="mat-group"><summary><span>' + esc(g["title_" + lang]) + '</span><span class="mat-count">' + rows.length + "</span></summary>" + matRows(rows) + "</details>";
+    }).join("") + (plain.length ? matRows(plain) : "") + "</div>";
   }
   function calDetail(e) {
     var D = L.cal.detail, over = new Date(e.end).getTime() < NOW.getTime();
