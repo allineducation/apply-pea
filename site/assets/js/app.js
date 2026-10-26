@@ -7,8 +7,8 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.22.12";
-  var UPDATED = "2026-10-22";
+  var VERSION = "0.22.13";
+  var UPDATED = "2026-10-26";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
   var LS_LANG = "aie_lang";
