@@ -261,11 +261,23 @@ window.PEA_FACTS = {
     MREAD: { id: "PEA-M07",
       es: "Este curso presenta las habilidades fundamentales de la lectura y cómo puede verse una enseñanza eficaz mientras los estudiantes se desarrollan como lectores. Las familias aprenden a reconocer señales de que un estudiante podría necesitar apoyo adicional, revisan preguntas para el personal educativo y practican cómo abogar por una enseñanza de lectura apropiada y al nivel de grado.",
       en: "This course introduces foundational reading skills and what effective literacy instruction can look like as students develop as readers. Families learn how to recognize signs that a student may need additional support, review questions they can ask educators, and practice advocating for appropriate, grade-level literacy instruction.",
-      materials: [{ type: "comm", es: "https://drive.google.com/file/d/1lehKQddljRicY2DK2j-AX-T1RL9BiBGP/view?usp=drivesdk" }] },
+      /* 4T materials from the 4T class folder (Danny Hernández, 2026-10-26), PDFs only, all shared "anyone with the
+         link": worksheet ES + EN v1.0.0, family handout ES + EN v1.1.1 (Hoja familiar) and the communication tool
+         ES v2.0.0 (Spanish only, cohort-neutral), which replaces the FA26 BIL v1_0_1 tool. The small-group guide is
+         staff-only and not published. */
+      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1OTVVzclBvqOSSzfi3-4WRYGXrSsDpM6z/view?usp=drivesdk", en: "https://drive.google.com/file/d/1gAWLxHCoVbXtBJWmLH4DyGjsuRAgIfVj/view?usp=drivesdk" },
+        { type: "handout", es: "https://drive.google.com/file/d/10G869cFJcfTOEWRNfRnKpkldH9J14YZe/view?usp=drivesdk", en: "https://drive.google.com/file/d/1MdKyK84TxHrpZXQdGBTTwEL7YQrj-Xf1/view?usp=drivesdk" },
+        { type: "comm", es: "https://drive.google.com/file/d/1Lr8OQYkmmU2RLyb4EvPkakjwYquqEIym/view?usp=drivesdk" }] },
     MHOME: { id: "PEA-M08",
       es: "Este curso se enfoca en formas prácticas y culturalmente relevantes de apoyar el desarrollo de la lectura en casa y en cualquier idioma. Las familias practican estrategias para leer juntas, hacer preguntas, ampliar el vocabulario y crear rutinas que fortalezcan la confianza y conecten la lectura en casa con el aprendizaje escolar.",
       en: "This course focuses on practical, culturally responsive ways families can support reading development at home and in any language. Participants practice strategies for reading together, asking questions, building vocabulary, and creating routines that strengthen confidence and connect home literacy experiences with classroom learning.",
-      materials: [{ type: "comm", es: "https://drive.google.com/file/d/1dW105bHTB9QZa8XBl5iEjAFWOs_NQ-m-/view?usp=drivesdk" }] },
+      /* 4R materials from the 4R class folder (Danny Hernández, 2026-10-26), PDFs only, all shared "anyone with the
+         link": worksheet ES + EN v1.0.0, family handout ES + EN v1.0.0 (Volante familiar / Family handout) and the
+         communication tool BIL v2.0.0 (for Spanish-speaking families, so it is listed as the Spanish version), which
+         replaces the FA26 BIL v1_1_0 tool. The small-group guide is staff-only and not published. */
+      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1errhRqTNpWvslo6nxtPtxJRbUTP6zArV/view?usp=drivesdk", en: "https://drive.google.com/file/d/1-8W8czqErHwMBVcUGRom5cGJAX8AXl-H/view?usp=drivesdk" },
+        { type: "handout", es: "https://drive.google.com/file/d/1ZHY0Qb2ci4iEshxnoHaedqWjHg8J6dAV/view?usp=drivesdk", en: "https://drive.google.com/file/d/1odG3YHIspLJD1Ac8qeyrHQPTnpwMHN6H/view?usp=drivesdk" },
+        { type: "comm", es: "https://drive.google.com/file/d/1YRAzUB8Mq3FF4CxszoKltNYK9_Tj7WKQ/view?usp=drivesdk" }] },
     MDIGI: { id: "PEA-M09",
       es: "Este curso presenta conceptos de alfabetización digital que afectan a estudiantes y familias, incluyendo la seguridad en línea, el uso de medios, la desinformación, la privacidad y el acceso a herramientas de aprendizaje. Las personas participantes practican cómo evaluar información digital e identifican estrategias y recursos para orientar el uso responsable de la tecnología, comunicarse con las escuelas y apoyar el aprendizaje en casa.",
       en: "This course introduces digital literacy concepts that affect students and families, including online safety, media use, misinformation, privacy, and access to learning tools. Participants practice evaluating online information and identify strategies and resources for guiding responsible technology use, communicating with schools, and supporting learning at home.",
