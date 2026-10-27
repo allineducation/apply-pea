@@ -272,8 +272,12 @@ window.PEA_FACTS = {
          what reading looks like by age and grade, signs a student needs support, and where to get help. Since
          v0.22.16 the card sorts them itself: rows with a Spanish link go under Additional resources, English-only rows
          under Other resources; groups keep their titles in both. No Spanish version found for AdLit or Find Your
-         Parent Center (web search, 2026-10-27). Featured: Read On Arizona (Danny, 2026-10-27). Links not checked
-         from the build environment (DNS blocked). */
+         Parent Center (web search, 2026-10-27). Featured: Read On Arizona (Danny, 2026-10-27). v0.22.17: added the
+         links the FA26 4T deck uses (Canva DAHSSjcFSGI, slides and presenter notes): the two class videos (language
+         not verified, so one link for both pages), Access Group, Colorín Colorado, Reading Rockets and the FCRR
+         activity PDFs (the deck's second PDF was on fcrr.fsu.acsitefactory.com; the same path on fcrr.org is used).
+         Seek Common Ground's family guides (ES | EN) added at Danny's request (2026-10-27); they were written for the
+         2020–21 school year. Links not checked from the build environment (DNS blocked). */
       featured: [{ type: "resource", title_es: "Conversar para aprender: hablar, leer y aprender con niños pequeños (Read On Arizona)", es: "https://readonarizona.org/resources/conversar-para-aprender/",
           title_en: "Smart Talk: talk, read and learn with young children (Read On Arizona)", en: "https://readonarizona.org/resources/smart-talk/" }],
       resources: [
@@ -282,10 +286,26 @@ window.PEA_FACTS = {
             title_en: "Reading Skills: What to Expect at Different Ages (Understood)", en: "https://www.understood.org/en/articles/reading-skills-what-to-expect-at-different-ages" },
           { type: "resource", title_es: "La lectura: lo que se espera en cada grado (GreatSchools)", es: "https://www.greatschools.org/gk/crianza/milestones-temas/la-lectura?lang=es",
             title_en: "Reading Milestones by Grade (GreatSchools)", en: "https://www.greatschools.org/gk/parenting/milestones-subjects/milestones-reading" },
+          { type: "resource", title_es: "Guías familiares: lo que su hijo o hija aprende en cada grado (Seek Common Ground)", es: "https://seekcommonground.org/guias-familiares",
+            title_en: "Family Guides: what your child learns in each grade (Seek Common Ground)", en: "https://seekcommonground.org/family-guides" },
           { type: "resource", title_en: "AdLit: All About Adolescent Literacy (grades 4–12)", en: "https://www.adlit.org" }
         ] },
         { title_es: "Si su hijo o hija necesita más apoyo", title_en: "If your child needs more support", items: [
           { type: "resource", title_en: "Find Your Parent Center: help for children with disabilities or learning difficulties", en: "https://www.parentcenterhub.org/find-your-center" }
+        ] },
+        { title_es: "Videos de la clase", title_en: "Videos from class", items: [
+          { type: "resource", title_es: "Video: Jade cuenta cómo vive la dificultad para leer", title_en: "Video: Jade describes her reading challenges", any: "https://youtu.be/dXg2oY6fC8w" },
+          { type: "resource", title_es: "Video: un ejemplo de práctica de conciencia fonológica", title_en: "Video: phonological awareness practice in action", any: "https://youtu.be/gaodKlCjwUg?t=60" }
+        ] },
+        { title_es: "Cómo se enseña a leer", title_en: "How reading is taught", items: [
+          { type: "resource", title_en: "What Parents Should Know About Reading Instruction (Access Group)", en: "https://accessgroupinc.org/what-parents-should-know-about-reading-instruction/" },
+          { type: "resource", title_es: "Colorín Colorado: lectura para familias (sitio en español)", es: "https://www.colorincolorado.org/es", title_en: "Colorín Colorado: reading for families", en: "https://www.colorincolorado.org" },
+          { type: "resource", title_en: "Reading Rockets", en: "https://www.readingrockets.org" }
+        ] },
+        { title_es: "Actividades para practicar en casa", title_en: "Activities to practice at home", items: [
+          { type: "resource", title_en: "Letter-Sound Bingo (Florida Center for Reading Research, PDF)", en: "https://fcrr.org/sites/g/files/upcbnu2836/files/media/PDFs/student_center_activities/k1_phonics/k1_letter_sound_correspondence/k1_p022_letter_sound_bingo.pdf" },
+          { type: "resource", title_en: "Vowel Stars (Florida Center for Reading Research, PDF)", en: "https://fcrr.org/sites/g/files/upcbnu2836/files/media/PDFs/student_center_activities/k1_phonics/k1_encoding_and_decoding/k1_p034_vowel_stars.pdf" },
+          { type: "resource", title_en: "Reading Activities for Families (Florida Center for Reading Research)", en: "https://fcrr.org/families" }
         ] }
       ] },
     MHOME: { id: "PEA-M08",
@@ -309,7 +329,9 @@ window.PEA_FACTS = {
          guides (2020–21 school year), Stand for Children (URL does not reach Growing Readers) and the "Jade, 8th
          grade" video (publisher unverified). v0.22.16 (Danny, 2026-10-27): Read On Arizona moved to Featured; PBS KIDS
          paired with its Spanish parents page (pbs.org/es/parents, found by web search). English-only rows show under
-         Other resources. Links not checked from the build environment (DNS blocked). */
+         Other resources. v0.22.17: added the links the FA26 4R deck uses (Canva DAHSShcTYCI, presenter notes): Access
+         Group, Flocabulary, two Common Sense Media lists, Scholastic Top 25 picture books, Read Brightly (2020 list)
+         and Scholastic's Lexile guide; all English only. Links not checked from the build environment (DNS blocked). */
       featured: [{ type: "resource", title_es: "Conversar para aprender: hablar, leer y aprender con niños pequeños (Read On Arizona)", es: "https://readonarizona.org/resources/conversar-para-aprender/",
           title_en: "Smart Talk: talk, read and learn with young children (Read On Arizona)", en: "https://readonarizona.org/resources/smart-talk/" }],
       resources: [
@@ -317,6 +339,8 @@ window.PEA_FACTS = {
           { type: "resource", title_es: "Ayude a su niño a aprender a leer (Colorín Colorado)", es: "https://www.colorincolorado.org/es/families/ayude-su-ni%C3%B1o-aprender-leer",
             title_en: "Help Your Child Learn to Read (Colorín Colorado)", en: "https://www.colorincolorado.org/help-your-child-learn-read" },
           { type: "resource", title_en: "Literacy at Home (Reading Rockets)", en: "https://www.readingrockets.org/literacy-home" },
+          { type: "resource", title_en: "What Parents Should Know About Reading Instruction (Access Group)", en: "https://accessgroupinc.org/what-parents-should-know-about-reading-instruction/" },
+          { type: "resource", title_en: "3rd Grade Vocabulary Word List (Flocabulary)", en: "https://www.flocabulary.com/3rd-grade-vocabulary-word-list/" },
           { type: "resource", title_en: "Reading Activities for Families (Florida Center for Reading Research)", en: "https://fcrr.org/families" },
           { type: "resource", title_en: "Games to Support Early Literacy Skills (Rhode Island Department of Education)", en: "https://ride.ri.gov/sites/g/files/xkgbur806/files/IAC/StructuredLiteracy/GamesToSupportEarlyLiteracySkills-Sept2020.pdf" },
           { type: "resource", title_es: "Recursos en español para la primera infancia (First Things First)", es: "https://www.firstthingsfirst.org/recursos-en-espanol",
@@ -328,7 +352,13 @@ window.PEA_FACTS = {
           { type: "resource", title_es: "Medidas Lexile en su hogar (guía en PDF)", es: "https://lexile.com/wp-content/uploads/2017/09/Lexile-Home-Spanish.pdf" },
           { type: "resource", title_es: "Buscar libros por nivel Lexile, también en español (sitio en inglés)", title_en: "Find a Book by Lexile Measure", any: "https://hub.lexile.com/find-a-book/search" },
           { type: "resource", title_en: "Roving Readers: read-aloud books on social justice (Social Justice Books)", en: "https://socialjusticebooks.org/booklists/roving-readers" },
-          { type: "resource", title_en: "Book Reviews by Age (Common Sense Media)", en: "https://www.commonsensemedia.org/book-reviews" }
+          { type: "resource", title_es: "Common Sense Media: reseñas de contenidos según la edad para las familias", es: "https://www.commonsensemedia.org/es",
+            title_en: "Book Reviews by Age (Common Sense Media)", en: "https://www.commonsensemedia.org/book-reviews" },
+          { type: "resource", title_en: "50 Books All Kids Should Read Before They’re 12 (Common Sense Media)", en: "https://www.commonsensemedia.org/lists/50-books-all-kids-should-read-before-theyre-12" },
+          { type: "resource", title_en: "Book Lists by Age and Topic (Common Sense Media)", en: "https://www.commonsensemedia.org/book-lists" },
+          { type: "resource", title_en: "Teacher Picks: Top 25 Picture Books (Scholastic)", en: "https://www.scholastic.com/teachers/teaching-tools/book-lists/teacher-picks--top-25-picture-books.html" },
+          { type: "resource", title_en: "Award-Winning Picture Books, 2020 (Read Brightly)", en: "https://www.readbrightly.com/picture-books-2020/" },
+          { type: "resource", title_en: "Lexile Levels Made Easy (Scholastic)", en: "https://www.scholastic.com/parents/books-and-reading/reading-resources/book-selection-tips/lexile-levels-made-easy.html" }
         ] },
         { title_es: "Tarjeta de biblioteca gratis", title_en: "Free library cards", items: [
           { type: "resource", title_es: "Biblioteca Pública de Phoenix (en español)", es: "https://www.phoenixpubliclibrary.org/espanol",
