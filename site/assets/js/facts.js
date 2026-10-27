@@ -267,7 +267,19 @@ window.PEA_FACTS = {
          staff-only and not published. */
       materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1OTVVzclBvqOSSzfi3-4WRYGXrSsDpM6z/view?usp=drivesdk", en: "https://drive.google.com/file/d/1gAWLxHCoVbXtBJWmLH4DyGjsuRAgIfVj/view?usp=drivesdk" },
         { type: "handout", es: "https://drive.google.com/file/d/10G869cFJcfTOEWRNfRnKpkldH9J14YZe/view?usp=drivesdk", en: "https://drive.google.com/file/d/1MdKyK84TxHrpZXQdGBTTwEL7YQrj-Xf1/view?usp=drivesdk" },
-        { type: "comm", es: "https://drive.google.com/file/d/1Lr8OQYkmmU2RLyb4EvPkakjwYquqEIym/view?usp=drivesdk" }] },
+        { type: "comm", es: "https://drive.google.com/file/d/1Lr8OQYkmmU2RLyb4EvPkakjwYquqEIym/view?usp=drivesdk" }],
+      /* 4T resources (Danny Hernández, 2026-10-27), chosen from Danny's 39-item literacy list for this class's focus:
+         what reading looks like by age and grade, signs a student needs support, and where to get help. ES and EN
+         versions share a row; specific guides first, then general sites. AdLit and Find Your Parent Center have no
+         Spanish version on the list. Links not checked from the build environment (DNS blocked). */
+      resources: [
+        { type: "resource", title_es: "Habilidades lectoras a diferentes edades (Understood)", es: "https://www.understood.org/es-mx/articles/reading-skills-what-to-expect-at-different-ages",
+          title_en: "Reading Skills: What to Expect at Different Ages (Understood)", en: "https://www.understood.org/en/articles/reading-skills-what-to-expect-at-different-ages" },
+        { type: "resource", title_es: "La lectura: lo que se espera en cada grado (GreatSchools)", es: "https://www.greatschools.org/gk/crianza/milestones-temas/la-lectura?lang=es",
+          title_en: "Reading Milestones by Grade (GreatSchools)", en: "https://www.greatschools.org/gk/parenting/milestones-subjects/milestones-reading" },
+        { type: "resource", title_en: "Find Your Parent Center: help for children with disabilities or learning difficulties", en: "https://www.parentcenterhub.org/find-your-center" },
+        { type: "resource", title_en: "AdLit: All About Adolescent Literacy (grades 4–12)", en: "https://www.adlit.org" }
+      ] },
     MHOME: { id: "PEA-M08",
       es: "Este curso se enfoca en formas prácticas y culturalmente relevantes de apoyar el desarrollo de la lectura en casa y en cualquier idioma. Las familias practican estrategias para leer juntas, hacer preguntas, ampliar el vocabulario y crear rutinas que fortalezcan la confianza y conecten la lectura en casa con el aprendizaje escolar.",
       en: "This course focuses on practical, culturally responsive ways families can support reading development at home and in any language. Participants practice strategies for reading together, asking questions, building vocabulary, and creating routines that strengthen confidence and connect home literacy experiences with classroom learning.",
@@ -277,7 +289,48 @@ window.PEA_FACTS = {
          replaces the FA26 BIL v1_1_0 tool. The small-group guide is staff-only and not published. */
       materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1errhRqTNpWvslo6nxtPtxJRbUTP6zArV/view?usp=drivesdk", en: "https://drive.google.com/file/d/1-8W8czqErHwMBVcUGRom5cGJAX8AXl-H/view?usp=drivesdk" },
         { type: "handout", es: "https://drive.google.com/file/d/1ZHY0Qb2ci4iEshxnoHaedqWjHg8J6dAV/view?usp=drivesdk", en: "https://drive.google.com/file/d/1odG3YHIspLJD1Ac8qeyrHQPTnpwMHN6H/view?usp=drivesdk" },
-        { type: "comm", es: "https://drive.google.com/file/d/1YRAzUB8Mq3FF4CxszoKltNYK9_Tj7WKQ/view?usp=drivesdk" }] },
+        { type: "comm", es: "https://drive.google.com/file/d/1YRAzUB8Mq3FF4CxszoKltNYK9_Tj7WKQ/view?usp=drivesdk" }],
+      /* 4R resources (Danny Hernández, 2026-10-27), chosen from Danny's 39-item literacy list: 18 rows in three closed
+         groups (reading at home, finding books, free library cards). ES and EN versions share a row; specific resources
+         come before general sites. Colorín Colorado's English page is the counterpart of the Spanish one on the list
+         (colorincolorado.org/help-your-child-learn-read, found by web search). Unite for Literacy and the Lexile book
+         search are one site for both languages, so they use `any`; the Lexile search interface is in English but
+         filters Spanish books. Phoenix pairs its Spanish portal with the English eCard page. Left out: Kanopy (films),
+         Kids Need to Read (serves organizations), U.S. ED early learning (not literacy), Reading Rockets "About",
+         the Colorín Colorado homepage (the specific page is listed), Scholastic (book sales), Seek Common Ground
+         guides (2020–21 school year), Stand for Children (URL does not reach Growing Readers) and the "Jade, 8th
+         grade" video (publisher unverified). Links not checked from the build environment (DNS blocked). */
+      resources: [
+        { title_es: "Leer en casa", title_en: "Reading at home", items: [
+          { type: "resource", title_es: "Ayude a su niño a aprender a leer (Colorín Colorado)", es: "https://www.colorincolorado.org/es/families/ayude-su-ni%C3%B1o-aprender-leer",
+            title_en: "Help Your Child Learn to Read (Colorín Colorado)", en: "https://www.colorincolorado.org/help-your-child-learn-read" },
+          { type: "resource", title_es: "Conversar para aprender: hablar, leer y aprender con niños pequeños (Read On Arizona)", es: "https://readonarizona.org/resources/conversar-para-aprender/",
+            title_en: "Smart Talk: talk, read and learn with young children (Read On Arizona)", en: "https://readonarizona.org/resources/smart-talk/" },
+          { type: "resource", title_en: "Literacy at Home (Reading Rockets)", en: "https://www.readingrockets.org/literacy-home" },
+          { type: "resource", title_en: "Reading Activities for Families (Florida Center for Reading Research)", en: "https://fcrr.org/families" },
+          { type: "resource", title_en: "Games to Support Early Literacy Skills (Rhode Island Department of Education)", en: "https://ride.ri.gov/sites/g/files/xkgbur806/files/IAC/StructuredLiteracy/GamesToSupportEarlyLiteracySkills-Sept2020.pdf" },
+          { type: "resource", title_es: "Recursos en español para la primera infancia (First Things First)", es: "https://www.firstthingsfirst.org/recursos-en-espanol",
+            title_en: "Parent Resources for Early Childhood (First Things First)", en: "https://www.firstthingsfirst.org/resources" },
+          { type: "resource", title_en: "PBS KIDS for Parents", en: "https://www.pbs.org/parents/" }
+        ] },
+        { title_es: "Encontrar libros", title_en: "Finding books", items: [
+          { type: "resource", title_es: "Unite for Literacy: libros digitales gratis con narración en español y otros idiomas", title_en: "Unite for Literacy: free digital picture books with narration in many languages", any: "https://www.uniteforliteracy.com" },
+          { type: "resource", title_es: "Medidas Lexile en su hogar (guía en PDF)", es: "https://lexile.com/wp-content/uploads/2017/09/Lexile-Home-Spanish.pdf" },
+          { type: "resource", title_es: "Buscar libros por nivel Lexile, también en español (sitio en inglés)", title_en: "Find a Book by Lexile Measure", any: "https://hub.lexile.com/find-a-book/search" },
+          { type: "resource", title_en: "Roving Readers: read-aloud books on social justice (Social Justice Books)", en: "https://socialjusticebooks.org/booklists/roving-readers" },
+          { type: "resource", title_en: "Book Reviews by Age (Common Sense Media)", en: "https://www.commonsensemedia.org/book-reviews" }
+        ] },
+        { title_es: "Tarjeta de biblioteca gratis", title_en: "Free library cards", items: [
+          { type: "resource", title_es: "Biblioteca Pública de Phoenix (en español)", es: "https://www.phoenixpubliclibrary.org/espanol",
+            title_en: "Phoenix Public Library: eCard Registration", en: "https://www.phoenixpubliclibrary.org/services/borrowing/ecard-registration" },
+          { type: "resource", title_en: "Greater Phoenix Digital Library: Library Cards", en: "https://phoenix.overdrive.com/support/card" },
+          { type: "resource", title_es: "Biblioteca del Condado de Yuma: tarjeta electrónica", es: "https://yumalibrary.org/tarjeta-electronica",
+            title_en: "Yuma County Library: eCard Registration", en: "https://yumalibrary.org/quipu-ecard" },
+          { type: "resource", title_en: "Pima County Public Library: Get a Library Card", en: "https://www.library.pima.gov/getalibrarycard" },
+          { type: "resource", title_en: "Pinal County Library District", en: "https://www.pinal.gov/639/Library-District" },
+          { type: "resource", title_en: "Casa Grande Public Library", en: "https://casagrandeaz.gov/library" }
+        ] }
+      ] },
     MDIGI: { id: "PEA-M09",
       es: "Este curso presenta conceptos de alfabetización digital que afectan a estudiantes y familias, incluyendo la seguridad en línea, el uso de medios, la desinformación, la privacidad y el acceso a herramientas de aprendizaje. Las personas participantes practican cómo evaluar información digital e identifican estrategias y recursos para orientar el uso responsable de la tecnología, comunicarse con las escuelas y apoyar el aprendizaje en casa.",
       en: "This course introduces digital literacy concepts that affect students and families, including online safety, media use, misinformation, privacy, and access to learning tools. Participants practice evaluating online information and identify strategies and resources for guiding responsible technology use, communicating with schools, and supporting learning at home.",
