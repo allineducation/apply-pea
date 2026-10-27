@@ -180,7 +180,9 @@
           past: "La clase ya pasó",
           opens: function (d) { return "Se abre el " + d; },
           actions: "Enlaces de esta clase",
-          objectives: "Objetivos de aprendizaje", objectivesLead: "Al final de la sesión, las familias podrán:"
+          objectives: "Objetivos de aprendizaje", objectivesLead: "Al final de la sesión, las familias podrán:",
+          secFeatured: "⭐ Destacado", secAie: "Materiales de ALL In Education", secMore: "Recursos adicionales",
+          secOther: "Otros recursos", secOtherLead: "Disponibles solo en inglés."
         },
         classNote: "Entre a clase con el enlace personal de Zoom de su correo de bienvenida. Es el mismo para todas las clases; por favor, no lo comparta.",
         holidayNote: "No hay clase este día.",
@@ -197,6 +199,7 @@
         today: function (t, time) { return t + ", de " + time + ", hora de Arizona. Entre con el enlace personal de Zoom de su correo de bienvenida."; },
         notesLabel: "Avisos de esta semana",
         nextH: "La próxima semana",
+        cohortH: "Enlaces de su cohorte",
         calCta: "Ver el calendario completo →",
         beforeLabel: "Pronto empezamos",
         before: function (d) { return "Las clases empiezan el " + d + ". Aquí verá cada semana sus clases, materiales y enlaces."; },
@@ -474,7 +477,9 @@
           past: "This class has passed",
           opens: function (d) { return "Opens " + d; },
           actions: "Links for this class",
-          objectives: "Learning objectives", objectivesLead: "By the end of the session, families will be able to:"
+          objectives: "Learning objectives", objectivesLead: "By the end of the session, families will be able to:",
+          secFeatured: "⭐ Featured", secAie: "ALL In Education materials", secMore: "Additional resources",
+          secOther: "Other resources", secOtherLead: "Available in English only."
         },
         classNote: "Join class with the personal Zoom link in your welcome email. It’s the same for every class; please don’t share it.",
         holidayNote: "There is no class this day.",
@@ -491,6 +496,7 @@
         today: function (t, time) { return t + ", " + time + " Arizona time. Join with the personal Zoom link in your welcome email."; },
         notesLabel: "This week’s announcements",
         nextH: "Next week",
+        cohortH: "Your cohort links",
         calCta: "See the full calendar →",
         beforeLabel: "Starting soon",
         before: function (d) { return "Classes begin " + d + ". Each week, this page shows your classes, materials, and links."; },
