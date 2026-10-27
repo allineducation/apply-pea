@@ -1,6 +1,6 @@
 # PEA applicant portal
 
-Prepared by Danny Hernández · Entry guidance checked October 6, 2026 · Current repository code **v0.22.12**
+Prepared by Danny Hernández · Entry guidance checked October 6, 2026 · Current repository code **v0.22.13**
 
 The Parent Educator Academy (PEA) applicant portal is a public, bilingual information site for families, caregivers and school staff. It explains the program and routes visitors to the interest form, class registration, information session, calendar and team support. It does not track an applicant’s progress.
 
