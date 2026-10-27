@@ -371,12 +371,18 @@
     var linked = live && items ? items.filter(function (it) { return it.items ? it.items.some(hasLink) : hasLink(it); }) : [];
     if (!linked.length) return "";
     /* Groups ({ title_es, title_en, items }) render as closed sub-panels with a count, so a long resource
-       list stays short until a family opens the topic it needs; plain items follow as one list (v0.22.11). */
-    var groups = linked.filter(function (it) { return it.items; }), plain = linked.filter(function (it) { return !it.items; });
-    return '<div class="det-sec"><h4 class="det-h">' + esc(h) + "</h4>" + groups.map(function (g, i) {
-      var rows = g.items.filter(hasLink), k = (key || "") + ":" + i;
-      return '<details class="mat-group" data-k="' + esc(k) + '"' + (matOpen[k] ? " open" : "") + "><summary><span>" + esc(g["title_" + lang]) + '</span><span class="mat-count">' + rows.length + "</span></summary>" + matRows(rows) + "</details>";
-    }).join("") + (plain.length ? matRows(plain) : "") + "</div>";
+       list stays short until a family opens the topic it needs (v0.22.11). Items keep their order: a run of
+       plain items is one list, so a class's own links can come before the module's groups (v0.22.15). */
+    var out = "", run = [], gi = 0;
+    var flush = function () { if (run.length) out += matRows(run); run = []; };
+    linked.forEach(function (it) {
+      if (!it.items) return run.push(it);
+      flush();
+      var rows = it.items.filter(hasLink), k = (key || "") + ":" + gi++;
+      out += '<details class="mat-group" data-k="' + esc(k) + '"' + (matOpen[k] ? " open" : "") + "><summary><span>" + esc(it["title_" + lang]) + '</span><span class="mat-count">' + rows.length + "</span></summary>" + matRows(rows) + "</details>";
+    });
+    flush();
+    return '<div class="det-sec"><h4 class="det-h">' + esc(h) + "</h4>" + out + "</div>";
   }
   function calDetail(e) {
     var D = L.cal.detail, over = new Date(e.end).getTime() < NOW.getTime();
