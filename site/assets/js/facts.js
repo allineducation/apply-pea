@@ -276,7 +276,8 @@ window.PEA_FACTS = {
          links the FA26 4T deck uses (Canva DAHSSjcFSGI, slides and presenter notes): the two class videos (language
          not verified, so one link for both pages), Access Group, Colorín Colorado, Reading Rockets and the FCRR
          activity PDFs (the deck's second PDF was on fcrr.fsu.acsitefactory.com; the same path on fcrr.org is used).
-         Links not checked from the build environment (DNS blocked). */
+         Seek Common Ground's family guides (ES | EN) added at Danny's request (2026-10-27); they were written for the
+         2020–21 school year. Links not checked from the build environment (DNS blocked). */
       featured: [{ type: "resource", title_es: "Conversar para aprender: hablar, leer y aprender con niños pequeños (Read On Arizona)", es: "https://readonarizona.org/resources/conversar-para-aprender/",
           title_en: "Smart Talk: talk, read and learn with young children (Read On Arizona)", en: "https://readonarizona.org/resources/smart-talk/" }],
       resources: [
@@ -285,6 +286,8 @@ window.PEA_FACTS = {
             title_en: "Reading Skills: What to Expect at Different Ages (Understood)", en: "https://www.understood.org/en/articles/reading-skills-what-to-expect-at-different-ages" },
           { type: "resource", title_es: "La lectura: lo que se espera en cada grado (GreatSchools)", es: "https://www.greatschools.org/gk/crianza/milestones-temas/la-lectura?lang=es",
             title_en: "Reading Milestones by Grade (GreatSchools)", en: "https://www.greatschools.org/gk/parenting/milestones-subjects/milestones-reading" },
+          { type: "resource", title_es: "Guías familiares: lo que su hijo o hija aprende en cada grado (Seek Common Ground)", es: "https://seekcommonground.org/guias-familiares",
+            title_en: "Family Guides: what your child learns in each grade (Seek Common Ground)", en: "https://seekcommonground.org/family-guides" },
           { type: "resource", title_en: "AdLit: All About Adolescent Literacy (grades 4–12)", en: "https://www.adlit.org" }
         ] },
         { title_es: "Si su hijo o hija necesita más apoyo", title_en: "If your child needs more support", items: [
@@ -349,7 +352,8 @@ window.PEA_FACTS = {
           { type: "resource", title_es: "Medidas Lexile en su hogar (guía en PDF)", es: "https://lexile.com/wp-content/uploads/2017/09/Lexile-Home-Spanish.pdf" },
           { type: "resource", title_es: "Buscar libros por nivel Lexile, también en español (sitio en inglés)", title_en: "Find a Book by Lexile Measure", any: "https://hub.lexile.com/find-a-book/search" },
           { type: "resource", title_en: "Roving Readers: read-aloud books on social justice (Social Justice Books)", en: "https://socialjusticebooks.org/booklists/roving-readers" },
-          { type: "resource", title_en: "Book Reviews by Age (Common Sense Media)", en: "https://www.commonsensemedia.org/book-reviews" },
+          { type: "resource", title_es: "Common Sense Media: reseñas de contenidos según la edad para las familias", es: "https://www.commonsensemedia.org/es",
+            title_en: "Book Reviews by Age (Common Sense Media)", en: "https://www.commonsensemedia.org/book-reviews" },
           { type: "resource", title_en: "50 Books All Kids Should Read Before They’re 12 (Common Sense Media)", en: "https://www.commonsensemedia.org/lists/50-books-all-kids-should-read-before-theyre-12" },
           { type: "resource", title_en: "Book Lists by Age and Topic (Common Sense Media)", en: "https://www.commonsensemedia.org/book-lists" },
           { type: "resource", title_en: "Teacher Picks: Top 25 Picture Books (Scholastic)", en: "https://www.scholastic.com/teachers/teaching-tools/book-lists/teacher-picks--top-25-picture-books.html" },
