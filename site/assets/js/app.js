@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.22.14";
+  var VERSION = "0.22.15";
   var UPDATED = "2026-10-26";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -397,7 +397,7 @@
       var objs = mod && mod["objectives_" + lang];   /* shown whenever the module has them, before materials */
       secs = (objs && objs.length ? '<div class="det-sec"><h4 class="det-h">' + esc(D.objectives) + '</h4><p class="det-lead">' + esc(D.objectivesLead) + '</p><ol class="obj-list">' +
         objs.map(function (o) { return "<li>" + esc(o) + "</li>"; }).join("") + "</ol></div>" : "") +
-        matSection(D.materials, mats, live) + matSection(D.resources, ((mod && mod.resources) || []).concat(cres), live, e._c + e.code);
+        matSection(D.materials, mats, live) + matSection(D.resources, (e.resources || []).concat((mod && mod.resources) || [], cres), live, e._c + e.code);
       if (!e.projected) notes += "<li>" + esc(D.zoomNote) + "</li>";
       var exitFrom = F.links.global.exitOpensOn, exitLive = live && !(exitFrom && daysUntil(exitFrom + "T12:00:00-07:00", NOW) > 0);
       var acts = [
