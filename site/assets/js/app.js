@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.22.15";
+  var VERSION = "0.22.16";
   var UPDATED = "2026-10-26";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -365,14 +365,13 @@
   function hasLink(it) { return it.es || it.en || it.any; }
   var matOpen = {};                                 /* open resource groups by "<cohort><class>:<n>"; survives every re-render (language, refresh, calendar filter) */
   document.addEventListener("toggle", function (ev) {
-    var d = ev.target; if (d.classList && d.classList.contains("mat-group")) matOpen[d.getAttribute("data-k")] = d.open;
+    var d = ev.target; if (d.classList && (d.classList.contains("mat-group") || d.classList.contains("res-sec"))) matOpen[d.getAttribute("data-k")] = d.open;
   }, true);
-  function matSection(h, items, live, key) {           /* a section appears only when its week is open and it has at least one link */
-    var linked = live && items ? items.filter(function (it) { return it.items ? it.items.some(hasLink) : hasLink(it); }) : [];
-    if (!linked.length) return "";
+  function rowCount(list) { return list.reduce(function (n, it) { return n + (it.items ? it.items.filter(hasLink).length : 1); }, 0); }
+  function matBody(linked, key) {
     /* Groups ({ title_es, title_en, items }) render as closed sub-panels with a count, so a long resource
        list stays short until a family opens the topic it needs (v0.22.11). Items keep their order: a run of
-       plain items is one list, so a class's own links can come before the module's groups (v0.22.15). */
+       plain items is one list (v0.22.15). */
     var out = "", run = [], gi = 0;
     var flush = function () { if (run.length) out += matRows(run); run = []; };
     linked.forEach(function (it) {
@@ -382,7 +381,23 @@
       out += '<details class="mat-group" data-k="' + esc(k) + '"' + (matOpen[k] ? " open" : "") + "><summary><span>" + esc(it["title_" + lang]) + '</span><span class="mat-count">' + rows.length + "</span></summary>" + matRows(rows) + "</details>";
     });
     flush();
-    return '<div class="det-sec"><h4 class="det-h">' + esc(h) + "</h4>" + out + "</div>";
+    return out;
+  }
+  function onlyLinked(items) { return (items || []).filter(function (it) { return it.items ? it.items.some(hasLink) : hasLink(it); }); }
+  function englishOnly(it) { return !!it.en && !it.es && !it.any; }
+  function splitByLang(items, other) {             /* keep groups; each side gets the group's items in its language bucket */
+    return onlyLinked(items.map(function (it) {
+      if (!it.items) return englishOnly(it) === other ? it : null;
+      return { title_es: it.title_es, title_en: it.title_en, items: it.items.filter(function (x) { return englishOnly(x) === other; }) };
+    }).filter(Boolean));
+  }
+  function resSection(name, h, items, open, key, lead) {
+    /* One collapsible section of a class card (v0.22.16): Featured, ALL In Education materials, Additional
+       resources (Spanish and English, or Spanish only) and Other resources (English only). Left out when empty. */
+    if (!items.length) return "";
+    var k = key + ":" + name, isOpen = matOpen[k] === undefined ? open : matOpen[k];
+    return '<details class="res-sec res-' + name + '" data-k="' + esc(k) + '"' + (isOpen ? " open" : "") + '><summary><span>' + esc(h) +
+      '</span><span class="mat-count">' + rowCount(items) + "</span></summary>" + (lead ? '<p class="det-lead">' + esc(lead) + "</p>" : "") + matBody(items, k) + "</details>";
   }
   function calDetail(e) {
     var D = L.cal.detail, over = new Date(e.end).getTime() < NOW.getTime();
@@ -398,12 +413,20 @@
          Zoom link, and report an absence (until the class starts). */
       var open = weekOpens(e), live = !e.projected && daysUntil(open.start, NOW) <= 0;
       var started = new Date(e.start).getTime() <= NOW.getTime();
-      var cres = (F.cohorts[e._c].classResources || []).map(function (k) { return { type: k, any: link(k, e._c) }; });
       var mats = ((mod && mod.materials) || []).concat(lang === "en" && e.presentation_en ? [{ type: "presentation", en: e.presentation_en }] : []);
       var objs = mod && mod["objectives_" + lang];   /* shown whenever the module has them, before materials */
       secs = (objs && objs.length ? '<div class="det-sec"><h4 class="det-h">' + esc(D.objectives) + '</h4><p class="det-lead">' + esc(D.objectivesLead) + '</p><ol class="obj-list">' +
         objs.map(function (o) { return "<li>" + esc(o) + "</li>"; }).join("") + "</ol></div>" : "") +
-        matSection(D.materials, mats, live) + matSection(D.resources, (e.resources || []).concat((mod && mod.resources) || [], cres), live, e._c + e.code);
+        (live ? (function () {
+          /* Sections unlock with the week. Featured: the class's own key links (e.g. a partner form), then the
+             module's. The cohort's WhatsApp and calendar links live on Esta semana, not on every card (v0.22.16). */
+          var key = e._c + e.code, res = (mod && mod.resources) || [];
+          var html = resSection("featured", D.secFeatured, onlyLinked((e.featured || []).concat((mod && mod.featured) || [])), true, key) +
+            resSection("aie", D.secAie, onlyLinked(mats), true, key) +
+            resSection("more", D.secMore, splitByLang(res, false), false, key) +
+            resSection("other", D.secOther, splitByLang(res, true), false, key, D.secOtherLead);
+          return html ? '<div class="det-sec res-secs">' + html + "</div>" : "";
+        })() : "");
       if (!e.projected) notes += "<li>" + esc(D.zoomNote) + "</li>";
       var exitFrom = F.links.global.exitOpensOn, exitLive = live && !(exitFrom && daysUntil(exitFrom + "T12:00:00-07:00", NOW) > 0);
       var acts = [
@@ -594,6 +617,10 @@
       ? L.week.range(a.getUTCDate() + (cross ? " de " + M[a.getUTCMonth()] : ""), b.getUTCDate() + " de " + M[b.getUTCMonth()] + " de " + b.getUTCFullYear())
       : L.week.range(M[a.getUTCMonth()] + " " + a.getUTCDate(), (cross ? M[b.getUTCMonth()] + " " : "") + b.getUTCDate() + ", " + b.getUTCFullYear());
   }
+  function cohortLinksHtml() {                       /* the cohort's WhatsApp group and calendar, once at the top of Esta semana (v0.22.16) */
+    var rows = (C.classResources || []).map(function (k) { return { type: k, any: link(k, C.code) }; }).filter(hasLink);
+    return rows.length ? '<section class="cohort-links" aria-labelledby="cohort-h"><h2 class="up-next-h" id="cohort-h">' + esc(L.week.cohortH) + "</h2>" + matRows(rows) + "</section>" : "";
+  }
   function pageSemana() {
     var W = L.week, ws = weekStartKey(NOW);
     var shown = function (e) { return !e.projected; };
@@ -619,6 +646,7 @@
     }
     return secHead("esta-semana") + '<p class="lead">' + esc(W.lead) + "</p>" +
       '<h2 class="week-range">' + esc(weekRange(ws)) + "</h2>" + top +
+      cohortLinksHtml() +
       (wk.length ? '<ol class="event-list week-list">' + wk.map(function (e) { return eventCard(e, true, fold(e)); }).join("") + "</ol>" : "") +
       helpCardHtml() +
       (nxt.length ? '<section class="up-next week-next" aria-labelledby="wknext-h"><h2 class="up-next-h" id="wknext-h">' + esc(W.nextH) +

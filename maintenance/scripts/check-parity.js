@@ -91,7 +91,8 @@ const checkItem = (it, where, own) => {           /* own: resources need their o
   if (own && it.en && !it.any && !it.title_en) problems.push(`${where}: English link needs an English title`);
   if (own && it.any && !(it.title_es && it.title_en)) problems.push(`${where}: shared link needs title_es and title_en`);
 };
-Object.entries(MODS).forEach(([k, m]) => ["materials", "resources"].forEach(list => (m[list] || []).forEach((it, i) => checkItem(it, `module ${k} ${list}[${i}]`, list === "resources"))));
+Object.entries(MODS).forEach(([k, m]) => ["materials", "resources", "featured"].forEach(list => (m[list] || []).forEach((it, i) => checkItem(it, `module ${k} ${list}[${i}]`, list !== "materials"))));
+Object.values(FACTS.cohorts).forEach(c => (c.events || []).forEach(e => (e.featured || []).forEach((it, i) => checkItem(it, `${c.code} ${e.code} featured[${i}]`, true))));
 Object.values(FACTS.cohorts).forEach(c => (c.classResources || []).forEach(k => {
   if (!TYPES[k]) problems.push(`${c.code} classResources: "${k}" needs a materialTypes title`);
   if (!(FACTS.links[c.code] || {})[k] && !FACTS.links.global[k]) problems.push(`${c.code} classResources: no link "${k}"`);

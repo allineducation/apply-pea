@@ -835,7 +835,20 @@ body>.shell{flex:1 0 auto;width:100%}   /* short pages still seat the app bar at
 .mat-count{font-size:11px;font-weight:900;padding:.1rem .45rem;border-radius:var(--radius-sm);background:var(--tint-blue-fill);color:var(--brand-blue-primary)}
 .mat-group>.mat-list{padding:0 0 .35rem .75rem}
 .mat-group + .mat-list{margin-top:.25rem}
-@media(prefers-reduced-motion:reduce){.mat-group>summary::after{transition:none}}
+/* v0.22.16: four collapsible sections on a class card (Featured, ALL In Education, Additional, Other) */
+.res-sec{border:1px solid var(--n12);border-radius:var(--radius-sm);padding:0 .75rem}
+.res-sec + .res-sec{margin-top:.5rem}
+.res-sec>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:.5rem;min-height:44px;padding:.25rem 0;
+  font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-blue-primary)}
+.res-sec>summary::-webkit-details-marker{display:none}
+.res-sec>summary::after{content:"";margin-left:auto;flex-shrink:0;width:8px;height:8px;border:solid currentColor;border-width:0 2px 2px 0;
+  transform:rotate(45deg);margin-top:-4px;transition:transform .2s}
+.res-sec[open]>summary::after{transform:rotate(-135deg);margin-top:4px}
+.res-sec>summary:focus-visible{outline:2px solid var(--pink);outline-offset:2px;border-radius:6px}
+.res-sec[open]{padding-bottom:.35rem}
+.res-featured{background:var(--tint-gold-fill);border-color:var(--gold)}
+.cohort-links{margin:0 0 var(--space-3)}
+@media(prefers-reduced-motion:reduce){.mat-group>summary::after,.res-sec>summary::after{transition:none}}
 .lc{font-size:11px;font-weight:900;letter-spacing:.06em;padding:.1rem .35rem;border-radius:var(--radius-sm);background:var(--tint-blue-fill);color:var(--brand-blue-primary)}
 .week-range{font-size:1.125rem;font-weight:900;color:var(--brand-blue-primary);margin:var(--space-4) 0 var(--space-3)}
 .week-list{margin-top:var(--space-3)}

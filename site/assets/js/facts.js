@@ -269,16 +269,24 @@ window.PEA_FACTS = {
         { type: "handout", es: "https://drive.google.com/file/d/10G869cFJcfTOEWRNfRnKpkldH9J14YZe/view?usp=drivesdk", en: "https://drive.google.com/file/d/1MdKyK84TxHrpZXQdGBTTwEL7YQrj-Xf1/view?usp=drivesdk" },
         { type: "comm", es: "https://drive.google.com/file/d/1Lr8OQYkmmU2RLyb4EvPkakjwYquqEIym/view?usp=drivesdk" }],
       /* 4T resources (Danny Hernández, 2026-10-27), chosen from Danny's 39-item literacy list for this class's focus:
-         what reading looks like by age and grade, signs a student needs support, and where to get help. ES and EN
-         versions share a row; specific guides first, then general sites. AdLit and Find Your Parent Center have no
-         Spanish version on the list. Links not checked from the build environment (DNS blocked). */
+         what reading looks like by age and grade, signs a student needs support, and where to get help. Since
+         v0.22.16 the card sorts them itself: rows with a Spanish link go under Additional resources, English-only rows
+         under Other resources; groups keep their titles in both. No Spanish version found for AdLit or Find Your
+         Parent Center (web search, 2026-10-27). Featured: Read On Arizona (Danny, 2026-10-27). Links not checked
+         from the build environment (DNS blocked). */
+      featured: [{ type: "resource", title_es: "Conversar para aprender: hablar, leer y aprender con niños pequeños (Read On Arizona)", es: "https://readonarizona.org/resources/conversar-para-aprender/",
+          title_en: "Smart Talk: talk, read and learn with young children (Read On Arizona)", en: "https://readonarizona.org/resources/smart-talk/" }],
       resources: [
-        { type: "resource", title_es: "Habilidades lectoras a diferentes edades (Understood)", es: "https://www.understood.org/es-mx/articles/reading-skills-what-to-expect-at-different-ages",
-          title_en: "Reading Skills: What to Expect at Different Ages (Understood)", en: "https://www.understood.org/en/articles/reading-skills-what-to-expect-at-different-ages" },
-        { type: "resource", title_es: "La lectura: lo que se espera en cada grado (GreatSchools)", es: "https://www.greatschools.org/gk/crianza/milestones-temas/la-lectura?lang=es",
-          title_en: "Reading Milestones by Grade (GreatSchools)", en: "https://www.greatschools.org/gk/parenting/milestones-subjects/milestones-reading" },
-        { type: "resource", title_en: "Find Your Parent Center: help for children with disabilities or learning difficulties", en: "https://www.parentcenterhub.org/find-your-center" },
-        { type: "resource", title_en: "AdLit: All About Adolescent Literacy (grades 4–12)", en: "https://www.adlit.org" }
+        { title_es: "Lo que se espera en cada edad y grado", title_en: "What to expect at each age and grade", items: [
+          { type: "resource", title_es: "Habilidades lectoras a diferentes edades (Understood)", es: "https://www.understood.org/es-mx/articles/reading-skills-what-to-expect-at-different-ages",
+            title_en: "Reading Skills: What to Expect at Different Ages (Understood)", en: "https://www.understood.org/en/articles/reading-skills-what-to-expect-at-different-ages" },
+          { type: "resource", title_es: "La lectura: lo que se espera en cada grado (GreatSchools)", es: "https://www.greatschools.org/gk/crianza/milestones-temas/la-lectura?lang=es",
+            title_en: "Reading Milestones by Grade (GreatSchools)", en: "https://www.greatschools.org/gk/parenting/milestones-subjects/milestones-reading" },
+          { type: "resource", title_en: "AdLit: All About Adolescent Literacy (grades 4–12)", en: "https://www.adlit.org" }
+        ] },
+        { title_es: "Si su hijo o hija necesita más apoyo", title_en: "If your child needs more support", items: [
+          { type: "resource", title_en: "Find Your Parent Center: help for children with disabilities or learning difficulties", en: "https://www.parentcenterhub.org/find-your-center" }
+        ] }
       ] },
     MHOME: { id: "PEA-M08",
       es: "Este curso se enfoca en formas prácticas y culturalmente relevantes de apoyar el desarrollo de la lectura en casa y en cualquier idioma. Las familias practican estrategias para leer juntas, hacer preguntas, ampliar el vocabulario y crear rutinas que fortalezcan la confianza y conecten la lectura en casa con el aprendizaje escolar.",
@@ -299,19 +307,21 @@ window.PEA_FACTS = {
          Kids Need to Read (serves organizations), U.S. ED early learning (not literacy), Reading Rockets "About",
          the Colorín Colorado homepage (the specific page is listed), Scholastic (book sales), Seek Common Ground
          guides (2020–21 school year), Stand for Children (URL does not reach Growing Readers) and the "Jade, 8th
-         grade" video (publisher unverified). Links not checked from the build environment (DNS blocked). */
+         grade" video (publisher unverified). v0.22.16 (Danny, 2026-10-27): Read On Arizona moved to Featured; PBS KIDS
+         paired with its Spanish parents page (pbs.org/es/parents, found by web search). English-only rows show under
+         Other resources. Links not checked from the build environment (DNS blocked). */
+      featured: [{ type: "resource", title_es: "Conversar para aprender: hablar, leer y aprender con niños pequeños (Read On Arizona)", es: "https://readonarizona.org/resources/conversar-para-aprender/",
+          title_en: "Smart Talk: talk, read and learn with young children (Read On Arizona)", en: "https://readonarizona.org/resources/smart-talk/" }],
       resources: [
         { title_es: "Leer en casa", title_en: "Reading at home", items: [
           { type: "resource", title_es: "Ayude a su niño a aprender a leer (Colorín Colorado)", es: "https://www.colorincolorado.org/es/families/ayude-su-ni%C3%B1o-aprender-leer",
             title_en: "Help Your Child Learn to Read (Colorín Colorado)", en: "https://www.colorincolorado.org/help-your-child-learn-read" },
-          { type: "resource", title_es: "Conversar para aprender: hablar, leer y aprender con niños pequeños (Read On Arizona)", es: "https://readonarizona.org/resources/conversar-para-aprender/",
-            title_en: "Smart Talk: talk, read and learn with young children (Read On Arizona)", en: "https://readonarizona.org/resources/smart-talk/" },
           { type: "resource", title_en: "Literacy at Home (Reading Rockets)", en: "https://www.readingrockets.org/literacy-home" },
           { type: "resource", title_en: "Reading Activities for Families (Florida Center for Reading Research)", en: "https://fcrr.org/families" },
           { type: "resource", title_en: "Games to Support Early Literacy Skills (Rhode Island Department of Education)", en: "https://ride.ri.gov/sites/g/files/xkgbur806/files/IAC/StructuredLiteracy/GamesToSupportEarlyLiteracySkills-Sept2020.pdf" },
           { type: "resource", title_es: "Recursos en español para la primera infancia (First Things First)", es: "https://www.firstthingsfirst.org/recursos-en-espanol",
             title_en: "Parent Resources for Early Childhood (First Things First)", en: "https://www.firstthingsfirst.org/resources" },
-          { type: "resource", title_en: "PBS KIDS for Parents", en: "https://www.pbs.org/parents/" }
+          { type: "resource", title_es: "PBS KIDS para padres y cuidadores (en español)", es: "https://www.pbs.org/es/parents", title_en: "PBS KIDS for Parents", en: "https://www.pbs.org/parents/" }
         ] },
         { title_es: "Encontrar libros", title_en: "Finding books", items: [
           { type: "resource", title_es: "Unite for Literacy: libros digitales gratis con narración en español y otros idiomas", title_en: "Unite for Literacy: free digital picture books with narration in many languages", any: "https://www.uniteforliteracy.com" },
@@ -447,9 +457,11 @@ window.PEA_FACTS = {
         { code: "3R",  kind: "cls", module: "MCOMM", start: "2026-10-23T00:00:00Z", end: "2026-10-23T01:30:00Z", title_es: "Navegando salones, escuelas y distritos escolares", title_en: "Navigating Classrooms, Schools, and School Districts",
           presentation_en: "https://canva.link/xpsjah3iu3387cx" },
         { code: "4T",  kind: "cls", module: "MREAD", start: "2026-10-28T00:00:00Z", end: "2026-10-28T01:30:00Z", title_es: "Fundamentos de la lectura y cómo abogar por los estudiantes", title_en: "Foundational Reading Skills & Advocating for Students in the Literacy Classroom",
-          resources: [{ type: "resource", title_es: "📝 Formulario de interés del programa de lectura virtual", title_en: "📝 AZURA Literacy Virtual Reading Program Interest Form", any: "https://airtable.com/appYkl41r0lzOsnAs/shrPkGQHAR9BP1chw" }] },
+          presentation_en: "https://canva.link/es58z5vcbmuowlg",
+          featured: [{ type: "resource", title_es: "📝 Formulario de interés del programa de lectura virtual", title_en: "📝 AZURA Literacy Virtual Reading Program Interest Form", any: "https://airtable.com/appYkl41r0lzOsnAs/shrPkGQHAR9BP1chw" }] },
         { code: "4R",  kind: "cls", module: "MHOME", start: "2026-10-30T00:00:00Z", end: "2026-10-30T01:30:00Z", title_es: "Lectura en casa", title_en: "Reading at Home",
-          resources: [{ type: "resource", title_es: "📝 Formulario de interés del programa de lectura virtual", title_en: "📝 AZURA Literacy Virtual Reading Program Interest Form", any: "https://airtable.com/appYkl41r0lzOsnAs/shrPkGQHAR9BP1chw" }] },
+          presentation_en: "https://canva.link/kieb51i1lruyplj",
+          featured: [{ type: "resource", title_es: "📝 Formulario de interés del programa de lectura virtual", title_en: "📝 AZURA Literacy Virtual Reading Program Interest Form", any: "https://airtable.com/appYkl41r0lzOsnAs/shrPkGQHAR9BP1chw" }] },
         { code: "5T",  kind: "cls", module: "MDIGI", start: "2026-11-04T00:00:00Z", end: "2026-11-04T01:30:00Z", title_es: "Alfabetización digital para padres y cuidadores", title_en: "Digital Literacy for Parents & Caregivers" },
         { code: "5R",  kind: "cls", module: "MRGHT", start: "2026-11-06T00:00:00Z", end: "2026-11-06T01:30:00Z", title_es: "Derechos de padres y cuidadores", title_en: "Your Rights as Parents & Caregivers" },
         { code: "6T",  kind: "cls", module: "MMATH", start: "2026-11-11T00:00:00Z", end: "2026-11-11T01:30:00Z", title_es: "Abogando por nuestros estudiantes en el salón de matemáticas", title_en: "Advocating for Students in the Math Classroom" },
