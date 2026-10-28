@@ -278,7 +278,9 @@ window.PEA_FACTS = {
          activity PDFs (the deck's second PDF was on fcrr.fsu.acsitefactory.com; the same path on fcrr.org is used).
          Seek Common Ground's family guides (ES | EN) added at Danny's request (2026-10-27); they were written for the
          2020–21 school year. Links not checked from the build environment (DNS blocked). */
-      featured: [{ type: "resource", title_es: "Conversar para aprender: hablar, leer y aprender con niños pequeños (Read On Arizona)", es: "https://readonarizona.org/resources/conversar-para-aprender/",
+      featured: [{ type: "resource", title_es: "Ayude a su niño a aprender a leer (Colorín Colorado)", es: "https://www.colorincolorado.org/es/families/ayude-su-ni%C3%B1o-aprender-leer",
+          title_en: "Help Your Child Learn to Read (Colorín Colorado)", en: "https://www.colorincolorado.org/help-your-child-learn-read" },
+        { type: "resource", title_es: "Conversar para aprender: hablar, leer y aprender con niños pequeños (Read On Arizona)", es: "https://readonarizona.org/resources/conversar-para-aprender/",
           title_en: "Smart Talk: talk, read and learn with young children (Read On Arizona)", en: "https://readonarizona.org/resources/smart-talk/" }],
       resources: [
         { title_es: "Lo que se espera en cada edad y grado", title_en: "What to expect at each age and grade", items: [
@@ -332,12 +334,12 @@ window.PEA_FACTS = {
          Other resources. v0.22.17: added the links the FA26 4R deck uses (Canva DAHSShcTYCI, presenter notes): Access
          Group, Flocabulary, two Common Sense Media lists, Scholastic Top 25 picture books, Read Brightly (2020 list)
          and Scholastic's Lexile guide; all English only. Links not checked from the build environment (DNS blocked). */
-      featured: [{ type: "resource", title_es: "Conversar para aprender: hablar, leer y aprender con niños pequeños (Read On Arizona)", es: "https://readonarizona.org/resources/conversar-para-aprender/",
+      featured: [{ type: "resource", title_es: "Ayude a su niño a aprender a leer (Colorín Colorado)", es: "https://www.colorincolorado.org/es/families/ayude-su-ni%C3%B1o-aprender-leer",
+          title_en: "Help Your Child Learn to Read (Colorín Colorado)", en: "https://www.colorincolorado.org/help-your-child-learn-read" },
+        { type: "resource", title_es: "Conversar para aprender: hablar, leer y aprender con niños pequeños (Read On Arizona)", es: "https://readonarizona.org/resources/conversar-para-aprender/",
           title_en: "Smart Talk: talk, read and learn with young children (Read On Arizona)", en: "https://readonarizona.org/resources/smart-talk/" }],
       resources: [
         { title_es: "Leer en casa", title_en: "Reading at home", items: [
-          { type: "resource", title_es: "Ayude a su niño a aprender a leer (Colorín Colorado)", es: "https://www.colorincolorado.org/es/families/ayude-su-ni%C3%B1o-aprender-leer",
-            title_en: "Help Your Child Learn to Read (Colorín Colorado)", en: "https://www.colorincolorado.org/help-your-child-learn-read" },
           { type: "resource", title_en: "Literacy at Home (Reading Rockets)", en: "https://www.readingrockets.org/literacy-home" },
           { type: "resource", title_en: "What Parents Should Know About Reading Instruction (Access Group)", en: "https://accessgroupinc.org/what-parents-should-know-about-reading-instruction/" },
           { type: "resource", title_en: "3rd Grade Vocabulary Word List (Flocabulary)", en: "https://www.flocabulary.com/3rd-grade-vocabulary-word-list/" },
@@ -488,12 +490,12 @@ window.PEA_FACTS = {
           presentation_en: "https://canva.link/xpsjah3iu3387cx" },
         { code: "4T",  kind: "cls", module: "MREAD", start: "2026-10-28T00:00:00Z", end: "2026-10-28T01:30:00Z", title_es: "Fundamentos de la lectura y cómo abogar por los estudiantes", title_en: "Foundational Reading Skills & Advocating for Students in the Literacy Classroom",
           presentation_en: "https://canva.link/es58z5vcbmuowlg",
-          featured: [{ type: "resource", title_es: "📝 Formulario de interés del programa de lectura virtual", title_en: "📝 AZURA Literacy Virtual Reading Program Interest Form", any: "https://airtable.com/appYkl41r0lzOsnAs/shrPkGQHAR9BP1chw" },
-            { type: "resource", title_es: "📄 Volante: tutoría de lectura gratis en línea, de kínder a 6.º grado (AZURA Literacy)", title_en: "📄 Flyer: free online reading tutoring, grades K–6 (AZURA Literacy)", any: "https://drive.google.com/file/d/11qgL1fWSKKSNn4BPs_VV56-VZrfxfGCL/view?usp=drivesdk" }] },
+          featured: [{ type: "resource", title_es: "📝 Inscriba a su hijo o hija en tutoría de lectura gratis en línea (kínder a 6.º grado): formulario de interés de AZURA Literacy", title_en: "📝 Sign up your child for free online reading tutoring (grades K–6): AZURA Literacy Virtual Reading Program interest form", any: "https://airtable.com/appYkl41r0lzOsnAs/shrPkGQHAR9BP1chw" },
+            { type: "resource", title_es: "📄 Cómo funciona la tutoría de lectura gratis: volante para familias de AZURA Literacy (español e inglés)", title_en: "📄 How the free reading tutoring works: AZURA Literacy family flyer (English and Spanish)", any: "https://drive.google.com/file/d/11qgL1fWSKKSNn4BPs_VV56-VZrfxfGCL/view?usp=drivesdk" }] },
         { code: "4R",  kind: "cls", module: "MHOME", start: "2026-10-30T00:00:00Z", end: "2026-10-30T01:30:00Z", title_es: "Lectura en casa", title_en: "Reading at Home",
           presentation_en: "https://canva.link/kieb51i1lruyplj",
-          featured: [{ type: "resource", title_es: "📝 Formulario de interés del programa de lectura virtual", title_en: "📝 AZURA Literacy Virtual Reading Program Interest Form", any: "https://airtable.com/appYkl41r0lzOsnAs/shrPkGQHAR9BP1chw" },
-            { type: "resource", title_es: "📄 Volante: tutoría de lectura gratis en línea, de kínder a 6.º grado (AZURA Literacy)", title_en: "📄 Flyer: free online reading tutoring, grades K–6 (AZURA Literacy)", any: "https://drive.google.com/file/d/11qgL1fWSKKSNn4BPs_VV56-VZrfxfGCL/view?usp=drivesdk" }] },
+          featured: [{ type: "resource", title_es: "📝 Inscriba a su hijo o hija en tutoría de lectura gratis en línea (kínder a 6.º grado): formulario de interés de AZURA Literacy", title_en: "📝 Sign up your child for free online reading tutoring (grades K–6): AZURA Literacy Virtual Reading Program interest form", any: "https://airtable.com/appYkl41r0lzOsnAs/shrPkGQHAR9BP1chw" },
+            { type: "resource", title_es: "📄 Cómo funciona la tutoría de lectura gratis: volante para familias de AZURA Literacy (español e inglés)", title_en: "📄 How the free reading tutoring works: AZURA Literacy family flyer (English and Spanish)", any: "https://drive.google.com/file/d/11qgL1fWSKKSNn4BPs_VV56-VZrfxfGCL/view?usp=drivesdk" }] },
         { code: "5T",  kind: "cls", module: "MDIGI", start: "2026-11-04T00:00:00Z", end: "2026-11-04T01:30:00Z", title_es: "Alfabetización digital para padres y cuidadores", title_en: "Digital Literacy for Parents & Caregivers" },
         { code: "5R",  kind: "cls", module: "MRGHT", start: "2026-11-06T00:00:00Z", end: "2026-11-06T01:30:00Z", title_es: "Derechos de padres y cuidadores", title_en: "Your Rights as Parents & Caregivers" },
         { code: "6T",  kind: "cls", module: "MMATH", start: "2026-11-11T00:00:00Z", end: "2026-11-11T01:30:00Z", title_es: "Abogando por nuestros estudiantes en el salón de matemáticas", title_en: "Advocating for Students in the Math Classroom" },
