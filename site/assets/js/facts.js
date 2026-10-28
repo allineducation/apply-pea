@@ -307,7 +307,8 @@ window.PEA_FACTS = {
         { title_es: "Actividades para practicar en casa", title_en: "Activities to practice at home", items: [
           { type: "resource", title_en: "Letter-Sound Bingo (Florida Center for Reading Research, PDF)", en: "https://fcrr.org/sites/g/files/upcbnu2836/files/media/PDFs/student_center_activities/k1_phonics/k1_letter_sound_correspondence/k1_p022_letter_sound_bingo.pdf" },
           { type: "resource", title_en: "Vowel Stars (Florida Center for Reading Research, PDF)", en: "https://fcrr.org/sites/g/files/upcbnu2836/files/media/PDFs/student_center_activities/k1_phonics/k1_encoding_and_decoding/k1_p034_vowel_stars.pdf" },
-          { type: "resource", title_en: "Reading Activities for Families (Florida Center for Reading Research)", en: "https://fcrr.org/families" }
+          { type: "resource", title_en: "Reading Activities for Families (Florida Center for Reading Research)", en: "https://fcrr.org/families" },
+          { type: "resource", title_en: "Storyline Online: picture books read aloud by actors (SAG-AFTRA Foundation)", en: "https://storylineonline.net" }
         ] }
       ] },
     MHOME: { id: "PEA-M08",
@@ -360,7 +361,8 @@ window.PEA_FACTS = {
           { type: "resource", title_en: "Book Lists by Age and Topic (Common Sense Media)", en: "https://www.commonsensemedia.org/book-lists" },
           { type: "resource", title_en: "Teacher Picks: Top 25 Picture Books (Scholastic)", en: "https://www.scholastic.com/teachers/teaching-tools/book-lists/teacher-picks--top-25-picture-books.html" },
           { type: "resource", title_en: "Award-Winning Picture Books, 2020 (Read Brightly)", en: "https://www.readbrightly.com/picture-books-2020/" },
-          { type: "resource", title_en: "Lexile Levels Made Easy (Scholastic)", en: "https://www.scholastic.com/parents/books-and-reading/reading-resources/book-selection-tips/lexile-levels-made-easy.html" }
+          { type: "resource", title_en: "Lexile Levels Made Easy (Scholastic)", en: "https://www.scholastic.com/parents/books-and-reading/reading-resources/book-selection-tips/lexile-levels-made-easy.html" },
+          { type: "resource", title_en: "Storyline Online: picture books read aloud by actors (SAG-AFTRA Foundation)", en: "https://storylineonline.net" }
         ] },
         { title_es: "Tarjeta de biblioteca gratis", title_en: "Free library cards", items: [
           { type: "resource", title_es: "Biblioteca Pública de Phoenix (en español)", es: "https://www.phoenixpubliclibrary.org/espanol",
