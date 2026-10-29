@@ -100,6 +100,25 @@ Object.values(FACTS.cohorts).forEach(c => (c.classResources || []).forEach(k => 
 Object.values(FACTS.cohorts).forEach(c => c.events.forEach(e => {
   if (e.module && !MODS[e.module]) problems.push(`${c.code} ${e.code}: module ${e.module} missing from facts.modules`);
 }));
+// Topics for Materiales y recursos (v0.23.0): names in both languages, one level of sub-topics, an icon on
+// each main topic, a known topic on every module a cohort uses, and on any item or group that moves.
+const TOPICS = FACTS.topics || {};
+Object.entries(TOPICS).forEach(([k, t]) => {
+  if (!t.es || !t.en) problems.push(`topic ${k}: needs es and en names`);
+  else {
+    if (/empower|empodera/i.test(t.es + t.en)) problems.push(`topic ${k}: empower/empoderar`);
+    if (/docente/i.test(t.es)) problems.push(`topic ${k}: docentes → maestros`);
+    problems.push(...namingProblems(t.es, t.en, `topic ${k}`));
+  }
+  if (t.parent && (!TOPICS[t.parent] || TOPICS[t.parent].parent)) problems.push(`topic ${k}: parent "${t.parent}" must be a main topic`);
+  if (!t.parent && !t.icon) problems.push(`topic ${k}: a main topic needs an icon`);
+});
+const usedMods = new Set();
+Object.values(FACTS.cohorts).forEach(c => c.events.forEach(e => { if (e.module) usedMods.add(e.module); }));
+usedMods.forEach(k => { if (MODS[k] && !TOPICS[MODS[k].topic]) problems.push(`module ${k}: needs a known topic (got "${MODS[k].topic}")`); });
+Object.entries(MODS).forEach(([k, m]) => (m.resources || []).forEach((r, i) => [r].concat(r.items || []).forEach(x => {
+  if (x.topic && !TOPICS[x.topic]) problems.push(`module ${k} resources[${i}]: unknown topic "${x.topic}"`);
+})));
 
 if (problems.length) { console.error("PARITY/VOCABULARY FAIL\n  " + problems.join("\n  ")); process.exit(1); }
 const count = (o) => Array.isArray(o) ? o.reduce((n, x) => n + count(x), 0)
