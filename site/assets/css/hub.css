@@ -823,6 +823,8 @@ body>.shell{flex:1 0 auto;width:100%}   /* short pages still seat the app bar at
 .mat-list li:last-child{border-bottom:0}
 .mat-link{display:inline-flex;align-items:center;gap:.3rem;min-height:44px;font-weight:700;color:var(--brand-blue-primary)}
 .mat-sep{color:var(--n70)}
+.mat-codes{display:inline-flex;align-items:center;gap:.35rem}
+.mat-code{display:inline-flex;align-items:center;min-height:44px;min-width:32px;justify-content:center}
 /* v0.22.11: resource groups on a class card — a closed sub-panel per topic, with a count */
 .mat-group{border-bottom:1px solid var(--n12)}
 .mat-group>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:.5rem;min-height:44px;padding:.25rem 0;
@@ -854,7 +856,7 @@ body>.shell{flex:1 0 auto;width:100%}   /* short pages still seat the app bar at
 .week-list{margin-top:var(--space-3)}
 .week-card{cursor:default}
 .week-next{margin-top:var(--space-6)}
-@media(max-width:560px){ .mat-list li{flex-direction:column;align-items:flex-start;gap:0} .mat-sep{display:none} .mat-link{min-height:40px} }
+@media(max-width:560px){ .mat-link,.mat-code{min-height:40px} }
 .det .det-cal{gap:.4rem;border-width:2px;min-height:44px;padding:8px 14px}
 .det-lead{font-size:14px;margin:0 0 .3rem}
 .obj-list{margin:0;padding-left:1.25rem;font-size:14px;line-height:1.6;max-width:68ch}
