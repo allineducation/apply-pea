@@ -7,8 +7,8 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.22.20";
-  var UPDATED = "2026-10-26";
+  var VERSION = "0.22.21";
+  var UPDATED = "2026-10-29";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
   var LS_LANG = "aie_lang";
@@ -351,15 +351,22 @@
   function absenceHref(e) {                        /* opens the visitor's mail app: to pea@, subject "Ausencia / Absence — {date}" */
     return "mailto:" + F.org.email + "?subject=" + encodeURIComponent(L.cal.detail.absenceSubject(cap(longDate(e.start))));
   }
-  function matRows(items) {                        /* one row per item: Spanish title · ES | English title · EN; only versions with a link */
+  function matRows(items) {
+    /* One row per item (Danny Hernández, 2026-10-29): the title in the page language, linked to that
+       version, then a language code for each version that has a link — "Título ES | EN". The English page
+       shows the English title linked to the English version. A one-language item shows its own title and code;
+       an item with `any` (one link for both languages) shows only its title. */
     var MT = F.materialTypes || {};
     return '<ul class="mat-list">' + items.map(function (it) {
       var t = MT[it.type] || MT.resource || {};
       if (it.any) return "<li>" + ext(it.any, esc(it["title_" + lang] || t[lang] || ""), "mat-link") + "</li>";
-      return "<li>" + ["es", "en"].filter(function (l) { return it[l]; }).map(function (l) {
-        var inner = esc(it["title_" + l] || t[l] || "") + ' <span class="lc">' + l.toUpperCase() + "</span>";
-        return ext(it[l], inner, "mat-link", ' lang="' + l + '"');
-      }).join('<span class="mat-sep" aria-hidden="true">|</span>') + "</li>";
+      var langs = ["es", "en"].filter(function (l) { return it[l]; });
+      var main = it[lang] ? lang : langs[0], title = it["title_" + main] || t[lang] || t[main] || "";
+      var codes = langs.map(function (l) {
+        return ext(it[l], '<span class="lc">' + l.toUpperCase() + "</span>", "mat-code",
+          ' lang="' + l + '" hreflang="' + l + '" aria-label="' + esc(title + " (" + (l === "es" ? "Español" : "English") + ")") + '"');
+      }).join('<span class="mat-sep" aria-hidden="true">|</span>');
+      return "<li>" + ext(it[main], esc(title), "mat-link", ' lang="' + main + '" hreflang="' + main + '"') + '<span class="mat-codes">' + codes + "</span></li>";
     }).join("") + "</ul>";
   }
   function hasLink(it) { return it.es || it.en || it.any; }
