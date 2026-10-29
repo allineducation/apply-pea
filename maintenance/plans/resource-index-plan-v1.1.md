@@ -1,6 +1,8 @@
-# PEA “Materiales y recursos / Materials & resources” page — plan v1.0
+# PEA “Materiales y recursos / Materials & resources” page — plan v1.1
 
 Prepared for Danny Hernández · October 29, 2026 · Built on repository **v0.22.20** · Target release: **v0.23.0** · Audience: internal (PEA team)
+
+v1.1: topics edited by Danny Hernández (2026-10-29) into **6 main topics, 3 of them with sub-topics**; the three moves out of 3R and 4T approved.
 
 ## The ask
 
@@ -17,6 +19,7 @@ One page that lists every material and resource linked on the Calendar's class c
 | 5 | Shortlink **`https://aie.s.gy/recursos`** (Spanish default). Danny creates it once the page is live. |
 | 6 | **General topics, based on session themes, are set now** and the page is organized by them. |
 | 7 | The page is the **public face of the forthcoming resource database**: the database feeds `facts.js`, and the page reads `facts.js`. |
+| 8 | **Topics (v1.1):** six main topics; *Liderazgo y defensa educativa*, *Navegando sistemas escolares* and *Oportunidades y aprendizaje continuo* hold sub-topics (table below). Moves out of 3R and 4T approved. |
 
 Standing rules that still apply: shared links open the Spanish page; no bit.ly for this site; palette colours only; never “empower” in either language.
 
@@ -34,41 +37,47 @@ Every item comes from the same `facts.js` lists the class cards use. Nothing is 
 
 Seven links appear on both 4T and 4R: the AZURA Literacy form and flyer, Colorín Colorado *Ayude a su niño a aprender a leer*, Read On Arizona *Conversar para aprender*, Access Group, FCRR for families and Storyline Online. The index lists each of these **once**.
 
-## Topics (proposed for approval)
+## Topics (Danny Hernández, 2026-10-29)
 
-Twelve topics, one per session theme. A module carries one topic, and every item in it goes there by default. An item or a resource group can be moved to another topic when its subject differs from the class (e.g. 3R's math checklists go to Math).
+Six **main topics**. Three of them hold **sub-topics**. A module carries one topic, and every item in it goes there by default. An item or a resource group can be moved to another topic when its subject differs from the class.
 
-Topics are sorted **alphabetically in the page's language**, so the Spanish and English pages have different orders (*Lectura* sits near the middle in Spanish; *Literacy* sits near the middle in English). Topics with no published links are hidden until they have one.
+Main topics, and the sub-topics inside each, are sorted **alphabetically in the page's language**, so the Spanish and English pages have different orders. A topic or sub-topic with no published links is hidden until it has one.
 
-| Topic (EN) | Tema (ES) — proposed | Classes | Moved in from other classes |
-| --- | --- | --- | --- |
-| Advocacy & Leadership | Liderazgo y defensa educativa | 8T MSELF, 9T MPIP1, 9R MPIP2, 10T MGRAD | — |
-| Continued Learning | Estudios después de la preparatoria | 6R MOPHS | — |
-| Digital Literacy & Tech | Alfabetización digital y tecnología | 5T MDIGI | — |
-| Equity, Identity & History | Equidad, identidad e historia | 1R MHIST, 2R MBIAS | — |
-| Family & Community Engagement | Participación familiar y comunitaria | 7R MCENG | 3R group *Participar en la escuela* (5) |
-| Getting Started with PEA | Para empezar en PEA | 1T MORIE | — |
-| Literacy | Lectura | 4T MREAD, 4R MHOME | — |
-| Math | Matemáticas | 6T MMATH | 3R: two Understood math checklists |
-| Navigating Schools & Districts | Cómo funcionan las escuelas y los distritos | 3R MCOMM | — |
-| Rights | Derechos de las familias | 5R MRGHT | — |
-| Safety & Well-Being | Seguridad y bienestar | 2T MSAFE | — |
-| School Choice | Elección escolar | 3T MQUAL | — |
-| Special Education & Exceptional Students | Educación especial y estudiantes excepcionales | 7T MEXCP | 3R: Center for Parent Information and Resources FAQ, ADE *Special Education Highway*; 4T group *Si su hijo o hija necesita más apoyo* (1) |
+| Main topic (EN · ES) | Sub-topic (EN · ES) | Classes | Moved in | Links today |
+| --- | --- | --- | --- | --- |
+| **Advocacy & Leadership** · *Liderazgo y defensa educativa* | *(the main topic's own links)* | 8T MSELF, 9T MPIP1, 9R MPIP2, 10T MGRAD | — | 1 |
+| | Education Rights · Derechos escolares | 5R MRGHT | — | 0 (hidden) |
+| | Family & Community Engagement · Participación familiar y comunitaria | 7R MCENG | 3R group *Participar en la escuela* (5) | 6 |
+| | History & Identity · Historia e identidad | 1R MHIST, 2R MBIAS | — | 5 |
+| **Digital Literacy & Tech** · *Alfabetización digital y tecnología* | — | 5T MDIGI | — | 1 |
+| **Literacy** · *Lectura* | — | 4T MREAD, 4R MHOME | — | 46 |
+| **Math** · *Matemáticas* | — | 6T MMATH | 3R: two Understood math checklists | 2 |
+| **Navigating School Systems** · *Navegando sistemas escolares* | *(the main topic's own links)* | 3R MCOMM | — | 21 |
+| | Quality Education · Educación de calidad | 3T MQUAL | — | 19 |
+| | Safety & Well-Being · Seguridad y bienestar | 2T MSAFE | — | 2 |
+| | Special Education & Exceptional Students · Educación especial y estudiantes excepcionales | 7T MEXCP | 3R: Center for Parent Information and Resources FAQ, ADE *Special Education Highway*; 4T group *Si su hijo o hija necesita más apoyo* (1) | 4 |
+| **Opportunities & Continued Learning** · *Oportunidades y aprendizaje continuo* | *(the main topic's own links)* | 6R MOPHS | — | 1 |
+| | Getting Started with PEA · Para empezar en PEA | 1T MORIE | — | 1 |
+| **Total** | | | | **109** |
 
-The 3R English-learner guide (Education Northwest) stays with Navigating Schools & Districts. Today Rights (5R) and Math (6T) have no published links and would be hidden, except that Math shows now because of the two 3R checklists.
+Opportunities & Continued Learning is also the home for **English classes for adults, GED information and opportunities after high school** as they are added (Danny Hernández, 2026-10-29). The 3R *Parent Guide for English Learners* (Education Northwest) is about supporting a student who is learning English at school, so it stays with Navigating School Systems.
 
 ## Page layout
 
 1. **Heading and lead**: *Materiales y recursos* — everything shared in PEA classes, by topic. New links are added as classes happen.
-2. **Topic menu**: one pill per topic, with a count. Tapping a pill opens that topic and scrolls to it (the same pattern as the *En esta página* menu on Info & help).
-3. **One collapsible panel per topic**, closed by default (site rule since v0.17.0), with a count on the heading bar. Inside, the same four sections as a class card, in the same order and style:
+2. **Topic menu**: one pill per **main** topic, with a count that includes its sub-topics. Tapping a pill opens that topic and scrolls to it (the same pattern as the *En esta página* menu on Info & help).
+3. **One collapsible panel per main topic**, closed by default (site rule since v0.17.0), with a count on the heading bar. Inside, in order:
+   - the main topic's **own links** (e.g. 3R under Navigating School Systems), then
+   - **one nested, collapsible panel per sub-topic**, closed, with its own count.
+4. **Inside every topic or sub-topic**, the same four sections as a class card, in the same order and style:
    - **⭐ Destacado / Featured** (open)
    - **Materiales de ALL In Education** (open), with **one sub-group per class**, titled “4T · Fundamentos de la lectura…”, because every class has a worksheet with the same title
    - **Recursos adicionales** (closed), keeping the curated groups (e.g. *Encontrar libros*)
    - **Otros recursos — Disponibles solo en inglés** (closed)
-4. **Panel footer**: *Ver en el calendario:* links to each class card in the topic (`#calendario/FA26-4T`, `#calendario/FA26-4R`).
-5. **Page footer**: links to *Esta semana* and *Calendario*.
+5. **Panel footer**: *Ver en el calendario:* links to each class card in the topic or sub-topic (`#calendario/FA26-4T`, `#calendario/FA26-4R`).
+6. **Page footer**: links to *Esta semana* and *Calendario*.
+
+Nesting goes **at most three levels deep**: main topic → sub-topic → card section (and a curated resource group inside it, as on the cards). This keeps a phone screen readable.
 
 The rows themselves don't change: Spanish title · ES | English title · EN, only versions that have a link, and the English presentation on the English page only.
 
@@ -82,22 +91,22 @@ Because the index shows everything published, a link added to `facts.js` for a f
 
 | Step | File | Change |
 | --- | --- | --- |
-| 1 | `facts.js` | New `topics` list (`key: { es, en }`). Each module gets `topic: "<key>"`. Optional `topic` on a resource item or group moves it (the 3R and 4T moves above). |
+| 1 | `facts.js` | New `topics` list (`key: { es, en, parent? }`; a sub-topic names its main topic in `parent`). Each module gets `topic: "<key>"`. Optional `topic` on a resource item or group moves it (the 3R and 4T moves above). |
 | 2 | `app.js` | New `pageRecursos()`: walks the current cohort's classes, collects each item into its topic, removes repeats by link, sorts topics by name in the page language, and reuses `resSection()` / `matBody()` / `matRows()` / `splitByLang()` so rows look exactly like the cards. Panel open state is remembered across the 60-second refresh and a language switch, under a `rec-` key so it never collides with card keys. |
 | 3 | `app.js` | Register in `PAGES`; add `recursos` to the *Unirse* nav group after `calendario`. Footer links from *Esta semana* and Calendar. |
 | 4 | `copy.js` | ES and EN strings: nav label, heading, lead, topic menu label, “see on the calendar”, empty state. |
-| 5 | `check-parity.js` | Fail if a module used by a cohort has no topic, a `topic` names an unknown key, or a topic lacks an ES or EN name (and run the usual vocabulary rules on topic names). |
+| 5 | `check-parity.js` | Fail if a module used by a cohort has no topic, a `topic` names an unknown key, a `parent` is not a main topic (one level of sub-topics only), or a topic lacks an ES or EN name (and run the usual vocabulary rules on topic names). |
 | 6 | `hub.css` | Reuse card and pill styles; add only the topic-panel heading if needed. Palette tokens only. |
 | 7 | `_redirects` | `/recursos` → `/?lang=es#recursos`, `/resources` → `/?lang=en#recursos`. |
 | 8 | Release | v0.23.0 in `app.js` and `index.html`; README release note and a *Resource index* line in Navigation; QA note `maintenance/qa/v0.23.0.md`. |
 
-Estimated size: about 120–160 lines of JavaScript, 12 topic pairs plus about 10 copy strings per language, under 30 lines of CSS, and about 20 lines in the parity check.
+Estimated size: about 120–160 lines of JavaScript, 13 topic names (6 main, 7 sub) plus about 10 copy strings per language, under 30 lines of CSS, and about 20 lines in the parity check.
 
 ## Checks before push
 
 - `node maintenance/scripts/check-parity.js`, `node --check` on the JS files, `git diff --check`.
 - **Count check:** the page lists 109 unique links on the English page and 103 on the Spanish page (no presentations). Every link on any class card appears on the index exactly once.
-- Both languages: alphabetical topic order in each; English-only rows under *Otros recursos*; presentations on the English page only.
+- Both languages: alphabetical order of main topics and of sub-topics in each; pill counts include sub-topics; hidden empty sub-topic (Education Rights); English-only rows under *Otros recursos*; presentations on the English page only.
 - Topic pills open and scroll to the right panel; panels stay open through a language switch and the minute refresh.
 - Phone (320px, 390px) and desktop; keyboard order; screen-reader names for pills and panel counts.
 - `/recursos` and `/resources` aliases after deploy (local Python hosting does not apply redirects).
@@ -110,7 +119,6 @@ Estimated size: about 120–160 lines of JavaScript, 12 topic pairs plus about 1
 
 ## Open items for Danny
 
-1. **Approve the 12 topics and their Spanish names** (table above), or edit them. In particular: *Estudios después de la preparatoria* for “Continued Learning”, and whether History belongs with Equity & Identity.
-2. **Approve the three moves** out of 3R and 4T (math → Math; special-education items → Special Education; *Participar en la escuela* → Family & Community Engagement).
-3. **Create `https://aie.s.gy/recursos`** after v0.23.0 is live.
-4. **Resource database:** when it's designed, give each resource a *Topic* field using these 12 keys, so it maps straight into `facts.js`.
+1. **Create `https://aie.s.gy/recursos`** after v0.23.0 is live.
+2. **Resource database:** when it's designed, give each resource a *Topic* field using these 13 topic keys, so it maps straight into `facts.js`.
+3. **Adult English, GED and after-high-school links:** send them when ready; they go to Opportunities & Continued Learning.
