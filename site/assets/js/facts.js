@@ -320,6 +320,9 @@ window.PEA_FACTS = {
          replaces the FA26 BIL v1_1_0 tool. The small-group guide is staff-only and not published. */
       materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1errhRqTNpWvslo6nxtPtxJRbUTP6zArV/view?usp=drivesdk", en: "https://drive.google.com/file/d/1-8W8czqErHwMBVcUGRom5cGJAX8AXl-H/view?usp=drivesdk" },
         { type: "handout", es: "https://drive.google.com/file/d/1ZHY0Qb2ci4iEshxnoHaedqWjHg8J6dAV/view?usp=drivesdk", en: "https://drive.google.com/file/d/1odG3YHIspLJD1Ac8qeyrHQPTnpwMHN6H/view?usp=drivesdk" },
+        /* Reading-levels reference sheet (Lexile, AASA, Move On When Reading, AZELLA, guided-reading letters), ES v1.0.0,
+           Spanish only, shared "anyone with the link" (Danny Hernández, 2026-10-30). */
+        { type: "handout", title_es: "Entender los niveles de lectura: hoja de referencia", es: "https://drive.google.com/file/d/1q7FLw2xhztp9WLlVNI0Vgzyrv8pA1k20/view?usp=drivesdk" },
         { type: "comm", es: "https://drive.google.com/file/d/1YRAzUB8Mq3FF4CxszoKltNYK9_Tj7WKQ/view?usp=drivesdk" }],
       /* 4R resources (Danny Hernández, 2026-10-27), chosen from Danny's 39-item literacy list: 18 rows in three closed
          groups (reading at home, finding books, free library cards). ES and EN versions share a row; specific resources
@@ -364,7 +367,9 @@ window.PEA_FACTS = {
           { type: "resource", title_en: "Lexile Levels Made Easy (Scholastic)", en: "https://www.scholastic.com/parents/books-and-reading/reading-resources/book-selection-tips/lexile-levels-made-easy.html" },
           { type: "resource", title_en: "Storyline Online: picture books read aloud by actors (SAG-AFTRA Foundation)", en: "https://storylineonline.net" }
         ] },
-        { title_es: "Tarjeta de biblioteca gratis", title_en: "Free library cards", items: [
+        /* `whole`: the six libraries stay together under Additional resources instead of being split by
+           language (Danny Hernández, 2026-10-30). */
+        { title_es: "Tarjeta de biblioteca gratis", title_en: "Free library cards", whole: true, items: [
           { type: "resource", title_es: "Biblioteca Pública de Phoenix (en español)", es: "https://www.phoenixpubliclibrary.org/espanol",
             title_en: "Phoenix Public Library: eCard Registration", en: "https://www.phoenixpubliclibrary.org/services/borrowing/ecard-registration" },
           { type: "resource", title_en: "Greater Phoenix Digital Library: Library Cards", en: "https://phoenix.overdrive.com/support/card" },
