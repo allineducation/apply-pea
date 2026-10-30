@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.22.21";
+  var VERSION = "0.23.0";
   var UPDATED = "2026-10-29";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -15,7 +15,7 @@
 
   /* ---------- sections, groups, order ---------- */
   var GROUPS = [
-    { id: "join",  color: "blue",   items: ["participar", "esta-semana", "calendario"] },
+    { id: "join",  color: "blue",   items: ["participar", "esta-semana", "calendario", "recursos"] },   /* Materiales y recursos after Calendario (v0.23.0) */
     { id: "help",  color: "purple", items: ["ayuda"] }      /* Información y ayuda: help, team and story on one page (v0.22.0) */
   ];
   var ORDER = [].concat.apply(["inicio"], GROUPS.map(function (g) { return g.items; }));
@@ -372,7 +372,7 @@
   function hasLink(it) { return it.es || it.en || it.any; }
   var matOpen = {};                                 /* open resource groups by "<cohort><class>:<n>"; survives every re-render (language, refresh, calendar filter) */
   document.addEventListener("toggle", function (ev) {
-    var d = ev.target; if (d.classList && (d.classList.contains("mat-group") || d.classList.contains("res-sec"))) matOpen[d.getAttribute("data-k")] = d.open;
+    var d = ev.target; if (d.getAttribute && d.tagName === "DETAILS" && d.hasAttribute("data-k")) matOpen[d.getAttribute("data-k")] = d.open;   /* card sections, groups, resource topics */
   }, true);
   function rowCount(list) { return list.reduce(function (n, it) { return n + (it.items ? it.items.filter(hasLink).length : 1); }, 0); }
   function matBody(linked, key) {
@@ -519,7 +519,7 @@
       (C.projected ? callout("gold", K.projectedLabel, esc(K.projected)) : "") +
       '<div class="filters" role="group" aria-label="' + esc(K.filterLabel) + '"><span class="label">' + esc(K.filterLabel) + "</span>" + pills + "</div>" +
       '<div class="cal-cards" id="calbody" role="region" aria-label="' + esc(K.h + " · " + cohortLabel()) + '">' + calRows() + "</div>" +
-      '<p class="small mt">' + esc(K.note) + "</p>" +
+      '<p class="small mt">' + esc(K.note) + "</p>" + btnRow(inLink("#recursos", K.resCta)) +
       '<div class="btnrow cal-actions"><button type="button" class="btn btn-primary" data-ics="all">' + esc(K.ics) + "</button>" +
       ext(link("cal"), esc(K.full), "btn btn-secondary") + "</div>" +
       '<p class="small">' + esc(K.icsHelp) + "</p>" +
@@ -658,10 +658,78 @@
       helpCardHtml() +
       (nxt.length ? '<section class="up-next week-next" aria-labelledby="wknext-h"><h2 class="up-next-h" id="wknext-h">' + esc(W.nextH) +
         " · " + esc(weekRange(ws + 7 * 864e5)) + "</h2>" + upList(nxt) + "</section>" : "") +
-      btnRow(inLink("#calendario", W.calCta));
+      btnRow(inLink("#calendario", W.calCta) + inLink("#recursos", W.resCta));
   }
 
-  var PAGES = { inicio: pageHome, participar: pageParticipar, "esta-semana": pageSemana, calendario: pageCalendario, ayuda: pageAyuda };
+  /* ---------- Materiales y recursos (v0.23.0) ----------
+     Every material and resource on the current cohort's class cards, by topic (facts.topics), whatever the
+     week: the cards keep their weekly unlock, the index does not (Danny Hernández, 2026-10-29). A link that
+     sits on more than one card is listed once, under its first class. Rows, groups and the four sections are
+     the card's own builders, so the index reads like the cards. */
+  function linkKey(it) { return (it.any || "") + "|" + (it.es || "") + "|" + (it.en || ""); }
+  function topicName(k) { return F.topics[k][lang]; }
+  function byName(a, b) { return topicName(a).localeCompare(topicName(b), lang); }
+  function resourceIndex() {
+    var B = {}, seen = {};
+    var bucket = function (k) { return B[k] || (B[k] = { featured: [], aie: [], res: [], classes: [] }); };
+    var fresh = function (it) { var k = linkKey(it); if (seen[k]) return false; seen[k] = true; return true; };
+    var note = function (k, e) { var c = bucket(k).classes; if (c.indexOf(e) === -1) c.push(e); };
+    CLASSES.filter(function (e) { return !e.projected; }).forEach(function (e) {
+      var mod = e.module && F.modules[e.module], t = mod && mod.topic;
+      if (!t || !F.topics[t]) return;
+      onlyLinked((e.featured || []).concat(mod.featured || [])).forEach(function (it) { if (fresh(it)) { bucket(t).featured.push(it); note(t, e); } });
+      var mats = onlyLinked((mod.materials || []).concat(lang === "en" && e.presentation_en ? [{ type: "presentation", en: e.presentation_en }] : [])).filter(fresh);
+      if (mats.length) { bucket(t).aie.push({ title_es: e.code + " · " + e.title_es, title_en: e.code + " · " + e.title_en, items: mats }); note(t, e); }
+      (mod.resources || []).forEach(function (r) {
+        if (!r.items) { if (hasLink(r) && fresh(r)) { bucket(r.topic || t).res.push(r); note(r.topic || t, e); } return; }
+        var gt = r.topic || t, keep = [];
+        r.items.filter(hasLink).forEach(function (x) {
+          if (!fresh(x)) return;
+          if (x.topic && x.topic !== gt) { bucket(x.topic).res.push(x); note(x.topic, e); } else keep.push(x);
+        });
+        if (keep.length) { bucket(gt).res.push({ title_es: r.title_es, title_en: r.title_en, items: keep }); note(gt, e); }
+      });
+    });
+    return B;
+  }
+  function topicBody(k, b) {
+    var D = L.cal.detail, R = L.res, key = "rec-" + k;
+    return resSection("featured", D.secFeatured, b.featured, true, key) +
+      resSection("aie", D.secAie, b.aie.length === 1 ? b.aie[0].items : b.aie, true, key) +   /* one class: its rows directly; several: one group per class */
+      resSection("more", D.secMore, splitByLang(b.res, false), false, key) +
+      resSection("other", D.secOther, splitByLang(b.res, true), false, key, D.secOtherLead) +
+      (b.classes.length ? '<p class="rec-cal">' + esc(R.seeCal) + " " + b.classes.map(function (e) {
+        return '<a href="#calendario/' + esc(eventKey(e)) + '">' + esc(e.code) + "</a>";
+      }).join(", ") + "</p>" : "");
+  }
+  function bucketCount(b) { return b ? rowCount(b.featured) + rowCount(b.aie) + rowCount(b.res) : 0; }
+  function pageRecursos() {
+    var R = L.res, B = resourceIndex(), keys = Object.keys(F.topics);
+    var subsOf = function (m) { return keys.filter(function (k) { return F.topics[k].parent === m && bucketCount(B[k]); }).sort(byName); };
+    var total = function (m) { return subsOf(m).reduce(function (n, k) { return n + bucketCount(B[k]); }, bucketCount(B[m])); };
+    var mains = keys.filter(function (k) { return !F.topics[k].parent && total(k); }).sort(byName);
+    if (!mains.length) return secHead("recursos") + '<p class="lead">' + esc(R.lead) + "</p>" + callout("", R.emptyLabel, esc(R.empty));
+    var nav = '<nav class="learn-nav" aria-label="' + esc(R.topicsLabel) + '"><span class="learn-nav-l">' + esc(R.topicsLabel) + "</span><ul>" + mains.map(function (k) {
+      return '<li><a class="learn-pill" href="#recursos/' + k + '"><span aria-hidden="true">' + F.topics[k].icon + "</span> " + esc(topicName(k)) + "</a></li>";
+    }).join("") + "</ul></nav>";
+    var count = function (n) { return '<span class="mat-count"><span aria-hidden="true">' + n + '</span><span class="sr-only">' + esc(R.count(n)) + "</span></span>"; };
+    var open = function (k, dflt) { var o = matOpen["rec-" + k]; return (o === undefined ? dflt : o) ? " open" : ""; };
+    /* Topic panels remember their own state by key (topic order differs between languages), so render()'s
+       by-position restore skips them (details[data-k]). */
+    var body = mains.map(function (m) {
+      var subs = subsOf(m).map(function (k) {
+        return '<details class="rec-sub" id="p-' + k + '" data-k="rec-' + k + '"' + open(k, false) + '><summary><h3 class="rec-sub-h">' + esc(topicName(k)) + "</h3>" +
+          count(bucketCount(B[k])) + "</summary>" + topicBody(k, B[k]) + "</details>";
+      }).join("");
+      return '<details class="block sec rec-topic" id="p-' + m + '" data-k="rec-' + m + '"' + open(m, false) + '><summary class="sec-sum"><h2 class="h-sec">' +
+        '<span class="rec-h"><span aria-hidden="true">' + F.topics[m].icon + "</span> " + esc(topicName(m)) + "</span>" + count(total(m)) + "</h2></summary>" +
+        '<div class="sec-body">' + (B[m] ? topicBody(m, B[m]) : "") + subs + "</div></details>";
+    }).join("");
+    return secHead("recursos") + '<p class="lead">' + esc(R.lead) + "</p>" + nav + body +
+      btnRow(inLink("#esta-semana", R.weekCta) + inLink("#calendario", R.calCta));
+  }
+
+  var PAGES = { inicio: pageHome, participar: pageParticipar, "esta-semana": pageSemana, calendario: pageCalendario, recursos: pageRecursos, ayuda: pageAyuda };
   var ALIASES = { lista: "participar", zoom: "participar", programa: "calendario",   /* retired routes */
                   preguntas: "ayuda/preguntas", enlaces: "ayuda/preguntas", contacto: "ayuda/preguntas",
                   historia: "ayuda/historia", equipo: "ayuda/equipo" };   /* pages folded into Información y ayuda (v0.22.0) */
@@ -765,12 +833,12 @@
       if (deep) { calFilter = "all"; calOpen[deep] = true; }
     }
     var weekJump = id === "esta-semana" && pendingDeep;
-    var part = id === "ayuda" && pendingDeep ? routeParts()[1] : "";
+    var part = (id === "ayuda" || id === "recursos") && pendingDeep ? routeParts()[1] : "";
     if (spy) { spy.disconnect(); spy = null; }
     if (reveal) { reveal.disconnect(); reveal = null; }
     var fresh = id !== shownRoute;                 /* fade in on arrival only, not on the minute refresh or a language switch */
     pendingDeep = false;
-    var main = document.getElementById("main"), FOLD = "details.sec, details.accordion-item";
+    var main = document.getElementById("main"), FOLD = "details.sec:not([data-k]), details.accordion-item";   /* keyed panels restore themselves */
     var wasOpen = id === shownRoute ? Array.prototype.map.call(main.querySelectorAll(FOLD), function (d) { return d.open; }) : [];
     main.innerHTML = PAGES[id]();
     main.querySelectorAll(FOLD).forEach(function (d, i) { if (wasOpen[i]) d.open = true; });   /* refresh and language switch keep open panels open */
@@ -784,7 +852,7 @@
         window.scrollTo(0, card.getBoundingClientRect().top + window.scrollY - hh - (div ? div.offsetHeight : 0) - 12);
         card.querySelector(".cal-open").focus({ preventScroll: true });
       }
-    } else if (part && goToPart(main, part)) {     /* a part or panel of Información y ayuda */
+    } else if (part && goToPart(main, part)) {     /* a part or panel of Información y ayuda, or a resource topic */
     } else if (weekJump && main.querySelector(".week-list > .folded")) {   /* open at today's (or the next) class */
       var tgt = main.querySelector(".week-list > .event-card:not(.folded)");
       if (tgt) {
@@ -811,7 +879,7 @@
   function goToPart(main, part) {                 /* scroll a part (#g-…) or panel (#p-…) just below the header and section menu */
     var el = main.querySelector("#g-" + part) || main.querySelector("#p-" + part), nav = main.querySelector(".learn-nav");
     if (!el) return false;
-    if (el.tagName === "DETAILS") el.open = true;
+    for (var p = el; p && p !== main; p = p.parentElement) if (p.tagName === "DETAILS") p.open = true;   /* a sub-topic opens its main topic too */
     window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - document.querySelector("header.site-header").offsetHeight - (nav ? nav.offsetHeight : 0) - 12);
     var hd = el.querySelector(".learn-h, summary"); if (hd) hd.focus({ preventScroll: true });
     return true;
@@ -843,8 +911,8 @@
   document.addEventListener("click", function (ev) {
     var t = ev.target.closest ? ev.target : null; if (!t) return;
     if (t.closest(".menu a")) document.querySelector(".menu").open = false;
-    var same = t.closest('a[href^="#ayuda/"]');     /* same hash → no hashchange fires, so scroll here (a pill tapped again after scrolling away) */
-    if (same && same.getAttribute("href") === location.hash && currentRoute() === "ayuda") {
+    var same = t.closest('a[href^="#ayuda/"], a[href^="#recursos/"]');   /* same hash → no hashchange fires, so scroll here (a pill tapped again after scrolling away) */
+    if (same && same.getAttribute("href") === location.hash && ["ayuda", "recursos"].indexOf(currentRoute()) !== -1) {
       if (goToPart(document.getElementById("main"), routeParts()[1])) { ev.preventDefault(); return; }
     }
     var lp = t.closest(".lang-pill");

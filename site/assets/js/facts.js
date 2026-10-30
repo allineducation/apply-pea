@@ -96,6 +96,27 @@ window.PEA_FACTS = {
     cal:       { es: "Ver el calendario de PEA", en: "View the PEA calendar" }
   },
 
+  /* Topics for the Materiales y recursos page (v0.23.0; Danny Hernández, 2026-10-29). Each module names
+     one topic; a resource item or group can name another with `topic` when its subject differs from the
+     class. A sub-topic names its main topic in `parent` (one level only). The page sorts main topics and
+     sub-topics by name in the page language and hides any that have no links yet. Opportunities & Continued
+     Learning is also the home for adult English classes, GED information and life after high school. */
+  topics: {
+    advocacy:      { icon: "📣", es: "Liderazgo y defensa educativa", en: "Advocacy & Leadership" },
+    rights:        { parent: "advocacy", es: "Derechos escolares", en: "Education Rights" },
+    family:        { parent: "advocacy", es: "Participación familiar y comunitaria", en: "Family & Community Engagement" },
+    history:       { parent: "advocacy", es: "Historia e identidad", en: "History & Identity" },
+    digital:       { icon: "💻", es: "Alfabetización digital y tecnología", en: "Digital Literacy & Tech" },
+    start:         { icon: "🧭", es: "Para empezar en PEA", en: "Getting Started with PEA" },
+    literacy:      { icon: "📚", es: "Lectura", en: "Literacy" },
+    math:          { icon: "➗", es: "Matemáticas", en: "Math" },
+    schools:       { icon: "🏫", es: "Navegando sistemas escolares", en: "Navigating School Systems" },
+    quality:       { parent: "schools", es: "Educación de calidad", en: "Quality Education" },
+    safety:        { parent: "schools", es: "Seguridad y bienestar", en: "Safety & Well-Being" },
+    sped:          { parent: "schools", es: "Educación especial y estudiantes excepcionales", en: "Special Education & Exceptional Students" },
+    opportunities: { icon: "🎓", es: "Oportunidades y aprendizaje continuo", en: "Opportunities & Continued Learning" }
+  },
+
   /* Curriculum modules — canonical, cohort-independent descriptions, session
      materials and resources. Each list item: { type, es: url, en: url }.
      Source: Airtable · PEA base · Modules table tblPkSBzSYKE4cBC6
@@ -118,11 +139,11 @@ window.PEA_FACTS = {
      MORIE ES/EN (Danny, 2026-09-30): keeps only its first sentence, then the program's four
      learning goals (formerly the "Lo que va a aprender / What you'll learn" cards). */
   modules: {
-    MORIE: { id: "PEA-M01",
+    MORIE: { id: "PEA-M01", topic: "start",
       es: "Este curso de apertura presenta a las familias ALL In Education, la Academia de Padres Educadores y los acuerdos y apoyos que guían la experiencia de las 18 clases. También presenta los objetivos del programa, que cada familia vive a su manera: prepararse para hablar con la escuela (qué preguntar, qué información compartir y cómo dar seguimiento a una conversación con el personal escolar); saber a quién acudir, entendiendo cómo se organizan las escuelas y los distritos y a quién dirigirse cuando surge una inquietud; apoyar el aprendizaje en casa, con ideas para acompañar la lectura y las matemáticas y para hablar con la escuela sobre lo que necesita su estudiante; y participar en su comunidad, compartiendo su experiencia, colaborando con otras familias y tomando parte en las decisiones de la escuela.",
       en: "This opening course introduces participants to ALL In Education, the Parent Educator Academy, and the expectations and supports that shape the 18-class learning experience. It also introduces the program’s learning goals, which every family experiences in its own way: preparing for school conversations (what to ask, what to share, and how to follow up with school staff); knowing whom to contact, by understanding how schools and districts are organized and whom to go to when a concern comes up; supporting learning at home, with ideas for reading and math and for talking with the school about what your student needs; and taking part in your community by sharing your experience, working alongside other families, and having a voice in school decisions.",
       materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1rtHSJogz_FTi7VFTPHvMWDBkK4iKxvpq/view?usp=drivesdk", en: "https://drive.google.com/file/d/1o52Fa0oSKtvjY-NCWzKvmYsuhz55ZXMB/view?usp=drivesdk" }] },
-    MHIST: { id: "PEA-M02",
+    MHIST: { id: "PEA-M02", topic: "history",
       es: "Este curso examina los acontecimientos, las políticas y las decisiones que formaron la educación pública en Arizona y que continúan influyendo en las oportunidades estudiantiles. Las familias relacionan esta historia con sus propias experiencias escolares y consideran cómo el contexto histórico puede orientar el aprendizaje, la participación comunitaria y la defensa educativa.",
       en: "This course examines the historical events, policies, and decisions that shaped public education in Arizona and continue to influence students’ opportunities today. Families connect this history to their own school experiences and consider how historical context can inform learning, community involvement, and education advocacy.",
       /* 1R materials reviewed 2026-10-09 (Airtable Modules): worksheet ES + EN PDFs v1.0.0 (added 2026-10-08)
@@ -134,7 +155,7 @@ window.PEA_FACTS = {
     /* MSAFE replaces MSDOE for FA26 2T (Airtable Modules PEA-M19, created 2026-10-08). Description and
        objectives as supplied by Danny Hernández, 2026-10-08; the Airtable descriptions still carry an extra
        "nine social determinants" sentence that was left out here. */
-    MSAFE: { id: "PEA-M19",
+    MSAFE: { id: "PEA-M19", topic: "safety",
       es: "Este curso se centra en condiciones que muchas familias consideran decisivas para sus estudiantes: si se sienten seguros en la escuela, si hay adultos que los conocen y si reciben apoyo para su bienestar. Las familias aprenden a reconocer señales de preocupación, describir por escrito lo que han observado, identificar a quién contactar y dar seguimiento cuando una situación no se resuelve. El curso gira en torno a una pregunta que cada familia puede poner en práctica esta semana.",
       en: "This course focuses on school safety, supportive relationships, and student well-being. Families learn to recognize signs of concern, describe what they have observed in writing, choose whom to contact, and follow up when a concern remains unresolved.",
       objectives_es: [
@@ -154,15 +175,15 @@ window.PEA_FACTS = {
          Spanish-participant tool (its filename says BIL), so it is listed in Spanish only. */
       materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1dUOmLrxqAVD6VGvZKCSeMyYJZQxP1Nyi/view?usp=drivesdk", en: "https://drive.google.com/file/d/1ltm-a-ap9vTd_MYHPQqW47OYWrVAZdIY/view?usp=drivesdk" },
         { type: "comm", es: "https://drive.google.com/file/d/1_Pyn4N1rPLFC9dF9TbTjQVNMFtUux0km/view?usp=drivesdk" }] },
-    MSDOE: { id: "PEA-M03",
+    MSDOE: { id: "PEA-M03", topic: "history",
       es: "Este curso explora cómo la vivienda, la salud, el transporte, los ingresos, el acceso lingüístico y los recursos comunitarios pueden influir en las experiencias y los resultados educativos. Las familias identifican fortalezas y barreras en sus comunidades, relacionan estos factores con la equidad y la justicia y consideran cómo abogar por los apoyos que necesitan sus estudiantes.",
       en: "This course explores how conditions such as housing, health, transportation, income, language access, and neighborhood resources can influence students’ educational experiences and outcomes. Families identify strengths and barriers in their communities, connect these factors to equity and justice, and consider ways to advocate for the supports their students need.",
       materials: [{ type: "comm", es: "https://drive.google.com/file/d/18yXbpyLsCcEsQQMihOi7l2BMmuQ5_7mB/view?usp=drivesdk" }] },
-    MBIAS: { id: "PEA-M04",
+    MBIAS: { id: "PEA-M04", topic: "history",
       es: "Este curso invita a las personas participantes a examinar la identidad, el sentido de pertenencia, los prejuicios conscientes e inconscientes y cómo influyen en las experiencias escolares y el acceso a oportunidades. Mediante la reflexión y el diálogo, las familias relacionan sus vivencias con patrones más amplios e identifican maneras de apoyar entornos de aprendizaje más equitativos e inclusivos.",
       en: "This course invites participants to examine identity, belonging, conscious and unconscious bias, and the ways these forces shape students’ school experiences and access to opportunity. Through reflection and dialogue, families connect personal experiences to broader patterns and identify ways to support more equitable and inclusive learning environments.",
       materials: [{ type: "comm", es: "https://drive.google.com/file/d/1tZ3oEPuYE9RYuLW_F-tEp8DiSsKL4rWs/view?usp=drivesdk" }] },
-    MQUAL: { id: "PEA-M05",
+    MQUAL: { id: "PEA-M05", topic: "quality",
       es: "Este curso ayuda a las familias a definir una educación de alta calidad y comprender las opciones de escuelas públicas disponibles en Arizona, dentro y fuera de la escuela asignada. Las personas participantes analizan información sobre las escuelas, consideran cómo cada opción apoya el aprendizaje y la equidad y practican preguntas que orienten decisiones para sus estudiantes.",
       en: "This course helps families define high-quality education and understand Arizona’s public school options, including choices available within and beyond their assigned school. Participants examine information about schools, consider how different options support learning and equity, and practice asking questions that can inform decisions for their students.",
       /* 3T materials from the 3T class folder (Danny Hernández, 2026-10-20), PDFs only, all shared "anyone with the
@@ -200,7 +221,7 @@ window.PEA_FACTS = {
         { type: "resource", title_en: "U.S. Department of Education: Search for Public Schools", en: "https://nces.ed.gov/ccd/schoolsearch" },
         { type: "resource", title_en: "U.S. News: K–12 Schools", en: "https://www.usnews.com/education/k12" }
       ] },
-    MCOMM: { id: "PEA-M06",
+    MCOMM: { id: "PEA-M06", topic: "schools",
       es: "Este curso explica cómo se organizan los salones, las escuelas y los distritos e identifica a las personas y las rutas de comunicación que las familias pueden usar cuando surgen preguntas o inquietudes. Las personas participantes practican estrategias de comunicación de dos vías con maestros, directores, consejeros y otro personal escolar para construir alianzas enfocadas en las necesidades estudiantiles.",
       en: "This course explains how classrooms, schools, and districts are organized and identifies the people and communication pathways families can use when questions or concerns arise. Participants practice strategies for two-way communication with teachers, principals, counselors, and other school staff so they can build productive partnerships around student needs.",
       /* 3R materials from the 3R class folder (Danny Hernández, 2026-10-22), PDFs only, all shared "anyone with the
@@ -237,13 +258,13 @@ window.PEA_FACTS = {
           { type: "resource", title_es: "Preguntas y pasos para que su hijo o hija triunfe en la escuela (Departamento de Educación de EE. UU.)", es: "https://www2.ed.gov/documents/family-community/parent-checklist-es.pdf", title_en: "Questions and Steps for Children to Succeed in School (U.S. Department of Education)", en: "https://www2.ed.gov/documents/family-community/parent-checklist.pdf" }
         ] },
         { title_es: "Matemáticas, educación especial e inglés", title_en: "Math, special education and English learners", items: [
-          { type: "resource", title_es: "Preguntas de matemáticas para la reunión con el maestro (Understood)", es: "https://assets.ctfassets.net/p0qf7j048i0q/5d0Jz4e6LCJ5YnA8BubfPI/d92f6aab5703f2311af6b897a196b606/Preguntas_de_matem__ticas_para_la_reuni__n_de_padres_y_maestros_Understood.pdf", title_en: "Math Questions for a Parent-Teacher Conference (Understood)", en: "https://assets.ctfassets.net/p0qf7j048i0q/3aKsBwV58UzhwJ01JM2RDf/5f395c57e7918c754228ac3c82363bf0/Parent-Teacher_Conference_Checklist_for_Math_Understood.pdf" },
-          { type: "resource", title_es: "Dificultades en matemáticas: cómo hablar con el maestro (Understood)", es: "https://www.understood.org/es-mx/articles/math-trouble-conversation-starters-to-use-with-your-childs-teacher", title_en: "Math Trouble: Talking to Your Child’s Teacher (Understood)", en: "https://www.understood.org/en/articles/math-trouble-conversation-starters-to-use-with-your-childs-teacher" },
-          { type: "resource", title_es: "Preguntas frecuentes de las familias sobre la educación especial (Center for Parent Information and Resources)", es: "https://www.parentcenterhub.org/lg1sp/", title_en: "Questions Often Asked by Parents About Special Education Services (Center for Parent Information and Resources)", en: "https://www.parentcenterhub.org/lg1/" },
-          { type: "resource", title_es: "El camino de la educación especial (Departamento de Educación de Arizona)", es: "https://www.azed.gov/sites/default/files/2020/12/Traveling%20the%20Special%20Education%20Highway%20Spa%20%2719%20acc.pdf", title_en: "Traveling the Special Education Highway (Arizona Department of Education)", en: "https://www.azed.gov/sites/default/files/2016/12/Traveling%20the%20Special%20Education%20Highway%20%2719.pdf" },
+          { type: "resource", topic: "math", title_es: "Preguntas de matemáticas para la reunión con el maestro (Understood)", es: "https://assets.ctfassets.net/p0qf7j048i0q/5d0Jz4e6LCJ5YnA8BubfPI/d92f6aab5703f2311af6b897a196b606/Preguntas_de_matem__ticas_para_la_reuni__n_de_padres_y_maestros_Understood.pdf", title_en: "Math Questions for a Parent-Teacher Conference (Understood)", en: "https://assets.ctfassets.net/p0qf7j048i0q/3aKsBwV58UzhwJ01JM2RDf/5f395c57e7918c754228ac3c82363bf0/Parent-Teacher_Conference_Checklist_for_Math_Understood.pdf" },
+          { type: "resource", topic: "math", title_es: "Dificultades en matemáticas: cómo hablar con el maestro (Understood)", es: "https://www.understood.org/es-mx/articles/math-trouble-conversation-starters-to-use-with-your-childs-teacher", title_en: "Math Trouble: Talking to Your Child’s Teacher (Understood)", en: "https://www.understood.org/en/articles/math-trouble-conversation-starters-to-use-with-your-childs-teacher" },
+          { type: "resource", topic: "sped", title_es: "Preguntas frecuentes de las familias sobre la educación especial (Center for Parent Information and Resources)", es: "https://www.parentcenterhub.org/lg1sp/", title_en: "Questions Often Asked by Parents About Special Education Services (Center for Parent Information and Resources)", en: "https://www.parentcenterhub.org/lg1/" },
+          { type: "resource", topic: "sped", title_es: "El camino de la educación especial (Departamento de Educación de Arizona)", es: "https://www.azed.gov/sites/default/files/2020/12/Traveling%20the%20Special%20Education%20Highway%20Spa%20%2719%20acc.pdf", title_en: "Traveling the Special Education Highway (Arizona Department of Education)", en: "https://www.azed.gov/sites/default/files/2016/12/Traveling%20the%20Special%20Education%20Highway%20%2719.pdf" },
           { type: "resource", title_es: "Guía para familias de estudiantes aprendiendo inglés (Education Northwest)", es: "https://educationnorthwest.org/sites/default/files/resources/parent-guide-el-spanish.pdf", title_en: "Parent Guide for English Learners (Education Northwest)", en: "https://educationnorthwest.org/sites/default/files/resources/parent-guide-el-english.pdf" }
         ] },
-        { title_es: "Participar en la escuela", title_en: "Getting involved at school", items: [
+        { topic: "family", title_es: "Participar en la escuela", title_en: "Getting involved at school", items: [
           { type: "resource", title_es: "Cómo participar en las actividades escolares (Colorín Colorado)", es: "https://www.colorincolorado.org/es/articulo/participaci%C3%B3n-de-los-padres-c%C3%B3mo-mantenerse-involucrado-en-las-actividades-escolares-de-su", title_en: "Parent Participation: Getting Involved in School Activities (Colorín Colorado)", en: "https://www.colorincolorado.org/article/parent-participation-how-get-involved-your-childs-school-activities" },
           { type: "resource", title_es: "Escuelas y familias: colección de artículos (Colorín Colorado)", es: "https://www.colorincolorado.org/es/node/36889/articles", title_en: "Schools and Families: Article Collection (Colorín Colorado)", en: "https://www.colorincolorado.org/node/36889/articles" },
           { type: "resource", title_es: "Biblioteca de recursos para familias (Encircle Families)", es: "https://encirclefamilies.org/es/resources/", title_en: "Family Resource Library (Encircle Families)", en: "https://encirclefamilies.org/resources/" },
@@ -258,7 +279,7 @@ window.PEA_FACTS = {
           { type: "resource", title_en: "Yuma County: School Board Members", en: "https://yumaesa.org/board-members.html" }
         ] }
       ] },
-    MREAD: { id: "PEA-M07",
+    MREAD: { id: "PEA-M07", topic: "literacy",
       es: "Este curso presenta las habilidades fundamentales de la lectura y cómo puede verse una enseñanza eficaz mientras los estudiantes se desarrollan como lectores. Las familias aprenden a reconocer señales de que un estudiante podría necesitar apoyo adicional, revisan preguntas para el personal educativo y practican cómo abogar por una enseñanza de lectura apropiada y al nivel de grado.",
       en: "This course introduces foundational reading skills and what effective literacy instruction can look like as students develop as readers. Families learn how to recognize signs that a student may need additional support, review questions they can ask educators, and practice advocating for appropriate, grade-level literacy instruction.",
       /* 4T materials from the 4T class folder (Danny Hernández, 2026-10-26), PDFs only, all shared "anyone with the
@@ -292,7 +313,7 @@ window.PEA_FACTS = {
             title_en: "Family Guides: what your child learns in each grade (Seek Common Ground)", en: "https://seekcommonground.org/family-guides" },
           { type: "resource", title_en: "AdLit: All About Adolescent Literacy (grades 4–12)", en: "https://www.adlit.org" }
         ] },
-        { title_es: "Si su hijo o hija necesita más apoyo", title_en: "If your child needs more support", items: [
+        { topic: "sped", title_es: "Si su hijo o hija necesita más apoyo", title_en: "If your child needs more support", items: [
           { type: "resource", title_en: "Find Your Parent Center: help for children with disabilities or learning difficulties", en: "https://www.parentcenterhub.org/find-your-center" }
         ] },
         { title_es: "Videos de la clase", title_en: "Videos from class", items: [
@@ -311,7 +332,7 @@ window.PEA_FACTS = {
           { type: "resource", title_en: "Storyline Online: picture books read aloud by actors (SAG-AFTRA Foundation)", en: "https://storylineonline.net" }
         ] }
       ] },
-    MHOME: { id: "PEA-M08",
+    MHOME: { id: "PEA-M08", topic: "literacy",
       es: "Este curso se enfoca en formas prácticas y culturalmente relevantes de apoyar el desarrollo de la lectura en casa y en cualquier idioma. Las familias practican estrategias para leer juntas, hacer preguntas, ampliar el vocabulario y crear rutinas que fortalezcan la confianza y conecten la lectura en casa con el aprendizaje escolar.",
       en: "This course focuses on practical, culturally responsive ways families can support reading development at home and in any language. Participants practice strategies for reading together, asking questions, building vocabulary, and creating routines that strengthen confidence and connect home literacy experiences with classroom learning.",
       /* 4R materials from the 4R class folder (Danny Hernández, 2026-10-26), PDFs only, all shared "anyone with the
@@ -375,39 +396,39 @@ window.PEA_FACTS = {
           { type: "resource", title_en: "Casa Grande Public Library", en: "https://casagrandeaz.gov/library" }
         ] }
       ] },
-    MDIGI: { id: "PEA-M09",
+    MDIGI: { id: "PEA-M09", topic: "digital",
       es: "Este curso presenta conceptos de alfabetización digital que afectan a estudiantes y familias, incluyendo la seguridad en línea, el uso de medios, la desinformación, la privacidad y el acceso a herramientas de aprendizaje. Las personas participantes practican cómo evaluar información digital e identifican estrategias y recursos para orientar el uso responsable de la tecnología, comunicarse con las escuelas y apoyar el aprendizaje en casa.",
       en: "This course introduces digital literacy concepts that affect students and families, including online safety, media use, misinformation, privacy, and access to learning tools. Participants practice evaluating online information and identify strategies and resources for guiding responsible technology use, communicating with schools, and supporting learning at home.",
       materials: [{ type: "comm", es: "https://drive.google.com/file/d/1WEa6qLDxOsMN_eAUqVgdOJl45HQXXobI/view?usp=drivesdk", en: "https://drive.google.com/file/d/1WEa6qLDxOsMN_eAUqVgdOJl45HQXXobI/view?usp=drivesdk" }] },
-    MRGHT: { id: "PEA-M10",
+    MRGHT: { id: "PEA-M10", topic: "rights",
       es: "Este curso presenta los derechos y las responsabilidades clave de las familias y los estudiantes en la educación pública de Arizona, incluyendo protecciones para aprendices de inglés, estudiantes con discapacidades y familias con estatus migratorio mixto. Las personas participantes aprenden dónde encontrar información confiable, cómo expresar inquietudes y qué rutas de defensa pueden proteger el acceso, la inclusión y el éxito estudiantil.",
       en: "This course introduces key rights and responsibilities of families and students in Arizona public education, including protections for English Learners, students with disabilities, and mixed-status families. Participants learn where to locate reliable information, how to raise concerns, and which advocacy pathways can help protect access, inclusion, and student success." },
-    MMATH: { id: "PEA-M11",
+    MMATH: { id: "PEA-M11", topic: "math",
       es: "Este curso explora cómo ha cambiado la enseñanza de las matemáticas y qué se espera que los estudiantes comprendan y demuestren en los salones actuales. Las familias revisan estrategias para fortalecer la confianza y la resolución de problemas, identifican preguntas para el personal educativo y practican cómo abogar cuando un estudiante necesita una explicación más clara o apoyo adicional.",
       en: "This course explores how mathematics instruction has changed and what students are expected to understand and demonstrate in today’s math classrooms. Families examine strategies for supporting confidence and problem solving, identify questions to ask educators, and practice advocating when a student needs clearer instruction or additional support." },
-    MOPHS: { id: "PEA-M12",
+    MOPHS: { id: "PEA-M12", topic: "opportunities",
       es: "Este curso presenta caminos disponibles después de la preparatoria, incluyendo colegios comunitarios, universidades, educación técnica y profesional, aprendizajes, servicio militar e ingreso directo al trabajo. Las familias consideran los intereses y las metas de sus estudiantes, exploran preguntas de planificación y ayuda financiera e identifican maneras de apoyar decisiones informadas sobre educación, capacitación y carreras.",
       en: "This course introduces pathways available after high school, including community college, universities, career and technical education, apprenticeships, military service, and direct entry into the workforce. Families consider students’ interests and goals, explore planning and financial-aid questions, and identify ways to support informed decisions about education, training, and careers.",
       materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/18Ta0-1JoumzowXE1ZJx4vevMfzN5oFJs/view?usp=drivesdk" }] },
-    MEXCP: { id: "PEA-M13",
+    MEXCP: { id: "PEA-M13", topic: "sped",
       es: "Este curso explica cómo las escuelas identifican y apoyan a estudiantes excepcionales y presenta sistemas como educación especial, Programas de Educación Individualizados (IEP), planes de la Sección 504 y apoyos de varios niveles. Las familias comparan los apoyos disponibles, preparan preguntas para los equipos escolares y practican cómo abogar por servicios y oportunidades inclusivas que respondan a las fortalezas y necesidades de cada estudiante.",
       en: "This course explains how schools identify and support exceptional students and introduces common systems such as special education, Individualized Education Programs (IEPs), Section 504 plans, and multi-tiered supports. Families compare available supports, prepare questions for school teams, and practice advocating for services and inclusive opportunities aligned with each student’s strengths and needs.",
       materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1cRa0toDWW4-n61eosAVWFCs2y01wxZ-r/view?usp=drivesdk" }] },
-    MCENG: { id: "PEA-M14",
+    MCENG: { id: "PEA-M14", topic: "family",
       es: "Este curso examina cómo se ve la participación familiar y comunitaria auténtica cuando las familias colaboran como socias en decisiones que afectan a estudiantes y escuelas. Las personas participantes exploran principios de participación significativa, distinguen entre asistir y compartir decisiones e identifican oportunidades para contribuir a la mejora escolar dentro y fuera de la escuela.",
       en: "This course examines what authentic family and community engagement looks like when families participate as partners in decisions that affect students and schools. Participants explore principles of meaningful engagement, distinguish participation from shared decision-making, and identify opportunities to contribute to school improvement within and beyond the school building.",
       materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/172jJ4Ur3DwHS6DnRcY3ePA2gMXffPPrF/view?usp=drivesdk" }] },
-    MSELF: { id: "PEA-M15",
+    MSELF: { id: "PEA-M15", topic: "advocacy",
       es: "Este curso ayuda a las personas participantes a desarrollar una Historia Personal que conecte su identidad, experiencias, valores, desafíos y decisiones con su liderazgo y defensa educativa. Las familias practican cómo construir y compartir una narrativa que comunique por qué la educación es importante para ellas y que apoye acciones con propósito a favor de estudiantes y comunidades.",
       en: "This course helps participants develop a Story of Self by connecting identity, lived experience, values, challenges, and choices to their leadership and advocacy. Families practice shaping and sharing a personal narrative that communicates why education matters to them and supports purposeful action on behalf of students and communities.",
       materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1bWohNr9jlSV2JvznJcOHe__W1wh1C1cD/view?usp=drivesdk" }] },
-    MPIP1: { id: "PEA-M16",
+    MPIP1: { id: "PEA-M16", topic: "advocacy",
       es: "Este curso reúne los aprendizajes de sesiones anteriores de PEA y apoya a las personas participantes para aplicarlos a una situación escolar, del salón o de la comunidad que quieran abordar. Las familias definen la situación, aclaran su meta, identifican personas clave y recursos y comienzan un plan de defensa que puedan llevar a la práctica con comentarios de sus compañeros y facilitadores.",
       en: "This course brings together learning from earlier PEA sessions and supports participants in applying it to a school, classroom, or community issue they want to address. Families define the issue, clarify their goal, identify key people and resources, and begin an actionable advocacy plan with feedback from peers and facilitators." },
-    MPIP2: { id: "PEA-M17",
+    MPIP2: { id: "PEA-M17", topic: "advocacy",
       es: "Este curso apoya a las personas participantes para fortalecer y comunicar los planes de defensa desarrollados en Poniéndolo en Práctica I. Las familias usan comentarios para mejorar sus estrategias, practican cómo presentar un plan claro y centrado en las familias e identifican próximos pasos, formas de comunicación y apoyos necesarios para pasar de la planificación a la acción.",
       en: "This course supports participants in strengthening and communicating the advocacy plans developed in Putting It Into Practice I. Families use feedback to refine their strategies, practice presenting a clear family-centered plan, and identify immediate next steps, communication approaches, and support needed to move from planning to action." },
-    MGRAD: { id: "PEA-M18",
+    MGRAD: { id: "PEA-M18", topic: "advocacy",
       es: "Este curso de cierre celebra que las personas participantes completaron PEA y ofrece un espacio para reflexionar sobre los aprendizajes, las relaciones y el crecimiento logrado durante la cohorte. Las personas graduadas identifican cómo seguirán usando sus conocimientos y habilidades de defensa como líderes familiares, alumni y colaboradoras para fortalecer las oportunidades educativas de los estudiantes.",
       en: "This culminating course celebrates participants’ completion of PEA and creates space to reflect on learning, relationships, and growth across the cohort. Graduates identify how they will continue using their knowledge and advocacy skills as family leaders, alumni, and partners in strengthening educational opportunities for students." }
   },
