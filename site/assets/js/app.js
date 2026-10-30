@@ -7,8 +7,8 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.23.0";
-  var UPDATED = "2026-10-29";
+  var VERSION = "0.23.1";
+  var UPDATED = "2026-10-30";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
   var LS_LANG = "aie_lang";
@@ -395,6 +395,7 @@
   function splitByLang(items, other) {             /* keep groups; each side gets the group's items in its language bucket */
     return onlyLinked(items.map(function (it) {
       if (!it.items) return englishOnly(it) === other ? it : null;
+      if (it.whole) return other ? null : it;      /* a `whole` group stays together under Additional resources */
       return { title_es: it.title_es, title_en: it.title_en, items: it.items.filter(function (x) { return englishOnly(x) === other; }) };
     }).filter(Boolean));
   }
@@ -687,7 +688,7 @@
           if (!fresh(x)) return;
           if (x.topic && x.topic !== gt) { bucket(x.topic).res.push(x); note(x.topic, e); } else keep.push(x);
         });
-        if (keep.length) { bucket(gt).res.push({ title_es: r.title_es, title_en: r.title_en, items: keep }); note(gt, e); }
+        if (keep.length) { bucket(gt).res.push({ title_es: r.title_es, title_en: r.title_en, whole: r.whole, items: keep }); note(gt, e); }
       });
     });
     return B;
