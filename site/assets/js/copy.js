@@ -38,6 +38,7 @@
         participar: { label: "Cómo participar", time: "3 min" },
         "esta-semana": { label: "Esta semana", time: "2 min" },
         calendario: { label: "Calendario y temas", time: "3 min" },
+        recursos:   { label: "Materiales y recursos", time: "3 min" },
         ayuda:      { label: "Información y ayuda", time: "5 min" }
       },
 
@@ -168,6 +169,7 @@
         full: "Ver en calendario público",
         ics: "Descargar todas las fechas (.ics)",
         icsHelp: "Agregue todas las fechas al calendario de su teléfono o computadora.",
+        resCta: "Ver todos los materiales y recursos por tema →",
         icsName: "PEA",
         detail: {
           open: "Ver detalles de la clase", close: "Ocultar detalles", openInfo: "Ver detalles de la sesión",
@@ -201,6 +203,7 @@
         nextH: "La próxima semana",
         cohortH: "Enlaces de su cohorte",
         calCta: "Ver el calendario completo →",
+        resCta: "Ver todos los materiales y recursos →",
         beforeLabel: "Pronto empezamos",
         before: function (d) { return "Las clases empiezan el " + d + ". Aquí verá cada semana sus clases, materiales y enlaces."; },
         emptyLabel: "Sin clases esta semana",
@@ -294,6 +297,17 @@
         ]
       },
 
+      res: {
+        lead: "Todos los materiales y recursos de las clases de PEA, en un solo lugar y ordenados por tema. Agregamos enlaces nuevos a medida que avanzan las clases.",
+        topicsLabel: "Temas",
+        count: function (n) { return n + (n === 1 ? " enlace" : " enlaces"); },
+        seeCal: "Ver la clase en el calendario:",
+        emptyLabel: "Muy pronto",
+        empty: "Todavía no hay materiales publicados. Vuelva cuando empiecen las clases.",
+        weekCta: "Ver esta semana →",
+        calCta: "Ver el calendario →"
+      },
+
       learn: {
         onPage: "En esta página",
         parts: { preguntas: "Preguntas y ayuda", equipo: "Equipo de PEA", historia: "Nuestra historia" },
@@ -335,6 +349,7 @@
         participar: { label: "How to take part", time: "3 min" },
         "esta-semana": { label: "This week", time: "2 min" },
         calendario: { label: "Calendar & topics", time: "3 min" },
+        recursos:   { label: "Materials & resources", time: "3 min" },
         ayuda:      { label: "Info & help", time: "5 min" }
       },
 
@@ -465,6 +480,7 @@
         full: "View the public calendar",
         ics: "Download every date (.ics)",
         icsHelp: "Add every date to the calendar on your phone or computer.",
+        resCta: "See all materials and resources by topic →",
         icsName: "PEA",
         detail: {
           open: "See class details", close: "Hide details", openInfo: "See session details",
@@ -498,6 +514,7 @@
         nextH: "Next week",
         cohortH: "Your cohort links",
         calCta: "See the full calendar →",
+        resCta: "See all materials and resources →",
         beforeLabel: "Starting soon",
         before: function (d) { return "Classes begin " + d + ". Each week, this page shows your classes, materials, and links."; },
         emptyLabel: "No classes this week",
@@ -589,6 +606,17 @@
           ["What is the exit ticket?", "At different points during a cohort, we ask participants to complete an exit survey. It’s how we measure the program’s impact and, based on your feedback, learn what to change in future cohorts. There are three surveys — at the start, midpoint, and end of the cohort — and the link is always the same."],
           ["Is there anything after the program?", "Yes. People who finish PEA stay connected with ALL In Education through focus groups, leadership opportunities, and the chance to walk alongside new families. Graduation ends the course, not the relationship."]
         ]
+      },
+
+      res: {
+        lead: "Every material and resource from PEA classes, in one place and sorted by topic. We add new links as classes go on.",
+        topicsLabel: "Topics",
+        count: function (n) { return n + (n === 1 ? " link" : " links"); },
+        seeCal: "See the class on the calendar:",
+        emptyLabel: "Coming soon",
+        empty: "No materials are published yet. Check back once classes begin.",
+        weekCta: "See this week →",
+        calCta: "See the calendar →"
       },
 
       learn: {
