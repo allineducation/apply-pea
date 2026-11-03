@@ -381,7 +381,7 @@ window.PEA_FACTS = {
       materials: [{ type: "comm", es: "https://drive.google.com/file/d/1WEa6qLDxOsMN_eAUqVgdOJl45HQXXobI/view?usp=drivesdk", en: "https://drive.google.com/file/d/1WEa6qLDxOsMN_eAUqVgdOJl45HQXXobI/view?usp=drivesdk" }],
       /* 5T resources (Danny Hernández, 2026-11-03): Danny's 17-line list, reviewed and grouped, plus the resource
          list from Delia Padilla's guest seminar deck (Prácticas seguras en internet y seguridad en línea; the decks
-         themselves stay internal). Duplicates merged: AT&T ScreenReady (listed twice), Cox Digital Academy, the
+         themselves stay internal). Duplicates merged: AT&T ScreenReady (listed twice), the
          WhatsApp misinformation FAQ (now linked directly, not through Google Translate), the U.S. Department of
          Education digital learning guide and Common Sense Media are ES | EN rows. Spanish versions found by web
          search, 2026-11-03: NetSmartz (NCMEC.org/NetSmartz/es), ConnectSafely quick guides, HealthyChildren.org
@@ -389,14 +389,14 @@ window.PEA_FACTS = {
          NAMI support groups and 988 Lifeline (988lineadevida.org). Stop.Think.Connect. is now CISA's Secure Our World
          (Spanish tip sheets on its translated-resources page). El Detector's WhatsApp number (+1 305 447 2910) is the
          one Univision's Instagram lists; older articles give +1 786 685 8284. Links not checked from the build
-         environment (network blocked). */
+         environment (network blocked). Codex review (PR #54): the ScreenReady digital-literacy URL returned 404, so the
+         row links ScreenReady's adults-and-seniors page; both Cox Digital Academy links redirect to a low-cost internet
+         sales page, so the row is left out until Danny finds the current page. */
       featured: [{ type: "resource", title_es: "Common Sense Media: reseñas de contenidos según la edad para las familias", es: "https://www.commonsensemedia.org/es",
           title_en: "Common Sense Media: age-based media reviews for families", en: "https://www.commonsensemedia.org/" },
-        { type: "resource", title_es: "Alfabetización digital: cursos y consejos (AT&T ScreenReady)", title_en: "Digital Literacy: courses and tips (AT&T ScreenReady)", any: "https://screenready.att.com/digital-literacy/" }],
+        { type: "resource", title_es: "Aprender a usar la tecnología: recursos para adultos (AT&T ScreenReady; sitio en inglés)", title_en: "Learning resources for adults and seniors (AT&T ScreenReady)", any: "https://screenready.att.com/adults-seniors/" }],
       resources: [
         { title_es: "Seguridad en línea y ciudadanía digital", title_en: "Online safety and digital citizenship", items: [
-          { type: "resource", title_es: "Academia digital: ciudadanía digital (Cox Communications)", es: "https://espanol.cox.com/residential/internet/connect2compete/digital-citizenship.html",
-            title_en: "Digital Academy: digital citizenship (Cox Communications)", en: "https://www.cox.com/residential/internet/connect2compete/digital-citizenship.html" },
           { type: "resource", title_es: "Guía de aprendizaje digital para padres y familias (Departamento de Educación de EE. UU.)", es: "https://tech.ed.gov/publications/digital-learning-guide/parent-family-es/",
             title_en: "Parent and Family Digital Learning Guide (U.S. Department of Education)", en: "https://tech.ed.gov/publications/digital-learning-guide/parent-family/" },
           { type: "resource", title_es: "NetSmartz: videos y guías sobre seguridad en internet para niños y familias (NCMEC)", es: "https://ncmec.org/NetSmartz/es",
