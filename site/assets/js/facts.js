@@ -404,7 +404,76 @@ window.PEA_FACTS = {
     MDIGI: { id: "PEA-M09", topic: "digital",
       es: "Este curso presenta conceptos de alfabetización digital que afectan a estudiantes y familias, incluyendo la seguridad en línea, el uso de medios, la desinformación, la privacidad y el acceso a herramientas de aprendizaje. Las personas participantes practican cómo evaluar información digital e identifican estrategias y recursos para orientar el uso responsable de la tecnología, comunicarse con las escuelas y apoyar el aprendizaje en casa.",
       en: "This course introduces digital literacy concepts that affect students and families, including online safety, media use, misinformation, privacy, and access to learning tools. Participants practice evaluating online information and identify strategies and resources for guiding responsible technology use, communicating with schools, and supporting learning at home.",
-      materials: [{ type: "comm", es: "https://drive.google.com/file/d/1WEa6qLDxOsMN_eAUqVgdOJl45HQXXobI/view?usp=drivesdk", en: "https://drive.google.com/file/d/1WEa6qLDxOsMN_eAUqVgdOJl45HQXXobI/view?usp=drivesdk" }] },
+      materials: [{ type: "comm", es: "https://drive.google.com/file/d/1WEa6qLDxOsMN_eAUqVgdOJl45HQXXobI/view?usp=drivesdk", en: "https://drive.google.com/file/d/1WEa6qLDxOsMN_eAUqVgdOJl45HQXXobI/view?usp=drivesdk" }],
+      /* 5T resources (Danny Hernández, 2026-11-03): Danny's 17-line list, reviewed and grouped, plus the resource
+         list from Delia Padilla's guest seminar deck (Prácticas seguras en internet y seguridad en línea; the decks
+         themselves stay internal). Duplicates merged: AT&T ScreenReady (listed twice), the
+         WhatsApp misinformation FAQ (now linked directly, not through Google Translate), the U.S. Department of
+         Education digital learning guide and Common Sense Media are ES | EN rows. Spanish versions found by web
+         search, 2026-11-03: NetSmartz (NCMEC.org/NetSmartz/es), ConnectSafely quick guides, HealthyChildren.org
+         family media plan (replaces the aap.org home page), Child Mind Institute, StopBullying.gov, MHA screening,
+         NAMI support groups and 988 Lifeline (988lineadevida.org). Stop.Think.Connect. is now CISA's Secure Our World
+         (Spanish tip sheets on its translated-resources page). El Detector's WhatsApp number (+1 305 447 2910) is the
+         one Univision's Instagram lists; older articles give +1 786 685 8284. Links not checked from the build
+         environment (network blocked). Codex review (PR #54): the ScreenReady digital-literacy URL returned 404, so the
+         row links ScreenReady's adults-and-seniors page; both Cox Digital Academy links redirect to a low-cost internet
+         sales page, so the row is left out until Danny finds the current page. */
+      featured: [{ type: "resource", title_es: "Common Sense Media: reseñas de contenidos según la edad para las familias", es: "https://www.commonsensemedia.org/es",
+          title_en: "Common Sense Media: age-based media reviews for families", en: "https://www.commonsensemedia.org/" },
+        { type: "resource", title_es: "Aprender a usar la tecnología: recursos para adultos (AT&T ScreenReady; sitio en inglés)", title_en: "Learning resources for adults and seniors (AT&T ScreenReady)", any: "https://screenready.att.com/adults-seniors/" }],
+      resources: [
+        { title_es: "Seguridad en línea y ciudadanía digital", title_en: "Online safety and digital citizenship", items: [
+          { type: "resource", title_es: "Guía de aprendizaje digital para padres y familias (Departamento de Educación de EE. UU.)", es: "https://tech.ed.gov/publications/digital-learning-guide/parent-family-es/",
+            title_en: "Parent and Family Digital Learning Guide (U.S. Department of Education)", en: "https://tech.ed.gov/publications/digital-learning-guide/parent-family/" },
+          { type: "resource", title_es: "NetSmartz: videos y guías sobre seguridad en internet para niños y familias (NCMEC)", es: "https://ncmec.org/NetSmartz/es",
+            title_en: "NetSmartz: internet safety lessons and videos for kids (NCMEC)", en: "https://www.missingkids.org/netsmartz" },
+          { type: "resource", title_es: "Guías rápidas sobre aplicaciones y seguridad, algunas en español (ConnectSafely; sitio en inglés)", es: "https://connectsafely.org/quickguides/",
+            title_en: "Parent Guides: apps, safety and parenting (ConnectSafely)", en: "https://connectsafely.org/parentguides/" },
+          { type: "resource", title_es: "Secure Our World: hojas de consejos de ciberseguridad en español (CISA; página en inglés)", es: "https://www.cisa.gov/secure-our-world/translated-resources",
+            title_en: "Secure Our World: cybersecurity tips (CISA)", en: "https://www.cisa.gov/secure-our-world" },
+          { type: "resource", title_en: "Protecting Kids Online (Federal Trade Commission)", en: "https://consumer.ftc.gov/identity-theft-and-online-security/protecting-kids-online" },
+          { type: "resource", title_en: "StaySafeOnline: cybersecurity tips for families (National Cybersecurity Alliance)", en: "https://staysafeonline.org" },
+          { type: "resource", title_en: "Internet Matters: advice for keeping kids safe online (UK)", en: "https://www.internetmatters.org" }
+        ] },
+        { title_es: "Controles parentales y hábitos saludables", title_en: "Parental controls and healthy habits", items: [
+          { type: "resource", title_es: "Plan familiar de uso de pantallas (Academia Americana de Pediatría, HealthyChildren.org)", es: "https://www.healthychildren.org/Spanish/fmp/Paginas/MediaPlan.aspx",
+            title_en: "Family Media Plan (American Academy of Pediatrics, HealthyChildren.org)", en: "https://www.healthychildren.org/English/fmp/Pages/MediaPlan.aspx" },
+          { type: "resource", title_es: "Google Family Link: controles parentales", es: "https://families.google.com/intl/es-419/familylink/",
+            title_en: "Google Family Link: parental controls", en: "https://families.google.com/familylink/" },
+          { type: "resource", title_es: "Centro de Seguridad de Google: familias", es: "https://safety.google/intl/es-419/families/",
+            title_en: "Google Safety Center: families", en: "https://safety.google/families/" },
+          { type: "resource", title_es: "Microsoft Family Safety: controles parentales", es: "https://www.microsoft.com/es-us/microsoft-365/family-safety",
+            title_en: "Microsoft Family Safety: parental controls", en: "https://www.microsoft.com/en-us/microsoft-365/family-safety" }
+        ] },
+        { title_es: "Verificar antes de compartir", title_en: "Check before you share", items: [
+          { type: "resource", title_es: "El Detector: verificación de datos en español (Univision Noticias)", es: "https://www.univision.com/especiales/noticias/detector" },
+          { type: "resource", title_es: "📱 Envíe a El Detector lo que quiere verificar por WhatsApp: +1 (305) 447-2910", es: "https://wa.me/13054472910" },
+          { type: "resource", title_es: "✉️ O por correo electrónico: eldetector@univision.net", es: "mailto:eldetector@univision.net" },
+          { type: "resource", title_es: "Factchequeado: contra la desinformación en las comunidades latinas de EE. UU.", es: "https://factchequeado.com/quienes-somos" },
+          { type: "resource", title_es: "WhatsApp: cómo prevenir la difusión de información errónea", es: "https://faq.whatsapp.com/431498999157251/?locale=es_LA",
+            title_en: "WhatsApp: how to prevent the spread of misinformation", en: "https://faq.whatsapp.com/431498999157251/?locale=en_US" },
+          { type: "resource", title_en: "Snopes: fact checks", en: "https://www.snopes.com/fact-check/" }
+        ] },
+        { title_es: "Inteligencia artificial", title_en: "Artificial intelligence", items: [
+          { type: "resource", title_es: "AI & You: aprenda qué es la inteligencia artificial y cómo usarla", es: "https://aiandyou.org/es/",
+            title_en: "AI & You: learn what artificial intelligence is and how to use it", en: "https://aiandyou.org/" }
+        ] },
+        { topic: "safety", title_es: "Bienestar y ayuda en una crisis", title_en: "Well-being and crisis support", items: [
+          { type: "resource", title_es: "988 Línea de Prevención del Suicidio y Crisis: llame al 988 y marque 2, o envíe AYUDA al 988", es: "https://988lineadevida.org",
+            title_en: "988 Suicide & Crisis Lifeline: call or text 988", en: "https://988lifeline.org" },
+          { type: "resource", title_es: "Crisis Text Line: envíe AYUDA al 741741 o escriba al 442-AYUDAME por WhatsApp (sitio en inglés)",
+            title_en: "Crisis Text Line: free 24/7 support by text, text HOME to 741741", any: "https://www.crisistextline.org" },
+          { type: "resource", title_es: "Child Mind Institute: tiempo frente a las pantallas, ansiedad y apoyo para padres", es: "https://childmind.org/es/",
+            title_en: "Child Mind Institute: screen time, anxiety and parenting support", en: "https://childmind.org/" },
+          { type: "resource", title_es: "StopBullying.gov: prevenir el acoso escolar y el ciberacoso", es: "https://espanol.stopbullying.gov",
+            title_en: "StopBullying.gov: bullying and cyberbullying prevention", en: "https://www.stopbullying.gov" },
+          { type: "resource", title_es: "Pruebas de salud mental gratuitas y confidenciales (Mental Health America)", es: "https://screening.mhanational.org/es/",
+            title_en: "Free, confidential mental health screening (Mental Health America)", en: "https://screening.mhanational.org/" },
+          { type: "resource", title_es: "Grupos de apoyo en español (NAMI)", es: "https://www.nami.org/support-groups/los-grupos-de-apoyo/",
+            title_en: "NAMI: support groups and resources", en: "https://www.nami.org" },
+          { type: "resource", title_en: "The Trevor Project: support and crisis help for LGBTQ+ young people", en: "https://www.thetrevorproject.org" }
+        ] }
+      ] },
     MRGHT: { id: "PEA-M10", topic: "rights",
       es: "Este curso presenta los derechos y las responsabilidades clave de las familias y los estudiantes en la educación pública de Arizona, incluyendo protecciones para aprendices de inglés, estudiantes con discapacidades y familias con estatus migratorio mixto. Las personas participantes aprenden dónde encontrar información confiable, cómo expresar inquietudes y qué rutas de defensa pueden proteger el acceso, la inclusión y el éxito estudiantil.",
       en: "This course introduces key rights and responsibilities of families and students in Arizona public education, including protections for English Learners, students with disabilities, and mixed-status families. Participants learn where to locate reliable information, how to raise concerns, and which advocacy pathways can help protect access, inclusion, and student success." },
