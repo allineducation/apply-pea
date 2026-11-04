@@ -404,7 +404,14 @@ window.PEA_FACTS = {
     MDIGI: { id: "PEA-M09", topic: "digital",
       es: "Este curso presenta conceptos de alfabetización digital que afectan a estudiantes y familias, incluyendo la seguridad en línea, el uso de medios, la desinformación, la privacidad y el acceso a herramientas de aprendizaje. Las personas participantes practican cómo evaluar información digital e identifican estrategias y recursos para orientar el uso responsable de la tecnología, comunicarse con las escuelas y apoyar el aprendizaje en casa.",
       en: "This course introduces digital literacy concepts that affect students and families, including online safety, media use, misinformation, privacy, and access to learning tools. Participants practice evaluating online information and identify strategies and resources for guiding responsible technology use, communicating with schools, and supporting learning at home.",
-      materials: [{ type: "comm", es: "https://drive.google.com/file/d/1WEa6qLDxOsMN_eAUqVgdOJl45HQXXobI/view?usp=drivesdk", en: "https://drive.google.com/file/d/1WEa6qLDxOsMN_eAUqVgdOJl45HQXXobI/view?usp=drivesdk" }],
+      /* 5T materials from the FA26 5T MDIGI Materials folder (Danny Hernández, 2026-11-03), PDFs only, all shared
+         "anyone with the link": worksheet ES + EN v1.1.0, family handout ES + EN v1.1.0 (Hoja informativa / Family
+         handout) and the communication tool BIL v2.1.0, one bilingual file for both pages. They replace the FA26 BIL
+         v1.0.0 tool, which is now in the Drive trash. The facilitator guide, small-group guide and deck corrections are
+         staff-only and not published. */
+      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1kYQVJsyWTqPS7OcsyOyA-MDq07GhtCAf/view?usp=drivesdk", en: "https://drive.google.com/file/d/1hYy5gxBym34jpWX-rhI4_UttzeZmraby/view?usp=drivesdk" },
+        { type: "handout", es: "https://drive.google.com/file/d/1HU0Ay4Llujul0Ma-W10mTaYnjvZxY9MI/view?usp=drivesdk", en: "https://drive.google.com/file/d/1ximcFruV_nOrKhrtCLsL8ri5-fm_-Sdd/view?usp=drivesdk" },
+        { type: "comm", es: "https://drive.google.com/file/d/1YszfWlhumy8TUjyqLlN99duDsNelQOgt/view?usp=drivesdk", en: "https://drive.google.com/file/d/1YszfWlhumy8TUjyqLlN99duDsNelQOgt/view?usp=drivesdk" }],
       /* 5T resources (Danny Hernández, 2026-11-03): Danny's 17-line list, reviewed and grouped, plus the resource
          list from Delia Padilla's guest seminar deck (Prácticas seguras en internet y seguridad en línea; the decks
          themselves stay internal). Duplicates merged: AT&T ScreenReady (listed twice), the
@@ -417,7 +424,8 @@ window.PEA_FACTS = {
          one Univision's Instagram lists; older articles give +1 786 685 8284. Links not checked from the build
          environment (network blocked). Codex review (PR #54): the ScreenReady digital-literacy URL returned 404, so the
          row links ScreenReady's adults-and-seniors page; both Cox Digital Academy links redirect to a low-cost internet
-         sales page, so the row is left out until Danny finds the current page. */
+         sales page, so the row is left out until Danny finds the current page. Microsoft Family Safety removed at
+         Danny's request (2026-11-03); Danny checked every other link on the live site. */
       featured: [{ type: "resource", title_es: "Common Sense Media: reseñas de contenidos según la edad para las familias", es: "https://www.commonsensemedia.org/es",
           title_en: "Common Sense Media: age-based media reviews for families", en: "https://www.commonsensemedia.org/" },
         { type: "resource", title_es: "Aprender a usar la tecnología: recursos para adultos (AT&T ScreenReady; sitio en inglés)", title_en: "Learning resources for adults and seniors (AT&T ScreenReady)", any: "https://screenready.att.com/adults-seniors/" }],
@@ -441,9 +449,7 @@ window.PEA_FACTS = {
           { type: "resource", title_es: "Google Family Link: controles parentales", es: "https://families.google.com/intl/es-419/familylink/",
             title_en: "Google Family Link: parental controls", en: "https://families.google.com/familylink/" },
           { type: "resource", title_es: "Centro de Seguridad de Google: familias", es: "https://safety.google/intl/es-419/families/",
-            title_en: "Google Safety Center: families", en: "https://safety.google/families/" },
-          { type: "resource", title_es: "Microsoft Family Safety: controles parentales", es: "https://www.microsoft.com/es-us/microsoft-365/family-safety",
-            title_en: "Microsoft Family Safety: parental controls", en: "https://www.microsoft.com/en-us/microsoft-365/family-safety" }
+            title_en: "Google Safety Center: families", en: "https://safety.google/families/" }
         ] },
         { title_es: "Verificar antes de compartir", title_en: "Check before you share", items: [
           { type: "resource", title_es: "El Detector: verificación de datos en español (Univision Noticias)", es: "https://www.univision.com/especiales/noticias/detector" },
