@@ -123,9 +123,8 @@ window.PEA_FACTS = {
      (Description (ES) / Description (EN) / Participant Worksheet (ES) — PDF /
      Participant Communication Tool (ES) — PDF / Participant Resource - Other (ES) — PDF),
      descriptions read 2026-09-25, materials read 2026-10-06. Only files shared
-     "anyone with the link" are published (checked 2026-10-06). Held back until shared:
-     MRGHT worksheet (1kmwiDnjCCI0KCMebtYlJGQNeVHCyYW6i) and MRGHT communication tool
-     (1zCTm31aRz4OcDhNtLg0WkpePcHEOx_Ju). MORIE worksheet: v1.1.1 ES + EN PDFs from the Session
+     "anyone with the link" are published (checked 2026-10-06). The MRGHT worksheet and communication tool
+     held back on 2026-10-06 are superseded by the 2026-11-05 MRGHT folder PDFs (see MRGHT). MORIE worksheet: v1.1.1 ES + EN PDFs from the Session
      Materials folder (PEA_FA26_1T_Hoja_de_Trabajo_ES_v1_1_1.pdf, PEA_FA26_1T_Participant_Worksheet_EN_v1_1_1.pdf),
      shared "anyone with the link"; they replace the v1.0.0 PDFs (Danny Hernández, 2026-10-06). Other English versions and "Other"
      resources do not exist in Airtable yet; a new resource database is forthcoming. The MDIGI
@@ -482,7 +481,74 @@ window.PEA_FACTS = {
       ] },
     MRGHT: { id: "PEA-M10", topic: "rights",
       es: "Este curso presenta los derechos y las responsabilidades clave de las familias y los estudiantes en la educación pública de Arizona, incluyendo protecciones para aprendices de inglés, estudiantes con discapacidades y familias con estatus migratorio mixto. Las personas participantes aprenden dónde encontrar información confiable, cómo expresar inquietudes y qué rutas de defensa pueden proteger el acceso, la inclusión y el éxito estudiantil.",
-      en: "This course introduces key rights and responsibilities of families and students in Arizona public education, including protections for English Learners, students with disabilities, and mixed-status families. Participants learn where to locate reliable information, how to raise concerns, and which advocacy pathways can help protect access, inclusion, and student success." },
+      en: "This course introduces key rights and responsibilities of families and students in Arizona public education, including protections for English Learners, students with disabilities, and mixed-status families. Participants learn where to locate reliable information, how to raise concerns, and which advocacy pathways can help protect access, inclusion, and student success.",
+      /* 5R materials from the MRGHT session-materials folder (Drive 1TWCWZICHDtuhXI04CcHIXH7RUt-cysv2; Danny Hernández,
+         2026-11-05), the most recent PDF of each file (built 2026-11-05), all checked as shared "anyone with the link":
+         worksheet ES + EN v4.1.0, family handout ES + EN v4.4.0 (Volante familiar / Family handout), the communication
+         tool BIL v5.1.0 (one bilingual file for both pages) and the rights reference ES + EN v2.1.0. They replace the
+         worksheet and communication tool held back on 2026-10-06. The facilitator guide ES v2.3.0, the small-group guide
+         BIL v4.1.0, the deck-corrections notes and the DOCX sources are staff-only and not published; older versions
+         in the folder (v2.0.0, v3.0.0) and the duplicate Volante_Familiar_ES_v4_4_0.pdf are not linked. */
+      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1w5cSQtoAp0XA6fis2SERxRvygvDBqZKq/view?usp=drivesdk", en: "https://drive.google.com/file/d/1B94xf-4SKMklC4YxIYjt_ar0xaoPVQVg/view?usp=drivesdk" },
+        { type: "handout", es: "https://drive.google.com/file/d/1VAtan9bku6zDMODzcWUcwBC6XjJW7EOe/view?usp=drivesdk", en: "https://drive.google.com/file/d/1S0Ez2KCbksvOvDCtuQkVetQ4SGNTZRgr/view?usp=drivesdk" },
+        { type: "comm", es: "https://drive.google.com/file/d/1vbz7uQmfJXGyXUienjs_97sTo-t1Z0Q8/view?usp=drivesdk", en: "https://drive.google.com/file/d/1vbz7uQmfJXGyXUienjs_97sTo-t1Z0Q8/view?usp=drivesdk" },
+        { type: "handout", title_es: "Referencia de derechos de padres y estudiantes", es: "https://drive.google.com/file/d/10kVvoGvBD65Ub8jgPIcu1VrF8uobKfDj/view?usp=drivesdk",
+          title_en: "Parent and Student Rights Reference", en: "https://drive.google.com/file/d/1_mmL4ypWr8_hxtNC1cOxkwuWNmt07xIw/view?usp=drivesdk" }],
+      /* 5R resources (Danny Hernández, 2026-11-05): Danny's reviewed list "Parent and Student Education Rights", kept in
+         his six sections and order; every row has a Spanish version, so all sit under Recursos adicionales. One link
+         for both pages (`any`): the IDRA bilingual infographic (Aug 2025; supersedes the 2017 IDRA handout), Aliento's
+         and ILRC's bilingual collections, and Abriendo Puertas' Spanish video with English subtitles. Edition notes
+         kept in the titles: ADE handbooks are August 2023 (check current law and district policy); MALDEF is an older
+         introductory pamphlet. Replacements per Danny's list: NILC fact sheets replace inaccessible SPLC pages and
+         unverified Drive copies; HealthyChildren IEP/504 replaces English-only legal sites; studentprivacy.ed.gov FERPA
+         replaces duplicate FERPA links; ILRC red cards replace the Drive cards labelled NILC; iAmerica /es/ replaces
+         the obsolete /conozca-sus-derechos; the National Archives Mendez pages replace the YouTube pair (related, not
+         exact translations). Special education → Educación especial; Mendez → Historia e identidad. Links not opened
+         from the build environment. */
+      resources: [
+        { title_es: "Derechos de los padres en Arizona: escuelas del distrito y chárter", title_en: "Arizona parent rights: district and charter schools", items: [
+          { type: "resource", title_es: "Manual de derechos parentales: distritos escolares públicos (Departamento de Educación de Arizona, agosto de 2023)", es: "https://www.azed.gov/sites/default/files/2023/08/Manual%20de%20Derechos%20Parentales%20-%20Public%20District%20Schools.pdf",
+            title_en: "Parental Rights Handbook: Public School Districts (Arizona Department of Education, August 2023)", en: "https://www.azed.gov/sites/default/files/2023/08/Parent_Rights_Handbook_Public_District_Schools_2023_Final.pdf" },
+          { type: "resource", title_es: "Manual de derechos parentales: escuelas chárter públicas (Departamento de Educación de Arizona, agosto de 2023)", es: "https://www.azed.gov/sites/default/files/2023/08/Manual%20de%20Derechos%20Parentales%20-%20Public%20Charter%20Schools.pdf",
+            title_en: "Parental Rights Handbook: Public Charter Schools (Arizona Department of Education, August 2023)", en: "https://www.azed.gov/sites/default/files/2023/08/Parental%20Rights%20Handbook_Public%20Charter%20Schools__2023_Final.pdf" }
+        ] },
+        { title_es: "Inscripción escolar, estudiantes inmigrantes e igualdad de acceso", title_en: "School enrollment, immigrant students and equal access", items: [
+          { type: "resource", title_es: "Información sobre los derechos de todos los niños a matricularse en la escuela (Colorín Colorado)", es: "https://www.colorincolorado.org/es/guide/hoja-informativa-informaci%C3%B3n-sobre-los-derechos-de-todos-los-ni%C3%B1os-matricularse-en-la-escuela",
+            title_en: "Information on the Rights of All Children to Enroll in School (Colorín Colorado)", en: "https://www.colorincolorado.org/guide/fact-sheet-information-rights-all-children-enroll-school" },
+          { type: "resource", title_es: "Bienvenida a estudiantes inmigrantes: infografía bilingüe (IDRA, agosto de 2025)",
+            title_en: "Welcoming Immigrant Students: bilingual infographic (IDRA, August 2025)", any: "https://www.idra.org/wp-content/uploads/2025/08/Welcoming-Immigrant-Students-IDRA-Infographic-English-Spanish-Aug-2025.pdf" },
+          { type: "resource", title_es: "Derechos de los estudiantes inmigrantes y las escuelas (NILC)", es: "https://www.nilc.org/wp-content/uploads/2025/02/rights_for_immigrant_students_schools_spanish_0.pdf",
+            title_en: "Know Your Rights: Immigrant Students and Schools (NILC)", en: "https://www.nilc.org/wp-content/uploads/2025/02/rights_for_immigrant_students_schools_0.pdf" },
+          { type: "resource", title_es: "Derechos educativos federales: folleto introductorio (MALDEF; publicación anterior)", es: "https://www.maldef.org/wp-content/uploads/2018/11/derechos_educativos_federales_folleto.pdf",
+            title_en: "Federal Education Rights: introductory pamphlet (MALDEF; older publication)", en: "https://www.maldef.org/wp-content/uploads/2018/11/federal_education_rights_pamphlet.pdf" }
+        ] },
+        { topic: "sped", title_es: "Educación especial, derechos de las personas con discapacidad y apoyos escolares", title_en: "Special education, disability rights and school supports", items: [
+          { type: "resource", title_es: "Derechos de los padres bajo IDEA (Centro de Información y Recursos para Padres)", es: "https://www.parentcenterhub.org/derechos/",
+            title_en: "Parental Rights Under IDEA (Center for Parent Information and Resources)", en: "https://www.parentcenterhub.org/parental-rights/" },
+          { type: "resource", title_es: "Programas IEP y planes 504: guía de servicios de apoyo escolar para su hijo (HealthyChildren.org)", es: "https://www.healthychildren.org/Spanish/health-issues/conditions/developmental-disabilities/Paginas/Individualized-Education-Program.aspx",
+            title_en: "IEPs and 504 Plans: A Guide to School Supports for Your Child (HealthyChildren.org)", en: "https://www.healthychildren.org/English/health-issues/conditions/developmental-disabilities/Pages/Individualized-Education-Program.aspx" }
+        ] },
+        { title_es: "Expedientes, privacidad, encuestas y consentimiento", title_en: "Student records, privacy, surveys and consent", items: [
+          { type: "resource", title_es: "Una guía para padres sobre la Ley de Derechos Educativos y Privacidad Familiar, FERPA (Departamento de Educación de EE. UU.)", es: "https://studentprivacy.ed.gov/es/resources/una-gu%C3%ADa-para-padres-sobre-la-ley-de-derechos-educativos-y-privacidad-familiar-ferpa",
+            title_en: "A Parent Guide to the Family Educational Rights and Privacy Act, FERPA (U.S. Department of Education)", en: "https://studentprivacy.ed.gov/resources/parent-guide-family-educational-rights-and-privacy-act-ferpa" },
+          { type: "resource", title_es: "Enmienda de Protección de los Derechos del Alumno (PPRA): orientación general (Departamento de Educación de EE. UU.)", es: "https://studentprivacy.ed.gov/resources/protection-pupil-rights-amendment-ppra-general-guidance-en-espa%C3%B1ol",
+            title_en: "Protection of Pupil Rights Amendment (PPRA): General Guidance (U.S. Department of Education)", en: "https://studentprivacy.ed.gov/resources/protection-pupil-rights-amendment-ppra-general-guidance" }
+        ] },
+        { title_es: "Derechos de inmigración y preparación familiar", title_en: "Immigration rights and family preparedness", items: [
+          { type: "resource", title_es: "Conoce tus derechos: volantes en español e inglés y recursos para familias (Aliento)",
+            title_en: "Know Your Rights: English and Spanish flyers and family resources (Aliento)", any: "https://alientoaz.org/resources/know-your-rights" },
+          { type: "resource", title_es: "Conozca sus derechos ante la aplicación de las leyes de inmigración (iAmerica)", es: "https://iamerica.org/es/know-your-rights/",
+            title_en: "Know Your Rights during immigration enforcement (iAmerica)", en: "https://iamerica.org/know-your-rights/" },
+          { type: "resource", title_es: "Tarjetas rojas para imprimir: ejercer sus derechos constitucionales (Immigrant Legal Resource Center)",
+            title_en: "Red Cards to print: exercising your constitutional rights (Immigrant Legal Resource Center)", any: "https://www.ilrc.org/redcards" },
+          { type: "resource", title_es: "Video: cómo hablar con niños pequeños sobre la incertidumbre migratoria (Abriendo Puertas; subtítulos disponibles)",
+            title_en: "Video: talking with young children about immigration uncertainty (Abriendo Puertas/Opening Doors; in Spanish with English subtitles)", any: "https://ap-od.org/2025/10/30/immigration-know-your-rights/" }
+        ] },
+        { topic: "history", title_es: "Contexto histórico: igualdad en la educación", title_en: "Historical context: educational equality", items: [
+          { type: "resource", title_es: "Mendez v. Westminster y la desegregación escolar (Archivos Nacionales)", es: "https://www.archives.gov/espanol/la-desegregacion-escolar",
+            title_en: "Mendez v. Westminster School District (National Archives)", en: "https://www.archives.gov/education/lessons/mendez-case" }
+        ] }
+      ] },
     MMATH: { id: "PEA-M11", topic: "math",
       es: "Este curso explora cómo ha cambiado la enseñanza de las matemáticas y qué se espera que los estudiantes comprendan y demuestren en los salones actuales. Las familias revisan estrategias para fortalecer la confianza y la resolución de problemas, identifican preguntas para el personal educativo y practican cómo abogar cuando un estudiante necesita una explicación más clara o apoyo adicional.",
       en: "This course explores how mathematics instruction has changed and what students are expected to understand and demonstrate in today’s math classrooms. Families examine strategies for supporting confidence and problem solving, identify questions to ask educators, and practice advocating when a student needs clearer instruction or additional support." },
