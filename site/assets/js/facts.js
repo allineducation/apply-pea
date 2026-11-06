@@ -565,7 +565,16 @@ window.PEA_FACTS = {
     MEXCP: { id: "PEA-M13", topic: "sped",
       es: "Este curso explica cómo las escuelas identifican y apoyan a estudiantes excepcionales y presenta sistemas como educación especial, Programas de Educación Individualizados (IEP), planes de la Sección 504 y apoyos de varios niveles. Las familias comparan los apoyos disponibles, preparan preguntas para los equipos escolares y practican cómo abogar por servicios y oportunidades inclusivas que respondan a las fortalezas y necesidades de cada estudiante.",
       en: "This course explains how schools identify and support exceptional students and introduces common systems such as special education, Individualized Education Programs (IEPs), Section 504 plans, and multi-tiered supports. Families compare available supports, prepare questions for school teams, and practice advocating for services and inclusive opportunities aligned with each student’s strengths and needs.",
-      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1cRa0toDWW4-n61eosAVWFCs2y01wxZ-r/view?usp=drivesdk" }] },
+      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1cRa0toDWW4-n61eosAVWFCs2y01wxZ-r/view?usp=drivesdk" }],
+      /* 7T resources (Danny Hernández, 2026-11-06): Encircle Families, Arizona's Parent Training and Information Center
+         (formerly Raising Special Kids; use only the current name), website and resource library, ES | EN. Also on 5R;
+         Materiales y recursos lists each once. Further 7T resources to come. */
+      resources: [
+        { type: "resource", title_es: "Encircle Families: información, programas y apoyo para familias de niños con discapacidad en Arizona", es: "https://encirclefamilies.org/es/",
+          title_en: "Encircle Families: information, programs and support for Arizona families of children with disabilities", en: "https://encirclefamilies.org/" },
+        { type: "resource", title_es: "Biblioteca de recursos de Encircle Families: educación especial, apoyos para discapacidad y cómo navegar los servicios", es: "https://encirclefamilies.org/es/resources/",
+          title_en: "Encircle Families Resource Library: special education, disability supports and navigating services", en: "https://encirclefamilies.org/resources/" }
+      ] },
     MCENG: { id: "PEA-M14", topic: "family",
       es: "Este curso examina cómo se ve la participación familiar y comunitaria auténtica cuando las familias colaboran como socias en decisiones que afectan a estudiantes y escuelas. Las personas participantes exploran principios de participación significativa, distinguen entre asistir y compartir decisiones e identifican oportunidades para contribuir a la mejora escolar dentro y fuera de la escuela.",
       en: "This course examines what authentic family and community engagement looks like when families participate as partners in decisions that affect students and schools. Participants explore principles of meaningful engagement, distinguish participation from shared decision-making, and identify opportunities to contribute to school improvement within and beyond the school building.",
