@@ -257,8 +257,8 @@ window.PEA_FACTS = {
           { type: "resource", title_es: "Preguntas y pasos para que su hijo o hija triunfe en la escuela (Departamento de Educación de EE. UU.)", es: "https://www2.ed.gov/documents/family-community/parent-checklist-es.pdf", title_en: "Questions and Steps for Children to Succeed in School (U.S. Department of Education)", en: "https://www2.ed.gov/documents/family-community/parent-checklist.pdf" }
         ] },
         { title_es: "Matemáticas, educación especial e inglés", title_en: "Math, special education and English learners", items: [
-          { type: "resource", topic: "math", title_es: "Preguntas de matemáticas para la reunión con el maestro (Understood)", es: "https://assets.ctfassets.net/p0qf7j048i0q/5d0Jz4e6LCJ5YnA8BubfPI/d92f6aab5703f2311af6b897a196b606/Preguntas_de_matem__ticas_para_la_reuni__n_de_padres_y_maestros_Understood.pdf", title_en: "Math Questions for a Parent-Teacher Conference (Understood)", en: "https://assets.ctfassets.net/p0qf7j048i0q/3aKsBwV58UzhwJ01JM2RDf/5f395c57e7918c754228ac3c82363bf0/Parent-Teacher_Conference_Checklist_for_Math_Understood.pdf" },
-          { type: "resource", topic: "math", title_es: "Dificultades en matemáticas: cómo hablar con el maestro (Understood)", es: "https://www.understood.org/es-mx/articles/math-trouble-conversation-starters-to-use-with-your-childs-teacher", title_en: "Math Trouble: Talking to Your Child’s Teacher (Understood)", en: "https://www.understood.org/en/articles/math-trouble-conversation-starters-to-use-with-your-childs-teacher" },
+          { type: "resource", topic: "math", title_es: "Lista de preguntas sobre matemáticas para la conferencia de padres y maestros (Understood; PDF de una página)", es: "https://cdn-assets.understood.org/p0qf7j048i0q/5d0Jz4e6LCJ5YnA8BubfPI/d92f6aab5703f2311af6b897a196b606/Preguntas_de_matem__ticas_para_la_reuni__n_de_padres_y_maestros_Understood.pdf", title_en: "Parent-Teacher Conference Checklist for Math (Understood; one-page PDF)", en: "https://cdn-assets.understood.org/p0qf7j048i0q/3aKsBwV58UzhwJ01JM2RDf/5f395c57e7918c754228ac3c82363bf0/Parent-Teacher_Conference_Checklist_for_Math_Understood.pdf" },
+          { type: "resource", topic: "math", title_es: "Dificultad con las matemáticas: cómo iniciar la conversación con el maestro de su hijo (Understood)", es: "https://www.understood.org/es-mx/articles/math-trouble-conversation-starters-to-use-with-your-childs-teacher", title_en: "Math Trouble: Conversation Starters to Use With Your Child’s Teacher (Understood)", en: "https://www.understood.org/en/articles/math-trouble-conversation-starters-to-use-with-your-childs-teacher" },
           { type: "resource", topic: "sped", title_es: "Preguntas frecuentes de las familias sobre la educación especial (Center for Parent Information and Resources)", es: "https://www.parentcenterhub.org/lg1sp/", title_en: "Questions Often Asked by Parents About Special Education Services (Center for Parent Information and Resources)", en: "https://www.parentcenterhub.org/lg1/" },
           { type: "resource", topic: "sped", title_es: "El camino de la educación especial (Departamento de Educación de Arizona)", es: "https://www.azed.gov/sites/default/files/2020/12/Traveling%20the%20Special%20Education%20Highway%20Spa%20%2719%20acc.pdf", title_en: "Traveling the Special Education Highway (Arizona Department of Education)", en: "https://www.azed.gov/sites/default/files/2016/12/Traveling%20the%20Special%20Education%20Highway%20%2719.pdf" },
           { type: "resource", title_es: "Guía para familias de estudiantes aprendiendo inglés (Education Northwest)", es: "https://educationnorthwest.org/sites/default/files/resources/parent-guide-el-spanish.pdf", title_en: "Parent Guide for English Learners (Education Northwest)", en: "https://educationnorthwest.org/sites/default/files/resources/parent-guide-el-english.pdf" }
@@ -557,7 +557,53 @@ window.PEA_FACTS = {
       ] },
     MMATH: { id: "PEA-M11", topic: "math",
       es: "Este curso explora cómo ha cambiado la enseñanza de las matemáticas y qué se espera que los estudiantes comprendan y demuestren en los salones actuales. Las familias revisan estrategias para fortalecer la confianza y la resolución de problemas, identifican preguntas para el personal educativo y practican cómo abogar cuando un estudiante necesita una explicación más clara o apoyo adicional.",
-      en: "This course explores how mathematics instruction has changed and what students are expected to understand and demonstrate in today’s math classrooms. Families examine strategies for supporting confidence and problem solving, identify questions to ask educators, and practice advocating when a student needs clearer instruction or additional support." },
+      en: "This course explores how mathematics instruction has changed and what students are expected to understand and demonstrate in today’s math classrooms. Families examine strategies for supporting confidence and problem solving, identify questions to ask educators, and practice advocating when a student needs clearer instruction or additional support.",
+      /* 6T resources (Danny Hernández, 2026-11-06): Danny's reviewed list "Mathematics: Family Learning and Advocacy",
+         11 rows in four groups, all ES | EN. Link corrections from the list: Learning Heroes uses the current
+         /readiness-check/ pages (not /readiness-check-02), Understood's Spanish math-skills article its current address,
+         and the two conference-checklist PDFs the current cdn-assets.understood.org domain (not assets.ctfassets.net;
+         3R's copies updated to match, so Materiales y recursos lists each once). Replacements for workbook entries:
+         Understood "Why Math Is Taught Differently Today" (for the unmatched "What Happened to Math Class?" video);
+         PBS SoCal Family Math publisher pages (for the indirect PBS toolkit link and unmatched early-learning videos,
+         counting songs and English-only activity collections); Understood math-homework article (for the unverified
+         Craft PDF "Ayude a su hijo en el área de matemáticas"); Khan Academy math (for platforms with no distinct
+         Spanish link; the ES and EN catalogs differ, so not every lesson is translated or aligned to Arizona
+         standards); Understood conversation starters (for the inaccessible supplemental advocacy guides); Child Mind
+         Institute (for the English-only Edutopia article). Colorín Colorado's topic pages replace its general home
+         page. Readiness Check is a family learning tool, not a diagnostic assessment. Links not checked from the build
+         environment (network blocked). */
+      resources: [
+        { title_es: "Entender el aprendizaje y apoyar el progreso", title_en: "Understanding learning and supporting progress", items: [
+          { type: "resource", title_es: "Chequeo académico: actividades cortas para explorar las habilidades de lectura y matemáticas de su hijo o hija y encontrar recursos (Learning Heroes; herramienta para familias, no es una evaluación diagnóstica)", es: "https://bealearninghero.org/es/readiness-check/",
+            title_en: "Readiness Check: short activities to explore your child’s reading and math skills and find learning resources (Learning Heroes; a family learning tool, not a diagnostic assessment)", en: "https://bealearninghero.org/readiness-check/" },
+          { type: "resource", title_es: "Habilidades matemáticas según la edad (Understood)", es: "https://www.understood.org/es-mx/articles/habilidades-matematicas-segun-la-edad",
+            title_en: "Math Skills: What to Expect at Different Ages (Understood)", en: "https://www.understood.org/en/articles/math-skills-what-to-expect-at-different-ages" },
+          { type: "resource", title_es: "Por qué actualmente las matemáticas se enseñan de manera diferente: cambios que puede notar en la tarea y en el salón (Understood)", es: "https://www.understood.org/es-mx/articles/por-que-actualmente-las-matematicas-se-ensenan-de-manera-diferente",
+            title_en: "Why Math Is Taught Differently Today: changes you may notice in homework and in class (Understood)", en: "https://www.understood.org/en/articles/why-math-is-taught-differently-today" }
+        ] },
+        { title_es: "Aprender y practicar matemáticas en casa", title_en: "Learning and practicing math at home", items: [
+          { type: "resource", title_es: "Aprendiendo juntos: matemáticas, ideas para las rutinas y actividades en familia (Colorín Colorado)", es: "https://www.colorincolorado.org/es/families/learning-together-home/aprendiendo-juntos-matem%C3%A1ticas",
+            title_en: "Learning Together at Home: Math, ideas for family routines and activities (Colorín Colorado)", en: "https://www.colorincolorado.org/learning-together-home-math" },
+          { type: "resource", title_es: "Matemáticas en familia: actividades, videos y recursos para niños pequeños (PBS SoCal)", es: "https://www.pbssocal.org/educacion/family-math-en-espanol",
+            title_en: "Family Math: activities, videos and resources for young children (PBS SoCal)", en: "https://www.pbssocal.org/education/pbs-socal-family-math" },
+          { type: "resource", title_es: "Cómo ayudar a los niños con la tarea de matemáticas (Understood)", es: "https://www.understood.org/es-mx/articles/como-ayudar-a-los-ninos-con-la-tarea-de-matematicas",
+            title_en: "How to Help Kids With Tricky Math Homework (Understood)", en: "https://www.understood.org/en/articles/how-to-help-kids-with-tricky-math-homework" },
+          { type: "resource", title_es: "Matemáticas: lecciones y práctica por tema y curso (Khan Academy; los cursos en español no son todos los de inglés)", es: "https://es.khanacademy.org/math",
+            title_en: "Math: lessons and practice by topic and course (Khan Academy)", en: "https://www.khanacademy.org/math" }
+        ] },
+        { title_es: "Hablar con el maestro y abogar por apoyo", title_en: "Talking with teachers and advocating for support", items: [
+          { type: "resource", title_es: "Dificultad con las matemáticas: cómo iniciar la conversación con el maestro de su hijo (Understood)", es: "https://www.understood.org/es-mx/articles/math-trouble-conversation-starters-to-use-with-your-childs-teacher",
+            title_en: "Math Trouble: Conversation Starters to Use With Your Child’s Teacher (Understood)", en: "https://www.understood.org/en/articles/math-trouble-conversation-starters-to-use-with-your-childs-teacher" },
+          { type: "resource", title_es: "Lista de preguntas sobre matemáticas para la conferencia de padres y maestros (Understood; PDF de una página)", es: "https://cdn-assets.understood.org/p0qf7j048i0q/5d0Jz4e6LCJ5YnA8BubfPI/d92f6aab5703f2311af6b897a196b606/Preguntas_de_matem__ticas_para_la_reuni__n_de_padres_y_maestros_Understood.pdf",
+            title_en: "Parent-Teacher Conference Checklist for Math (Understood; one-page PDF)", en: "https://cdn-assets.understood.org/p0qf7j048i0q/3aKsBwV58UzhwJ01JM2RDf/5f395c57e7918c754228ac3c82363bf0/Parent-Teacher_Conference_Checklist_for_Math_Understood.pdf" }
+        ] },
+        { title_es: "Ansiedad y confianza en matemáticas", title_en: "Math anxiety and confidence", items: [
+          { type: "resource", title_es: "¿Qué es la ansiedad matemática? Cómo puede afectar el aprendizaje (Understood)", es: "https://www.understood.org/es-mx/articles/que-es-la-ansiedad-matematica",
+            title_en: "What Is Math Anxiety? How it can affect learning (Understood)", en: "https://www.understood.org/en/articles/what-is-math-anxiety" },
+          { type: "resource", title_es: "Cómo ayudar a los niños que tienen ansiedad por las matemáticas (Child Mind Institute)", es: "https://childmind.org/es/articulo/como-ayudar-a-los-ninos-que-sienten-ansiedad-por-las-matematicas/",
+            title_en: "Tips for Helping Kids Overcome Math Anxiety (Child Mind Institute)", en: "https://childmind.org/article/help-kids-with-math-anxiety/" }
+        ] }
+      ] },
     MOPHS: { id: "PEA-M12", topic: "opportunities",
       es: "Este curso presenta caminos disponibles después de la preparatoria, incluyendo colegios comunitarios, universidades, educación técnica y profesional, aprendizajes, servicio militar e ingreso directo al trabajo. Las familias consideran los intereses y las metas de sus estudiantes, exploran preguntas de planificación y ayuda financiera e identifican maneras de apoyar decisiones informadas sobre educación, capacitación y carreras.",
       en: "This course introduces pathways available after high school, including community college, universities, career and technical education, apprenticeships, military service, and direct entry into the workforce. Families consider students’ interests and goals, explore planning and financial-aid questions, and identify ways to support informed decisions about education, training, and careers.",
