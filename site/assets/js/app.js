@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.23.5";
+  var VERSION = "0.23.6";
   var UPDATED = "2026-11-03";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -675,6 +675,15 @@
     var bucket = function (k) { return B[k] || (B[k] = { featured: [], aie: [], res: [], classes: [] }); };
     var fresh = function (it) { var k = linkKey(it); if (seen[k]) return false; seen[k] = true; return true; };
     var note = function (k, e) { var c = bucket(k).classes; if (c.indexOf(e) === -1) c.push(e); };
+    /* v0.23.6: a row moved here from another class (its own `topic`) gives way when a class of that topic lists the
+       same link itself, so it stays in that class's group (e.g. 3R's Understood math rows sit in 6T's groups). */
+    var native = {};
+    CLASSES.filter(function (e) { return !e.projected; }).forEach(function (e) {
+      var mod = e.module && F.modules[e.module], t = mod && mod.topic;
+      if (t) (mod.resources || []).forEach(function (r) {
+        if ((r.topic || t) === t) (r.items || [r]).forEach(function (x) { if ((x.topic || t) === t && hasLink(x)) native[linkKey(x)] = t; });
+      });
+    });
     CLASSES.filter(function (e) { return !e.projected; }).forEach(function (e) {
       var mod = e.module && F.modules[e.module], t = mod && mod.topic;
       if (!t || !F.topics[t]) return;
@@ -685,6 +694,7 @@
         if (!r.items) { if (hasLink(r) && fresh(r)) { bucket(r.topic || t).res.push(r); note(r.topic || t, e); } return; }
         var gt = r.topic || t, keep = [];
         r.items.filter(hasLink).forEach(function (x) {
+          if (x.topic && x.topic !== gt && native[linkKey(x)] === x.topic) return;
           if (!fresh(x)) return;
           if (x.topic && x.topic !== gt) { bucket(x.topic).res.push(x); note(x.topic, e); } else keep.push(x);
         });
