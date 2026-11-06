@@ -266,7 +266,7 @@ window.PEA_FACTS = {
         { topic: "family", title_es: "Participar en la escuela", title_en: "Getting involved at school", items: [
           { type: "resource", title_es: "Cómo participar en las actividades escolares (Colorín Colorado)", es: "https://www.colorincolorado.org/es/articulo/participaci%C3%B3n-de-los-padres-c%C3%B3mo-mantenerse-involucrado-en-las-actividades-escolares-de-su", title_en: "Parent Participation: Getting Involved in School Activities (Colorín Colorado)", en: "https://www.colorincolorado.org/article/parent-participation-how-get-involved-your-childs-school-activities" },
           { type: "resource", title_es: "Escuelas y familias: colección de artículos (Colorín Colorado)", es: "https://www.colorincolorado.org/es/node/36889/articles", title_en: "Schools and Families: Article Collection (Colorín Colorado)", en: "https://www.colorincolorado.org/node/36889/articles" },
-          { type: "resource", title_es: "Biblioteca de recursos para familias (Encircle Families)", es: "https://encirclefamilies.org/es/resources/", title_en: "Family Resource Library (Encircle Families)", en: "https://encirclefamilies.org/resources/" },
+          { type: "resource", topic: "sped", title_es: "Biblioteca de recursos para familias (Encircle Families)", es: "https://encirclefamilies.org/es/resources/", title_en: "Family Resource Library (Encircle Families)", en: "https://encirclefamilies.org/resources/" },
           { type: "resource", title_en: "Family Engagement (Arizona Department of Education)", en: "https://www.azed.gov/titlei/familyengagement" },
           { type: "resource", title_en: "Arizona PTA", en: "https://azpta.org" }
         ] },
@@ -503,7 +503,9 @@ window.PEA_FACTS = {
          unverified Drive copies; HealthyChildren IEP/504 replaces English-only legal sites; studentprivacy.ed.gov FERPA
          replaces duplicate FERPA links; ILRC red cards replace the Drive cards labelled NILC; iAmerica /es/ replaces
          the obsolete /conozca-sus-derechos; the National Archives Mendez pages replace the YouTube pair (related, not
-         exact translations). Special education → Educación especial; Mendez → Historia e identidad. Links not opened
+         exact translations). Special education → Educación especial; Mendez → Historia e identidad. Encircle Families
+         (formerly Raising Special Kids; use only the current name) website and resource library added to the special
+         education group (Danny Hernández, 2026-11-06); the library also sits on 3R, now tagged sped. Links not opened
          from the build environment. */
       resources: [
         { title_es: "Derechos de los padres en Arizona: escuelas del distrito y chárter", title_en: "Arizona parent rights: district and charter schools", items: [
@@ -526,7 +528,11 @@ window.PEA_FACTS = {
           { type: "resource", title_es: "Derechos de los padres bajo IDEA (Centro de Información y Recursos para Padres)", es: "https://www.parentcenterhub.org/derechos/",
             title_en: "Parental Rights Under IDEA (Center for Parent Information and Resources)", en: "https://www.parentcenterhub.org/parental-rights/" },
           { type: "resource", title_es: "Programas IEP y planes 504: guía de servicios de apoyo escolar para su hijo (HealthyChildren.org)", es: "https://www.healthychildren.org/Spanish/health-issues/conditions/developmental-disabilities/Paginas/Individualized-Education-Program.aspx",
-            title_en: "IEPs and 504 Plans: A Guide to School Supports for Your Child (HealthyChildren.org)", en: "https://www.healthychildren.org/English/health-issues/conditions/developmental-disabilities/Pages/Individualized-Education-Program.aspx" }
+            title_en: "IEPs and 504 Plans: A Guide to School Supports for Your Child (HealthyChildren.org)", en: "https://www.healthychildren.org/English/health-issues/conditions/developmental-disabilities/Pages/Individualized-Education-Program.aspx" },
+          { type: "resource", title_es: "Encircle Families: información, programas y apoyo para familias de niños con discapacidad en Arizona", es: "https://encirclefamilies.org/es/",
+            title_en: "Encircle Families: information, programs and support for Arizona families of children with disabilities", en: "https://encirclefamilies.org/" },
+          { type: "resource", title_es: "Biblioteca de recursos de Encircle Families: educación especial, apoyos para discapacidad y cómo navegar los servicios", es: "https://encirclefamilies.org/es/resources/",
+            title_en: "Encircle Families Resource Library: special education, disability supports and navigating services", en: "https://encirclefamilies.org/resources/" }
         ] },
         { title_es: "Expedientes, privacidad, encuestas y consentimiento", title_en: "Student records, privacy, surveys and consent", items: [
           { type: "resource", title_es: "Una guía para padres sobre la Ley de Derechos Educativos y Privacidad Familiar, FERPA (Departamento de Educación de EE. UU.)", es: "https://studentprivacy.ed.gov/es/resources/una-gu%C3%ADa-para-padres-sobre-la-ley-de-derechos-educativos-y-privacidad-familiar-ferpa",
