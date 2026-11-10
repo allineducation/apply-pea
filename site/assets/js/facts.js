@@ -566,13 +566,13 @@ window.PEA_FACTS = {
       es: "Este curso explora cómo ha cambiado la enseñanza de las matemáticas y qué se espera que los estudiantes comprendan y demuestren en los salones actuales. Las familias revisan estrategias para fortalecer la confianza y la resolución de problemas, identifican preguntas para el personal educativo y practican cómo abogar cuando un estudiante necesita una explicación más clara o apoyo adicional.",
       en: "This course explores how mathematics instruction has changed and what students are expected to understand and demonstrate in today’s math classrooms. Families examine strategies for supporting confidence and problem solving, identify questions to ask educators, and practice advocating when a student needs clearer instruction or additional support.",
       /* Danny Hernández, 2026-11-10: Learning Heroes Readiness Check moved to ⭐ Destacado (it was the first row of
-         "Entender el aprendizaje"); the Spanish link stays /es/readiness-check/, which matches the English page (math
-         and reading). Danny's /es/chequeo-academico-2022/ is the older "Readiness Check Fall – Spanish" (math only), so
-         it is not used. Added: Go Beyond Grades "Preguntas para hacerle al maestro sobre las matemáticas | Questions to
+         "Entender el aprendizaje"). Spanish link: Danny's /es/chequeo-academico-2022/ ("Readiness Check Fall –
+         Spanish"; Danny Hernández, 2026-11-10), not /es/readiness-check/.
+         Added: Go Beyond Grades "Preguntas para hacerle al maestro sobre las matemáticas | Questions to
          Ask Your Child's Teacher About Math" (K–8, 2 pages; the EN PDF is hosted by Learning Heroes) and National PTA
          "Ayudando a su hijo con la matemática de hoy | Helping Your Child With Today's Math" (2017, 3 pages). All
          opened and read 2026-11-10. */
-      featured: [{ type: "resource", title_es: "Chequeo académico: actividades cortas para explorar las habilidades de lectura y matemáticas de su hijo o hija y encontrar recursos (Learning Heroes; herramienta para familias, no es una evaluación diagnóstica)", es: "https://bealearninghero.org/es/readiness-check/",
+      featured: [{ type: "resource", title_es: "Chequeo académico: actividades cortas para explorar las habilidades de lectura y matemáticas de su hijo o hija y encontrar recursos (Learning Heroes; herramienta para familias, no es una evaluación diagnóstica)", es: "https://bealearninghero.org/es/chequeo-academico-2022/",
         title_en: "Readiness Check: short activities to explore your child’s reading and math skills and find learning resources (Learning Heroes; a family learning tool, not a diagnostic assessment)", en: "https://bealearninghero.org/readiness-check/" } ],
       /* 6T resources (Danny Hernández, 2026-11-06): Danny's reviewed list "Mathematics: Family Learning and Advocacy",
          11 rows in four groups, all ES | EN. Link corrections from the list: Learning Heroes uses the current
