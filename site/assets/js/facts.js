@@ -249,6 +249,9 @@ window.PEA_FACTS = {
           { type: "resource", title_es: "Video: ¿Qué es una escuela de Título I?", es: "https://youtu.be/yN7otTSSbXk" }
         ] },
         { title_es: "Hablar con el maestro y la escuela", title_en: "Talking with teachers and the school", items: [
+          /* Learning Heroes "Carta al maestro | Dear Teacher Letter" (Danny Hernández, 2026-11-10; pages read that day). */
+          { type: "resource", title_es: "Carta al maestro: presente a su hijo o hija al nuevo maestro con una carta personalizada (Learning Heroes)", es: "https://bealearninghero.org/es/carta-2022/",
+            title_en: "“Dear Teacher” Letter: introduce your child to their new teacher with a personalized letter (Learning Heroes)", en: "https://bealearninghero.org/dear-teacher-letter-fall/" },
           { type: "resource", title_es: "Consejos para la reunión con el maestro (Colorín Colorado)", es: "https://www.colorincolorado.org/es/articulo/consejos-para-padres-conferencias-de-padres-y-maestros", title_en: "Tips for Parent-Teacher Conferences (Colorín Colorado)", en: "https://www.colorincolorado.org/article/tips-parents-parent-teacher-conferences" },
           { type: "resource", title_es: "Reuniones con el maestro: hoja de consejos (Illinois Early Learning Project)", es: "https://illinoisearlylearning.org/es/tipsheets/conferences-sp", title_en: "Parent-Teacher Conferences: Tip Sheet (Illinois Early Learning Project)", en: "https://illinoisearlylearning.org/tipsheets/conferences" },
           { type: "resource", title_es: "Preguntas para llevar a la reunión con el maestro (Understood)", es: "https://www.understood.org/es-mx/articles/checklist-questions-to-ask-at-your-parent-teacher-conference", title_en: "Questions to Ask at Your Parent-Teacher Conference (Understood)", en: "https://www.understood.org/en/articles/checklist-questions-to-ask-at-your-parent-teacher-conference" },
@@ -320,6 +323,10 @@ window.PEA_FACTS = {
           { type: "resource", title_es: "Video: un ejemplo de práctica de conciencia fonológica", title_en: "Video: phonological awareness practice in action", any: "https://youtu.be/gaodKlCjwUg?t=60" }
         ] },
         { title_es: "Cómo se enseña a leer", title_en: "How reading is taught", items: [
+          /* Go Beyond Grades reading questions, K–8 (Danny Hernández, 2026-11-10): the ES PDF is dated October 2026; the EN
+             PDF's file name says "Science of Reading" but it is "Questions to Ask Your Child's Teacher About Reading". */
+          { type: "resource", title_es: "Preguntas para hacerle al maestro sobre la lectura, de kínder a 8.º grado (Go Beyond Grades; PDF de 2 páginas)", es: "https://gobeyondgrades.org/wp-content/uploads/2026/10/Lectura-k-8-oct-2026.pdf",
+            title_en: "Questions to Ask Your Child’s Teacher About Reading, grades K–8 (Go Beyond Grades; 2-page PDF)", en: "https://gobeyondgrades.org/wp-content/uploads/2026/10/Science-of-Reading-oct-2026.pdf" },
           { type: "resource", title_en: "What Parents Should Know About Reading Instruction (Access Group)", en: "https://accessgroupinc.org/what-parents-should-know-about-reading-instruction/" },
           { type: "resource", title_es: "Colorín Colorado: lectura para familias (sitio en español)", es: "https://www.colorincolorado.org/es", title_en: "Colorín Colorado: reading for families", en: "https://www.colorincolorado.org" },
           { type: "resource", title_en: "Reading Rockets", en: "https://www.readingrockets.org" }
@@ -558,6 +565,15 @@ window.PEA_FACTS = {
     MMATH: { id: "PEA-M11", topic: "math",
       es: "Este curso explora cómo ha cambiado la enseñanza de las matemáticas y qué se espera que los estudiantes comprendan y demuestren en los salones actuales. Las familias revisan estrategias para fortalecer la confianza y la resolución de problemas, identifican preguntas para el personal educativo y practican cómo abogar cuando un estudiante necesita una explicación más clara o apoyo adicional.",
       en: "This course explores how mathematics instruction has changed and what students are expected to understand and demonstrate in today’s math classrooms. Families examine strategies for supporting confidence and problem solving, identify questions to ask educators, and practice advocating when a student needs clearer instruction or additional support.",
+      /* Danny Hernández, 2026-11-10: Learning Heroes Readiness Check moved to ⭐ Destacado (it was the first row of
+         "Entender el aprendizaje"); the Spanish link stays /es/readiness-check/, which matches the English page (math
+         and reading). Danny's /es/chequeo-academico-2022/ is the older "Readiness Check Fall – Spanish" (math only), so
+         it is not used. Added: Go Beyond Grades "Preguntas para hacerle al maestro sobre las matemáticas | Questions to
+         Ask Your Child's Teacher About Math" (K–8, 2 pages; the EN PDF is hosted by Learning Heroes) and National PTA
+         "Ayudando a su hijo con la matemática de hoy | Helping Your Child With Today's Math" (2017, 3 pages). All
+         opened and read 2026-11-10. */
+      featured: [{ type: "resource", title_es: "Chequeo académico: actividades cortas para explorar las habilidades de lectura y matemáticas de su hijo o hija y encontrar recursos (Learning Heroes; herramienta para familias, no es una evaluación diagnóstica)", es: "https://bealearninghero.org/es/readiness-check/",
+        title_en: "Readiness Check: short activities to explore your child’s reading and math skills and find learning resources (Learning Heroes; a family learning tool, not a diagnostic assessment)", en: "https://bealearninghero.org/readiness-check/" } ],
       /* 6T resources (Danny Hernández, 2026-11-06): Danny's reviewed list "Mathematics: Family Learning and Advocacy",
          11 rows in four groups, all ES | EN. Link corrections from the list: Learning Heroes uses the current
          /readiness-check/ pages (not /readiness-check-02), Understood's Spanish math-skills article its current address,
@@ -574,12 +590,12 @@ window.PEA_FACTS = {
          environment (network blocked). */
       resources: [
         { title_es: "Entender el aprendizaje y apoyar el progreso", title_en: "Understanding learning and supporting progress", items: [
-          { type: "resource", title_es: "Chequeo académico: actividades cortas para explorar las habilidades de lectura y matemáticas de su hijo o hija y encontrar recursos (Learning Heroes; herramienta para familias, no es una evaluación diagnóstica)", es: "https://bealearninghero.org/es/readiness-check/",
-            title_en: "Readiness Check: short activities to explore your child’s reading and math skills and find learning resources (Learning Heroes; a family learning tool, not a diagnostic assessment)", en: "https://bealearninghero.org/readiness-check/" },
           { type: "resource", title_es: "Habilidades matemáticas según la edad (Understood)", es: "https://www.understood.org/es-mx/articles/habilidades-matematicas-segun-la-edad",
             title_en: "Math Skills: What to Expect at Different Ages (Understood)", en: "https://www.understood.org/en/articles/math-skills-what-to-expect-at-different-ages" },
           { type: "resource", title_es: "Por qué actualmente las matemáticas se enseñan de manera diferente: cambios que puede notar en la tarea y en el salón (Understood)", es: "https://www.understood.org/es-mx/articles/por-que-actualmente-las-matematicas-se-ensenan-de-manera-diferente",
-            title_en: "Why Math Is Taught Differently Today: changes you may notice in homework and in class (Understood)", en: "https://www.understood.org/en/articles/why-math-is-taught-differently-today" }
+            title_en: "Why Math Is Taught Differently Today: changes you may notice in homework and in class (Understood)", en: "https://www.understood.org/en/articles/why-math-is-taught-differently-today" },
+          { type: "resource", title_es: "Ayudando a su hijo con la matemática de hoy: guía para familias (National PTA; PDF)", es: "https://www.pta.org/docs/default-source/files/family-resources/2018/family-guides/familyguide-math-esp.pdf",
+            title_en: "Helping Your Child With Today’s Math: guide for families (National PTA; PDF)", en: "https://www.pta.org/docs/default-source/files/family-resources/2018/family-guides/familyguide-math.pdf" }
         ] },
         { title_es: "Aprender y practicar matemáticas en casa", title_en: "Learning and practicing math at home", items: [
           { type: "resource", title_es: "Aprendiendo juntos: matemáticas, ideas para las rutinas y actividades en familia (Colorín Colorado)", es: "https://www.colorincolorado.org/es/families/learning-together-home/aprendiendo-juntos-matem%C3%A1ticas",
@@ -592,6 +608,8 @@ window.PEA_FACTS = {
             title_en: "Math: lessons and practice by topic and course (Khan Academy)", en: "https://www.khanacademy.org/math" }
         ] },
         { title_es: "Hablar con el maestro y abogar por apoyo", title_en: "Talking with teachers and advocating for support", items: [
+          { type: "resource", title_es: "Preguntas para hacerle al maestro sobre las matemáticas, de kínder a 8.º grado (Go Beyond Grades; PDF de 2 páginas)", es: "https://gobeyondgrades.org/wp-content/uploads/2026/08/Matematicas-K-8.pdf",
+            title_en: "Questions to Ask Your Child’s Teacher About Math, grades K–8 (Go Beyond Grades; 2-page PDF)", en: "https://bealearninghero.org/wp-content/uploads/2023/11/LH_Math-V4.pdf" },
           { type: "resource", title_es: "Dificultad con las matemáticas: cómo iniciar la conversación con el maestro de su hijo (Understood)", es: "https://www.understood.org/es-mx/articles/math-trouble-conversation-starters-to-use-with-your-childs-teacher",
             title_en: "Math Trouble: Conversation Starters to Use With Your Child’s Teacher (Understood)", en: "https://www.understood.org/en/articles/math-trouble-conversation-starters-to-use-with-your-childs-teacher" },
           { type: "resource", title_es: "Lista de preguntas sobre matemáticas para la conferencia de padres y maestros (Understood; PDF de una página)", es: "https://cdn-assets.understood.org/p0qf7j048i0q/5d0Jz4e6LCJ5YnA8BubfPI/d92f6aab5703f2311af6b897a196b606/Preguntas_de_matem__ticas_para_la_reuni__n_de_padres_y_maestros_Understood.pdf",
