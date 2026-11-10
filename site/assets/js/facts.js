@@ -565,6 +565,14 @@ window.PEA_FACTS = {
     MMATH: { id: "PEA-M11", topic: "math",
       es: "Este curso explora cómo ha cambiado la enseñanza de las matemáticas y qué se espera que los estudiantes comprendan y demuestren en los salones actuales. Las familias revisan estrategias para fortalecer la confianza y la resolución de problemas, identifican preguntas para el personal educativo y practican cómo abogar cuando un estudiante necesita una explicación más clara o apoyo adicional.",
       en: "This course explores how mathematics instruction has changed and what students are expected to understand and demonstrate in today’s math classrooms. Families examine strategies for supporting confidence and problem solving, identify questions to ask educators, and practice advocating when a student needs clearer instruction or additional support.",
+      /* 6T materials from the FA26 6T MMATH Materials folder (Drive 1jDo6tHC1kcfV5g2worPslOoI6sED-XRM; Danny Hernández,
+         2026-11-10), PDFs only, all v2.0.0 (built 2026-11-10 to the Participant Materials Standard) and checked as shared
+         "anyone with the link": worksheet ES + EN, family handout ES + EN (Hoja_Informativa_1_ES / Handout_1_EN, the new
+         numbered handout names) and the communication tool, Spanish only. The small-group guide BIL v3.0.0, the
+         facilitator guide, the deck-corrections notes and the DOCX sources are staff-only and not published. */
+      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1gw7d0bEXVyzWWfFEzNXU2VKlp79DvmEf/view?usp=drivesdk", en: "https://drive.google.com/file/d/1oVKTUxDfWYLYO2ynTmLWYr8QDm0AF56B/view?usp=drivesdk" },
+        { type: "handout", es: "https://drive.google.com/file/d/1Xzo3JW7VTGJ7q7elEp83YKVbvjJrwr9h/view?usp=drivesdk", en: "https://drive.google.com/file/d/1Ntf-uG84dFImamKXRZ8m7Nm6wT0Sp2HS/view?usp=drivesdk" },
+        { type: "comm", es: "https://drive.google.com/file/d/1EN61ZhP941bb19hkxGycHbXowPI_Ywk0/view?usp=drivesdk" }],
       /* Danny Hernández, 2026-11-10: Learning Heroes Readiness Check moved to ⭐ Destacado (it was the first row of
          "Entender el aprendizaje"); the Spanish link stays /es/readiness-check/, which matches the English page (math
          and reading). Danny's /es/chequeo-academico-2022/ is the older "Readiness Check Fall – Spanish" (math only), so
