@@ -565,6 +565,14 @@ window.PEA_FACTS = {
     MMATH: { id: "PEA-M11", topic: "math",
       es: "Este curso explora cómo ha cambiado la enseñanza de las matemáticas y qué se espera que los estudiantes comprendan y demuestren en los salones actuales. Las familias revisan estrategias para fortalecer la confianza y la resolución de problemas, identifican preguntas para el personal educativo y practican cómo abogar cuando un estudiante necesita una explicación más clara o apoyo adicional.",
       en: "This course explores how mathematics instruction has changed and what students are expected to understand and demonstrate in today’s math classrooms. Families examine strategies for supporting confidence and problem solving, identify questions to ask educators, and practice advocating when a student needs clearer instruction or additional support.",
+      /* 6T materials from the FA26 6T MMATH Materials folder (Drive 1jDo6tHC1kcfV5g2worPslOoI6sED-XRM; Danny Hernández,
+         2026-11-10), PDFs only, all v2.0.0 (built 2026-11-10 to the Participant Materials Standard) and checked as shared
+         "anyone with the link": worksheet ES + EN, family handout ES + EN (Hoja_Informativa_1_ES / Handout_1_EN, the new
+         numbered handout names) and the communication tool, Spanish only. The small-group guide BIL v3.0.0, the
+         facilitator guide, the deck-corrections notes and the DOCX sources are staff-only and not published. */
+      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1gw7d0bEXVyzWWfFEzNXU2VKlp79DvmEf/view?usp=drivesdk", en: "https://drive.google.com/file/d/1oVKTUxDfWYLYO2ynTmLWYr8QDm0AF56B/view?usp=drivesdk" },
+        { type: "handout", es: "https://drive.google.com/file/d/1Xzo3JW7VTGJ7q7elEp83YKVbvjJrwr9h/view?usp=drivesdk", en: "https://drive.google.com/file/d/1Ntf-uG84dFImamKXRZ8m7Nm6wT0Sp2HS/view?usp=drivesdk" },
+        { type: "comm", es: "https://drive.google.com/file/d/1EN61ZhP941bb19hkxGycHbXowPI_Ywk0/view?usp=drivesdk" }],
       /* Danny Hernández, 2026-11-10: Learning Heroes Readiness Check moved to ⭐ Destacado (it was the first row of
          "Entender el aprendizaje"); the Spanish link stays /es/readiness-check/, which matches the English page (math
          and reading). Danny's /es/chequeo-academico-2022/ is the older "Readiness Check Fall – Spanish" (math only), so
@@ -625,19 +633,116 @@ window.PEA_FACTS = {
     MOPHS: { id: "PEA-M12", topic: "opportunities",
       es: "Este curso presenta caminos disponibles después de la preparatoria, incluyendo colegios comunitarios, universidades, educación técnica y profesional, aprendizajes, servicio militar e ingreso directo al trabajo. Las familias consideran los intereses y las metas de sus estudiantes, exploran preguntas de planificación y ayuda financiera e identifican maneras de apoyar decisiones informadas sobre educación, capacitación y carreras.",
       en: "This course introduces pathways available after high school, including community college, universities, career and technical education, apprenticeships, military service, and direct entry into the workforce. Families consider students’ interests and goals, explore planning and financial-aid questions, and identify ways to support informed decisions about education, training, and careers.",
-      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/18Ta0-1JoumzowXE1ZJx4vevMfzN5oFJs/view?usp=drivesdk" }] },
+      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/18Ta0-1JoumzowXE1ZJx4vevMfzN5oFJs/view?usp=drivesdk" }],
+      /* 6R resources (Danny Hernández, reviewed list "PEA Resource List — MOPHS and MEXCP", 2026-11-10): 16 rows in his
+         seven groups and order, plus CPIR's Transition to Adulthood (from the MEXCP list, marked "also relevant to
+         MOPHS"). ES | EN rows; Literacy Connects ELA, Rio Salado and the ADE adult-education directory have no
+         verified Spanish page, so they sit under Otros recursos. Family-facing limits from Danny's notes are kept in
+         the titles (CPLC: GED classes not offered when reviewed; Friendly House enrollment line; Literacy Connects:
+         Pima County, 18+; Rio Salado: classes taught in English). Staff notes, not on the page: confirm the FAFSA
+         year and deadlines, 529 tax and program rules, Prop. 308 eligibility with each college, apprenticeship
+         requirements, provider location/cost/language/seats before referring, and that the receiving college,
+         employer or board accepts an ECE or IEE report before a family pays (an evaluation does not transfer credit
+         or grant a licence). Friendly House: the ES link is its 211 Arizona listing, not a translation of the EN
+         page. Links not opened from the build environment (network blocked). */
+      resources: [
+        { title_es: "Planificar la universidad y la carrera", title_en: "College and career planning", items: [
+          { type: "resource", title_es: "Guía para padres: planificar la educación y explorar carreras (Arizona GEAR UP, NAU)", es: "https://in.nau.edu/gear-up/parent-guide-spanish/",
+            title_en: "Parent Guide: education planning and career exploration (Arizona GEAR UP, NAU)", en: "https://in.nau.edu/gear-up/parent-guide-english/" },
+          { type: "resource", title_es: "Transición a la vida adulta: estudiantes con discapacidad (Centro de Información y Recursos para Padres)", es: "https://www.parentcenterhub.org/transicion-adulta/",
+            title_en: "Transition to Adulthood: students with disabilities (Center for Parent Information and Resources)", en: "https://www.parentcenterhub.org/transitionadult/" }
+        ] },
+        { title_es: "Pagar la universidad y ahorrar para la educación", title_en: "Paying for college and education savings", items: [
+          { type: "resource", title_es: "FAFSA: Solicitud Gratuita de Ayuda Federal para Estudiantes (USAGov en español)", es: "https://www.usa.gov/es/fafsa-ayuda-federal-estudiantes",
+            title_en: "FAFSA: Free Application for Federal Student Aid (USAGov)", en: "https://www.usa.gov/fafsa" },
+          { type: "resource", title_es: "¿Qué es un plan 529 de Arizona? Ahorrar para la educación (AZ529)", es: "https://espanol.az529.gov/planificacion-y-herramientas/que-es-un-plan-529-de-arizona/",
+            title_en: "What Is a 529 Plan? Saving for education (AZ529, Arizona’s Education Savings Plan)", en: "https://az529.gov/what-is-a-529-plan/" }
+        ] },
+        { title_es: "Estudiantes indocumentados y colegiatura estatal en Arizona", title_en: "Undocumented students and Arizona tuition access", items: [
+          { type: "resource", title_es: "Colegiatura estatal para Dreamers: la Proposición 308 (Aliento)", es: "https://alientoaz.org/in-state-for-dreamers-esp",
+            title_en: "In-State Tuition for Dreamers: Proposition 308 (Aliento)", en: "https://alientoaz.org/education" },
+          { type: "resource", title_es: "Estudiantes indocumentados: planificar y pagar la universidad (Universidad de Arizona, Empieza Hoy)", es: "https://startnow.arizona.edu/es/pagar-por-la-universidad/indocumentados",
+            title_en: "Undocumented Students: planning and paying for college (University of Arizona, Start Now)", en: "https://startnow.arizona.edu/pay-for-college/undocumented-students" }
+        ] },
+        { title_es: "Aprendizajes y capacitación para una carrera", title_en: "Apprenticeships and career training", items: [
+          { type: "resource", title_es: "Aprendizajes registrados: trabajar y aprender al mismo tiempo (Departamento de Seguridad Económica de Arizona)", es: "https://des.az.gov/sites/default/files/media/Registered-Apprenticeships-Career-Seeker-Flyer-Spanish.pdf",
+            title_en: "Registered Apprenticeships: Career Seeker Flyer (Arizona Department of Economic Security)", en: "https://des.az.gov/sites/default/files/media/Registered-Apprenticeships-Career-Seeker-Flyer-English.pdf" }
+        ] },
+        { title_es: "Clases de inglés y educación para adultos", title_en: "English classes and adult education", items: [
+          { type: "resource", title_es: "Educación para adultos e inglés, área de Phoenix (Chicanos Por La Causa; clases de GED no disponibles al revisar)", es: "https://cplc.org/es/programs/adult-education",
+            title_en: "Adult Education and English, Phoenix area (Chicanos Por La Causa; GED classes not offered when reviewed)", en: "https://www.cplc.org/programs/adult-education" },
+          { type: "resource", title_es: "Inglés y preparación para el GED en Phoenix (Friendly House, ficha en 211 Arizona); inscripción en español: 602-416-7210", es: "https://search.211arizona.org/es/search/265c1e77-44b6-5ba5-8c14-a3653a55fcea",
+            title_en: "Adult Education and Workforce Development, Phoenix (Friendly House); enrollment: 602-416-7210, enroll@friendlyhouse.org", en: "https://friendlyhouse.org/adult-education-and-workforce-development/" },
+          { type: "resource", title_en: "English Language Acquisition for Adults, online and in person, Pima County, ages 18+ (Literacy Connects)", en: "https://literacyconnects.org/english-language-acquisition-for-adults/" },
+          { type: "resource", title_en: "Adult Education: GED prep, English and career readiness, Phoenix area; classes taught in English (Rio Salado College)", en: "https://www.riosalado.edu/start-rio/adult-education" },
+          { type: "resource", title_en: "Adult Education and English Classes by County (Arizona Department of Education)", en: "https://www.azed.gov/adultedservices/Adult-Education-Programs" }
+        ] },
+        { title_es: "Preparación para el GED y diploma de Arizona", title_en: "GED preparation and the Arizona diploma", items: [
+          { type: "resource", title_es: "Examen GED: cuenta, preparación y pruebas (GED Testing Service)", es: "https://www.ged.com/es",
+            title_en: "GED: account, test prep and testing (GED Testing Service)", en: "https://www.ged.com/" },
+          { type: "resource", title_es: "Requisitos del GED en Arizona: elegibilidad, inscripción y reglas del estado (GED Testing Service)", es: "https://www.ged.com/es/policies/arizona.html",
+            title_en: "Arizona GED Requirements: eligibility, registration and state policies (GED Testing Service)", en: "https://www.ged.com/policies/arizona.html" },
+          { type: "resource", title_es: "Clases de preparación para el GED en español, sur de Arizona (Literacy Connects)", es: "https://literacyconnects.org/ged-en-espanol/",
+            title_en: "GED preparation classes in English, Southern Arizona (Literacy Connects)", en: "https://literacyconnects.org/ged-in-english/" }
+        ] },
+        { title_es: "Estudios en otro país: evaluar credenciales", title_en: "Education from another country: credential evaluation", items: [
+          { type: "resource", title_es: "Evaluación de estudios hechos fuera de EE. UU. (Educational Credential Evaluators, ECE); antes de pagar, pregunte si la institución la acepta", es: "https://es.ece.org/ECE/Applicants",
+            title_en: "Credential Evaluations for Applicants (Educational Credential Evaluators, ECE); before paying, ask whether the school, employer or board accepts it", en: "https://www.ece.org/ECE/Applicants" },
+          { type: "resource", title_es: "Evaluación de credenciales y traducción de documentos (International Education Evaluations, IEE); antes de pagar, pregunte si la institución la acepta", es: "https://myiee.org/es",
+            title_en: "Credential evaluation and document translation (International Education Evaluations, IEE); before paying, ask whether the school, employer or board accepts it", en: "https://myiee.org/" }
+        ] }
+      ] },
     MEXCP: { id: "PEA-M13", topic: "sped",
       es: "Este curso explica cómo las escuelas identifican y apoyan a estudiantes excepcionales y presenta sistemas como educación especial, Programas de Educación Individualizados (IEP), planes de la Sección 504 y apoyos de varios niveles. Las familias comparan los apoyos disponibles, preparan preguntas para los equipos escolares y practican cómo abogar por servicios y oportunidades inclusivas que respondan a las fortalezas y necesidades de cada estudiante.",
       en: "This course explains how schools identify and support exceptional students and introduces common systems such as special education, Individualized Education Programs (IEPs), Section 504 plans, and multi-tiered supports. Families compare available supports, prepare questions for school teams, and practice advocating for services and inclusive opportunities aligned with each student’s strengths and needs.",
       materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1cRa0toDWW4-n61eosAVWFCs2y01wxZ-r/view?usp=drivesdk" }],
-      /* 7T resources (Danny Hernández, 2026-11-06): Encircle Families, Arizona's Parent Training and Information Center
-         (formerly Raising Special Kids; use only the current name), website and resource library, ES | EN. Also on 5R;
-         Materiales y recursos lists each once. Further 7T resources to come. */
+      /* 7T resources (Danny Hernández, reviewed list "PEA Resource List — MOPHS and MEXCP", 2026-11-10): 13 rows in his six
+         groups and order, all ES | EN. Encircle Families (formerly Raising Special Kids; use only the current name; on
+         7T since 2026-11-06), HealthyChildren IEP/504 and CPIR parent rights under IDEA are also on 5R with the same
+         titles, so Materiales y recursos lists each once. CPIR Transition to Adulthood is also on 6R. Notes from the
+         list: NAGC's ES and EN tip-sheet collections overlap but are not identical and do not replace Arizona or
+         district gifted procedures; AZ FIND flyers are the August 2022 editions; ADE procedural safeguards are the
+         August 28, 2025 editions; the autism Spanish page and the English site are related, not translations; ACDHH is
+         a broader referral, not a school accommodation plan. Links not opened from the build environment. */
       resources: [
-        { type: "resource", title_es: "Encircle Families: información, programas y apoyo para familias de niños con discapacidad en Arizona", es: "https://encirclefamilies.org/es/",
-          title_en: "Encircle Families: information, programs and support for Arizona families of children with disabilities", en: "https://encirclefamilies.org/" },
-        { type: "resource", title_es: "Biblioteca de recursos de Encircle Families: educación especial, apoyos para discapacidad y cómo navegar los servicios", es: "https://encirclefamilies.org/es/resources/",
-          title_en: "Encircle Families Resource Library: special education, disability supports and navigating services", en: "https://encirclefamilies.org/resources/" }
+        { title_es: "Estudiantes dotados y avanzados", title_en: "Gifted and advanced learners", items: [
+          { type: "resource", title_es: "Hojas de consejos para familias de estudiantes dotados (National Association for Gifted Children)", es: "https://www.nagc.org/spanish-family-tip-sheets",
+            title_en: "Family Tip Sheets for families of gifted learners (National Association for Gifted Children)", en: "https://www.nagc.org/family-tip-sheets" }
+        ] },
+        { title_es: "Apoyo y orientación para familias en Arizona", title_en: "Arizona family support and navigation", items: [
+          { type: "resource", title_es: "Encircle Families: información, programas y apoyo para familias de niños con discapacidad en Arizona", es: "https://encirclefamilies.org/es/",
+            title_en: "Encircle Families: information, programs and support for Arizona families of children with disabilities", en: "https://encirclefamilies.org/" },
+          { type: "resource", title_es: "Biblioteca de recursos de Encircle Families: educación especial, apoyos para discapacidad y cómo navegar los servicios", es: "https://encirclefamilies.org/es/resources/",
+            title_en: "Encircle Families Resource Library: special education, disability supports and navigating services", en: "https://encirclefamilies.org/resources/" }
+        ] },
+        { title_es: "Identificar necesidades y pedir una evaluación", title_en: "Identifying needs and requesting an evaluation", items: [
+          { type: "resource", title_es: "AZ FIND: cómo obtener ayuda si cree que su hijo o hija tiene una discapacidad (Departamento de Educación de Arizona, 2022)", es: "https://www.azed.gov/sites/default/files/2022/09/AZ%20Find%20Flyer%20Spanish%20%2822-08%29.pdf",
+            title_en: "AZ FIND: How to Get Help if you think your child has a disability (Arizona Department of Education, 2022)", en: "https://www.azed.gov/sites/default/files/2022/10/AZ%20Find%20Flyer%20English%20%2822-08%29.pdf" },
+          { type: "resource", title_es: "¿Qué es una evaluación de educación especial? (Understood)", es: "https://www.understood.org/es-mx/articles/que-es-una-evaluacion-de-educacion-especial",
+            title_en: "What Is an Evaluation for Special Education? (Understood)", en: "https://www.understood.org/en/articles/understanding-evaluations" },
+          { type: "resource", title_es: "Cartas modelo de educación especial: pedir una evaluación, información o una reunión; guarde una copia con fecha (Disability Rights Arizona)", es: "https://disabilityrightsaz.org/resource/educacion-especial-cartas-modelo/",
+            title_en: "Special Education Sample Letters: request an evaluation, records or a meeting; keep a dated copy (Disability Rights Arizona)", en: "https://disabilityrightsaz.org/resource/special-education-sample-letters/" }
+        ] },
+        { title_es: "IEP, planes 504 y derechos de los padres", title_en: "IEPs, Section 504 plans and parent rights", items: [
+          { type: "resource", title_es: "Programas IEP y planes 504: guía de servicios de apoyo escolar para su hijo (HealthyChildren.org)", es: "https://www.healthychildren.org/Spanish/health-issues/conditions/developmental-disabilities/Paginas/Individualized-Education-Program.aspx",
+            title_en: "IEPs and 504 Plans: A Guide to School Supports for Your Child (HealthyChildren.org)", en: "https://www.healthychildren.org/English/health-issues/conditions/developmental-disabilities/Pages/Individualized-Education-Program.aspx" },
+          { type: "resource", title_es: "IDEA, Sección 504 y ADA: ¿qué regulan estas leyes? (Understood)", es: "https://www.understood.org/es-mx/articles/idea-seccion-504-y-ada-que-regulan-estas-leyes",
+            title_en: "IDEA, Section 504 and the ADA: Which Laws Do What (Understood)", en: "https://www.understood.org/en/articles/at-a-glance-which-laws-do-what" },
+          { type: "resource", title_es: "Derechos de los padres bajo IDEA (Centro de Información y Recursos para Padres)", es: "https://www.parentcenterhub.org/derechos/",
+            title_en: "Parental Rights Under IDEA (Center for Parent Information and Resources)", en: "https://www.parentcenterhub.org/parental-rights/" },
+          { type: "resource", title_es: "Aviso de las salvaguardias procesales: sus derechos en educación especial (Departamento de Educación de Arizona, agosto de 2025)", es: "https://www.azed.gov/sites/default/files/2025/08/Procedural%20Safeguards%20Spanish%20-8-28-25.pdf",
+            title_en: "Procedural Safeguards Notice: your special education rights (Arizona Department of Education, August 2025)", en: "https://www.azed.gov/sites/default/files/2025/08/Procedural%20Safeguards%20Rev%20_8-28-25.pdf" }
+        ] },
+        { title_es: "Transición después de la preparatoria", title_en: "Transition after high school", items: [
+          { type: "resource", title_es: "Transición a la vida adulta: estudiantes con discapacidad (Centro de Información y Recursos para Padres)", es: "https://www.parentcenterhub.org/transicion-adulta/",
+            title_en: "Transition to Adulthood: students with disabilities (Center for Parent Information and Resources)", en: "https://www.parentcenterhub.org/transitionadult/" }
+        ] },
+        { title_es: "Información y referencias según la discapacidad", title_en: "Disability-specific information and referrals", items: [
+          { type: "resource", title_es: "Servicios y recursos en español para personas sordas o con pérdida auditiva (Comisión de Arizona para Sordos y Personas con Dificultades Auditivas)", es: "https://www.acdhh.org/espanol",
+            title_en: "Deaf and Hard of Hearing Support Services (Arizona Commission for the Deaf and the Hard of Hearing)", en: "https://www.acdhh.org/" },
+          { type: "resource", title_es: "Ayuda en español sobre el autismo para familias (Autism Society of Greater Phoenix)", es: "https://phxautism.org/resources/ayuda-en-espanol/",
+            title_en: "Autism Society of Greater Phoenix: family information, support and community resources", en: "https://phxautism.org/" }
+        ] }
       ] },
     MCENG: { id: "PEA-M14", topic: "family",
       es: "Este curso examina cómo se ve la participación familiar y comunitaria auténtica cuando las familias colaboran como socias en decisiones que afectan a estudiantes y escuelas. Las personas participantes exploran principios de participación significativa, distinguen entre asistir y compartir decisiones e identifican oportunidades para contribuir a la mejora escolar dentro y fuera de la escuela.",
