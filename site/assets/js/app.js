@@ -850,6 +850,7 @@
     }
     var weekJump = id === "esta-semana" && pendingDeep;
     var part = (id === "ayuda" || id === "recursos") && pendingDeep ? routeParts()[1] : "";
+    if (id === "recursos" && part) resQuery = "";   /* going to a topic clears the search, or it would hide that topic again (Codex review, PR #63) */
     if (spy) { spy.disconnect(); spy = null; }
     if (reveal) { reveal.disconnect(); reveal = null; }
     var fresh = id !== shownRoute;                 /* fade in on arrival only, not on the minute refresh or a language switch */
@@ -931,6 +932,7 @@
     if (t.closest(".menu a")) document.querySelector(".menu").open = false;
     var same = t.closest('a[href^="#ayuda/"], a[href^="#recursos/"]');   /* same hash → no hashchange fires, so scroll here (a pill tapped again after scrolling away) */
     if (same && same.getAttribute("href") === location.hash && ["ayuda", "recursos"].indexOf(currentRoute()) !== -1) {
+      if (resQuery && currentRoute() === "recursos") filterRes("");   /* same rule when the pill's hash is already current */
       if (goToPart(document.getElementById("main"), routeParts()[1])) { ev.preventDefault(); return; }
     }
     var lp = t.closest(".lang-pill");
