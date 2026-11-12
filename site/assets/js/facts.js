@@ -647,6 +647,9 @@ window.PEA_FACTS = {
         { type: "handout", title_es: "Aprender inglés u obtener su diploma de equivalencia (GED)", es: "https://drive.google.com/file/d/13PjBTNhY-9uSQ2fuR5NttX_wF3Ge2Jgl/view?usp=drivesdk" },
         { type: "handout", title_es: "Usar los estudios que hizo en otro país", es: "https://drive.google.com/file/d/1lbrR7d3ybt0CuJnH-lQ3uW24ZFSeFYBK/view?usp=drivesdk" },
         { type: "handout", title_es: "Preparar para el futuro desde pequeños (hasta 8.º grado)", es: "https://drive.google.com/file/d/1l9U-bxno0FVTo6BEy05Vh7FI1YX7JJI4/view?usp=drivesdk" } ],
+      /* Added 2026-11-12 at Danny Hernández's request (named in the 6R handouts): Ask Benji and College Depot under
+         "Pagar la universidad", USA Learns under "Clases de inglés". Each site has one address for both languages (no
+         Spanish page; USA Learns has an English/Spanish switch for its instructions). Pages opened and read 2026-11-12. */
       /* 6R resources (Danny Hernández, reviewed list "PEA Resource List — MOPHS and MEXCP", 2026-11-10): 16 rows in his
          seven groups and order, plus CPIR's Transition to Adulthood (from the MEXCP list, marked "also relevant to
          MOPHS"). ES | EN rows; Literacy Connects ELA, Rio Salado and the ADE adult-education directory have no
@@ -668,6 +671,10 @@ window.PEA_FACTS = {
         { title_es: "Pagar la universidad y ahorrar para la educación", title_en: "Paying for college and education savings", items: [
           { type: "resource", title_es: "FAFSA: Solicitud Gratuita de Ayuda Federal para Estudiantes (USAGov en español)", es: "https://www.usa.gov/es/fafsa-ayuda-federal-estudiantes",
             title_en: "FAFSA: Free Application for Federal Student Aid (USAGov)", en: "https://www.usa.gov/fafsa" },
+          { type: "resource", title_es: "Ask Benji: ayuda gratis por mensaje de texto para llenar la FAFSA, las 24 horas (Education Forward Arizona; en inglés)",
+            title_en: "Ask Benji: free 24/7 FAFSA help by text message (Education Forward Arizona)", any: "https://www.askbenji.org/" },
+          { type: "resource", title_es: "College Depot: citas y talleres gratis sobre admisión, ayuda financiera y becas (Biblioteca Pública de Phoenix, Burton Barr; sitio en inglés)",
+            title_en: "College Depot: free appointments and workshops on admissions, financial aid and scholarships (Phoenix Public Library, Burton Barr)", any: "https://www.phoenixpubliclibrary.org/collegedepot" },
           { type: "resource", title_es: "¿Qué es un plan 529 de Arizona? Ahorrar para la educación (AZ529)", es: "https://espanol.az529.gov/planificacion-y-herramientas/que-es-un-plan-529-de-arizona/",
             title_en: "What Is a 529 Plan? Saving for education (AZ529, Arizona’s Education Savings Plan)", en: "https://az529.gov/what-is-a-529-plan/" }
         ] },
@@ -686,6 +693,8 @@ window.PEA_FACTS = {
             title_en: "Adult Education and English, Phoenix area (Chicanos Por La Causa; GED classes not offered when reviewed)", en: "https://www.cplc.org/programs/adult-education" },
           { type: "resource", title_es: "Inglés y preparación para el GED en Phoenix (Friendly House, ficha en 211 Arizona); inscripción en español: 602-416-7210", es: "https://search.211arizona.org/es/search/265c1e77-44b6-5ba5-8c14-a3653a55fcea",
             title_en: "Adult Education and Workforce Development, Phoenix (Friendly House); enrollment: 602-416-7210, enroll@friendlyhouse.org", en: "https://friendlyhouse.org/adult-education-and-workforce-development/" },
+          { type: "resource", title_es: "USA Learns: clases de inglés y de ciudadanía gratis en línea, en el teléfono o la computadora (las instrucciones se pueden ver en español)",
+            title_en: "USA Learns: free online English and U.S. citizenship classes, on a phone or computer", any: "https://www.usalearns.org/" },
           { type: "resource", title_en: "English Language Acquisition for Adults, online and in person, Pima County, ages 18+ (Literacy Connects)", en: "https://literacyconnects.org/english-language-acquisition-for-adults/" },
           { type: "resource", title_en: "Adult Education: GED prep, English and career readiness, Phoenix area; classes taught in English (Rio Salado College)", en: "https://www.riosalado.edu/start-rio/adult-education" },
           { type: "resource", title_en: "Adult Education and English Classes by County (Arizona Department of Education)", en: "https://www.azed.gov/adultedservices/Adult-Education-Programs" }
