@@ -7,8 +7,8 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.23.11";
-  var UPDATED = "2026-11-12";
+  var VERSION = "0.23.12";
+  var UPDATED = "2026-11-13";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
   var LS_LANG = "aie_lang";
@@ -372,7 +372,8 @@
   function hasLink(it) { return it.es || it.en || it.any; }
   var matOpen = {};                                 /* open resource groups by "<cohort><class>:<n>"; survives every re-render (language, refresh, calendar filter) */
   document.addEventListener("toggle", function (ev) {
-    var d = ev.target; if (d.getAttribute && d.tagName === "DETAILS" && d.hasAttribute("data-k")) matOpen[d.getAttribute("data-k")] = d.open;   /* card sections, groups, resource topics */
+    var d = ev.target; if (resQuery && d.closest && d.closest(".rec-topic")) return;   /* search opens panels; don't remember that */
+    if (d.getAttribute && d.tagName === "DETAILS" && d.hasAttribute("data-k")) matOpen[d.getAttribute("data-k")] = d.open;   /* card sections, groups, resource topics */
   }, true);
   function rowCount(list) { return list.reduce(function (n, it) { return n + (it.items ? it.items.filter(hasLink).length : 1); }, 0); }
   function matBody(linked, key) {
@@ -736,7 +737,11 @@
         '<span class="rec-h"><span aria-hidden="true">' + F.topics[m].icon + "</span> " + esc(topicName(m)) + "</span>" + count(total(m)) + "</h2></summary>" +
         '<div class="sec-body">' + (B[m] ? topicBody(m, B[m]) : "") + subs + "</div></details>";
     }).join("");
-    return secHead("recursos") + '<p class="lead">' + esc(R.lead) + "</p>" + nav + body +
+    var search = '<div class="search rec-search"><label class="sr-only" for="resq">' + esc(R.searchLabel) + "</label>" +
+      '<input id="resq" type="search" autocomplete="off" placeholder="' + esc(R.searchPh) + '" value="' + esc(resQuery) + '"' + (resQuery ? ' class="filled"' : "") + ">" +
+      '<button type="button" class="x" id="resx" aria-label="' + esc(L.ui.clear) + '"' + (resQuery ? "" : " hidden") + ">×</button></div>" +
+      '<p class="small" id="rescount" aria-live="polite"></p><div id="resnone" hidden>' + callout("gold", R.noneLabel, esc(R.none)) + "</div>";
+    return secHead("recursos") + '<p class="lead">' + esc(R.lead) + "</p>" + search + nav + body +
       btnRow(inLink("#esta-semana", R.weekCta) + inLink("#calendario", R.calCta));
   }
 
@@ -851,6 +856,7 @@
     pendingDeep = false;
     var main = document.getElementById("main"), FOLD = "details.sec:not([data-k]), details.accordion-item";   /* keyed panels restore themselves */
     var wasOpen = id === shownRoute ? Array.prototype.map.call(main.querySelectorAll(FOLD), function (d) { return d.open; }) : [];
+    main.classList.remove("rec-searching");
     main.innerHTML = PAGES[id]();
     main.querySelectorAll(FOLD).forEach(function (d, i) { if (wasOpen[i]) d.open = true; });   /* refresh and language switch keep open panels open */
     shownRoute = id;
@@ -875,6 +881,7 @@
       var h1 = main.querySelector("h1"); if (h1) h1.focus({ preventScroll: true });
     }
     if (id === "ayuda") learnSpy(main);
+    if (id === "recursos" && resQuery) filterRes(resQuery);
     if (id === "esta-semana" && fresh) revealOnScroll(main);
   }
   var reveal = null;
@@ -942,8 +949,37 @@
       return;
     }
     if (t.id === "faqx") { var q = document.getElementById("faqq"); q.value = ""; filterFaq(""); q.focus(); }
+    if (t.id === "resx") filterRes("");
   });
-  document.addEventListener("input", function (ev) { if (ev.target.id === "faqq") filterFaq(ev.target.value); });
+  document.addEventListener("input", function (ev) { if (ev.target.id === "faqq") filterFaq(ev.target.value); if (ev.target.id === "resq") filterRes(ev.target.value); });
+  /* Materiales y recursos search (v0.23.12): every word must appear, accents ignored, in a row's title or in the
+     name of its group, sub-topic or topic. Matching rows show with their panels opened; the rest hide. The query
+     survives a language switch; while it is set, panel toggles are not remembered, and clearing it re-renders the
+     page with the panels as they were. */
+  var resQuery = "";
+  function filterRes(v) {
+    var main = document.getElementById("main"), words = norm(v.trim()).split(/\s+/).filter(Boolean), n = 0;
+    resQuery = v.trim() ? v : "";
+    var x = document.getElementById("resx"), inp = document.getElementById("resq");
+    if (x) x.hidden = !words.length;
+    if (inp) inp.classList.toggle("filled", !!words.length);
+    if (!words.length) { var y = window.scrollY; render(false); window.scrollTo(0, y); var q = document.getElementById("resq"); if (q) q.focus(); return; }
+    var label = function (el, sel) { var h = el && el.querySelector(sel); return h ? h.textContent : ""; };
+    main.querySelectorAll(".rec-topic .mat-list > li").forEach(function (li) {
+      var link = li.querySelector(".mat-link"), grp = li.closest(".mat-group"), sub = li.closest(".rec-sub"), top = li.closest(".rec-topic");
+      var hay = norm([link ? link.textContent : li.textContent, label(grp, ":scope > summary"), label(sub, ".rec-sub-h"), label(top, ".rec-h")].join(" "));
+      var hit = words.every(function (w) { return hay.indexOf(w) !== -1; });
+      li.hidden = !hit; if (hit) n++;
+    });
+    main.querySelectorAll(".rec-topic, .rec-sub, .res-sec, .mat-group").forEach(function (d) {
+      var any = !!d.querySelector(".mat-list > li:not([hidden])");
+      d.hidden = !any; if (any) d.open = true;
+    });
+    main.querySelectorAll(".rec-cal").forEach(function (p) { p.hidden = true; });
+    main.classList.add("rec-searching");   /* panel counts are totals, so they hide while a search is on */
+    document.getElementById("rescount").textContent = L.res.found(n);
+    document.getElementById("resnone").hidden = n !== 0;
+  }
   function filterFaq(v) {
     var q = norm(v.trim()), n = 0, inp = document.getElementById("faqq"), x = document.getElementById("faqx");
     document.querySelectorAll("#faqlist .qa").forEach(function (d) {

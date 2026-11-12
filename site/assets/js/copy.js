@@ -300,6 +300,11 @@
       res: {
         lead: "Todos los materiales y recursos de las clases de PEA, en un solo lugar y ordenados por tema. Agregamos enlaces nuevos a medida que avanzan las clases.",
         topicsLabel: "Temas",
+        searchLabel: "Buscar un recurso",
+        searchPh: "Buscar por nombre, tema o palabra (por ejemplo: FAFSA, becas, lectura)",
+        found: function (n) { return n === 1 ? "1 recurso encontrado" : n + " recursos encontrados"; },
+        noneLabel: "Sin resultados",
+        none: "No encontramos esa palabra. Pruebe con otra, revise los temas de abajo o escríbanos.",
         count: function (n) { return n + (n === 1 ? " enlace" : " enlaces"); },
         seeCal: "Ver la clase en el calendario:",
         emptyLabel: "Muy pronto",
@@ -611,6 +616,11 @@
       res: {
         lead: "Every material and resource from PEA classes, in one place and sorted by topic. We add new links as classes go on.",
         topicsLabel: "Topics",
+        searchLabel: "Search for a resource",
+        searchPh: "Search by name, topic or word (for example: FAFSA, scholarships, reading)",
+        found: function (n) { return n === 1 ? "1 resource found" : n + " resources found"; },
+        noneLabel: "No results",
+        none: "We couldn’t find that word. Try another one, browse the topics below or write to us.",
         count: function (n) { return n + (n === 1 ? " link" : " links"); },
         seeCal: "See the class on the calendar:",
         emptyLabel: "Coming soon",

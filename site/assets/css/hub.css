@@ -920,3 +920,8 @@ body>.shell{flex:1 0 auto;width:100%}   /* short pages still seat the app bar at
 .rec-cal{margin:.6rem 0 0;font-size:14px;color:var(--color-text-secondary)}
 .rec-cal a{font-weight:700;color:var(--blue);display:inline-flex;align-items:center;min-height:32px}
 @media(prefers-reduced-motion:reduce){ .rec-sub>summary::after{transition:none} }
+/* v0.23.12: Materiales y recursos search: the search hides rows and panels with [hidden], which must win over their display rules */
+.rec-topic[hidden],.rec-topic [hidden]{display:none!important}
+.rec-search{margin-top:var(--space-3)}
+.rec-search input::-webkit-search-cancel-button{display:none}   /* the page draws its own clear button */
+.rec-searching .rec-topic .mat-count{display:none}
