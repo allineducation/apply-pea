@@ -633,7 +633,20 @@ window.PEA_FACTS = {
     MOPHS: { id: "PEA-M12", topic: "opportunities",
       es: "Este curso presenta caminos disponibles después de la preparatoria, incluyendo colegios comunitarios, universidades, educación técnica y profesional, aprendizajes, servicio militar e ingreso directo al trabajo. Las familias consideran los intereses y las metas de sus estudiantes, exploran preguntas de planificación y ayuda financiera e identifican maneras de apoyar decisiones informadas sobre educación, capacitación y carreras.",
       en: "This course introduces pathways available after high school, including community college, universities, career and technical education, apprenticeships, military service, and direct entry into the workforce. Families consider students’ interests and goals, explore planning and financial-aid questions, and identify ways to support informed decisions about education, training, and careers.",
-      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/18Ta0-1JoumzowXE1ZJx4vevMfzN5oFJs/view?usp=drivesdk" }],
+      /* 6R materials from the MOPHS folder (Drive 1FAanxeyEvu3k6rHwagtaoNH22tE_ILyM; Danny Hernández, 2026-11-12), PDFs only,
+         all checked as shared "anyone with the link" and read that day; every file is Spanish only: worksheet v1.0.0,
+         communication tool v1.0.0, and six family handouts (Explorando oportunidades v2.0.1; H01 Graduación y universidad
+         v2.0.0; H02 Ayuda financiera, H03 Inglés y GED, H04 Estudios del extranjero and Preparación temprana, v1.0.0). They
+         replace the FA26 Airtable worksheet (18Ta0-1J…). Staff-only and not published: small-group guide BIL v2.1.0, DOCX
+         sources, the archive folder. */
+      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1hISHVovTSpoN2EAOmptn-Jz7kSFe_QIN/view?usp=drivesdk" },
+        { type: "comm", es: "https://drive.google.com/file/d/1PcchOaViMLUn1FbfMUa4Z5o8-bj05M71/view?usp=drivesdk" },
+        { type: "handout", title_es: "Explorando oportunidades después de high school", es: "https://drive.google.com/file/d/1_UeKMs2bcPYRZlwN_SnGybASogkRD1P3/view?usp=drivesdk" },
+        { type: "handout", title_es: "De la preparatoria al siguiente paso: requisitos para graduarse y para la universidad", es: "https://drive.google.com/file/d/1ZG2MZc7YxvrGN_I7nKcnDzky8vwuX7A0/view?usp=drivesdk" },
+        { type: "handout", title_es: "Comparar costos y buscar ayuda financiera", es: "https://drive.google.com/file/d/1Dcn9BuU2T04Z-1jXVbC_Z-vt-09kQFln/view?usp=drivesdk" },
+        { type: "handout", title_es: "Aprender inglés u obtener su diploma de equivalencia (GED)", es: "https://drive.google.com/file/d/13PjBTNhY-9uSQ2fuR5NttX_wF3Ge2Jgl/view?usp=drivesdk" },
+        { type: "handout", title_es: "Usar los estudios que hizo en otro país", es: "https://drive.google.com/file/d/1lbrR7d3ybt0CuJnH-lQ3uW24ZFSeFYBK/view?usp=drivesdk" },
+        { type: "handout", title_es: "Preparar para el futuro desde pequeños (hasta 8.º grado)", es: "https://drive.google.com/file/d/1l9U-bxno0FVTo6BEy05Vh7FI1YX7JJI4/view?usp=drivesdk" } ],
       /* 6R resources (Danny Hernández, reviewed list "PEA Resource List — MOPHS and MEXCP", 2026-11-10): 16 rows in his
          seven groups and order, plus CPIR's Transition to Adulthood (from the MEXCP list, marked "also relevant to
          MOPHS"). ES | EN rows; Literacy Connects ELA, Rio Salado and the ADE adult-education directory have no
@@ -695,7 +708,16 @@ window.PEA_FACTS = {
     MEXCP: { id: "PEA-M13", topic: "sped",
       es: "Este curso explica cómo las escuelas identifican y apoyan a estudiantes excepcionales y presenta sistemas como educación especial, Programas de Educación Individualizados (IEP), planes de la Sección 504 y apoyos de varios niveles. Las familias comparan los apoyos disponibles, preparan preguntas para los equipos escolares y practican cómo abogar por servicios y oportunidades inclusivas que respondan a las fortalezas y necesidades de cada estudiante.",
       en: "This course explains how schools identify and support exceptional students and introduces common systems such as special education, Individualized Education Programs (IEPs), Section 504 plans, and multi-tiered supports. Families compare available supports, prepare questions for school teams, and practice advocating for services and inclusive opportunities aligned with each student’s strengths and needs.",
-      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/1cRa0toDWW4-n61eosAVWFCs2y01wxZ-r/view?usp=drivesdk" }],
+      /* 7T materials from the MEXCP folder (Drive 10nhAZV2wClLGAxRkAIZWgY22EiUHOg8C; Danny Hernández, 2026-11-12), PDFs only,
+         all checked as shared "anyone with the link" and read that day, v1.0.0: worksheet ES + EN; family handout ES + EN
+         (Abogando por estudiantes excepcionales / Advocating for Exceptional Students); handout H02 Evaluación y apoyos
+         (Spanish only); communication tool (Spanish only). They replace the FA26 Airtable worksheet (1cRa0toD…). Staff-only
+         and not published: facilitator guide ES, small-group guide BIL, DOCX sources, the archive folder. */
+      materials: [{ type: "worksheet", es: "https://drive.google.com/file/d/16vWSYPkSpCpJmARp831mBySZFJsyk8jy/view?usp=drivesdk", en: "https://drive.google.com/file/d/1iqHfO5UPMWOy6I2KKRjxd9LPg9CJV9cW/view?usp=drivesdk" },
+        { type: "handout", title_es: "Abogando por estudiantes excepcionales", es: "https://drive.google.com/file/d/1HOFldtkM8JGEMcT_7DXJ3nlPjGReb3iw/view?usp=drivesdk",
+          title_en: "Advocating for Exceptional Students", en: "https://drive.google.com/file/d/1cX9kgsOJKzQLgWuKE_BqNb7fPwrZxlWy/view?usp=drivesdk" },
+        { type: "handout", title_es: "Pedir una evaluación y entender los apoyos escolares (PEI y Plan 504)", es: "https://drive.google.com/file/d/1qyxDaasGqg7N0Qt5iNCPDXafaNbgaH68/view?usp=drivesdk" },
+        { type: "comm", es: "https://drive.google.com/file/d/1VNfyZDs35LtSEogIYmbeozFVVkP6ZE-w/view?usp=drivesdk" } ],
       /* 7T resources (Danny Hernández, reviewed list "PEA Resource List — MOPHS and MEXCP", 2026-11-10): 13 rows in his six
          groups and order, all ES | EN. Encircle Families (formerly Raising Special Kids; use only the current name; on
          7T since 2026-11-06), HealthyChildren IEP/504 and CPIR parent rights under IDEA are also on 5R with the same
