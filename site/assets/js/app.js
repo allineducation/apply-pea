@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.23.13";
+  var VERSION = "0.23.14";
   var UPDATED = "2026-11-13";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -360,6 +360,7 @@
     return '<ul class="mat-list">' + items.map(function (it) {
       var t = MT[it.type] || MT.resource || {};
       var q = ' data-q="' + esc(norm([it.title_es, it.title_en, t.es, t.en].filter(Boolean).join(" "))) + '"';   /* both languages, for the resource search */
+      q += ' data-l="' + (it.any ? (it.langs || []).join(" ") : ["es", "en"].filter(function (l) { return it[l]; }).join(" ")) + '"';   /* language filter: a shared link names its real languages in langs (Codex review, PR #65) */
       if (it.any) return "<li" + q + ">" + ext(it.any, esc(it["title_" + lang] || t[lang] || ""), "mat-link") + "</li>";
       var langs = ["es", "en"].filter(function (l) { return it[l]; });
       var main = it[lang] ? lang : langs[0], title = it["title_" + main] || t[lang] || t[main] || "";
@@ -717,6 +718,40 @@
       }).join(", ") + "</p>" : "");
   }
   function bucketCount(b) { return b ? rowCount(b.featured) + rowCount(b.aie) + rowCount(b.res) : 0; }
+  /* Filters (v0.23.14): topic (main topics and their sub-topics), language (a version in Spanish, in English, or both)
+     and type (ALL In Education materials or other organizations' resources). They work alone or with the search. */
+  var resFilter = { topic: "", lang: "", type: "" };
+  function filtersOn() { return !!(resFilter.topic || resFilter.lang || resFilter.type); }
+  function filtersHtml(mains, subsOf) {
+    var R = L.res, sel = function (id, label, opts, val) {
+      return '<label class="res-filter"><span>' + esc(label) + '</span><select id="' + id + '">' + opts.map(function (o) {
+        return '<option value="' + esc(o[0]) + '"' + (o[0] === val ? " selected" : "") + ">" + esc(o[1]) + "</option>";
+      }).join("") + "</select></label>";
+    };
+    var topics = [["", R.fAll]];
+    mains.forEach(function (m) { topics.push([m, topicName(m)]); subsOf(m).forEach(function (k) { topics.push([k, "— " + topicName(k)]); }); });
+    return '<div class="res-filters" role="group" aria-label="' + esc(R.filtersLabel) + '">' +
+      sel("resf-topic", R.fTopic, topics, resFilter.topic) +
+      sel("resf-lang", R.fLang, [["", R.fAll], ["es", R.fLangEs], ["en", R.fLangEn], ["both", R.fLangBoth]], resFilter.lang) +
+      sel("resf-type", R.fType, [["", R.fAll], ["aie", R.fTypeAie], ["res", R.fTypeRes]], resFilter.type) +
+      '<button type="button" class="btn btn-secondary btn-sm" id="resreset"' + (filtersOn() || resQuery ? "" : " hidden") + ">" + esc(R.fReset) + "</button></div>";
+  }
+  function passesFilters(li) {
+    var f = resFilter, l = (li.getAttribute("data-l") || "").split(" ");
+    if (f.topic) { var sub = li.closest(".rec-sub"), top = li.closest(".rec-topic"); if (!((sub && sub.id === "p-" + f.topic) || (top && top.id === "p-" + f.topic))) return false; }
+    if (f.lang === "es" && l.indexOf("es") === -1) return false;
+    if (f.lang === "en" && l.indexOf("en") === -1) return false;
+    if (f.lang === "both" && !(l.indexOf("es") !== -1 && l.indexOf("en") !== -1)) return false;
+    if (f.type) { var aie = !!li.closest(".res-aie"); if ((f.type === "aie") !== aie) return false; }
+    return true;
+  }
+  function resetRes() { resQuery = ""; resFilter = { topic: "", lang: "", type: "" }; }
+  function boosted(words) {                       /* facts.searchBoost: some searches always list certain rows (e.g. FAFSA for scholarships) */
+    var q = " " + words.join(" ") + " ";
+    return (F.searchBoost || []).filter(function (b) {
+      return b.when.some(function (t) { t = norm(t); return q.indexOf(" " + t + " ") !== -1 || words.some(function (w) { return w.length >= 4 && t.indexOf(w) === 0; }); });
+    }).reduce(function (a, b) { return a.concat(b.show.map(norm)); }, []);
+  }
   function pageRecursos() {
     var R = L.res, B = resourceIndex(), keys = Object.keys(F.topics);
     var subsOf = function (m) { return keys.filter(function (k) { return F.topics[k].parent === m && bucketCount(B[k]); }).sort(byName); };
@@ -742,6 +777,7 @@
     var search = '<div class="search rec-search"><label class="sr-only" for="resq">' + esc(R.searchLabel) + "</label>" +
       '<input id="resq" type="search" autocomplete="off" placeholder="' + esc(R.searchPh) + '" value="' + esc(resQuery) + '"' + (resQuery ? ' class="filled"' : "") + ">" +
       '<button type="button" class="x" id="resx" aria-label="' + esc(L.ui.clear) + '"' + (resQuery ? "" : " hidden") + ">×</button></div>" +
+      filtersHtml(mains, subsOf) +
       '<p class="small" id="rescount" aria-live="polite"></p><div id="resnone" hidden>' + callout("gold", R.noneLabel, esc(R.none)) + '<div class="res-suggest"></div></div>' +
       '<div id="resresults" class="res-results" hidden></div>';
     return secHead("recursos") + '<p class="lead">' + esc(R.lead) + "</p>" + search + nav + body +
@@ -853,7 +889,7 @@
     }
     var weekJump = id === "esta-semana" && pendingDeep;
     var part = (id === "ayuda" || id === "recursos") && pendingDeep ? routeParts()[1] : "";
-    if (id === "recursos" && part) resQuery = "";   /* going to a topic clears the search, or it would hide that topic again (Codex review, PR #63) */
+    if (id === "recursos" && part) resetRes();   /* going to a topic clears the search, or it would hide that topic again (Codex review, PR #63) */
     if (spy) { spy.disconnect(); spy = null; }
     if (reveal) { reveal.disconnect(); reveal = null; }
     var fresh = id !== shownRoute;                 /* fade in on arrival only, not on the minute refresh or a language switch */
@@ -885,7 +921,7 @@
       var h1 = main.querySelector("h1"); if (h1) h1.focus({ preventScroll: true });
     }
     if (id === "ayuda") learnSpy(main);
-    if (id === "recursos" && resQuery) filterRes(resQuery);
+    if (id === "recursos" && (resQuery || filtersOn())) filterRes(resQuery);
     if (id === "esta-semana" && fresh) revealOnScroll(main);
   }
   var reveal = null;
@@ -935,7 +971,7 @@
     if (t.closest(".menu a")) document.querySelector(".menu").open = false;
     var same = t.closest('a[href^="#ayuda/"], a[href^="#recursos/"]');   /* same hash → no hashchange fires, so scroll here (a pill tapped again after scrolling away) */
     if (same && same.getAttribute("href") === location.hash && ["ayuda", "recursos"].indexOf(currentRoute()) !== -1) {
-      if (resQuery && currentRoute() === "recursos") filterRes("");   /* same rule when the pill's hash is already current */
+      if ((resQuery || filtersOn()) && currentRoute() === "recursos") { resetRes(); render(false); }   /* same rule when the pill's hash is already current */
       if (goToPart(document.getElementById("main"), routeParts()[1])) { ev.preventDefault(); return; }
     }
     var lp = t.closest(".lang-pill");
@@ -954,9 +990,17 @@
       return;
     }
     if (t.id === "faqx") { var q = document.getElementById("faqq"); q.value = ""; filterFaq(""); q.focus(); }
-    if (t.id === "resx") filterRes("");
+    if (t.id === "resx") { var rqx = document.getElementById("resq"); if (rqx) rqx.value = ""; filterRes(""); }   /* with filters on there is no re-render, so clear the box here (Codex review, PR #65) */
+    if (t.id === "resreset") { resetRes(); render(false); var rq0 = document.getElementById("resq"); if (rq0) rq0.focus(); return; }
     var chip = t.closest("[data-resq]");
     if (chip) { var rq = document.getElementById("resq"); rq.value = chip.getAttribute("data-resq"); filterRes(rq.value); rq.focus(); return; }
+  });
+  document.addEventListener("change", function (ev) {
+    var id = ev.target.id, k = id === "resf-topic" ? "topic" : id === "resf-lang" ? "lang" : id === "resf-type" ? "type" : "";
+    if (!k) return;
+    resFilter[k] = ev.target.value;
+    var rq = document.getElementById("resq"); filterRes(rq ? rq.value : "");
+    var el = document.getElementById(id); if (el) el.focus();
   });
   document.addEventListener("input", function (ev) { if (ev.target.id === "faqq") filterFaq(ev.target.value); if (ev.target.id === "resq") filterRes(ev.target.value); });
   /* Materiales y recursos search (v0.23.12; flexible matching v0.23.13). While a search is on, the topic panels
@@ -1003,13 +1047,16 @@
     var words = all.filter(function (w) { return STOP.indexOf(w) === -1; });
     if (!words.length) words = all;
     resQuery = words.length ? v : "";   /* punctuation alone is no query; render() re-applies resQuery, so it must not loop (Codex review, PR #64) */
-    var x = document.getElementById("resx"), inp = document.getElementById("resq");
+    var x = document.getElementById("resx"), inp = document.getElementById("resq"), rb = document.getElementById("resreset");
     if (x) x.hidden = !words.length;
     if (inp) inp.classList.toggle("filled", !!words.length);
-    if (!words.length) { var y = window.scrollY; render(false); window.scrollTo(0, y); var q = document.getElementById("resq"); if (q) { q.value = v; q.focus(); } return; }
-    var syn = words.map(synonymsOf);
+    if (rb) rb.hidden = !(words.length || filtersOn());
+    if (!words.length && !filtersOn()) { var y = window.scrollY; render(false); window.scrollTo(0, y); var q = document.getElementById("resq"); if (q) { q.value = v; q.focus(); } return; }
+    var syn = words.map(synonymsOf), boost = boosted(words);
     var exact = [], related = [];   /* resourceIndex() already lists each bilingual link pair once; rows sharing one language's link stay distinct (Codex review, PR #64) */
     main.querySelectorAll(".rec-topic .mat-list > li").forEach(function (li) {
+      if (!passesFilters(li)) return;
+      if (!words.length) { exact.push(li); return; }   /* filters alone: every row that passes */
       var ctx = [li, li.closest(".mat-group"), li.closest(".rec-sub"), li.closest(".rec-topic")];
       var hay = ctx.map(function (el) { return el ? el.getAttribute("data-q") || "" : ""; }).join(" ");
       var hayWords = hay.split(/[^a-z0-9ñ]+/).filter(Boolean), hayPad = " " + hayWords.join(" ") + " ";   /* synonyms match whole words only ("esa" ≠ "mesa") */
@@ -1018,11 +1065,13 @@
         if (hay.indexOf(w) !== -1) full++;
         else if (syn[k].some(function (t) { return hayPad.indexOf(" " + t + " ") !== -1; }) || closeWord(w, hayWords)) part++;
       });
+      var pinned = boost.some(function (t) { return hayPad.indexOf(" " + t + " ") !== -1; });
       if (full === words.length) exact.push(li);
+      else if (pinned) related.push({ li: li, score: 1000 });   /* boosted rows come first and are never cut */
       else if (full + part > 0) related.push({ li: li, score: full * 2 + part });
     });
     related.sort(function (a, b) { return b.score - a.score; });
-    related = related.slice(0, 15).map(function (r) { return r.li; });
+    related = related.filter(function (r, i) { return r.score >= 1000 || i < 15; }).map(function (r) { return r.li; });
     var crumb = function (li) {
       var top = li.closest(".rec-topic"), sub = li.closest(".rec-sub"), grp = li.closest(".mat-group"), t = [];
       if (top) t.push(top.querySelector(".rec-h").textContent.trim());
@@ -1041,11 +1090,12 @@
       (related.length ? '<h2 class="res-tier">' + esc(R.relatedH) + '</h2><p class="small">' + esc(R.relatedNote) + "</p>" + list(related) : "");
     box.hidden = !(exact.length || related.length);
     main.classList.add("rec-searching");             /* topic panels and their counts step aside for the results */
-    document.getElementById("rescount").textContent = R.results(exact.length, related.length);
+    document.getElementById("rescount").textContent = words.length ? R.results(exact.length, related.length) : R.filtered(exact.length);
     var none = document.getElementById("resnone"), sug = none.querySelector(".res-suggest");
     none.hidden = !!(exact.length || related.length);
     if (none.hidden) return;
     /* nothing at all: offer the closest topic names, then common searches */
+    if (!words.length) { sug.innerHTML = ""; return; }   /* filters alone found nothing: the reset button is the way back */
     var topics = Object.keys(F.topics).filter(function (k) {
       var n = F.topics[k][lang], nw = norm(n).split(/\s+/);
       return words.some(function (w) { return norm(n).indexOf(w) !== -1 || closeWord(w, nw); });

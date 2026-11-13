@@ -142,6 +142,17 @@ window.PEA_FACTS = {
     ["dotados", "gifted", "avanzados", "advanced", "excepcionales", "exceptional"],
     ["preparatoria", "high school", "graduación", "graduation", "créditos", "credits"]
   ],
+  /* Rows with one link for both languages (`any`) carry `langs`: the languages the destination can actually be used in
+     (Codex review, PR #65). [] = not recorded; such rows show only when no language filter is on. check-parity.js
+     requires `langs` on every `any` row. */
+  /* Searches that always list certain rows (Danny Hernández, 2026-11-13): a search with any `when` word lists every row
+     that mentions a `show` word first under "También podría interesarle", even when its words don't match. */
+  searchBoost: [
+    { when: ["becas", "beca", "scholarship", "scholarships", "subvención", "grants", "universidad", "university", "college", "colegio comunitario",
+             "community college", "admisión", "admission", "ayuda financiera", "financial aid", "dinero", "pagar", "pay", "matrícula", "tuition",
+             "préstamo", "préstamos", "loan", "loans", "costo", "costos", "cost"],
+      show: ["fafsa"] }
+  ],
   searchSuggest: {
     es: ["FAFSA", "becas", "inglés", "GED", "IEP", "lectura", "matemáticas", "maestro"],
     en: ["FAFSA", "scholarships", "English", "GED", "IEP", "reading", "math", "teacher"]
@@ -349,8 +360,8 @@ window.PEA_FACTS = {
           { type: "resource", title_en: "Find Your Parent Center: help for children with disabilities or learning difficulties", en: "https://www.parentcenterhub.org/find-your-center" }
         ] },
         { title_es: "Videos de la clase", title_en: "Videos from class", items: [
-          { type: "resource", title_es: "Video: Jade cuenta cómo vive la dificultad para leer", title_en: "Video: Jade describes her reading challenges", any: "https://youtu.be/dXg2oY6fC8w" },
-          { type: "resource", title_es: "Video: un ejemplo de práctica de conciencia fonológica", title_en: "Video: phonological awareness practice in action", any: "https://youtu.be/gaodKlCjwUg?t=60" }
+          { type: "resource", title_es: "Video: Jade cuenta cómo vive la dificultad para leer", title_en: "Video: Jade describes her reading challenges", langs: [], any: "https://youtu.be/dXg2oY6fC8w" },
+          { type: "resource", title_es: "Video: un ejemplo de práctica de conciencia fonológica", title_en: "Video: phonological awareness practice in action", langs: [], any: "https://youtu.be/gaodKlCjwUg?t=60" }
         ] },
         { title_es: "Cómo se enseña a leer", title_en: "How reading is taught", items: [
           /* Go Beyond Grades reading questions, K–8 (Danny Hernández, 2026-11-10): the ES PDF is dated October 2026; the EN
@@ -411,9 +422,9 @@ window.PEA_FACTS = {
           { type: "resource", title_es: "PBS KIDS para padres y cuidadores (en español)", es: "https://www.pbs.org/es/parents", title_en: "PBS KIDS for Parents", en: "https://www.pbs.org/parents/" }
         ] },
         { title_es: "Encontrar libros", title_en: "Finding books", items: [
-          { type: "resource", title_es: "Unite for Literacy: libros digitales gratis con narración en español y otros idiomas", title_en: "Unite for Literacy: free digital picture books with narration in many languages", any: "https://www.uniteforliteracy.com" },
+          { type: "resource", title_es: "Unite for Literacy: libros digitales gratis con narración en español y otros idiomas", title_en: "Unite for Literacy: free digital picture books with narration in many languages", langs: ["es", "en"], any: "https://www.uniteforliteracy.com" },
           { type: "resource", title_es: "Medidas Lexile en su hogar (guía en PDF)", es: "https://lexile.com/wp-content/uploads/2017/09/Lexile-Home-Spanish.pdf" },
-          { type: "resource", title_es: "Buscar libros por nivel Lexile, también en español (sitio en inglés)", title_en: "Find a Book by Lexile Measure", any: "https://hub.lexile.com/find-a-book/search" },
+          { type: "resource", title_es: "Buscar libros por nivel Lexile, también en español (sitio en inglés)", title_en: "Find a Book by Lexile Measure", langs: ["en"], any: "https://hub.lexile.com/find-a-book/search" },
           { type: "resource", title_en: "Roving Readers: read-aloud books on social justice (Social Justice Books)", en: "https://socialjusticebooks.org/booklists/roving-readers" },
           { type: "resource", title_es: "Common Sense Media: reseñas de contenidos según la edad para las familias", es: "https://www.commonsensemedia.org/es",
             title_en: "Book Reviews by Age (Common Sense Media)", en: "https://www.commonsensemedia.org/book-reviews" },
@@ -464,7 +475,7 @@ window.PEA_FACTS = {
          Danny's request (2026-11-03); Danny checked every other link on the live site. */
       featured: [{ type: "resource", title_es: "Common Sense Media: reseñas de contenidos según la edad para las familias", es: "https://www.commonsensemedia.org/es",
           title_en: "Common Sense Media: age-based media reviews for families", en: "https://www.commonsensemedia.org/" },
-        { type: "resource", title_es: "Aprender a usar la tecnología: recursos para adultos (AT&T ScreenReady; sitio en inglés)", title_en: "Learning resources for adults and seniors (AT&T ScreenReady)", any: "https://screenready.att.com/adults-seniors/" }],
+        { type: "resource", title_es: "Aprender a usar la tecnología: recursos para adultos (AT&T ScreenReady; sitio en inglés)", title_en: "Learning resources for adults and seniors (AT&T ScreenReady)", langs: ["en"], any: "https://screenready.att.com/adults-seniors/" }],
       resources: [
         { title_es: "Seguridad en línea y ciudadanía digital", title_en: "Online safety and digital citizenship", items: [
           { type: "resource", title_es: "Guía de aprendizaje digital para padres y familias (Departamento de Educación de EE. UU.)", es: "https://tech.ed.gov/publications/digital-learning-guide/parent-family-es/",
@@ -504,7 +515,7 @@ window.PEA_FACTS = {
           { type: "resource", title_es: "988 Línea de Prevención del Suicidio y Crisis: llame al 988 y marque 2, o envíe AYUDA al 988", es: "https://988lineadevida.org",
             title_en: "988 Suicide & Crisis Lifeline: call or text 988", en: "https://988lifeline.org" },
           { type: "resource", title_es: "Crisis Text Line: envíe AYUDA al 741741 o escriba al 442-AYUDAME por WhatsApp (sitio en inglés)",
-            title_en: "Crisis Text Line: free 24/7 support by text, text HOME to 741741", any: "https://www.crisistextline.org" },
+            title_en: "Crisis Text Line: free 24/7 support by text, text HOME to 741741", langs: ["es", "en"], any: "https://www.crisistextline.org" },
           { type: "resource", title_es: "Child Mind Institute: tiempo frente a las pantallas, ansiedad y apoyo para padres", es: "https://childmind.org/es/",
             title_en: "Child Mind Institute: screen time, anxiety and parenting support", en: "https://childmind.org/" },
           { type: "resource", title_es: "StopBullying.gov: prevenir el acoso escolar y el ciberacoso", es: "https://espanol.stopbullying.gov",
@@ -555,7 +566,7 @@ window.PEA_FACTS = {
           { type: "resource", title_es: "Información sobre los derechos de todos los niños a matricularse en la escuela (Colorín Colorado)", es: "https://www.colorincolorado.org/es/guide/hoja-informativa-informaci%C3%B3n-sobre-los-derechos-de-todos-los-ni%C3%B1os-matricularse-en-la-escuela",
             title_en: "Information on the Rights of All Children to Enroll in School (Colorín Colorado)", en: "https://www.colorincolorado.org/guide/fact-sheet-information-rights-all-children-enroll-school" },
           { type: "resource", title_es: "Bienvenida a estudiantes inmigrantes: infografía bilingüe (IDRA, agosto de 2025)",
-            title_en: "Welcoming Immigrant Students: bilingual infographic (IDRA, August 2025)", any: "https://www.idra.org/wp-content/uploads/2025/08/Welcoming-Immigrant-Students-IDRA-Infographic-English-Spanish-Aug-2025.pdf" },
+            title_en: "Welcoming Immigrant Students: bilingual infographic (IDRA, August 2025)", langs: ["es", "en"], any: "https://www.idra.org/wp-content/uploads/2025/08/Welcoming-Immigrant-Students-IDRA-Infographic-English-Spanish-Aug-2025.pdf" },
           { type: "resource", title_es: "Derechos de los estudiantes inmigrantes y las escuelas (NILC)", es: "https://www.nilc.org/wp-content/uploads/2025/02/rights_for_immigrant_students_schools_spanish_0.pdf",
             title_en: "Know Your Rights: Immigrant Students and Schools (NILC)", en: "https://www.nilc.org/wp-content/uploads/2025/02/rights_for_immigrant_students_schools_0.pdf" },
           { type: "resource", title_es: "Derechos educativos federales: folleto introductorio (MALDEF; publicación anterior)", es: "https://www.maldef.org/wp-content/uploads/2018/11/derechos_educativos_federales_folleto.pdf",
@@ -579,13 +590,13 @@ window.PEA_FACTS = {
         ] },
         { title_es: "Derechos de inmigración y preparación familiar", title_en: "Immigration rights and family preparedness", items: [
           { type: "resource", title_es: "Conoce tus derechos: volantes en español e inglés y recursos para familias (Aliento)",
-            title_en: "Know Your Rights: English and Spanish flyers and family resources (Aliento)", any: "https://alientoaz.org/resources/know-your-rights" },
+            title_en: "Know Your Rights: English and Spanish flyers and family resources (Aliento)", langs: ["es", "en"], any: "https://alientoaz.org/resources/know-your-rights" },
           { type: "resource", title_es: "Conozca sus derechos ante la aplicación de las leyes de inmigración (iAmerica)", es: "https://iamerica.org/es/know-your-rights/",
             title_en: "Know Your Rights during immigration enforcement (iAmerica)", en: "https://iamerica.org/know-your-rights/" },
           { type: "resource", title_es: "Tarjetas rojas para imprimir: ejercer sus derechos constitucionales (Immigrant Legal Resource Center)",
-            title_en: "Red Cards to print: exercising your constitutional rights (Immigrant Legal Resource Center)", any: "https://www.ilrc.org/redcards" },
+            title_en: "Red Cards to print: exercising your constitutional rights (Immigrant Legal Resource Center)", langs: [], any: "https://www.ilrc.org/redcards" },
           { type: "resource", title_es: "Video: cómo hablar con niños pequeños sobre la incertidumbre migratoria (Abriendo Puertas; subtítulos disponibles)",
-            title_en: "Video: talking with young children about immigration uncertainty (Abriendo Puertas/Opening Doors; in Spanish with English subtitles)", any: "https://ap-od.org/2025/10/30/immigration-know-your-rights/" }
+            title_en: "Video: talking with young children about immigration uncertainty (Abriendo Puertas/Opening Doors; in Spanish with English subtitles)", langs: [], any: "https://ap-od.org/2025/10/30/immigration-know-your-rights/" }
         ] },
         { topic: "history", title_es: "Contexto histórico: igualdad en la educación", title_en: "Historical context: educational equality", items: [
           { type: "resource", title_es: "Mendez v. Westminster y la desegregación escolar (Archivos Nacionales)", es: "https://www.archives.gov/espanol/la-desegregacion-escolar",
@@ -677,6 +688,9 @@ window.PEA_FACTS = {
         { type: "handout", title_es: "Aprender inglés u obtener su diploma de equivalencia (GED)", es: "https://drive.google.com/file/d/13PjBTNhY-9uSQ2fuR5NttX_wF3Ge2Jgl/view?usp=drivesdk" },
         { type: "handout", title_es: "Usar los estudios que hizo en otro país", es: "https://drive.google.com/file/d/1lbrR7d3ybt0CuJnH-lQ3uW24ZFSeFYBK/view?usp=drivesdk" },
         { type: "handout", title_es: "Preparar para el futuro desde pequeños (hasta 8.º grado)", es: "https://drive.google.com/file/d/1l9U-bxno0FVTo6BEy05Vh7FI1YX7JJI4/view?usp=drivesdk" } ],
+      /* Ask Benji's Spanish page (Danny Hernández, 2026-11-13; read that day) is now the row's Spanish link: text help 24/7
+         ("Hola Benji" to 602-786-8171; #language switches the language) and the AZ FAFSA line in Spanish, 1-833-MiFAFSA,
+         Monday–Friday 9 AM–3 PM. */
       /* Added 2026-11-13 (Danny Hernández): StudentAid.gov ES | EN after the USAGov FAFSA row; Aliento scholarships and
          ScholarshipsA-Z in the undocumented-students group; AZTransfer in college and career planning; a new group with
          the ASU and University of Arizona first-year course and GPA requirement pages. Pages opened 2026-11-13, except
@@ -703,23 +717,23 @@ window.PEA_FACTS = {
           { type: "resource", title_es: "Transición a la vida adulta: estudiantes con discapacidad (Centro de Información y Recursos para Padres)", es: "https://www.parentcenterhub.org/transicion-adulta/",
             title_en: "Transition to Adulthood: students with disabilities (Center for Parent Information and Resources)", en: "https://www.parentcenterhub.org/transitionadult/" },
           { type: "resource", title_es: "AZTransfer: planear el paso de un colegio comunitario a una universidad de Arizona y revisar qué cursos se transfieren (en inglés)",
-            title_en: "AZTransfer: plan the move from a community college to an Arizona university and check which courses transfer", any: "https://www.aztransfer.com/" }
+            title_en: "AZTransfer: plan the move from a community college to an Arizona university and check which courses transfer", langs: ["en"], any: "https://www.aztransfer.com/" }
         ] },
         { title_es: "Requisitos de admisión a las universidades de Arizona", title_en: "Arizona university admission requirements", items: [
           { type: "resource", title_es: "ASU: cursos de preparatoria y promedio (GPA) que se piden para entrar como estudiante de primer año (en inglés)",
-            title_en: "ASU: high school course competencies and GPA required for first-year admission", any: "https://admission.asu.edu/apply/first-year/competency-requirements" },
+            title_en: "ASU: high school course competencies and GPA required for first-year admission", langs: ["en"], any: "https://admission.asu.edu/apply/first-year/competency-requirements" },
           { type: "resource", title_es: "Universidad de Arizona: cursos de preparatoria que se piden y promedio de 3.0 en las 16 materias básicas (en inglés)",
-            title_en: "University of Arizona: required high school courses and a 3.0 GPA in the 16 core courses", any: "https://www.arizona.edu/admissions/apply/high-school-competency" }
+            title_en: "University of Arizona: required high school courses and a 3.0 GPA in the 16 core courses", langs: ["en"], any: "https://www.arizona.edu/admissions/apply/high-school-competency" }
         ] },
         { title_es: "Pagar la universidad y ahorrar para la educación", title_en: "Paying for college and education savings", items: [
           { type: "resource", title_es: "FAFSA: Solicitud Gratuita de Ayuda Federal para Estudiantes (USAGov en español)", es: "https://www.usa.gov/es/fafsa-ayuda-federal-estudiantes",
             title_en: "FAFSA: Free Application for Federal Student Aid (USAGov)", en: "https://www.usa.gov/fafsa" },
           { type: "resource", title_es: "StudentAid.gov en español: el sitio oficial de la FAFSA y la ayuda federal para estudiantes (Departamento de Educación de EE. UU.)", es: "https://studentaid.gov/es",
             title_en: "StudentAid.gov: the official FAFSA and federal student aid site (U.S. Department of Education)", en: "https://studentaid.gov/" },
-          { type: "resource", title_es: "Ask Benji: ayuda gratis por mensaje de texto para llenar la FAFSA, las 24 horas (Education Forward Arizona; en inglés)",
-            title_en: "Ask Benji: free 24/7 FAFSA help by text message (Education Forward Arizona)", any: "https://www.askbenji.org/" },
+          { type: "resource", title_es: "Ask Benji: ayuda gratis con la FAFSA por mensaje de texto, las 24 horas (envíe «Hola Benji» al 602-786-8171) y línea en español 1-833-MiFAFSA, de lunes a viernes (Education Forward Arizona)", es: "https://www.askbenji.org/arizona-fafsa-help-spanish",
+            title_en: "Ask Benji: free 24/7 FAFSA help by text message (Education Forward Arizona)", en: "https://www.askbenji.org/" },
           { type: "resource", title_es: "College Depot: citas y talleres gratis sobre admisión, ayuda financiera y becas (Biblioteca Pública de Phoenix, Burton Barr; sitio en inglés)",
-            title_en: "College Depot: free appointments and workshops on admissions, financial aid and scholarships (Phoenix Public Library, Burton Barr)", any: "https://www.phoenixpubliclibrary.org/collegedepot" },
+            title_en: "College Depot: free appointments and workshops on admissions, financial aid and scholarships (Phoenix Public Library, Burton Barr)", langs: ["en"], any: "https://www.phoenixpubliclibrary.org/collegedepot" },
           { type: "resource", title_es: "¿Qué es un plan 529 de Arizona? Ahorrar para la educación (AZ529)", es: "https://espanol.az529.gov/planificacion-y-herramientas/que-es-un-plan-529-de-arizona/",
             title_en: "What Is a 529 Plan? Saving for education (AZ529, Arizona’s Education Savings Plan)", en: "https://az529.gov/what-is-a-529-plan/" }
         ] },
@@ -729,9 +743,9 @@ window.PEA_FACTS = {
           { type: "resource", title_es: "Estudiantes indocumentados: planificar y pagar la universidad (Universidad de Arizona, Empieza Hoy)", es: "https://startnow.arizona.edu/es/pagar-por-la-universidad/indocumentados",
             title_en: "Undocumented Students: planning and paying for college (University of Arizona, Start Now)", en: "https://startnow.arizona.edu/pay-for-college/undocumented-students" },
           { type: "resource", title_es: "Aliento: becas para estudiantes sin importar su estatus migratorio; la lista se actualiza cada mes (en inglés)",
-            title_en: "Aliento: Scholarships for Dreamers, available regardless of immigration status; list updated monthly", any: "https://alientoaz.org/resources/scholarships" },
+            title_en: "Aliento: Scholarships for Dreamers, available regardless of immigration status; list updated monthly", langs: ["en"], any: "https://alientoaz.org/resources/scholarships" },
           { type: "resource", title_es: "ScholarshipsA-Z: becas y talleres gratis para estudiantes indocumentados en Arizona (contenido en español e inglés)",
-            title_en: "ScholarshipsA-Z: scholarships and free workshops for undocumented students in Arizona", any: "https://scholarshipsaz.org/" }
+            title_en: "ScholarshipsA-Z: scholarships and free workshops for undocumented students in Arizona", langs: ["es", "en"], any: "https://scholarshipsaz.org/" }
         ] },
         { title_es: "Aprendizajes y capacitación para una carrera", title_en: "Apprenticeships and career training", items: [
           { type: "resource", title_es: "Aprendizajes registrados: trabajar y aprender al mismo tiempo (Departamento de Seguridad Económica de Arizona)", es: "https://des.az.gov/sites/default/files/media/Registered-Apprenticeships-Career-Seeker-Flyer-Spanish.pdf",
@@ -743,7 +757,7 @@ window.PEA_FACTS = {
           { type: "resource", title_es: "Inglés y preparación para el GED en Phoenix (Friendly House, ficha en 211 Arizona); inscripción en español: 602-416-7210", es: "https://search.211arizona.org/es/search/265c1e77-44b6-5ba5-8c14-a3653a55fcea",
             title_en: "Adult Education and Workforce Development, Phoenix (Friendly House); enrollment: 602-416-7210, enroll@friendlyhouse.org", en: "https://friendlyhouse.org/adult-education-and-workforce-development/" },
           { type: "resource", title_es: "USA Learns: clases de inglés y de ciudadanía gratis en línea, en el teléfono o la computadora (las instrucciones se pueden ver en español)",
-            title_en: "USA Learns: free online English and U.S. citizenship classes, on a phone or computer", any: "https://www.usalearns.org/" },
+            title_en: "USA Learns: free online English and U.S. citizenship classes, on a phone or computer", langs: ["es", "en"], any: "https://www.usalearns.org/" },
           { type: "resource", title_en: "English Language Acquisition for Adults, online and in person, Pima County, ages 18+ (Literacy Connects)", en: "https://literacyconnects.org/english-language-acquisition-for-adults/" },
           { type: "resource", title_en: "Adult Education: GED prep, English and career readiness, Phoenix area; classes taught in English (Rio Salado College)", en: "https://www.riosalado.edu/start-rio/adult-education" },
           { type: "resource", title_en: "Adult Education and English Classes by County (Arizona Department of Education)", en: "https://www.azed.gov/adultedservices/Adult-Education-Programs" }
@@ -923,12 +937,12 @@ window.PEA_FACTS = {
           presentation_en: "https://canva.link/xpsjah3iu3387cx" },
         { code: "4T",  kind: "cls", module: "MREAD", start: "2026-10-28T00:00:00Z", end: "2026-10-28T01:30:00Z", title_es: "Fundamentos de la lectura y cómo abogar por los estudiantes", title_en: "Foundational Reading Skills & Advocating for Students in the Literacy Classroom",
           presentation_en: "https://canva.link/es58z5vcbmuowlg",
-          featured: [{ type: "resource", title_es: "📝 Inscriba a su hijo o hija en tutoría de lectura gratis en línea (kínder a 6.º grado): formulario de interés de AZURA Literacy", title_en: "📝 Sign up your child for free online reading tutoring (grades K–6): AZURA Literacy Virtual Reading Program interest form", any: "https://airtable.com/appYkl41r0lzOsnAs/shrPkGQHAR9BP1chw" },
-            { type: "resource", title_es: "📄 Cómo funciona la tutoría de lectura gratis: volante para familias de AZURA Literacy (español e inglés)", title_en: "📄 How the free reading tutoring works: AZURA Literacy family flyer (English and Spanish)", any: "https://drive.google.com/file/d/11qgL1fWSKKSNn4BPs_VV56-VZrfxfGCL/view?usp=drivesdk" }] },
+          featured: [{ type: "resource", title_es: "📝 Inscriba a su hijo o hija en tutoría de lectura gratis en línea (kínder a 6.º grado): formulario de interés de AZURA Literacy", title_en: "📝 Sign up your child for free online reading tutoring (grades K–6): AZURA Literacy Virtual Reading Program interest form", langs: [], any: "https://airtable.com/appYkl41r0lzOsnAs/shrPkGQHAR9BP1chw" },
+            { type: "resource", title_es: "📄 Cómo funciona la tutoría de lectura gratis: volante para familias de AZURA Literacy (español e inglés)", title_en: "📄 How the free reading tutoring works: AZURA Literacy family flyer (English and Spanish)", langs: ["es", "en"], any: "https://drive.google.com/file/d/11qgL1fWSKKSNn4BPs_VV56-VZrfxfGCL/view?usp=drivesdk" }] },
         { code: "4R",  kind: "cls", module: "MHOME", start: "2026-10-30T00:00:00Z", end: "2026-10-30T01:30:00Z", title_es: "Lectura en casa", title_en: "Reading at Home",
           presentation_en: "https://canva.link/kieb51i1lruyplj",
-          featured: [{ type: "resource", title_es: "📝 Inscriba a su hijo o hija en tutoría de lectura gratis en línea (kínder a 6.º grado): formulario de interés de AZURA Literacy", title_en: "📝 Sign up your child for free online reading tutoring (grades K–6): AZURA Literacy Virtual Reading Program interest form", any: "https://airtable.com/appYkl41r0lzOsnAs/shrPkGQHAR9BP1chw" },
-            { type: "resource", title_es: "📄 Cómo funciona la tutoría de lectura gratis: volante para familias de AZURA Literacy (español e inglés)", title_en: "📄 How the free reading tutoring works: AZURA Literacy family flyer (English and Spanish)", any: "https://drive.google.com/file/d/11qgL1fWSKKSNn4BPs_VV56-VZrfxfGCL/view?usp=drivesdk" }] },
+          featured: [{ type: "resource", title_es: "📝 Inscriba a su hijo o hija en tutoría de lectura gratis en línea (kínder a 6.º grado): formulario de interés de AZURA Literacy", title_en: "📝 Sign up your child for free online reading tutoring (grades K–6): AZURA Literacy Virtual Reading Program interest form", langs: [], any: "https://airtable.com/appYkl41r0lzOsnAs/shrPkGQHAR9BP1chw" },
+            { type: "resource", title_es: "📄 Cómo funciona la tutoría de lectura gratis: volante para familias de AZURA Literacy (español e inglés)", title_en: "📄 How the free reading tutoring works: AZURA Literacy family flyer (English and Spanish)", langs: ["es", "en"], any: "https://drive.google.com/file/d/11qgL1fWSKKSNn4BPs_VV56-VZrfxfGCL/view?usp=drivesdk" }] },
         { code: "5T",  kind: "cls", module: "MDIGI", start: "2026-11-04T00:00:00Z", end: "2026-11-04T01:30:00Z", title_es: "Alfabetización digital para padres y cuidadores", title_en: "Digital Literacy for Parents & Caregivers" },
         { code: "5R",  kind: "cls", module: "MRGHT", start: "2026-11-06T00:00:00Z", end: "2026-11-06T01:30:00Z", title_es: "Derechos de padres y cuidadores", title_en: "Your Rights as Parents & Caregivers" },
         { code: "6T",  kind: "cls", module: "MMATH", start: "2026-11-11T00:00:00Z", end: "2026-11-11T01:30:00Z", title_es: "Abogando por nuestros estudiantes en el salón de matemáticas", title_en: "Advocating for Students in the Math Classroom" },

@@ -90,6 +90,7 @@ const checkItem = (it, where, own) => {           /* own: resources need their o
   if (it.es && !it.any && !(it.title_es || (!own && TYPES[it.type]))) problems.push(`${where}: Spanish link needs a Spanish title`);
   if (own && it.en && !it.any && !it.title_en) problems.push(`${where}: English link needs an English title`);
   if (own && it.any && !(it.title_es && it.title_en)) problems.push(`${where}: shared link needs title_es and title_en`);
+  if (it.any && !(Array.isArray(it.langs) && it.langs.every(l => l === "es" || l === "en"))) problems.push(`${where}: shared link needs langs (["es","en"], ["en"], ["es"] or [] if not recorded)`);
 };
 Object.entries(MODS).forEach(([k, m]) => ["materials", "resources", "featured"].forEach(list => (m[list] || []).forEach((it, i) => checkItem(it, `module ${k} ${list}[${i}]`, list !== "materials"))));
 Object.values(FACTS.cohorts).forEach(c => (c.events || []).forEach(e => (e.featured || []).forEach((it, i) => checkItem(it, `${c.code} ${e.code} featured[${i}]`, true))));
@@ -117,6 +118,9 @@ Object.entries(TOPICS).forEach(([k, t]) => {
 (FACTS.searchSynonyms || []).forEach((g, i) => {
   if (!Array.isArray(g) || g.length < 2 || g.some(t => typeof t !== "string" || !t.trim())) problems.push(`searchSynonyms[${i}]: needs 2+ non-empty terms`);
   else if (/empower|empodera|docente/i.test(g.join(" "))) problems.push(`searchSynonyms[${i}]: vocabulary`);
+});
+(FACTS.searchBoost || []).forEach((b, i) => {
+  if (!b || !Array.isArray(b.when) || !b.when.length || !Array.isArray(b.show) || !b.show.length) problems.push(`searchBoost[${i}]: needs when[] and show[]`);
 });
 const SUG = FACTS.searchSuggest || {};
 if ((SUG.es || []).length !== (SUG.en || []).length) problems.push("searchSuggest: es and en need the same number of entries");
