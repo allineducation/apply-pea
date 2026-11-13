@@ -360,7 +360,7 @@
     return '<ul class="mat-list">' + items.map(function (it) {
       var t = MT[it.type] || MT.resource || {};
       var q = ' data-q="' + esc(norm([it.title_es, it.title_en, t.es, t.en].filter(Boolean).join(" "))) + '"';   /* both languages, for the resource search */
-      q += ' data-l="' + (it.any ? "es en" : ["es", "en"].filter(function (l) { return it[l]; }).join(" ")) + '"';   /* language filter */
+      q += ' data-l="' + (it.any ? (it.langs || []).join(" ") : ["es", "en"].filter(function (l) { return it[l]; }).join(" ")) + '"';   /* language filter: a shared link names its real languages in langs (Codex review, PR #65) */
       if (it.any) return "<li" + q + ">" + ext(it.any, esc(it["title_" + lang] || t[lang] || ""), "mat-link") + "</li>";
       var langs = ["es", "en"].filter(function (l) { return it[l]; });
       var main = it[lang] ? lang : langs[0], title = it["title_" + main] || t[lang] || t[main] || "";
@@ -990,7 +990,7 @@
       return;
     }
     if (t.id === "faqx") { var q = document.getElementById("faqq"); q.value = ""; filterFaq(""); q.focus(); }
-    if (t.id === "resx") filterRes("");
+    if (t.id === "resx") { var rqx = document.getElementById("resq"); if (rqx) rqx.value = ""; filterRes(""); }   /* with filters on there is no re-render, so clear the box here (Codex review, PR #65) */
     if (t.id === "resreset") { resetRes(); render(false); var rq0 = document.getElementById("resq"); if (rq0) rq0.focus(); return; }
     var chip = t.closest("[data-resq]");
     if (chip) { var rq = document.getElementById("resq"); rq.value = chip.getAttribute("data-resq"); filterRes(rq.value); rq.focus(); return; }
