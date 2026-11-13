@@ -117,6 +117,36 @@ window.PEA_FACTS = {
     opportunities: { icon: "🎓", es: "Oportunidades y aprendizaje continuo", en: "Opportunities & Continued Learning" }
   },
 
+  /* Materiales y recursos search (v0.23.13; draft for Danny Hernández's review). Each group lists words families
+     might type that mean the same thing, in Spanish and English: a search for one also lists rows with the others
+     under "También podría interesarle" (never as exact matches). Lower case; accents are ignored when matching.
+     Add a word to a group, or a new group, to widen the search. searchSuggest: tappable searches shown when
+     nothing matches; same number of entries in both languages. */
+  searchSynonyms: [
+    ["becas", "beca", "scholarship", "scholarships", "subvención", "subvenciones", "grant", "grants"],
+    ["ayuda financiera", "financial aid", "fafsa", "dinero", "pagar", "pay", "costo", "costos", "cost", "matrícula", "tuition", "préstamo", "loan"],
+    ["universidad", "university", "college", "colegio comunitario", "community college", "admisión", "admission", "transferencia", "transfer"],
+    ["inglés", "english", "esl", "clases de inglés", "english classes", "idioma", "language"],
+    ["ged", "diploma", "equivalencia", "equivalency", "hse"],
+    ["pei", "iep", "504", "educación especial", "special education", "discapacidad", "disability", "discapacidades", "disabilities"],
+    ["lectura", "leer", "reading", "read", "libros", "books", "alfabetización", "literacy", "biblioteca", "library"],
+    ["matemáticas", "math", "mates", "números", "numbers"],
+    ["tecnología", "technology", "internet", "digital", "computadora", "computer", "celular", "phone", "redes sociales", "social media", "pantallas", "screens"],
+    ["seguridad", "safety", "acoso", "bullying", "bienestar", "well-being", "salud mental", "mental health"],
+    ["derechos", "rights", "ley", "law", "leyes", "laws", "queja", "complaint", "salvaguardias", "safeguards"],
+    ["maestro", "maestra", "maestros", "teacher", "teachers", "conferencia", "conference", "reunión", "meeting"],
+    ["escuela", "school", "distrito", "district", "director", "principal", "junta escolar", "school board"],
+    ["indocumentado", "indocumentados", "undocumented", "dreamers", "daca", "inmigrante", "immigrant", "estatus migratorio", "immigration status"],
+    ["trabajo", "empleo", "job", "jobs", "carrera", "career", "aprendiz", "apprenticeship", "aprendizajes", "apprenticeships"],
+    ["elección escolar", "school choice", "chárter", "charter", "esa", "opciones escolares", "school options"],
+    ["dotados", "gifted", "avanzados", "advanced", "excepcionales", "exceptional"],
+    ["preparatoria", "high school", "graduación", "graduation", "créditos", "credits"]
+  ],
+  searchSuggest: {
+    es: ["FAFSA", "becas", "inglés", "GED", "IEP", "lectura", "matemáticas", "maestro"],
+    en: ["FAFSA", "scholarships", "English", "GED", "IEP", "reading", "math", "teacher"]
+  },
+
   /* Curriculum modules — canonical, cohort-independent descriptions, session
      materials and resources. Each list item: { type, es: url, en: url }.
      Source: Airtable · PEA base · Modules table tblPkSBzSYKE4cBC6

@@ -924,4 +924,11 @@ body>.shell{flex:1 0 auto;width:100%}   /* short pages still seat the app bar at
 .rec-topic[hidden],.rec-topic [hidden]{display:none!important}
 .rec-search{margin-top:var(--space-3)}
 .rec-search input::-webkit-search-cancel-button{display:none}   /* the page draws its own clear button */
-.rec-searching .rec-topic .mat-count{display:none}
+/* v0.23.13: while a search is on, the topic panels give way to a two-tier results list */
+.rec-searching .rec-topic{display:none!important}
+.res-results{margin:var(--space-3) 0 var(--space-4)}
+.res-tier{font-size:1rem;font-weight:900;color:var(--blue);margin:var(--space-4) 0 var(--space-2)}
+.res-tier:first-child{margin-top:0}
+.res-list>li{flex-wrap:wrap}
+.res-crumb{flex-basis:100%;font-size:12px;color:var(--color-text-secondary);margin-top:2px}
+.res-chips{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-2)}

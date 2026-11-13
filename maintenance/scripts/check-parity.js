@@ -113,6 +113,13 @@ Object.entries(TOPICS).forEach(([k, t]) => {
   if (t.parent && (!TOPICS[t.parent] || TOPICS[t.parent].parent)) problems.push(`topic ${k}: parent "${t.parent}" must be a main topic`);
   if (!t.parent && !t.icon) problems.push(`topic ${k}: a main topic needs an icon`);
 });
+// Resource search vocabulary (v0.23.13): synonym groups of 2+ non-empty terms; suggestions in both languages.
+(FACTS.searchSynonyms || []).forEach((g, i) => {
+  if (!Array.isArray(g) || g.length < 2 || g.some(t => typeof t !== "string" || !t.trim())) problems.push(`searchSynonyms[${i}]: needs 2+ non-empty terms`);
+  else if (/empower|empodera|docente/i.test(g.join(" "))) problems.push(`searchSynonyms[${i}]: vocabulary`);
+});
+const SUG = FACTS.searchSuggest || {};
+if ((SUG.es || []).length !== (SUG.en || []).length) problems.push("searchSuggest: es and en need the same number of entries");
 const usedMods = new Set();
 Object.values(FACTS.cohorts).forEach(c => c.events.forEach(e => { if (e.module) usedMods.add(e.module); }));
 usedMods.forEach(k => { if (MODS[k] && !TOPICS[MODS[k].topic]) problems.push(`module ${k}: needs a known topic (got "${MODS[k].topic}")`); });

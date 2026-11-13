@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.23.12";
+  var VERSION = "0.23.13";
   var UPDATED = "2026-11-13";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -359,20 +359,21 @@
     var MT = F.materialTypes || {};
     return '<ul class="mat-list">' + items.map(function (it) {
       var t = MT[it.type] || MT.resource || {};
-      if (it.any) return "<li>" + ext(it.any, esc(it["title_" + lang] || t[lang] || ""), "mat-link") + "</li>";
+      var q = ' data-q="' + esc(norm([it.title_es, it.title_en, t.es, t.en].filter(Boolean).join(" "))) + '"';   /* both languages, for the resource search */
+      if (it.any) return "<li" + q + ">" + ext(it.any, esc(it["title_" + lang] || t[lang] || ""), "mat-link") + "</li>";
       var langs = ["es", "en"].filter(function (l) { return it[l]; });
       var main = it[lang] ? lang : langs[0], title = it["title_" + main] || t[lang] || t[main] || "";
       var codes = langs.map(function (l) {
         return ext(it[l], '<span class="lc">' + l.toUpperCase() + "</span>", "mat-code",
           ' lang="' + l + '" hreflang="' + l + '" aria-label="' + esc(title + " (" + (l === "es" ? "Español" : "English") + ")") + '"');
       }).join('<span class="mat-sep" aria-hidden="true">|</span>');
-      return "<li>" + ext(it[main], esc(title), "mat-link", ' lang="' + main + '" hreflang="' + main + '"') + '<span class="mat-codes">' + codes + "</span></li>";
+      return "<li" + q + ">" + ext(it[main], esc(title), "mat-link", ' lang="' + main + '" hreflang="' + main + '"') + '<span class="mat-codes">' + codes + "</span></li>";
     }).join("") + "</ul>";
   }
   function hasLink(it) { return it.es || it.en || it.any; }
   var matOpen = {};                                 /* open resource groups by "<cohort><class>:<n>"; survives every re-render (language, refresh, calendar filter) */
   document.addEventListener("toggle", function (ev) {
-    var d = ev.target; if (resQuery && d.closest && d.closest(".rec-topic")) return;   /* search opens panels; don't remember that */
+    var d = ev.target;
     if (d.getAttribute && d.tagName === "DETAILS" && d.hasAttribute("data-k")) matOpen[d.getAttribute("data-k")] = d.open;   /* card sections, groups, resource topics */
   }, true);
   function rowCount(list) { return list.reduce(function (n, it) { return n + (it.items ? it.items.filter(hasLink).length : 1); }, 0); }
@@ -386,7 +387,7 @@
       if (!it.items) return run.push(it);
       flush();
       var rows = it.items.filter(hasLink), k = (key || "") + ":" + gi++;
-      out += '<details class="mat-group" data-k="' + esc(k) + '"' + (matOpen[k] ? " open" : "") + "><summary><span>" + esc(it["title_" + lang]) + '</span><span class="mat-count">' + rows.length + "</span></summary>" + matRows(rows) + "</details>";
+      out += '<details class="mat-group" data-k="' + esc(k) + '" data-q="' + esc(norm((it.title_es || "") + " " + (it.title_en || ""))) + '"' + (matOpen[k] ? " open" : "") + "><summary><span>" + esc(it["title_" + lang]) + '</span><span class="mat-count">' + rows.length + "</span></summary>" + matRows(rows) + "</details>";
     });
     flush();
     return out;
@@ -670,6 +671,7 @@
      the card's own builders, so the index reads like the cards. */
   function linkKey(it) { return (it.any || "") + "|" + (it.es || "") + "|" + (it.en || ""); }
   function topicName(k) { return F.topics[k][lang]; }
+  function topicQ(k) { return norm(F.topics[k].es + " " + F.topics[k].en); }
   function byName(a, b) { return topicName(a).localeCompare(topicName(b), lang); }
   function resourceIndex() {
     var B = {}, seen = {};
@@ -730,17 +732,18 @@
        by-position restore skips them (details[data-k]). */
     var body = mains.map(function (m) {
       var subs = subsOf(m).map(function (k) {
-        return '<details class="rec-sub" id="p-' + k + '" data-k="rec-' + k + '"' + open(k, false) + '><summary><h3 class="rec-sub-h">' + esc(topicName(k)) + "</h3>" +
+        return '<details class="rec-sub" id="p-' + k + '" data-k="rec-' + k + '" data-q="' + esc(topicQ(k)) + '"' + open(k, false) + '><summary><h3 class="rec-sub-h">' + esc(topicName(k)) + "</h3>" +
           count(bucketCount(B[k])) + "</summary>" + topicBody(k, B[k]) + "</details>";
       }).join("");
-      return '<details class="block sec rec-topic" id="p-' + m + '" data-k="rec-' + m + '"' + open(m, false) + '><summary class="sec-sum"><h2 class="h-sec">' +
+      return '<details class="block sec rec-topic" id="p-' + m + '" data-k="rec-' + m + '" data-q="' + esc(topicQ(m)) + '"' + open(m, false) + '><summary class="sec-sum"><h2 class="h-sec">' +
         '<span class="rec-h"><span aria-hidden="true">' + F.topics[m].icon + "</span> " + esc(topicName(m)) + "</span>" + count(total(m)) + "</h2></summary>" +
         '<div class="sec-body">' + (B[m] ? topicBody(m, B[m]) : "") + subs + "</div></details>";
     }).join("");
     var search = '<div class="search rec-search"><label class="sr-only" for="resq">' + esc(R.searchLabel) + "</label>" +
       '<input id="resq" type="search" autocomplete="off" placeholder="' + esc(R.searchPh) + '" value="' + esc(resQuery) + '"' + (resQuery ? ' class="filled"' : "") + ">" +
       '<button type="button" class="x" id="resx" aria-label="' + esc(L.ui.clear) + '"' + (resQuery ? "" : " hidden") + ">×</button></div>" +
-      '<p class="small" id="rescount" aria-live="polite"></p><div id="resnone" hidden>' + callout("gold", R.noneLabel, esc(R.none)) + "</div>";
+      '<p class="small" id="rescount" aria-live="polite"></p><div id="resnone" hidden>' + callout("gold", R.noneLabel, esc(R.none)) + '<div class="res-suggest"></div></div>' +
+      '<div id="resresults" class="res-results" hidden></div>';
     return secHead("recursos") + '<p class="lead">' + esc(R.lead) + "</p>" + search + nav + body +
       btnRow(inLink("#esta-semana", R.weekCta) + inLink("#calendario", R.calCta));
   }
@@ -952,35 +955,105 @@
     }
     if (t.id === "faqx") { var q = document.getElementById("faqq"); q.value = ""; filterFaq(""); q.focus(); }
     if (t.id === "resx") filterRes("");
+    var chip = t.closest("[data-resq]");
+    if (chip) { var rq = document.getElementById("resq"); rq.value = chip.getAttribute("data-resq"); filterRes(rq.value); rq.focus(); return; }
   });
   document.addEventListener("input", function (ev) { if (ev.target.id === "faqq") filterFaq(ev.target.value); if (ev.target.id === "resq") filterRes(ev.target.value); });
-  /* Materiales y recursos search (v0.23.12): every word must appear, accents ignored, in a row's title or in the
-     name of its group, sub-topic or topic. Matching rows show with their panels opened; the rest hide. The query
-     survives a language switch; while it is set, panel toggles are not remembered, and clearing it re-renders the
-     page with the panels as they were. */
+  /* Materiales y recursos search (v0.23.12; flexible matching v0.23.13). While a search is on, the topic panels
+     give way to a results list in two tiers. Matches: every word appears, accents ignored, in a row's title (in
+     either language) or in the name of its group, sub-topic or topic. "También podría interesarle": rows that match
+     some of the words, a synonym from facts.searchSynonyms, or a close spelling (one letter off, two for long
+     words). Each result shows where it lives (topic › group). With no result at all, tappable suggestions
+     replace the list. The query survives a language switch; clearing it restores the panels as they were. */
   var resQuery = "";
+  var STOP = ["de", "del", "la", "las", "el", "los", "y", "e", "o", "en", "para", "por", "con", "un", "una", "mi", "mis", "su", "sus", "que", "a", "al",
+              "the", "of", "and", "or", "to", "for", "in", "on", "my", "your", "an", "with"];
+  function editDist(a, b) {                        /* edits between two words, a swap of neighbours counting as one ("becsa" → "becas"); stops past 2 */
+    if (Math.abs(a.length - b.length) > 2) return 3;
+    var pp = null, prev = [], i, j;
+    for (j = 0; j <= b.length; j++) prev[j] = j;
+    for (i = 1; i <= a.length; i++) {
+      var cur = [i], best = i;
+      for (j = 1; j <= b.length; j++) {
+        cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+        if (pp && i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) cur[j] = Math.min(cur[j], pp[j - 2] + 1);
+        if (cur[j] < best) best = cur[j];
+      }
+      if (best > 2) return 3;
+      pp = prev; prev = cur;
+    }
+    return prev[b.length];
+  }
+  function closeWord(w, hayWords) {                /* a typo away: 1 edit for words of 4–6 letters, 2 for longer */
+    if (w.length < 4) return false;
+    var max = w.length >= 7 ? 2 : 1;
+    return hayWords.some(function (h) { return h.length >= 3 && editDist(w, h) <= max; });
+  }
+  function synonymsOf(w) {                         /* every term in any synonym group that contains this word */
+    var out = [];
+    (F.searchSynonyms || []).forEach(function (g) {
+      var terms = g.map(function (t) { return norm(t).replace(/[^a-z0-9ñ]+/g, " ").trim(); });
+      if (terms.some(function (t) { return t === w || (w.length >= 4 && t.indexOf(w) === 0); })) out = out.concat(terms);
+    });
+    return out;
+  }
   function filterRes(v) {
-    var main = document.getElementById("main"), words = norm(v.trim()).split(/\s+/).filter(Boolean), n = 0;
-    resQuery = v.trim() ? v : "";
+    var main = document.getElementById("main"), R = L.res;
+    var all = norm(v.trim()).split(/[\s,.;:¿?¡!()]+/).filter(Boolean);
+    var words = all.filter(function (w) { return STOP.indexOf(w) === -1; });
+    if (!words.length) words = all;
+    resQuery = words.length ? v : "";   /* punctuation alone is no query; render() re-applies resQuery, so it must not loop (Codex review, PR #64) */
     var x = document.getElementById("resx"), inp = document.getElementById("resq");
     if (x) x.hidden = !words.length;
     if (inp) inp.classList.toggle("filled", !!words.length);
-    if (!words.length) { var y = window.scrollY; render(false); window.scrollTo(0, y); var q = document.getElementById("resq"); if (q) q.focus(); return; }
-    var label = function (el, sel) { var h = el && el.querySelector(sel); return h ? h.textContent : ""; };
+    if (!words.length) { var y = window.scrollY; render(false); window.scrollTo(0, y); var q = document.getElementById("resq"); if (q) { q.value = v; q.focus(); } return; }
+    var syn = words.map(synonymsOf);
+    var exact = [], related = [];   /* resourceIndex() already lists each bilingual link pair once; rows sharing one language's link stay distinct (Codex review, PR #64) */
     main.querySelectorAll(".rec-topic .mat-list > li").forEach(function (li) {
-      var link = li.querySelector(".mat-link"), grp = li.closest(".mat-group"), sub = li.closest(".rec-sub"), top = li.closest(".rec-topic");
-      var hay = norm([link ? link.textContent : li.textContent, label(grp, ":scope > summary"), label(sub, ".rec-sub-h"), label(top, ".rec-h")].join(" "));
-      var hit = words.every(function (w) { return hay.indexOf(w) !== -1; });
-      li.hidden = !hit; if (hit) n++;
+      var ctx = [li, li.closest(".mat-group"), li.closest(".rec-sub"), li.closest(".rec-topic")];
+      var hay = ctx.map(function (el) { return el ? el.getAttribute("data-q") || "" : ""; }).join(" ");
+      var hayWords = hay.split(/[^a-z0-9ñ]+/).filter(Boolean), hayPad = " " + hayWords.join(" ") + " ";   /* synonyms match whole words only ("esa" ≠ "mesa") */
+      var full = 0, part = 0;
+      words.forEach(function (w, k) {
+        if (hay.indexOf(w) !== -1) full++;
+        else if (syn[k].some(function (t) { return hayPad.indexOf(" " + t + " ") !== -1; }) || closeWord(w, hayWords)) part++;
+      });
+      if (full === words.length) exact.push(li);
+      else if (full + part > 0) related.push({ li: li, score: full * 2 + part });
     });
-    main.querySelectorAll(".rec-topic, .rec-sub, .res-sec, .mat-group").forEach(function (d) {
-      var any = !!d.querySelector(".mat-list > li:not([hidden])");
-      d.hidden = !any; if (any) d.open = true;
-    });
-    main.querySelectorAll(".rec-cal").forEach(function (p) { p.hidden = true; });
-    main.classList.add("rec-searching");   /* panel counts are totals, so they hide while a search is on */
-    document.getElementById("rescount").textContent = L.res.found(n);
-    document.getElementById("resnone").hidden = n !== 0;
+    related.sort(function (a, b) { return b.score - a.score; });
+    related = related.slice(0, 15).map(function (r) { return r.li; });
+    var crumb = function (li) {
+      var top = li.closest(".rec-topic"), sub = li.closest(".rec-sub"), grp = li.closest(".mat-group"), t = [];
+      if (top) t.push(top.querySelector(".rec-h").textContent.trim());
+      if (sub) t.push(sub.querySelector(".rec-sub-h").textContent.trim());
+      if (grp) t.push(grp.querySelector(":scope > summary > span").textContent.trim());
+      return '<span class="res-crumb">' + esc(t.join(" › ")) + "</span>";
+    };
+    var list = function (rows) {
+      return '<ul class="mat-list res-list">' + rows.map(function (li) {
+        var c = li.cloneNode(true); c.removeAttribute("hidden");
+        return "<li>" + c.innerHTML + crumb(li) + "</li>";
+      }).join("") + "</ul>";
+    };
+    var box = document.getElementById("resresults");
+    box.innerHTML = (exact.length ? '<h2 class="res-tier">' + esc(R.exactH) + "</h2>" + list(exact) : "") +
+      (related.length ? '<h2 class="res-tier">' + esc(R.relatedH) + '</h2><p class="small">' + esc(R.relatedNote) + "</p>" + list(related) : "");
+    box.hidden = !(exact.length || related.length);
+    main.classList.add("rec-searching");             /* topic panels and their counts step aside for the results */
+    document.getElementById("rescount").textContent = R.results(exact.length, related.length);
+    var none = document.getElementById("resnone"), sug = none.querySelector(".res-suggest");
+    none.hidden = !!(exact.length || related.length);
+    if (none.hidden) return;
+    /* nothing at all: offer the closest topic names, then common searches */
+    var topics = Object.keys(F.topics).filter(function (k) {
+      var n = F.topics[k][lang], nw = norm(n).split(/\s+/);
+      return words.some(function (w) { return norm(n).indexOf(w) !== -1 || closeWord(w, nw); });
+    }).map(function (k) { return F.topics[k][lang]; });
+    var picks = topics.concat((F.searchSuggest || {})[lang] || []).filter(function (t, i, a) { return a.indexOf(t) === i; }).slice(0, 8);
+    sug.innerHTML = picks.length ? '<p class="small">' + esc(R.suggestH) + '</p><div class="res-chips">' + picks.map(function (t) {
+      return '<button type="button" class="pill" data-resq="' + esc(t) + '">' + esc(t) + "</button>";
+    }).join("") + "</div>" : "";
   }
   function filterFaq(v) {
     var q = norm(v.trim()), n = 0, inp = document.getElementById("faqq"), x = document.getElementById("faqx");
