@@ -1002,16 +1002,14 @@
     var all = norm(v.trim()).split(/[\s,.;:¿?¡!()]+/).filter(Boolean);
     var words = all.filter(function (w) { return STOP.indexOf(w) === -1; });
     if (!words.length) words = all;
-    resQuery = v.trim() ? v : "";
+    resQuery = words.length ? v : "";   /* punctuation alone is no query; render() re-applies resQuery, so it must not loop (Codex review, PR #64) */
     var x = document.getElementById("resx"), inp = document.getElementById("resq");
     if (x) x.hidden = !words.length;
     if (inp) inp.classList.toggle("filled", !!words.length);
-    if (!words.length) { var y = window.scrollY; render(false); window.scrollTo(0, y); var q = document.getElementById("resq"); if (q) q.focus(); return; }
+    if (!words.length) { var y = window.scrollY; render(false); window.scrollTo(0, y); var q = document.getElementById("resq"); if (q) { q.value = v; q.focus(); } return; }
     var syn = words.map(synonymsOf);
-    var exact = [], related = [], seen = {};
+    var exact = [], related = [];   /* resourceIndex() already lists each bilingual link pair once; rows sharing one language's link stay distinct (Codex review, PR #64) */
     main.querySelectorAll(".rec-topic .mat-list > li").forEach(function (li) {
-      var link = li.querySelector(".mat-link"), key = link ? link.getAttribute("href") : li.textContent;
-      if (seen[key]) return; seen[key] = true;
       var ctx = [li, li.closest(".mat-group"), li.closest(".rec-sub"), li.closest(".rec-topic")];
       var hay = ctx.map(function (el) { return el ? el.getAttribute("data-q") || "" : ""; }).join(" ");
       var hayWords = hay.split(/[^a-z0-9ñ]+/).filter(Boolean), hayPad = " " + hayWords.join(" ") + " ";   /* synonyms match whole words only ("esa" ≠ "mesa") */
