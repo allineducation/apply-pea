@@ -688,6 +688,8 @@ window.PEA_FACTS = {
         { type: "handout", title_es: "Aprender inglés u obtener su diploma de equivalencia (GED)", es: "https://drive.google.com/file/d/13PjBTNhY-9uSQ2fuR5NttX_wF3Ge2Jgl/view?usp=drivesdk" },
         { type: "handout", title_es: "Usar los estudios que hizo en otro país", es: "https://drive.google.com/file/d/1lbrR7d3ybt0CuJnH-lQ3uW24ZFSeFYBK/view?usp=drivesdk" },
         { type: "handout", title_es: "Preparar para el futuro desde pequeños (hasta 8.º grado)", es: "https://drive.google.com/file/d/1l9U-bxno0FVTo6BEy05Vh7FI1YX7JJI4/view?usp=drivesdk" } ],
+      /* NAU first-year admission (Danny Hernández, 2026-11-13): address supplied by Danny; nau.edu could not be opened from
+         the build environment (TLS error through the proxy), so the title follows his description and names no figures. */
       /* Ask Benji's Spanish page (Danny Hernández, 2026-11-13; read that day) is now the row's Spanish link: text help 24/7
          ("Hola Benji" to 602-786-8171; #language switches the language) and the AZ FAFSA line in Spanish, 1-833-MiFAFSA,
          Monday–Friday 9 AM–3 PM. */
@@ -723,7 +725,9 @@ window.PEA_FACTS = {
           { type: "resource", title_es: "ASU: cursos de preparatoria y promedio (GPA) que se piden para entrar como estudiante de primer año (en inglés)",
             title_en: "ASU: high school course competencies and GPA required for first-year admission", langs: ["en"], any: "https://admission.asu.edu/apply/first-year/competency-requirements" },
           { type: "resource", title_es: "Universidad de Arizona: cursos de preparatoria que se piden y promedio de 3.0 en las 16 materias básicas (en inglés)",
-            title_en: "University of Arizona: required high school courses and a 3.0 GPA in the 16 core courses", langs: ["en"], any: "https://www.arizona.edu/admissions/apply/high-school-competency" }
+            title_en: "University of Arizona: required high school courses and a 3.0 GPA in the 16 core courses", langs: ["en"], any: "https://www.arizona.edu/admissions/apply/high-school-competency" },
+          { type: "resource", title_es: "NAU: requisitos de admisión para estudiantes de primer año (Northern Arizona University; en inglés)",
+            title_en: "NAU: first-year admission requirements (Northern Arizona University)", langs: ["en"], any: "https://nau.edu/admissions/first-year/" }
         ] },
         { title_es: "Pagar la universidad y ahorrar para la educación", title_en: "Paying for college and education savings", items: [
           { type: "resource", title_es: "FAFSA: Solicitud Gratuita de Ayuda Federal para Estudiantes (USAGov en español)", es: "https://www.usa.gov/es/fafsa-ayuda-federal-estudiantes",
