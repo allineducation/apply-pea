@@ -118,6 +118,9 @@ Object.entries(TOPICS).forEach(([k, t]) => {
   if (!Array.isArray(g) || g.length < 2 || g.some(t => typeof t !== "string" || !t.trim())) problems.push(`searchSynonyms[${i}]: needs 2+ non-empty terms`);
   else if (/empower|empodera|docente/i.test(g.join(" "))) problems.push(`searchSynonyms[${i}]: vocabulary`);
 });
+(FACTS.searchBoost || []).forEach((b, i) => {
+  if (!b || !Array.isArray(b.when) || !b.when.length || !Array.isArray(b.show) || !b.show.length) problems.push(`searchBoost[${i}]: needs when[] and show[]`);
+});
 const SUG = FACTS.searchSuggest || {};
 if ((SUG.es || []).length !== (SUG.en || []).length) problems.push("searchSuggest: es and en need the same number of entries");
 const usedMods = new Set();

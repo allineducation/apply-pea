@@ -142,6 +142,14 @@ window.PEA_FACTS = {
     ["dotados", "gifted", "avanzados", "advanced", "excepcionales", "exceptional"],
     ["preparatoria", "high school", "graduación", "graduation", "créditos", "credits"]
   ],
+  /* Searches that always list certain rows (Danny Hernández, 2026-11-13): a search with any `when` word lists every row
+     that mentions a `show` word first under "También podría interesarle", even when its words don't match. */
+  searchBoost: [
+    { when: ["becas", "beca", "scholarship", "scholarships", "subvención", "grants", "universidad", "university", "college", "colegio comunitario",
+             "community college", "admisión", "admission", "ayuda financiera", "financial aid", "dinero", "pagar", "pay", "matrícula", "tuition",
+             "préstamo", "préstamos", "loan", "loans", "costo", "costos", "cost"],
+      show: ["fafsa"] }
+  ],
   searchSuggest: {
     es: ["FAFSA", "becas", "inglés", "GED", "IEP", "lectura", "matemáticas", "maestro"],
     en: ["FAFSA", "scholarships", "English", "GED", "IEP", "reading", "math", "teacher"]
@@ -677,6 +685,9 @@ window.PEA_FACTS = {
         { type: "handout", title_es: "Aprender inglés u obtener su diploma de equivalencia (GED)", es: "https://drive.google.com/file/d/13PjBTNhY-9uSQ2fuR5NttX_wF3Ge2Jgl/view?usp=drivesdk" },
         { type: "handout", title_es: "Usar los estudios que hizo en otro país", es: "https://drive.google.com/file/d/1lbrR7d3ybt0CuJnH-lQ3uW24ZFSeFYBK/view?usp=drivesdk" },
         { type: "handout", title_es: "Preparar para el futuro desde pequeños (hasta 8.º grado)", es: "https://drive.google.com/file/d/1l9U-bxno0FVTo6BEy05Vh7FI1YX7JJI4/view?usp=drivesdk" } ],
+      /* Ask Benji's Spanish page (Danny Hernández, 2026-11-13; read that day) is now the row's Spanish link: text help 24/7
+         ("Hola Benji" to 602-786-8171; #language switches the language) and the AZ FAFSA line in Spanish, 1-833-MiFAFSA,
+         Monday–Friday 9 AM–3 PM. */
       /* Added 2026-11-13 (Danny Hernández): StudentAid.gov ES | EN after the USAGov FAFSA row; Aliento scholarships and
          ScholarshipsA-Z in the undocumented-students group; AZTransfer in college and career planning; a new group with
          the ASU and University of Arizona first-year course and GPA requirement pages. Pages opened 2026-11-13, except
@@ -716,8 +727,8 @@ window.PEA_FACTS = {
             title_en: "FAFSA: Free Application for Federal Student Aid (USAGov)", en: "https://www.usa.gov/fafsa" },
           { type: "resource", title_es: "StudentAid.gov en español: el sitio oficial de la FAFSA y la ayuda federal para estudiantes (Departamento de Educación de EE. UU.)", es: "https://studentaid.gov/es",
             title_en: "StudentAid.gov: the official FAFSA and federal student aid site (U.S. Department of Education)", en: "https://studentaid.gov/" },
-          { type: "resource", title_es: "Ask Benji: ayuda gratis por mensaje de texto para llenar la FAFSA, las 24 horas (Education Forward Arizona; en inglés)",
-            title_en: "Ask Benji: free 24/7 FAFSA help by text message (Education Forward Arizona)", any: "https://www.askbenji.org/" },
+          { type: "resource", title_es: "Ask Benji: ayuda gratis con la FAFSA por mensaje de texto, las 24 horas (envíe «Hola Benji» al 602-786-8171) y línea en español 1-833-MiFAFSA, de lunes a viernes (Education Forward Arizona)", es: "https://www.askbenji.org/arizona-fafsa-help-spanish",
+            title_en: "Ask Benji: free 24/7 FAFSA help by text message (Education Forward Arizona)", en: "https://www.askbenji.org/" },
           { type: "resource", title_es: "College Depot: citas y talleres gratis sobre admisión, ayuda financiera y becas (Biblioteca Pública de Phoenix, Burton Barr; sitio en inglés)",
             title_en: "College Depot: free appointments and workshops on admissions, financial aid and scholarships (Phoenix Public Library, Burton Barr)", any: "https://www.phoenixpubliclibrary.org/collegedepot" },
           { type: "resource", title_es: "¿Qué es un plan 529 de Arizona? Ahorrar para la educación (AZ529)", es: "https://espanol.az529.gov/planificacion-y-herramientas/que-es-un-plan-529-de-arizona/",
