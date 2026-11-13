@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.23.14";
+  var VERSION = "0.23.15";
   var UPDATED = "2026-11-13";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
@@ -723,8 +723,9 @@
   var resFilter = { topic: "", lang: "", type: "" };
   function filtersOn() { return !!(resFilter.topic || resFilter.lang || resFilter.type); }
   function filtersHtml(mains, subsOf) {
-    var R = L.res, sel = function (id, label, opts, val) {
-      return '<label class="res-filter"><span>' + esc(label) + '</span><select id="' + id + '">' + opts.map(function (o) {
+    var R = L.res, sel = function (id, label, opts, val) {   /* v0.23.15: a compact pill; its empty option shows the filter's name */
+      opts[0] = ["", label];
+      return '<label class="res-filter"><span class="sr-only">' + esc(label) + '</span><select id="' + id + '"' + (val ? ' class="is-set"' : "") + ">" + opts.map(function (o) {
         return '<option value="' + esc(o[0]) + '"' + (o[0] === val ? " selected" : "") + ">" + esc(o[1]) + "</option>";
       }).join("") + "</select></label>";
     };
@@ -734,7 +735,7 @@
       sel("resf-topic", R.fTopic, topics, resFilter.topic) +
       sel("resf-lang", R.fLang, [["", R.fAll], ["es", R.fLangEs], ["en", R.fLangEn], ["both", R.fLangBoth]], resFilter.lang) +
       sel("resf-type", R.fType, [["", R.fAll], ["aie", R.fTypeAie], ["res", R.fTypeRes]], resFilter.type) +
-      '<button type="button" class="btn btn-secondary btn-sm" id="resreset"' + (filtersOn() || resQuery ? "" : " hidden") + ">" + esc(R.fReset) + "</button></div>";
+      '<button type="button" class="res-reset" id="resreset"' + (filtersOn() || resQuery ? "" : " hidden") + ">" + esc(R.fReset) + "</button></div>";
   }
   function passesFilters(li) {
     var f = resFilter, l = (li.getAttribute("data-l") || "").split(" ");
@@ -758,9 +759,6 @@
     var total = function (m) { return subsOf(m).reduce(function (n, k) { return n + bucketCount(B[k]); }, bucketCount(B[m])); };
     var mains = keys.filter(function (k) { return !F.topics[k].parent && total(k); }).sort(byName);
     if (!mains.length) return secHead("recursos") + '<p class="lead">' + esc(R.lead) + "</p>" + callout("", R.emptyLabel, esc(R.empty));
-    var nav = '<nav class="learn-nav" aria-label="' + esc(R.topicsLabel) + '"><span class="learn-nav-l">' + esc(R.topicsLabel) + "</span><ul>" + mains.map(function (k) {
-      return '<li><a class="learn-pill" href="#recursos/' + k + '"><span aria-hidden="true">' + F.topics[k].icon + "</span> " + esc(topicName(k)) + "</a></li>";
-    }).join("") + "</ul></nav>";
     var count = function (n) { return '<span class="mat-count"><span aria-hidden="true">' + n + '</span><span class="sr-only">' + esc(R.count(n)) + "</span></span>"; };
     var open = function (k, dflt) { var o = matOpen["rec-" + k]; return (o === undefined ? dflt : o) ? " open" : ""; };
     /* Topic panels remember their own state by key (topic order differs between languages), so render()'s
@@ -770,9 +768,10 @@
         return '<details class="rec-sub" id="p-' + k + '" data-k="rec-' + k + '" data-q="' + esc(topicQ(k)) + '"' + open(k, false) + '><summary><h3 class="rec-sub-h">' + esc(topicName(k)) + "</h3>" +
           count(bucketCount(B[k])) + "</summary>" + topicBody(k, B[k]) + "</details>";
       }).join("");
-      return '<details class="block sec rec-topic" id="p-' + m + '" data-k="rec-' + m + '" data-q="' + esc(topicQ(m)) + '"' + open(m, false) + '><summary class="sec-sum"><h2 class="h-sec">' +
-        '<span class="rec-h"><span aria-hidden="true">' + F.topics[m].icon + "</span> " + esc(topicName(m)) + "</span>" + count(total(m)) + "</h2></summary>" +
-        '<div class="sec-body">' + (B[m] ? topicBody(m, B[m]) : "") + subs + "</div></details>";
+      /* v0.23.15: a light row (icon, name, count, chevron) instead of the filled section bar, so seven topics read as a list */
+      return '<details class="rec-topic" id="p-' + m + '" data-k="rec-' + m + '" data-q="' + esc(topicQ(m)) + '"' + open(m, false) + '><summary class="rec-sum">' +
+        '<span class="rec-ico" aria-hidden="true">' + F.topics[m].icon + '</span><h2 class="rec-h">' + esc(topicName(m)) + "</h2>" + count(total(m)) + "</summary>" +
+        '<div class="rec-body">' + (B[m] ? topicBody(m, B[m]) : "") + subs + "</div></details>";
     }).join("");
     var search = '<div class="search rec-search"><label class="sr-only" for="resq">' + esc(R.searchLabel) + "</label>" +
       '<input id="resq" type="search" autocomplete="off" placeholder="' + esc(R.searchPh) + '" value="' + esc(resQuery) + '"' + (resQuery ? ' class="filled"' : "") + ">" +
@@ -780,7 +779,7 @@
       filtersHtml(mains, subsOf) +
       '<p class="small" id="rescount" aria-live="polite"></p><div id="resnone" hidden>' + callout("gold", R.noneLabel, esc(R.none)) + '<div class="res-suggest"></div></div>' +
       '<div id="resresults" class="res-results" hidden></div>';
-    return secHead("recursos") + '<p class="lead">' + esc(R.lead) + "</p>" + search + nav + body +
+    return secHead("recursos") + '<p class="lead">' + esc(R.lead) + "</p>" + search + '<p class="rec-list-h">' + esc(R.topicsLabel) + '</p><div class="rec-list">' + body + "</div>" +   /* the topic list is the menu (v0.23.15) */
       btnRow(inLink("#esta-semana", R.weekCta) + inLink("#calendario", R.calCta));
   }
 
@@ -998,7 +997,7 @@
   document.addEventListener("change", function (ev) {
     var id = ev.target.id, k = id === "resf-topic" ? "topic" : id === "resf-lang" ? "lang" : id === "resf-type" ? "type" : "";
     if (!k) return;
-    resFilter[k] = ev.target.value;
+    resFilter[k] = ev.target.value; ev.target.classList.toggle("is-set", !!ev.target.value);
     var rq = document.getElementById("resq"); filterRes(rq ? rq.value : "");
     var el = document.getElementById(id); if (el) el.focus();
   });
