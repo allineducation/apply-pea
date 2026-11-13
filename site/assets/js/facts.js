@@ -647,6 +647,11 @@ window.PEA_FACTS = {
         { type: "handout", title_es: "Aprender inglés u obtener su diploma de equivalencia (GED)", es: "https://drive.google.com/file/d/13PjBTNhY-9uSQ2fuR5NttX_wF3Ge2Jgl/view?usp=drivesdk" },
         { type: "handout", title_es: "Usar los estudios que hizo en otro país", es: "https://drive.google.com/file/d/1lbrR7d3ybt0CuJnH-lQ3uW24ZFSeFYBK/view?usp=drivesdk" },
         { type: "handout", title_es: "Preparar para el futuro desde pequeños (hasta 8.º grado)", es: "https://drive.google.com/file/d/1l9U-bxno0FVTo6BEy05Vh7FI1YX7JJI4/view?usp=drivesdk" } ],
+      /* Added 2026-11-13 (Danny Hernández): StudentAid.gov ES | EN after the USAGov FAFSA row; Aliento scholarships and
+         ScholarshipsA-Z in the undocumented-students group; AZTransfer in college and career planning; a new group with
+         the ASU and University of Arizona first-year course and GPA requirement pages. Pages opened 2026-11-13, except
+         ScholarshipsA-Z (a Cloudflare check blocks automated reads; the address is the one in Danny's 6R handout). NAU's
+         first-year page is held back: its site could not be reached from the build environment. */
       /* Added 2026-11-12 at Danny Hernández's request (named in the 6R handouts): Ask Benji and College Depot under
          "Pagar la universidad", USA Learns under "Clases de inglés". Each site has one address for both languages (no
          Spanish page; USA Learns has an English/Spanish switch for its instructions). Pages opened and read 2026-11-12. */
@@ -666,11 +671,21 @@ window.PEA_FACTS = {
           { type: "resource", title_es: "Guía para padres: planificar la educación y explorar carreras (Arizona GEAR UP, NAU)", es: "https://in.nau.edu/gear-up/parent-guide-spanish/",
             title_en: "Parent Guide: education planning and career exploration (Arizona GEAR UP, NAU)", en: "https://in.nau.edu/gear-up/parent-guide-english/" },
           { type: "resource", title_es: "Transición a la vida adulta: estudiantes con discapacidad (Centro de Información y Recursos para Padres)", es: "https://www.parentcenterhub.org/transicion-adulta/",
-            title_en: "Transition to Adulthood: students with disabilities (Center for Parent Information and Resources)", en: "https://www.parentcenterhub.org/transitionadult/" }
+            title_en: "Transition to Adulthood: students with disabilities (Center for Parent Information and Resources)", en: "https://www.parentcenterhub.org/transitionadult/" },
+          { type: "resource", title_es: "AZTransfer: planear el paso de un colegio comunitario a una universidad de Arizona y revisar qué cursos se transfieren (en inglés)",
+            title_en: "AZTransfer: plan the move from a community college to an Arizona university and check which courses transfer", any: "https://www.aztransfer.com/" }
+        ] },
+        { title_es: "Requisitos de admisión a las universidades de Arizona", title_en: "Arizona university admission requirements", items: [
+          { type: "resource", title_es: "ASU: cursos de preparatoria y promedio (GPA) que se piden para entrar como estudiante de primer año (en inglés)",
+            title_en: "ASU: high school course competencies and GPA required for first-year admission", any: "https://admission.asu.edu/apply/first-year/competency-requirements" },
+          { type: "resource", title_es: "Universidad de Arizona: cursos de preparatoria que se piden y promedio de 3.0 en las 16 materias básicas (en inglés)",
+            title_en: "University of Arizona: required high school courses and a 3.0 GPA in the 16 core courses", any: "https://www.arizona.edu/admissions/apply/high-school-competency" }
         ] },
         { title_es: "Pagar la universidad y ahorrar para la educación", title_en: "Paying for college and education savings", items: [
           { type: "resource", title_es: "FAFSA: Solicitud Gratuita de Ayuda Federal para Estudiantes (USAGov en español)", es: "https://www.usa.gov/es/fafsa-ayuda-federal-estudiantes",
             title_en: "FAFSA: Free Application for Federal Student Aid (USAGov)", en: "https://www.usa.gov/fafsa" },
+          { type: "resource", title_es: "StudentAid.gov en español: el sitio oficial de la FAFSA y la ayuda federal para estudiantes (Departamento de Educación de EE. UU.)", es: "https://studentaid.gov/es",
+            title_en: "StudentAid.gov: the official FAFSA and federal student aid site (U.S. Department of Education)", en: "https://studentaid.gov/" },
           { type: "resource", title_es: "Ask Benji: ayuda gratis por mensaje de texto para llenar la FAFSA, las 24 horas (Education Forward Arizona; en inglés)",
             title_en: "Ask Benji: free 24/7 FAFSA help by text message (Education Forward Arizona)", any: "https://www.askbenji.org/" },
           { type: "resource", title_es: "College Depot: citas y talleres gratis sobre admisión, ayuda financiera y becas (Biblioteca Pública de Phoenix, Burton Barr; sitio en inglés)",
@@ -682,7 +697,11 @@ window.PEA_FACTS = {
           { type: "resource", title_es: "Colegiatura estatal para Dreamers: la Proposición 308 (Aliento)", es: "https://alientoaz.org/in-state-for-dreamers-esp",
             title_en: "In-State Tuition for Dreamers: Proposition 308 (Aliento)", en: "https://alientoaz.org/education" },
           { type: "resource", title_es: "Estudiantes indocumentados: planificar y pagar la universidad (Universidad de Arizona, Empieza Hoy)", es: "https://startnow.arizona.edu/es/pagar-por-la-universidad/indocumentados",
-            title_en: "Undocumented Students: planning and paying for college (University of Arizona, Start Now)", en: "https://startnow.arizona.edu/pay-for-college/undocumented-students" }
+            title_en: "Undocumented Students: planning and paying for college (University of Arizona, Start Now)", en: "https://startnow.arizona.edu/pay-for-college/undocumented-students" },
+          { type: "resource", title_es: "Aliento: becas para estudiantes sin importar su estatus migratorio; la lista se actualiza cada mes (en inglés)",
+            title_en: "Aliento: Scholarships for Dreamers, available regardless of immigration status; list updated monthly", any: "https://alientoaz.org/resources/scholarships" },
+          { type: "resource", title_es: "ScholarshipsA-Z: becas y talleres gratis para estudiantes indocumentados en Arizona (contenido en español e inglés)",
+            title_en: "ScholarshipsA-Z: scholarships and free workshops for undocumented students in Arizona", any: "https://scholarshipsaz.org/" }
         ] },
         { title_es: "Aprendizajes y capacitación para una carrera", title_en: "Apprenticeships and career training", items: [
           { type: "resource", title_es: "Aprendizajes registrados: trabajar y aprender al mismo tiempo (Departamento de Seguridad Económica de Arizona)", es: "https://des.az.gov/sites/default/files/media/Registered-Apprenticeships-Career-Seeker-Flyer-Spanish.pdf",
