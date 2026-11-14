@@ -7,8 +7,8 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.23.16";
-  var UPDATED = "2026-11-13";
+  var VERSION = "0.24.0";
+  var UPDATED = "2026-11-14";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
   var LS_LANG = "aie_lang";
@@ -705,6 +705,11 @@
         if (keep.length) { bucket(gt).res.push({ title_es: r.title_es, title_en: r.title_en, whole: r.whole, items: keep }); note(gt, e); }
       });
     });
+    /* v0.24.0: resources suggested by participants and approved by the PEA team (facts.communityResources). They join
+       their topic after the class links, as plain rows (no credit label), and give way to a class that lists the same link. */
+    (F.communityResources || []).forEach(function (r) {
+      if (F.topics[r.topic] && hasLink(r) && fresh(r)) bucket(r.topic).res.push(r);
+    });
     return B;
   }
   function topicBody(k, b) {
@@ -753,12 +758,20 @@
       return b.when.some(function (t) { t = norm(t); return q.indexOf(" " + t + " ") !== -1 || words.some(function (w) { return w.length >= 4 && t.indexOf(w) === 0; }); });
     }).reduce(function (a, b) { return a.concat(b.show.map(norm)); }, []);
   }
+  /* "Sugerir un recurso / Suggest a resource" (v0.24.0): participants send a link through the Airtable form; the PEA
+     team reviews it before it is published. Hidden until links.global.suggest is set. */
+  function addCardHtml() {
+    var R = L.res, u = link("suggest");
+    if (!u) return "";
+    return '<aside class="help-card rec-add" aria-labelledby="recadd-h"><p><strong id="recadd-h">' + esc(R.addH) + "</strong> " + esc(R.addLead) + "</p>" +
+      '<div class="help-links">' + ext(u, '<span aria-hidden="true">💡</span><span>' + esc(R.addCta) + "</span>", "help-link") + "</div></aside>";
+  }
   function pageRecursos() {
     var R = L.res, B = resourceIndex(), keys = Object.keys(F.topics);
     var subsOf = function (m) { return keys.filter(function (k) { return F.topics[k].parent === m && bucketCount(B[k]); }).sort(byName); };
     var total = function (m) { return subsOf(m).reduce(function (n, k) { return n + bucketCount(B[k]); }, bucketCount(B[m])); };
     var mains = keys.filter(function (k) { return !F.topics[k].parent && total(k); }).sort(byName);
-    if (!mains.length) return secHead("recursos") + '<p class="lead">' + esc(R.lead) + "</p>" + callout("", R.emptyLabel, esc(R.empty));
+    if (!mains.length) return secHead("recursos") + '<p class="lead">' + esc(R.lead) + "</p>" + callout("", R.emptyLabel, esc(R.empty)) + addCardHtml();
     var count = function (n) { return '<span class="mat-count"><span aria-hidden="true">' + n + '</span><span class="sr-only">' + esc(R.count(n)) + "</span></span>"; };
     var open = function (k, dflt) { var o = matOpen["rec-" + k]; return (o === undefined ? dflt : o) ? " open" : ""; };
     /* Topic panels remember their own state by key (topic order differs between languages), so render()'s
@@ -773,14 +786,16 @@
         '<span class="rec-ico" aria-hidden="true">' + F.topics[m].icon + '</span><h2 class="rec-h">' + esc(topicName(m)) + "</h2>" + count(total(m)) + "</summary>" +
         '<div class="rec-body">' + (B[m] ? topicBody(m, B[m]) : "") + subs + "</div></details>";
     }).join("");
+    var add = addCardHtml();
     var search = '<div class="search rec-search"><label class="sr-only" for="resq">' + esc(R.searchLabel) + "</label>" +
       '<input id="resq" type="search" autocomplete="off" placeholder="' + esc(R.searchPh) + '" value="' + esc(resQuery) + '"' + (resQuery ? ' class="filled"' : "") + ">" +
       '<button type="button" class="x" id="resx" aria-label="' + esc(L.ui.clear) + '"' + (resQuery ? "" : " hidden") + ">×</button></div>" +
       filtersHtml(mains, subsOf) +
-      '<p class="small" id="rescount" aria-live="polite"></p><div id="resnone" hidden>' + callout("gold", R.noneLabel, esc(R.none)) + '<div class="res-suggest"></div></div>' +
+      '<p class="small" id="rescount" aria-live="polite"></p><div id="resnone" hidden>' + callout("gold", R.noneLabel, esc(R.none)) + '<div class="res-suggest"></div>' +
+        (link("suggest") ? '<p class="small rec-add-none">' + esc(R.addNone) + " " + ext(link("suggest"), esc(R.addCta)) + "</p>" : "") + "</div>" +
       '<div id="resresults" class="res-results" hidden></div>';
     return secHead("recursos") + '<p class="lead">' + esc(R.lead) + "</p>" + search + '<p class="rec-list-h">' + esc(R.topicsLabel) + '</p><div class="rec-list">' + body + "</div>" +   /* the topic list is the menu (v0.23.15) */
-      btnRow(inLink("#esta-semana", R.weekCta) + inLink("#calendario", R.calCta));
+      add + btnRow(inLink("#esta-semana", R.weekCta) + inLink("#calendario", R.calCta));
   }
 
   var PAGES = { inicio: pageHome, participar: pageParticipar, "esta-semana": pageSemana, calendario: pageCalendario, recursos: pageRecursos, ayuda: pageAyuda };

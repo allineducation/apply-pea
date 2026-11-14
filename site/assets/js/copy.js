@@ -317,6 +317,10 @@
         seeCal: "Ver la clase en el calendario:",
         emptyLabel: "Muy pronto",
         empty: "Todavía no hay materiales publicados. Vuelva cuando empiecen las clases.",
+        addH: "¿Conoce un recurso útil?",
+        addLead: "Comparta un sitio web, video o documento gratuito que le haya ayudado. El equipo de PEA lo revisa antes de publicarlo.",
+        addCta: "Sugerir un recurso",
+        addNone: "¿Conoce un recurso que debería estar aquí?",
         weekCta: "Ver esta semana →",
         calCta: "Ver el calendario →"
       },
@@ -641,6 +645,10 @@
         seeCal: "See the class on the calendar:",
         emptyLabel: "Coming soon",
         empty: "No materials are published yet. Check back once classes begin.",
+        addH: "Know a helpful resource?",
+        addLead: "Share a free website, video or document that helped you. The PEA team reviews it before it is published.",
+        addCta: "Suggest a resource",
+        addNone: "Know a resource that should be here?",
         weekCta: "See this week →",
         calCta: "See the calendar →"
       },
