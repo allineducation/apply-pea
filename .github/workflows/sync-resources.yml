@@ -49,7 +49,15 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           if git diff --quiet -- site/assets/js/resources.js; then
-            echo "No change in Airtable since the last sync."
+            # Airtable matches what is live. A sync PR still open from an earlier run would publish changes that
+            # were undone in Airtable since, so close it.
+            if [ "$(gh pr view resources-sync --json state -q .state 2>/dev/null)" = "OPEN" ]; then
+              gh pr close resources-sync --delete-branch \
+                --comment "Closed by the sync: Airtable now matches the live site again, so these changes are no longer pending."
+              echo "Airtable matches main again; closed the pending sync pull request."
+            else
+              echo "No change in Airtable since the last sync."
+            fi
             exit 0
           fi
           git config user.name "github-actions[bot]"
