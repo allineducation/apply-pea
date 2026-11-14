@@ -1,0 +1,148 @@
+{
+  "$comment": "Machine-readable specification of the PEA 'Sugerir un recurso / Suggest a resource' form. Source of truth for building or rebuilding the Airtable form. Checked by maintenance/scripts/check-parity.js. No personal data belongs in this file (the repo is public).",
+  "meta": {
+    "id": "suggest-resource-form",
+    "version": "1.0.0",
+    "date": "2026-11-14",
+    "owner": "Danny Hernández (PEA program lead)",
+    "name": { "es": "Sugerir un recurso", "en": "Suggest a resource" },
+    "audience": "PEA alumni (Danny Hernández, 2026-11-14: alumni only for now)",
+    "platform": "Airtable form",
+    "base_id": "app1VeAGxcVHsV2bQ",
+    "base_name": "PEA Resource List",
+    "table_id": "tblI4gAXJqMXHrpYz",
+    "table_name": "Submissions",
+    "airtable_form_page_id": "pagiog0nqqde1TKgP",
+    "airtable_form_status": "draft, created 2026-11-14 from this spec; Danny reviews and publishes in the Airtable form builder",
+    "builder_only": ["confirmation message", "hidden_defaults (Review Status = New, Role = PEA alum)", "after_submit automations"],
+    "plans": ["maintenance/plans/resource-suggestions-plan-v1.0.md", "maintenance/plans/resource-base-plan-v1.0.md"]
+  },
+  "language_order": ["es", "en"],
+  "label_format": "Spanish / English on one line; Spanish first",
+  "intro": {
+    "es": "Para egresados de la Academia de Padres Educadores: comparta un sitio web, video o documento gratuito que le haya ayudado. El equipo de PEA lo revisará antes de publicarlo.",
+    "en": "For Parent Educator Academy alumni: share a free website, video or document that helped you. The PEA team reviews it before it is published."
+  },
+  "fields": [
+    {
+      "key": "link",
+      "airtable_field_id": "fldmQSN6V5y0f1FA5",
+      "airtable_field_name": "Link",
+      "type": "url",
+      "required": true,
+      "label": { "es": "Enlace del recurso", "en": "Link to the resource" },
+      "help": { "es": "Copie y pegue el enlace.", "en": "Copy and paste the link." },
+      "validation": { "format": "url", "scheme": ["https", "http"] }
+    },
+    {
+      "key": "description",
+      "airtable_field_id": "fldUMV2UIM5EoZt3I",
+      "airtable_field_name": "Description",
+      "type": "long_text",
+      "required": true,
+      "label": { "es": "¿Qué es y cómo ayuda a las familias?", "en": "What is it, and how does it help families?" },
+      "help": { "es": "Una o dos oraciones.", "en": "One or two sentences." },
+      "validation": { "max_length": 600 }
+    },
+    {
+      "key": "topic",
+      "airtable_field_id": "fld0rlTdaAamgM7aX",
+      "airtable_field_name": "Topic",
+      "type": "single_select",
+      "required": true,
+      "label": { "es": "Tema", "en": "Topic" },
+      "help": { "es": "Si no está seguro/a, elija la última opción.", "en": "If you're not sure, choose the last option." },
+      "choices": [
+        { "value": "Liderazgo y defensa educativa / Advocacy & Leadership", "topic_key": "advocacy" },
+        { "value": "Alfabetización digital y tecnología / Digital Literacy & Tech", "topic_key": "digital" },
+        { "value": "Lectura / Literacy", "topic_key": "literacy" },
+        { "value": "Matemáticas / Math", "topic_key": "math" },
+        { "value": "Navegando sistemas escolares / Navigating School Systems", "topic_key": "schools" },
+        { "value": "Para empezar en PEA / Getting Started with PEA", "topic_key": "start" },
+        { "value": "Oportunidades y aprendizaje continuo / Opportunities & Continued Learning", "topic_key": "opportunities" },
+        { "value": "No estoy seguro/a / Not sure", "topic_key": null }
+      ]
+    },
+    {
+      "key": "name",
+      "airtable_field_id": "fldA0UbE0o3cN4jlR",
+      "airtable_field_name": "Name",
+      "type": "short_text",
+      "required": true,
+      "label": { "es": "Su nombre", "en": "Your name" },
+      "help": { "es": "", "en": "" }
+    },
+    {
+      "key": "email",
+      "airtable_field_id": "fldvTv1sjULOSzEF9",
+      "airtable_field_name": "Confirm Email",
+      "type": "email",
+      "required": true,
+      "label": { "es": "Correo electrónico que usó en PEA", "en": "Email you used in PEA" },
+      "help": { "es": "Lo usamos para confirmar que es egresado/a de PEA y para contactarle sobre su sugerencia.", "en": "We use it to confirm you are a PEA alum and to contact you about your suggestion." },
+      "validation": { "format": "email" }
+    },
+    {
+      "key": "phone",
+      "airtable_field_id": "fldwnHQ6Jv6ulfulb",
+      "airtable_field_name": "Contact",
+      "type": "short_text",
+      "required": false,
+      "label": { "es": "Teléfono o WhatsApp (opcional)", "en": "Phone or WhatsApp (optional)" },
+      "help": { "es": "Solo para preguntas sobre su sugerencia.", "en": "Only for questions about your suggestion." },
+      "validation": { "format": "phone", "example": "602-555-0123" }
+    }
+  ],
+  "footer_note": {
+    "es": "No incluya información personal de su familia.",
+    "en": "Please don't include your family's personal information."
+  },
+  "confirmation": {
+    "es": "¡Gracias! Revisamos las sugerencias cada dos semanas.",
+    "en": "Thank you! We review suggestions every two weeks."
+  },
+  "hidden_defaults": [
+    { "airtable_field_id": "fld94HyfCIWNZgTa7", "airtable_field_name": "Review Status", "value": "New" },
+    { "airtable_field_id": "fldbidr4NkcTm6KDb", "airtable_field_name": "Role", "value": "Egresado/a de PEA / PEA alum" }
+  ],
+  "must_not_be_on_form": [
+    { "airtable_field_id": "fldAKUlVToj1Tm294", "airtable_field_name": "Alumni ID", "reason": "Linked-record fields on a public form let anyone browse the linked table; All alumni's primary field is each alum's email." },
+    { "airtable_field_id": "flddOp9M4ymsc4isI", "airtable_field_name": "Alumni ID (from All alumni)", "reason": "Lookup of alumni data." },
+    { "airtable_field_id": "flde6m7IPkMcd1I12", "airtable_field_name": "Email Confirmation", "reason": "Staff check." },
+    { "airtable_field_id": "fldEaBIAV9M1tSega", "airtable_field_name": "ID", "reason": "Set by the matching step." },
+    { "airtable_field_id": "fldfu9RoOSoET0mdA", "airtable_field_name": "Alignment", "reason": "Reviewer only (A1–A4)." },
+    { "airtable_field_id": "fldxuTU16IqCpYy4v", "airtable_field_name": "Quality", "reason": "Reviewer only (Q1–Q6)." },
+    { "airtable_field_id": "fldj2d4yhRbM3dfKE", "airtable_field_name": "Reviewer", "reason": "Reviewer only." },
+    { "airtable_field_id": "fldHVP404NceIYEGE", "airtable_field_name": "Decided on", "reason": "Reviewer only." },
+    { "airtable_field_id": "fldR9Rs6ga2rHRNQ5", "airtable_field_name": "Reviewer Notes", "reason": "Reviewer only." },
+    { "airtable_field_id": "fldOLCFFkqo17eAoS", "airtable_field_name": "Resource", "reason": "Linked-record field; set on approval." },
+    { "airtable_field_id": "fldLUp0YyHn8JA1cE", "airtable_field_name": "Received", "reason": "Automatic." }
+  ],
+  "after_submit": [
+    {
+      "step": "match_alumni",
+      "how": "Airtable automation (trigger: record created in Submissions)",
+      "action": "Find the All alumni record whose Alumni ID equals the submitted email (trimmed, lowercase). If found, link it in Alumni ID and copy the email into ID. Email Confirmation then shows Match; otherwise Missing.",
+      "if_no_match": "Reviewer contacts the person or sets Review Status to Not Now (alumni only for now)."
+    },
+    {
+      "step": "notify_team",
+      "how": "Airtable automation (same trigger)",
+      "action": "Send an email to pea@allineducation.org with subject 'Nueva sugerencia de recurso / New resource suggestion' and the Link, Topic and Description."
+    }
+  ],
+  "review": {
+    "cadence": "every two weeks",
+    "alignment_field": "fldfu9RoOSoET0mdA",
+    "quality_field": "fldxuTU16IqCpYy4v",
+    "approve_when": "Email Confirmation = Match, all four Alignment checks and all six Quality checks ticked",
+    "on_approval": "Create a Resources row (Status Published, Kind Outside resource, Title (ES/EN), links, Languages served when one link serves both pages, Topic, no class), link it in Resource, set Review Status Published. The next sync brings it to the site."
+  },
+  "site_hookup": {
+    "file": "site/assets/js/facts.js",
+    "key": "links.global.suggest",
+    "value": "the form's public share URL (https://airtable.com/…/form)",
+    "effect": "Shows the 💡 Sugerir un recurso card and the no-results link on Materiales y recursos.",
+    "check": "check-parity.js requires an https://airtable.com/ URL"
+  }
+}

@@ -15,9 +15,9 @@ Prepared for Danny Hernández · November 14, 2026 · Built in release **v0.24.0
 
 ### Decisions for Danny
 
-1. **Encircle Families *Resource Library* title.** Before: *Family Resource Library (Encircle Families)* on 3R; *Encircle Families Resource Library: special education, disability supports and navigating services* on 5R and 7T. Now the long title everywhere. Change it in Airtable if you prefer the short one.
-2. **Delete the fields marked for removal** (§1 table): 23 in Resources, 8 in Submissions, plus the old *Category*, *PEA Session*, *Language* and *Resource Type* now that their values are mapped. The Airtable API cannot delete fields.
-3. **Unused choices** left by the API: Status *Under Review*, Review Status *Rejected* (rename to *Not now* or delete).
+1. **Encircle Families *Resource Library* title — confirmed by Danny, 2026-11-14 (long title).** Before: *Family Resource Library (Encircle Families)* on 3R; *Encircle Families Resource Library: special education, disability supports and navigating services* on 5R and 7T. Now the long title everywhere. Change it in Airtable if you prefer the short one.
+2. **Done by Danny, 2026-11-14:** **Delete the fields marked for removal** (§1 table): 23 in Resources, 8 in Submissions, plus the old *Category*, *PEA Session*, *Language* and *Resource Type* now that their values are mapped. The Airtable API cannot delete fields.
+3. **Done by Danny, 2026-11-14:** **Unused choices** left by the API: Status *Under Review*, Review Status *Rejected* (rename to *Not now* or delete).
 4. **Modules table** in the main PEA base: its material PDF columns are no longer the site's source. Keep them for staff or remove.
 
 ## Context
