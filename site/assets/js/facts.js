@@ -158,6 +158,15 @@ window.PEA_FACTS = {
     en: ["FAFSA", "scholarships", "English", "GED", "IEP", "reading", "math", "teacher"]
   },
 
+  /* Resources suggested by participants (v0.24.0, Danny Hernández, 2026-11-14). Families send them through the
+     "Sugerir un recurso / Suggest a resource" form (links.global.suggest → Airtable · PEA Resource List ·
+     Submissions). The PEA team checks alignment (A1–A4) and quality (Q1–Q6) every two weeks
+     (maintenance/plans/resource-suggestions-plan-v1.0.md); only approved items are copied here, then marked
+     Published in Airtable. Same row shape as module resources: { topic, es|en|any, langs (with any), title_es,
+     title_en }. They show on Materiales y recursos under their topic (search, filters and counts included), not on
+     class cards, and with no credit label (Danny, 2026-11-14). check-parity.js checks every row. */
+  communityResources: [],
+
   /* Curriculum modules — canonical, cohort-independent descriptions, session
      materials and resources. Each list item: { type, es: url, en: url }.
      Source: Airtable · PEA base · Modules table tblPkSBzSYKE4cBC6
@@ -891,7 +900,10 @@ window.PEA_FACTS = {
       vidAccount:  "https://bit.ly/peacuentadezoom",
       vidName:     "https://bit.ly/peazoomnombre",
       /* "Resend my Zoom link" request form (Airtable), supplied by Danny Hernández 2026-10-06. */
-      resend:      "https://airtable.com/appIqlWqvk2HkHVRM/paghCk5ZbEsieUtwb/form"
+      resend:      "https://airtable.com/appIqlWqvk2HkHVRM/paghCk5ZbEsieUtwb/form",
+      /* "Sugerir un recurso / Suggest a resource" form (Airtable · PEA Resource List · Submissions), v0.24.0.
+         Empty until Danny Hernández publishes the form: the suggestion card on Materiales y recursos stays hidden. */
+      suggest:     ""
     },
     FA26: {
       info:     "https://bit.ly/peafa26info",          /* info session only — not class registration */

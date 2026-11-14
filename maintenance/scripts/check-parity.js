@@ -130,6 +130,20 @@ usedMods.forEach(k => { if (MODS[k] && !TOPICS[MODS[k].topic]) problems.push(`mo
 Object.entries(MODS).forEach(([k, m]) => (m.resources || []).forEach((r, i) => [r].concat(r.items || []).forEach(x => {
   if (x.topic && !TOPICS[x.topic]) problems.push(`module ${k} resources[${i}]: unknown topic "${x.topic}"`);
 })));
+// Resources suggested by participants (v0.24.0): same row rules as module resources, a known topic, single rows
+// only (no groups), the usual vocabulary on titles. The suggestion form, when set, is an Airtable form.
+(FACTS.communityResources || []).forEach((r, i) => {
+  const where = `communityResources[${i}]`;
+  if (r.items) { problems.push(`${where}: single rows only, no groups`); return; }
+  if (!TOPICS[r.topic]) problems.push(`${where}: needs a known topic (got "${r.topic}")`);
+  checkItem(r, where, true);
+  const es = r.title_es || "", en = r.title_en || "";
+  if (/empower|empodera/i.test(es + en)) problems.push(`${where}: empower/empoderar`);
+  if (/docente/i.test(es)) problems.push(`${where}: docentes → maestros`);
+  problems.push(...namingProblems(es, en, where));
+});
+const SUGGEST = FACTS.links.global.suggest;
+if (SUGGEST && !/^https:\/\/airtable\.com\//.test(SUGGEST)) problems.push("links.global.suggest: must be an https://airtable.com/ form URL");
 
 if (problems.length) { console.error("PARITY/VOCABULARY FAIL\n  " + problems.join("\n  ")); process.exit(1); }
 const count = (o) => Array.isArray(o) ? o.reduce((n, x) => n + count(x), 0)
