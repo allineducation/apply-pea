@@ -52,6 +52,16 @@ problems.push(...namingProblems(esSrc, JSON.stringify(T.en, (k, v) => typeof v =
 // and every event's module exists.
 global.window = global.window || {};
 require(path.join(__dirname, "../../site/assets/js/facts.js"));
+// Since v0.24.0 materials and resources come from Airtable · PEA Resource List through the generated
+// resources.js (maintenance/scripts/sync-resources.js). facts.js must not carry them again, by hand.
+Object.entries(global.window.PEA_FACTS.modules || {}).forEach(([k, m]) => ["materials", "resources", "featured"].forEach(l => {
+  if (m[l]) problems.push(`module ${k}: "${l}" belongs in Airtable · PEA Resource List (resources.js), not in facts.js`);
+}));
+Object.values(global.window.PEA_FACTS.cohorts || {}).forEach(c => (c.events || []).forEach(e => ["featured", "presentation_en"].forEach(l => {
+  if (e[l]) problems.push(`${c.code} ${e.code}: "${l}" belongs in Airtable · PEA Resource List (resources.js), not in facts.js`);
+})));
+require(path.join(__dirname, "../../site/assets/js/resources.js"));
+if (!global.window.PEA_RESOURCES || !Object.keys(global.window.PEA_RESOURCES.modules || {}).length) problems.push("resources.js: no class has any material or resource (empty sync?)");
 const FACTS = global.window.PEA_FACTS, MODS = FACTS.modules || {};
 Object.entries(MODS).forEach(([k, m]) => {
   if (!m.es || !m.en) problems.push(`module ${k}: missing ${!m.es ? "es" : "en"} description`);
@@ -148,4 +158,5 @@ if (SUGGEST && !/^https:\/\/airtable\.com\//.test(SUGGEST)) problems.push("links
 if (problems.length) { console.error("PARITY/VOCABULARY FAIL\n  " + problems.join("\n  ")); process.exit(1); }
 const count = (o) => Array.isArray(o) ? o.reduce((n, x) => n + count(x), 0)
   : (o && typeof o === "object") ? Object.values(o).reduce((n, x) => n + count(x), 0) : 1;
-console.log(`Parity OK — ${count(T.es)} ES strings, ${count(T.en)} EN strings, vocabulary clean; ${Object.keys(MODS).length} module descriptions checked.`);
+const rows = Object.values(MODS).reduce((n, m) => n + ["materials", "resources", "featured"].reduce((k, l) => k + (m[l] || []).reduce((j, it) => j + (it.items ? it.items.length : 1), 0), 0), 0);
+console.log(`Parity OK — ${count(T.es)} ES strings, ${count(T.en)} EN strings, vocabulary clean; ${Object.keys(MODS).length} module descriptions and ${rows} class rows from resources.js checked.`);

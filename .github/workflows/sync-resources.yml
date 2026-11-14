@@ -1,0 +1,69 @@
+# Sync resources from Airtable (v0.24.0)
+# Airtable · PEA Resource List is the source of every material and resource on the site. This workflow reads the
+# Published rows, rebuilds site/assets/js/resources.js, runs the content check and, if anything changed, opens
+# (or updates) one pull request from the branch "resources-sync". Netlify builds a preview of it; merging the PR
+# publishes the change. Nothing reaches the live site without that merge.
+#
+# Run it by hand: GitHub → Actions → "Sync resources from Airtable" → Run workflow. It also runs every morning.
+# One-time setup (see README → "Resources come from Airtable"):
+#   1. Repository secret AIRTABLE_TOKEN: an Airtable personal access token with data.records:read and
+#      schema.bases:read, limited to the PEA Resource List base.
+#   2. Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests".
+name: Sync resources from Airtable
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 13 * * *"   # 13:17 UTC = 6:17 AM Arizona time, every day
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-resources
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Read Airtable and rebuild resources.js
+        env:
+          AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN }}
+        run: node maintenance/scripts/sync-resources.js
+
+      - name: Content check
+        run: node maintenance/scripts/check-parity.js
+
+      - name: Open or update the pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- site/assets/js/resources.js; then
+            echo "No change in Airtable since the last sync."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -C resources-sync
+          git add site/assets/js/resources.js
+          git commit -m "Resources: sync from Airtable ($(date -u +%Y-%m-%d))"
+          git push --force origin resources-sync
+          if [ "$(gh pr view resources-sync --json state -q .state 2>/dev/null)" = "OPEN" ]; then
+            echo "Updated the open pull request."
+          else
+            gh pr create --base main --head resources-sync \
+              --title "Resources: sync from Airtable" \
+              --body "Changes made in Airtable · PEA Resource List (Published rows), rebuilt into \`site/assets/js/resources.js\` by \`maintenance/scripts/sync-resources.js\`. The content check passed.
+
+          **To review:** open the Netlify deploy preview below and check the class cards and Materiales y recursos; the *Files changed* tab shows each added, changed or removed row. Merge to publish. To undo a change, fix it in Airtable and run the workflow again."
+          fi

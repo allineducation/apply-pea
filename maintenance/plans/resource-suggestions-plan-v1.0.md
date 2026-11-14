@@ -59,20 +59,9 @@ A reviewer checks every box before approving. Any unchecked box → **Not now** 
 Cadence: **every two weeks**, one reviewer (assigned by Danny). Reviewer writes Title (ES) / Title (EN) using the site's naming and vocabulary rules (README and CLAUDE.md; never translate ALL In Education).
 Optional follow-up to the submitter (Contact field) when published or "not now" — short ES/EN message templates included in the plan doc.
 
-## 3. Publish — onto the site
+## 3. Publish — onto the site (updated 2026-11-14: Airtable is the source)
 
-Approved items are copied into `facts.js` (same as every other resource; the base feeds `facts.js`, the page reads `facts.js`, per resource-index plan decision 7), then Status → **Published**.
-
-Because community suggestions don't belong to a class, they get their own list:
-
-```js
-communityResources: [
-  { topic: "literacy", es: "https://…", title_es: "…", title_en: "…" },
-  { topic: "schools", any: "https://…", langs: ["es","en"], title_es: "…", title_en: "…" }
-]
-```
-
-Same `{ es, en, any, langs, title_es, title_en }` row shape as module resources. They appear in the topic's *Recursos adicionales* / *Otros recursos* sections, in search, filters (type = *Otras organizaciones*) and counts — **not on class cards**, and **with no credit label** (Danny, 2026-11-14).
+Since v0.24.0 the PEA Resource List base is authoritative ([resource-base-plan-v1.0.md](resource-base-plan-v1.0.md)). On approval the reviewer creates a **Resources** row (Status **Published**, Kind *Outside resource*, Title (ES/EN), links, Languages served when one link serves both pages, **Topic**, no class) and links it to the Submission. The next sync (*Sync resources from Airtable*, on demand or daily) brings it to the site as a pull request. Rows with no class, group or featured placement are community rows: they appear only on Materiales y recursos under their Topic, in search, filters and counts, **with no credit label** and not on class cards. `facts.communityResources` is no longer edited by hand; `resources.js` fills it.
 
 ## 4. Site changes (v0.24.0)
 
