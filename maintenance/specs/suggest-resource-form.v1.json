@@ -13,7 +13,8 @@
     "table_id": "tblI4gAXJqMXHrpYz",
     "table_name": "Submissions",
     "airtable_form_page_id": "pagiog0nqqde1TKgP",
-    "airtable_form_status": "draft, created 2026-11-14 from this spec; Danny reviews and publishes in the Airtable form builder",
+    "airtable_form_status": "published by Danny Hernández, 2026-11-14",
+    "airtable_form_url": "https://airtable.com/app1VeAGxcVHsV2bQ/pagiog0nqqde1TKgP/form",
     "builder_only": ["confirmation message", "hidden_defaults (Review Status = New, Role = PEA alum)", "after_submit automations"],
     "plans": ["maintenance/plans/resource-suggestions-plan-v1.0.md", "maintenance/plans/resource-base-plan-v1.0.md"]
   },

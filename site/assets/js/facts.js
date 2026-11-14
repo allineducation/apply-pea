@@ -294,8 +294,8 @@ window.PEA_FACTS = {
       /* "Resend my Zoom link" request form (Airtable), supplied by Danny Hernández 2026-10-06. */
       resend:      "https://airtable.com/appIqlWqvk2HkHVRM/paghCk5ZbEsieUtwb/form",
       /* "Sugerir un recurso / Suggest a resource" form (Airtable · PEA Resource List · Submissions), v0.24.0.
-         Empty until Danny Hernández publishes the form: the suggestion card on Materiales y recursos stays hidden. */
-      suggest:     ""
+         Published by Danny Hernández, 2026-11-14 (alumni only; spec: maintenance/specs/suggest-resource-form.v1.json). */
+      suggest:     "https://airtable.com/app1VeAGxcVHsV2bQ/pagiog0nqqde1TKgP/form"
     },
     FA26: {
       info:     "https://bit.ly/peafa26info",          /* info session only — not class registration */
