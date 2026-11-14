@@ -13,6 +13,8 @@ What exists already (found 2026-11-14):
 
 Decisions (Danny Hernández, 2026-11-14): suggestions go to the **PEA Resource List** base; ask for **name + phone/WhatsApp or email**; **no credit label** on the public site; this plan is saved as a **repo .md, internal audience**.
 
+> **Update 2026-11-14 (Danny Hernández): alumni only for now.** The current, exact form is specified in [maintenance/specs/suggest-resource-form.v1.json](../specs/suggest-resource-form.v1.json): link, description, topic, name, the email used in PEA (required), and phone/WhatsApp (optional). There is no Alumni ID picker on the public form; an automation matches the email to the *All alumni* table, and *Email Confirmation* shows Match or Missing. The spec overrides the table below where they differ.
+
 ## 1. The form — "Sugerir un recurso / Suggest a resource"
 
 Airtable form on the Submissions table. Bilingual labels, Spanish first. **Six questions, five required (the sixth is one optional tap).** About one minute on a phone.

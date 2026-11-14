@@ -155,6 +155,33 @@ Object.entries(MODS).forEach(([k, m]) => (m.resources || []).forEach((r, i) => [
 const SUGGEST = FACTS.links.global.suggest;
 if (SUGGEST && !/^https:\/\/airtable\.com\//.test(SUGGEST)) problems.push("links.global.suggest: must be an https://airtable.com/ form URL");
 
+// Suggestion form spec (maintenance/specs/suggest-resource-form.v1.json): both languages everywhere, unique
+// Airtable field IDs, no private field on the form, vocabulary rules, and the Topic choices = the site's main topics.
+{
+  const SPEC = JSON.parse(require("fs").readFileSync(path.join(__dirname, "../specs/suggest-resource-form.v1.json"), "utf8"));
+  const bi = (o, where, allowEmpty) => { if (!o || typeof o.es !== "string" || typeof o.en !== "string" || (!allowEmpty && (!o.es.trim() || !o.en.trim()))) problems.push(`form spec ${where}: needs es and en`); };
+  ["intro", "footer_note", "confirmation"].forEach(k => bi(SPEC[k], k));
+  bi(SPEC.meta && SPEC.meta.name, "meta.name");
+  const ids = new Set();
+  (SPEC.fields || []).forEach(f => {
+    if (!/^fld[A-Za-z0-9]{14}$/.test(f.airtable_field_id || "")) problems.push(`form spec ${f.key}: bad Airtable field ID`);
+    if (ids.has(f.airtable_field_id)) problems.push(`form spec ${f.key}: field ID used twice`);
+    ids.add(f.airtable_field_id);
+    bi(f.label, `${f.key}.label`); bi(f.help, `${f.key}.help`, true);
+  });
+  (SPEC.must_not_be_on_form || []).forEach(f => { if (ids.has(f.airtable_field_id)) problems.push(`form spec: ${f.airtable_field_name} must not be on the public form`); });
+  const text = JSON.stringify(SPEC);
+  if (/empower|empodera/i.test(text)) problems.push("form spec: empower/empoderar");
+  if (/docente/i.test(text)) problems.push("form spec: docentes → maestros");
+  const topicField = (SPEC.fields || []).find(f => f.key === "topic");
+  const mains = Object.keys(TOPICS).filter(k => !TOPICS[k].parent).sort();
+  const keys = topicField ? topicField.choices.map(c => c.topic_key).filter(Boolean).sort() : [];
+  if (JSON.stringify(keys) !== JSON.stringify(mains)) problems.push(`form spec: Topic choices must be the site's main topics (${mains.join(", ")})`);
+  if (topicField) topicField.choices.filter(c => c.topic_key).forEach(c => {
+    const t = TOPICS[c.topic_key]; if (t && c.value !== `${t.es} / ${t.en}`) problems.push(`form spec: Topic choice "${c.value}" should read "${t.es} / ${t.en}"`);
+  });
+}
+
 if (problems.length) { console.error("PARITY/VOCABULARY FAIL\n  " + problems.join("\n  ")); process.exit(1); }
 const count = (o) => Array.isArray(o) ? o.reduce((n, x) => n + count(x), 0)
   : (o && typeof o === "object") ? Object.values(o).reduce((n, x) => n + count(x), 0) : 1;
