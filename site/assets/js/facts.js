@@ -719,7 +719,13 @@ window.PEA_FACTS = {
           { type: "resource", title_es: "Transición a la vida adulta: estudiantes con discapacidad (Centro de Información y Recursos para Padres)", es: "https://www.parentcenterhub.org/transicion-adulta/",
             title_en: "Transition to Adulthood: students with disabilities (Center for Parent Information and Resources)", en: "https://www.parentcenterhub.org/transitionadult/" },
           { type: "resource", title_es: "AZTransfer: planear el paso de un colegio comunitario a una universidad de Arizona y revisar qué cursos se transfieren (en inglés)",
-            title_en: "AZTransfer: plan the move from a community college to an Arizona university and check which courses transfer", langs: ["en"], any: "https://www.aztransfer.com/" }
+            title_en: "AZTransfer: plan the move from a community college to an Arizona university and check which courses transfer", langs: ["en"], any: "https://www.aztransfer.com/" },
+          /* Mi Próximo Paso / My Next Move (Danny Hernández, 2026-11-14; cited in the 6R handout "Preparación temprana",
+             Drive 1l9U-bxno0FVTo6BEy05Vh7FI1YX7JJI4). Both home pages opened and read 2026-11-15: career search by
+             keyword or industry, 900+ careers, and an interest questionnaire; sponsored by the U.S. Department of Labor
+             and developed by the National Center for O*NET Development. */
+          { type: "resource", title_es: "Mi Próximo Paso: cuestionario de intereses y más de 900 carreras, con tareas, aptitudes y salarios (Departamento de Trabajo de EE. UU.)", es: "https://www.miproximopaso.org/",
+            title_en: "My Next Move: interest questionnaire and 900+ careers, with tasks, skills and pay (U.S. Department of Labor)", en: "https://www.mynextmove.org/" }
         ] },
         { title_es: "Requisitos de admisión a las universidades de Arizona", title_en: "Arizona university admission requirements", items: [
           { type: "resource", title_es: "ASU: cursos de preparatoria y promedio (GPA) que se piden para entrar como estudiante de primer año (en inglés)",
