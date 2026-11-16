@@ -419,6 +419,13 @@ window.PEA_RESOURCES = {
               "langs": [
                 "en"
               ]
+            },
+            {
+              "type": "resource",
+              "title_es": "Mi Próximo Paso: cuestionario de intereses y más de 900 carreras, con tareas, aptitudes y salarios (Departamento de Trabajo de EE. UU.)",
+              "title_en": "My Next Move: interest questionnaire and 900+ careers, with tasks, skills and pay (U.S. Department of Labor)",
+              "es": "https://www.miproximopaso.org/",
+              "en": "https://www.mynextmove.org/"
             }
           ]
         },
