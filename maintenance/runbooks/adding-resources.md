@@ -83,7 +83,7 @@ Session materials are the ALL In Education worksheets, communication tools, hand
 | **Material type** | `Participant worksheet`, `Communication tool`, `Handout`, `Resource` or `Presentation`. **Required.** It gives the row its standard title. |
 | **Classes** | The class, e.g. `8T · MSELF`. **Required.** |
 | **Link (ES) / Link (EN)** | The Drive files, shared *Anyone with the link*. |
-| **Title (ES/EN)** | Leave empty unless the standard title is wrong (e.g. two handouts on one class). **Required** when the material is in *Featured in* (a title for each linked language). |
+| **Title (ES/EN)** | Leave empty unless the standard title is wrong (e.g. two handouts on one class). **Required** when the material is in *Featured in* or a group (a title for each linked language). |
 | **Order** | Steps of 10. The usual order is worksheet, then communication tool, then handouts. |
 
 **A presentation** also needs:

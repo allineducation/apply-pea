@@ -164,7 +164,7 @@ function validate(file) {
 
     /* placement */
     const classes = multi("Classes"), featured = multi("Featured in"), placed = classes.length || featured.length || groups.length;
-    if (mat && !classes.length && !featured.length) p("an ALL In Education material needs Classes");
+    if (mat && !placed) p("an ALL In Education material needs Classes");
     if (!placed && !v.Topic) p("a row with no Classes, Groups or Featured in needs a Topic (it shows only on Materiales y recursos)");
     if (v["Material type"] === "Presentation") {
       if (!v.Cohort) p("a Presentation needs a Cohort");
@@ -177,10 +177,11 @@ function validate(file) {
         else presentations.set(k, n);
       });
     }
-    /* featured rows are checked like outside resources by check-parity.js: no standard type title there */
-    if (mat && featured.length) {
-      if ((v["Link (ES)"] || v["Link (both pages)"]) && !v["Title (ES)"]) p("a material in Featured in needs Title (ES) for its Spanish or shared link");
-      if ((v["Link (EN)"] || v["Link (both pages)"]) && !v["Title (EN)"]) p("a material in Featured in needs Title (EN) for its English or shared link");
+    /* featured and grouped rows are checked like outside resources by check-parity.js: no standard type title there */
+    if (mat && (featured.length || groups.length)) {
+      const where = featured.length ? "Featured in" : "a group";
+      if ((v["Link (ES)"] || v["Link (both pages)"]) && !v["Title (ES)"]) p(`a material in ${where} needs Title (ES) for its Spanish or shared link`);
+      if ((v["Link (EN)"] || v["Link (both pages)"]) && !v["Title (EN)"]) p(`a material in ${where} needs Title (EN) for its English or shared link`);
     }
     if (v.Cohort && v["Material type"] !== "Presentation" && !featured.length) p("Cohort is only for presentations and Featured in rows");
     if (v.Cohort && v["Material type"] !== "Presentation" && classes.length) p("Cohort on a row with Classes stops the sync; put cohort-only links in Featured in");
