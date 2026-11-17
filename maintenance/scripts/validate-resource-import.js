@@ -39,6 +39,7 @@ function parseCsv(text) {
       row.push(cell); rows.push({ cells: row, line: rowLine }); row = []; cell = ""; line++; rowLine = line;
     } else cell += c;
   }
+  if (q) throw new Error(`CSV syntax: a quoted cell that starts on line ${rowLine} is never closed (add the missing " )`);
   if (cell !== "" || row.length) { row.push(cell); rows.push({ cells: row, line: rowLine }); }
   return rows.filter((r) => r.cells.some((x) => x.trim() !== ""));
 }
@@ -97,7 +98,8 @@ function wording(es, en) {
 /* ---------- main ---------- */
 function validate(file) {
   const problems = [], warnings = [];
-  const rows = parseCsv(fs.readFileSync(file, "utf8"));
+  let rows;
+  try { rows = parseCsv(fs.readFileSync(file, "utf8")); } catch (e) { return { problems: [e.message], warnings, count: 0 }; }
   if (!rows.length) return { problems: ["the file is empty"], warnings, count: 0 };
   const head = rows[0].cells.map((h) => h.trim());
   REQUIRED_COLUMNS.filter((c) => !head.includes(c)).forEach((c) => problems.push(`header: missing column "${c}"`));
@@ -105,7 +107,7 @@ function validate(file) {
   if (new Set(head).size !== head.length) problems.push("header: a column appears twice");
   if (problems.length) return { problems, warnings, count: 0 };
 
-  const seen = new Map();
+  const seen = new Map(), presentations = new Map();   /* "FA26|1T" → row number */
   const body = rows.slice(1);
   if (!body.length) problems.push("no rows under the header");
   body.forEach((r, i) => {
@@ -167,6 +169,18 @@ function validate(file) {
     if (v["Material type"] === "Presentation") {
       if (!v.Cohort) p("a Presentation needs a Cohort");
       if (!v["Link (EN)"]) p("a Presentation needs Link (EN)");
+      /* one presentation per cohort and class: the sync keeps only one, so a second would silently replace the first */
+      if (v.Cohort) classes.forEach((c) => {
+        const k = `${v.Cohort}|${c.split(" · ")[0]}`;
+        if ((PUB.events[k] || {}).presentation_en) p(`${c} already has a ${v.Cohort} presentation on the site; replace the link in that row in Airtable instead`);
+        else if (presentations.has(k)) p(`${c} has a ${v.Cohort} presentation in row ${presentations.get(k)} already (one per cohort and class)`);
+        else presentations.set(k, n);
+      });
+    }
+    /* featured rows are checked like outside resources by check-parity.js: no standard type title there */
+    if (mat && featured.length) {
+      if ((v["Link (ES)"] || v["Link (both pages)"]) && !v["Title (ES)"]) p("a material in Featured in needs Title (ES) for its Spanish or shared link");
+      if ((v["Link (EN)"] || v["Link (both pages)"]) && !v["Title (EN)"]) p("a material in Featured in needs Title (EN) for its English or shared link");
     }
     if (v.Cohort && v["Material type"] !== "Presentation" && !featured.length) p("Cohort is only for presentations and Featured in rows");
     if (v.Cohort && v["Material type"] !== "Presentation" && classes.length) p("Cohort on a row with Classes stops the sync; put cohort-only links in Featured in");

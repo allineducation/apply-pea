@@ -83,14 +83,14 @@ Session materials are the ALL In Education worksheets, communication tools, hand
 | **Material type** | `Participant worksheet`, `Communication tool`, `Handout`, `Resource` or `Presentation`. **Required.** It gives the row its standard title. |
 | **Classes** | The class, e.g. `8T · MSELF`. **Required.** |
 | **Link (ES) / Link (EN)** | The Drive files, shared *Anyone with the link*. |
-| **Title (ES/EN)** | Leave empty unless the standard title is wrong (e.g. two handouts on one class). |
+| **Title (ES/EN)** | Leave empty unless the standard title is wrong (e.g. two handouts on one class). **Required** when the material is in *Featured in* (a title for each linked language). |
 | **Order** | Steps of 10. The usual order is worksheet, then communication tool, then handouts. |
 
 **A presentation** also needs:
 - **Cohort** (e.g. `FA26`)
 - **Link (EN)**
 
-There is one presentation per cohort and class.
+There is one presentation per cohort and class. For a new presentation file, replace the link in the existing row.
 
 **A new version of a file:** open the **existing row** and replace the link. Do not add a second row; the row keeps its place and history. Write the date and reason in *Notes (Internal)*.
 
