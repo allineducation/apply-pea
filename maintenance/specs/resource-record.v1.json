@@ -1,0 +1,191 @@
+{
+  "$comment": "Machine-readable instructions for adding or changing materials and resources in Airtable · PEA Resource List. For Claude or any assistant working for the PEA team. Mirrors the rules enforced by maintenance/scripts/sync-resources.js (build) and check-parity.js (checkItem); check-parity.js keeps this file consistent with facts.js and the sync script's field IDs. Human guide: maintenance/runbooks/adding-resources.md. No personal data belongs in this file (the repo is public).",
+  "meta": {
+    "id": "resource-record",
+    "version": "1.0.0",
+    "date": "2026-11-17",
+    "owner": "Danny Hernández (PEA program lead)",
+    "base_id": "app1VeAGxcVHsV2bQ",
+    "base_name": "PEA Resource List",
+    "tables": {
+      "resources": { "id": "tbl5lf1RoGV7sgqbt", "name": "Resources", "one_row_per": "link (one resource or material; ES and EN versions of the same thing share a row)" },
+      "groups": { "id": "tblOLXmnLD8xo62b9", "name": "Groups", "one_row_per": "curated sub-group on one class card" },
+      "submissions": { "id": "tblI4gAXJqMXHrpYz", "name": "Submissions", "one_row_per": "participant suggestion (see suggest-resource-form.v1.json)" }
+    },
+    "authority": "Airtable is the source of every material and resource on the site (Danny Hernández, 2026-11-14). The site reads only Published rows, through the generated site/assets/js/resources.js.",
+    "human_guide": "maintenance/runbooks/adding-resources.md",
+    "bulk_template": "maintenance/templates/resources-import.csv",
+    "bulk_validator": "node maintenance/scripts/validate-resource-import.js <file.csv>"
+  },
+  "fields": [
+    { "key": "status", "table": "resources", "airtable_field_id": "fldWsXEuEDQpzMxjT", "airtable_field_name": "Status", "type": "single_select", "required": true,
+      "choices": ["Published", "To review", "Archived"],
+      "write_default": "To review",
+      "notes": "Only Published reaches the site. New rows start as To review. Archived = retired, kept for history." },
+    { "key": "title_es", "table": "resources", "airtable_field_id": "fldAh2KSuJtkGNurU", "airtable_field_name": "Title (ES)", "type": "single_line_text",
+      "required_when": "outside resource with Link (ES) or Link (both pages)",
+      "notes": "Spanish row text. Pattern: 'Título (Organización)'. Add ' (sitio en inglés)' when the only link is an English page shown on the Spanish page. Optional on ALL In Education materials (the Material type gives the title)." },
+    { "key": "title_en", "table": "resources", "airtable_field_id": "fldcC2OVa8ozFcyoq", "airtable_field_name": "Title (EN)", "type": "single_line_text",
+      "required_when": "outside resource (always recommended; needed with Link (EN) or Link (both pages))",
+      "notes": "English row text. Pattern: 'Title (Organization)'. Never translate ALL In Education." },
+    { "key": "link_es", "table": "resources", "airtable_field_id": "fldaXBNGSVsNdBk1H", "airtable_field_name": "Link (ES)", "type": "url",
+      "notes": "Spanish version. Leave empty when Link (both pages) is used." },
+    { "key": "link_en", "table": "resources", "airtable_field_id": "fldOpIuUk85gkEFt4", "airtable_field_name": "Link (EN)", "type": "url",
+      "notes": "English version. Leave empty when Link (both pages) is used. Required on a Presentation." },
+    { "key": "link_both", "table": "resources", "airtable_field_id": "fldWK9HdPXp5mh0ub", "airtable_field_name": "Link (both pages)", "type": "url",
+      "notes": "One URL shown on both pages (a site with a language switch, or a single bilingual file). Never together with Link (ES)/(EN)." },
+    { "key": "languages_served", "table": "resources", "airtable_field_id": "fldGj669qXVhIqgB5", "airtable_field_name": "Languages served", "type": "multiple_select",
+      "choices": ["Spanish", "English"],
+      "required_when": "Link (both pages) is set",
+      "notes": "Languages the destination really serves (review Q5). Leave empty only if not recorded." },
+    { "key": "kind", "table": "resources", "airtable_field_id": "fldMWIqgVDNig1noY", "airtable_field_name": "Kind", "type": "single_select", "required": true,
+      "choices": ["ALL In Education material", "Outside resource"] },
+    { "key": "material_type", "table": "resources", "airtable_field_id": "fldVOwsor6bvonCBS", "airtable_field_name": "Material type", "type": "single_select",
+      "required_when": "Kind = ALL In Education material",
+      "choices": [
+        { "value": "Participant worksheet", "site_key": "worksheet" },
+        { "value": "Communication tool", "site_key": "comm" },
+        { "value": "Handout", "site_key": "handout" },
+        { "value": "Resource", "site_key": "resource" },
+        { "value": "Presentation", "site_key": "presentation" }
+      ] },
+    { "key": "topic", "table": "resources", "airtable_field_id": "fld1bL1PClIZejHZP", "airtable_field_name": "Topic", "type": "single_select",
+      "required_when": "the row has no Classes, Groups or Featured in (it then shows only on Materiales y recursos)",
+      "notes": "Otherwise set it only when the row's subject differs from its class's topic.",
+      "choices": [
+        { "value": "Advocacy & Leadership", "topic_key": "advocacy" },
+        { "value": "Education Rights", "topic_key": "rights" },
+        { "value": "Family & Community Engagement", "topic_key": "family" },
+        { "value": "History & Identity", "topic_key": "history" },
+        { "value": "Digital Literacy & Tech", "topic_key": "digital" },
+        { "value": "Getting Started with PEA", "topic_key": "start" },
+        { "value": "Literacy", "topic_key": "literacy" },
+        { "value": "Math", "topic_key": "math" },
+        { "value": "Navigating School Systems", "topic_key": "schools" },
+        { "value": "Quality Education", "topic_key": "quality" },
+        { "value": "Safety & Well-Being", "topic_key": "safety" },
+        { "value": "Special Education & Exceptional Students", "topic_key": "sped" },
+        { "value": "Opportunities & Continued Learning", "topic_key": "opportunities" }
+      ] },
+    { "key": "classes", "table": "resources", "airtable_field_id": "fldjO7csJT0JX6bye", "airtable_field_name": "Classes", "type": "multiple_select",
+      "choices_ref": "class_choices",
+      "notes": "Class cards that list the row outside any group. Required for ALL In Education materials." },
+    { "key": "groups", "table": "resources", "airtable_field_id": "fldQBrRIEPkH8Irqz", "airtable_field_name": "Groups", "type": "linked_records", "linked_table": "groups",
+      "notes": "Curated groups the row appears in. In-group order = order of the group's Resources list (drag in Airtable)." },
+    { "key": "featured_in", "table": "resources", "airtable_field_id": "fldSQGeUa2UiD2KmS", "airtable_field_name": "Featured in", "type": "multiple_select",
+      "choices_ref": "class_choices",
+      "notes": "Shows the row under ⭐ Destacado / Featured on these class cards." },
+    { "key": "cohort", "table": "resources", "airtable_field_id": "fldM8A4cBcZTqZkdS", "airtable_field_name": "Cohort", "type": "single_select",
+      "choices": ["FA26", "SP27"],
+      "allowed_when": "Material type = Presentation (required there), or the row uses Featured in",
+      "notes": "Limits the row to one cohort's classes. Empty = every cohort." },
+    { "key": "order", "table": "resources", "airtable_field_id": "fld8XOD92Flt16CfA", "airtable_field_name": "Order", "type": "number",
+      "notes": "Position outside groups, lower first. Use steps of 10 (10, 20, 30) to leave room." },
+    { "key": "organization", "table": "resources", "airtable_field_id": "fldIDHndpgpSEAAmi", "airtable_field_name": "Organization", "type": "single_line_text",
+      "notes": "Staff reference only; not shown on the site (the organization goes in the title)." },
+    { "key": "check_again_on", "table": "resources", "airtable_field_id": "fldmsSGTsepL3LTQz", "airtable_field_name": "Check again on", "type": "date",
+      "notes": "Review Q3: for time-sensitive content (deadlines, dates, figures)." },
+    { "key": "notes_internal", "table": "resources", "airtable_field_id": "fldbylyjlvk6gAfL0", "airtable_field_name": "Notes (Internal)", "type": "long_text",
+      "notes": "Staff notes: source, who asked for it, why it was archived. Never personal data about participants." },
+    { "key": "submission", "table": "resources", "airtable_field_id": "fldn9s18X7awpwd1O", "airtable_field_name": "Submission", "type": "linked_records", "linked_table": "submissions",
+      "notes": "Link the participant suggestion the row came from, if any." },
+    { "key": "group_name", "table": "groups", "airtable_field_id": "fldDPbUy51XfCdEA4", "airtable_field_name": "Group", "type": "single_line_text", "required": true,
+      "notes": "Primary field, for staff: '<class code> · <English title>', e.g. '4R · Finding books'. CSV imports link groups by this name." },
+    { "key": "group_title_es", "table": "groups", "airtable_field_id": "fldZQUPhF6QTHSqzo", "airtable_field_name": "Title (ES)", "type": "single_line_text", "required": true },
+    { "key": "group_title_en", "table": "groups", "airtable_field_id": "fldehnb9vpV4WB2Bn", "airtable_field_name": "Title (EN)", "type": "single_line_text", "required": true },
+    { "key": "group_class", "table": "groups", "airtable_field_id": "fld1ck83Oh4IJEbx2", "airtable_field_name": "Class", "type": "single_select", "required": true, "choices_ref": "class_choices" },
+    { "key": "group_topic", "table": "groups", "airtable_field_id": "fldAciRt6N9nxXryr", "airtable_field_name": "Topic", "type": "single_select",
+      "notes": "Only when the whole group belongs to another topic than its class. Same choices as Resources Topic." },
+    { "key": "group_keep_together", "table": "groups", "airtable_field_id": "fldhF59eueYtbEKce", "airtable_field_name": "Keep together", "type": "checkbox" },
+    { "key": "group_order", "table": "groups", "airtable_field_id": "fld9zmT0nfw53ac6U", "airtable_field_name": "Order", "type": "number", "notes": "Position among the class's rows and groups (steps of 10)." },
+    { "key": "group_resources", "table": "groups", "airtable_field_id": "fldEm7MSL5VOpreCv", "airtable_field_name": "Resources", "type": "linked_records", "linked_table": "resources",
+      "notes": "The order of this list is the order inside the group on the site." }
+  ],
+  "class_choices": [
+    "1T · MORIE", "1R · MHIST", "2T · MSAFE", "2R · MBIAS", "3T · MQUAL", "3R · MCOMM", "4T · MREAD", "4R · MHOME", "5T · MDIGI",
+    "5R · MRGHT", "6T · MMATH", "6R · MOPHS", "7T · MEXCP", "7R · MCENG", "8T · MSELF", "9T · MPIP1", "9R · MPIP2", "10T · MGRAD"
+  ],
+  "rules": [
+    { "id": "one_link_shape", "requirement": "Use Link (both pages) alone, or Link (ES) and/or Link (EN). Never both shapes on one row. At least one link.", "enforced_by": "sync-resources.js, validator" },
+    { "id": "https_links", "requirement": "Links start with https://. Prefer the final page URL to a shortlink (bit.ly, tinyurl): shortlinks hide duplicates and can break.", "enforced_by": "validator (shortlinks are a warning)" },
+    { "id": "title_es_required_if_es_or_both_link", "condition": "Kind = Outside resource AND (Link (ES) OR Link (both pages))", "requirement": "Title (ES) is filled.", "enforced_by": "check-parity.js, validator" },
+    { "id": "title_en_required_if_en_or_both_link", "condition": "Kind = Outside resource AND (Link (EN) OR Link (both pages))", "requirement": "Title (EN) is filled.", "enforced_by": "check-parity.js, validator" },
+    { "id": "languages_with_both_link", "condition": "Link (both pages)", "requirement": "Languages served lists the languages the page really serves.", "enforced_by": "validator (sync emits langs [] when empty)" },
+    { "id": "material_type_required_if_material", "condition": "Kind = ALL In Education material", "requirement": "Material type is set and the row has Classes (or Featured in).", "enforced_by": "sync-resources.js, validator" },
+    { "id": "presentation_shape", "condition": "Material type = Presentation", "requirement": "Classes + Cohort + Link (EN). One presentation per cohort and class.", "enforced_by": "sync-resources.js, validator" },
+    { "id": "cohort_only_for_presentation_or_featured", "condition": "Cohort is set", "requirement": "The row is a Presentation, or uses Featured in. Cohort on a plain class row stops the sync.", "enforced_by": "sync-resources.js, validator" },
+    { "id": "topic_required_if_no_placement", "condition": "No Classes, Groups or Featured in", "requirement": "Topic is set. Such a row shows only on Materiales y recursos.", "enforced_by": "sync-resources.js, validator" },
+    { "id": "known_values", "requirement": "Topic, Classes, Featured in, Cohort, Kind, Material type and Status use the exact choice names above. Never create a new choice in Airtable; a new topic or class needs a site change first.", "enforced_by": "sync-resources.js, validator" },
+    { "id": "drive_files_shared_anyone", "condition": "Link is a Google Drive / Docs file", "requirement": "The file is shared 'Anyone with the link · Viewer' before the row is Published.", "enforced_by": "human check (validator cannot see sharing)" },
+    { "id": "no_duplicates", "requirement": "Search the base (all statuses) and the published list for the normalized URL before adding. A link already on a class stays there; add the class to the existing row instead of a new row.", "enforced_by": "validator (published + within file); human search for To review/Archived rows" },
+    { "id": "vocabulary", "requirement": "Never 'empower' or any variant (empoderar, empoderamiento). 'maestros', not 'docentes'. 'salón/clase', not 'aula'. 'ustedes', not 'vosotros'.", "enforced_by": "check-parity.js, validator" },
+    { "id": "naming", "requirement": "'Academia de Padres Educadores' in Spanish, 'Parent Educator Academy' in English, 'PEA' in both. Never translate 'ALL In Education' or 'Leadership · Power · Justice'.", "enforced_by": "check-parity.js, validator" },
+    { "id": "quality_checks", "condition": "before Status = Published (outside resources)", "requirement": "Alignment A1–A4 and Quality Q1–Q6 all pass (maintenance/plans/resource-suggestions-plan-v1.0.md §2).", "enforced_by": "human review" },
+    { "id": "no_personal_data", "requirement": "No participant names, emails, phones or private Zoom links in any Resources or Groups field. The repo and site are public.", "enforced_by": "human review" }
+  ],
+  "dedupe": {
+    "compare_fields": ["Link (ES)", "Link (EN)", "Link (both pages)"],
+    "normalize": [
+      "lowercase scheme and host",
+      "drop 'http://' / 'https://' and a leading 'www.'",
+      "drop the #fragment",
+      "drop tracking parameters: utm_*, fbclid, gclid, usp",
+      "drop a trailing slash",
+      "keep every other query parameter (Drive ?id=, YouTube ?v= identify the file)"
+    ],
+    "on_match": "Do not add a row. Update the existing row (add a class, group or topic) or report the match."
+  },
+  "procedures": {
+    "add_resource": [
+      "Search the base (all statuses) and the site for the link (dedupe rules). Stop if it exists; extend that row instead.",
+      "Run the alignment (A1–A4) and quality (Q1–Q6) checks; record Languages served from what the page really shows.",
+      "Create a Resources row: Kind = Outside resource; Status = To review; Title (ES)/(EN) per the title rules; links in the right shape.",
+      "Place it: Classes (card, outside groups) and/or Groups (inside a curated group) and/or Featured in; or no placement + Topic (Materiales y recursos only).",
+      "Set Topic when the subject differs from the class topic; set Order in steps of 10 for rows outside groups.",
+      "If placed in a group, drag it to its position in the group's Resources list.",
+      "When the checks pass, set Status = Published, then run the publish procedure."
+    ],
+    "add_material": [
+      "Confirm the Drive file is shared 'Anyone with the link · Viewer'.",
+      "Create a Resources row: Kind = ALL In Education material; Material type; Classes = the class; Link (ES) and/or Link (EN). Titles only when the standard type title is not right.",
+      "Presentation: also Cohort (e.g. FA26) and Link (EN) (one per cohort and class).",
+      "Order in steps of 10 (worksheet, then communication tool, then handouts is the usual order).",
+      "Status = Published when the files are final, then publish."
+    ],
+    "replace_material_version": [
+      "Find the existing row (same class, same Material type).",
+      "Replace the URL in Link (ES)/(EN). Do not create a second row; the row keeps its order and history.",
+      "Write the date and reason in Notes (Internal), then publish."
+    ],
+    "add_group": [
+      "Create a Groups row: Group = '<class code> · <English title>', Title (ES), Title (EN), Class, Order (steps of 10); Topic only if the whole group belongs to another topic; Keep together if needed.",
+      "Link the Resources rows to the group and drag them into order in the group's Resources list.",
+      "A group needs at least one Published row to show."
+    ],
+    "bulk_import": [
+      "Copy maintenance/templates/resources-import.csv; one row per link; keep the header exactly.",
+      "Status = To review on every row.",
+      "Run: node maintenance/scripts/validate-resource-import.js <file.csv>. Fix every reported row until it prints OK.",
+      "Search the base for To review / Archived duplicates (the validator only knows Published links).",
+      "Airtable → Resources → import the CSV, appending to the existing table; map each column to the field of the same name.",
+      "Check the imported rows in a view filtered to To review; link groups (names with commas are linked by hand) and drag group order.",
+      "Run the quality checks, set Published in small batches, then publish."
+    ],
+    "retire": [
+      "Set Status = Archived and write the reason and date in Notes (Internal). Never delete a row."
+    ],
+    "publish": [
+      "GitHub → Actions → 'Sync resources from Airtable' → Run workflow (branch main), or wait for the daily 6:17 AM Arizona run.",
+      "If the run stops with 'SYNC STOPPED', fix each named row in Airtable and run again.",
+      "Open the pull request 'Resources: sync from Airtable', check the Netlify preview (class cards and Materiales y recursos, ES and EN), merge."
+    ]
+  },
+  "never": [
+    "Edit materials or resources in site/assets/js/facts.js or by hand in site/assets/js/resources.js.",
+    "Delete Resources or Groups rows (Archive instead).",
+    "Create new select choices (topics, classes, cohorts, material types) in Airtable without a matching site change.",
+    "Put a linked-record field (alumni, resources) on a public form.",
+    "Publish a Drive file that is not shared 'Anyone with the link'.",
+    "Use bit.ly shortlinks for this site's own pages; shared links to the site open the Spanish page."
+  ]
+}

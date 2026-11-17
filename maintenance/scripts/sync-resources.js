@@ -201,4 +201,4 @@ async function main() {
   console.log(`Wrote ${path.relative(ROOT, OUT)} — ${published} Published rows, ${Object.keys(data.modules).length} classes, ${data.community.length} community rows.`);
 }
 if (require.main === module) main().catch((e) => { console.error(e.message || e); process.exit(1); });
-module.exports = { build, render };
+module.exports = { build, render, BASE, TABLES, R, G };
