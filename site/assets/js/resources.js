@@ -214,11 +214,23 @@ window.PEA_RESOURCES = {
         {
           "type": "handout",
           "title_es": "Pedir una evaluación y entender los apoyos escolares (PEI y Plan 504)",
-          "es": "https://drive.google.com/file/d/1qyxDaasGqg7N0Qt5iNCPDXafaNbgaH68/view?usp=drivesdk"
+          "title_en": "Requesting an Evaluation and School Supports",
+          "es": "https://drive.google.com/file/d/1VtgAKwvaiOCWTunDcnSqpyp2C3ErYzT_/view?usp=drivesdk",
+          "en": "https://drive.google.com/file/d/1NAAnErbkOAl1QXfeEGBdw4Z5PeKFSfYY/view?usp=drivesdk"
         },
         {
           "type": "comm",
           "es": "https://drive.google.com/file/d/1VNfyZDs35LtSEogIYmbeozFVVkP6ZE-w/view?usp=drivesdk"
+        },
+        {
+          "type": "resource",
+          "title_es": "Lista de recursos: Abogando por estudiantes excepcionales",
+          "title_en": "Resource list: Advocating for Exceptional Students",
+          "any": "https://drive.google.com/file/d/1WsViHNGLJNvVwnNKe85BNHs4d3IQxv0d/view?usp=drivesdk",
+          "langs": [
+            "es",
+            "en"
+          ]
         }
       ],
       "resources": [
@@ -265,6 +277,12 @@ window.PEA_RESOURCES = {
               "title_en": "AZ FIND: How to Get Help if you think your child has a disability (Arizona Department of Education, 2022)",
               "es": "https://www.azed.gov/sites/default/files/2022/09/AZ%20Find%20Flyer%20Spanish%20%2822-08%29.pdf",
               "en": "https://www.azed.gov/sites/default/files/2022/10/AZ%20Find%20Flyer%20English%20%2822-08%29.pdf"
+            },
+            {
+              "type": "resource",
+              "title_es": "Intervención temprana (AzEIP): apoyo para familias de bebés y niños pequeños, desde el nacimiento hasta los 3 años (Departamento de Seguridad Económica de Arizona)",
+              "title_en": "Early Intervention (AzEIP): support for families of infants and toddlers, birth to age 3 (Arizona Department of Economic Security)",
+              "en": "https://des.az.gov/services/developmental-disabilities/early-intervention/families"
             },
             {
               "type": "resource",
