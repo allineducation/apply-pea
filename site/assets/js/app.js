@@ -7,8 +7,8 @@
 (function () {
   "use strict";
 
-  var VERSION = "0.24.0";
-  var UPDATED = "2026-11-14";
+  var VERSION = "0.24.1";
+  var UPDATED = "2026-11-18";
   var F = window.PEA_FACTS, T = window.T;
   var AZ = -7 * 3600 * 1000;                       /* Arizona: UTC-7, no DST */
   var LS_LANG = "aie_lang";
@@ -359,6 +359,9 @@
     var MT = F.materialTypes || {};
     return '<ul class="mat-list">' + items.map(function (it) {
       var t = MT[it.type] || MT.resource || {};
+      /* v0.24.1 (Danny Hernández, 2026-11-18): on Materiales y recursos a material with no title of its own also names
+         its class ("Hoja de trabajo · 7T · Abogando por …"); resourceIndex() sets ctx_es/ctx_en. Class cards set none. */
+      if (it["ctx_" + lang]) t = { es: t.es + " · " + it.ctx_es, en: t.en + " · " + it.ctx_en };
       var q = ' data-q="' + esc(norm([it.title_es, it.title_en, t.es, t.en].filter(Boolean).join(" "))) + '"';   /* both languages, for the resource search */
       q += ' data-l="' + (it.any ? (it.langs || []).join(" ") : ["es", "en"].filter(function (l) { return it[l]; }).join(" ")) + '"';   /* language filter: a shared link names its real languages in langs (Codex review, PR #65) */
       if (it.any) return "<li" + q + ">" + ext(it.any, esc(it["title_" + lang] || t[lang] || ""), "mat-link") + "</li>";
@@ -692,7 +695,8 @@
       var mod = e.module && F.modules[e.module], t = mod && mod.topic;
       if (!t || !F.topics[t]) return;
       onlyLinked((e.featured || []).concat(mod.featured || [])).forEach(function (it) { if (fresh(it)) { bucket(t).featured.push(it); note(t, e); } });
-      var mats = onlyLinked((mod.materials || []).concat(lang === "en" && e.presentation_en ? [{ type: "presentation", en: e.presentation_en }] : [])).filter(fresh);
+      var mats = onlyLinked((mod.materials || []).concat(lang === "en" && e.presentation_en ? [{ type: "presentation", en: e.presentation_en }] : [])).filter(fresh)
+        .map(function (it) { return it.title_es || it.title_en ? it : Object.assign({}, it, { ctx_es: e.code + " · " + e.title_es, ctx_en: e.code + " · " + e.title_en }); });
       if (mats.length) { bucket(t).aie.push({ title_es: e.code + " · " + e.title_es, title_en: e.code + " · " + e.title_en, items: mats }); note(t, e); }
       (mod.resources || []).forEach(function (r) {
         if (!r.items) { if (hasLink(r) && fresh(r)) { bucket(r.topic || t).res.push(r); note(r.topic || t, e); } return; }
@@ -712,10 +716,13 @@
     });
     return B;
   }
+  function noCtx(g) {                             /* inside a class group the class is already named */
+    return Object.assign({}, g, { items: g.items.map(function (it) { var c = Object.assign({}, it); delete c.ctx_es; delete c.ctx_en; return c; }) });
+  }
   function topicBody(k, b) {
     var D = L.cal.detail, R = L.res, key = "rec-" + k;
     return resSection("featured", D.secFeatured, b.featured, true, key) +
-      resSection("aie", D.secAie, b.aie.length === 1 ? b.aie[0].items : b.aie, true, key) +   /* one class: its rows directly; several: one group per class */
+      resSection("aie", D.secAie, b.aie.length === 1 ? b.aie[0].items : b.aie.map(noCtx), true, key) +   /* one class: its rows directly (they name their class, v0.24.1); several: one group per class, whose title names it */
       resSection("more", D.secMore, splitByLang(b.res, false), false, key) +
       resSection("other", D.secOther, splitByLang(b.res, true), false, key, D.secOtherLead) +
       (b.classes.length ? '<p class="rec-cal">' + esc(R.seeCal) + " " + b.classes.map(function (e) {
