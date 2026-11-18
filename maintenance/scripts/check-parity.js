@@ -182,6 +182,43 @@ if (SUGGEST && !/^https:\/\/airtable\.com\//.test(SUGGEST)) problems.push("links
   });
 }
 
+// Resource record spec (maintenance/specs/resource-record.v1.json, v0.24.1): the instructions assistants follow when
+// they add rows. Its field IDs must be the sync script's, and its choices must be the site's topics, classes,
+// material types and cohorts, so the instructions can never drift from what the sync accepts.
+{
+  const RS = JSON.parse(require("fs").readFileSync(path.join(__dirname, "../specs/resource-record.v1.json"), "utf8"));
+  const SYNC = require(path.join(__dirname, "sync-resources.js"));
+  const F2 = global.window.PEA_FACTS;
+  if (RS.meta.base_id !== SYNC.BASE) problems.push("resource spec: base_id differs from sync-resources.js");
+  if (RS.meta.tables.resources.id !== SYNC.TABLES.resources || RS.meta.tables.groups.id !== SYNC.TABLES.groups) problems.push("resource spec: table IDs differ from sync-resources.js");
+  const map = { status: "R.status", title_es: "R.titleEs", title_en: "R.titleEn", link_es: "R.linkEs", link_en: "R.linkEn", link_both: "R.linkBoth",
+    languages_served: "R.langs", kind: "R.kind", material_type: "R.mtype", topic: "R.topic", classes: "R.classes", featured_in: "R.featured",
+    cohort: "R.cohort", order: "R.order", groups: "R.groups", group_title_es: "G.titleEs", group_title_en: "G.titleEn", group_class: "G.cls",
+    group_topic: "G.topic", group_keep_together: "G.whole", group_order: "G.order", group_resources: "G.members" };
+  const byKey = {}; (RS.fields || []).forEach(f => {
+    if (!/^fld[A-Za-z0-9]{14}$/.test(f.airtable_field_id || "")) problems.push(`resource spec ${f.key}: bad Airtable field ID`);
+    byKey[f.key] = f;
+  });
+  Object.entries(map).forEach(([k, ref]) => {
+    const [t, n] = ref.split("."), want = SYNC[t][n];
+    if (!byKey[k]) problems.push(`resource spec: field "${k}" missing`);
+    else if (byKey[k].airtable_field_id !== want) problems.push(`resource spec ${k}: field ID ${byKey[k].airtable_field_id} ≠ sync-resources.js ${want}`);
+  });
+  const same = (a, b) => JSON.stringify([...a].sort()) === JSON.stringify([...b].sort());
+  const topicChoices = (byKey.topic && byKey.topic.choices) || [];
+  if (!same(topicChoices.map(c => c.topic_key), Object.keys(TOPICS))) problems.push("resource spec: Topic choices must be every site topic");
+  topicChoices.forEach(c => { if (TOPICS[c.topic_key] && TOPICS[c.topic_key].en !== c.value) problems.push(`resource spec: Topic "${c.value}" should read "${TOPICS[c.topic_key].en}"`); });
+  const typeChoices = (byKey.material_type && byKey.material_type.choices) || [];
+  typeChoices.forEach(c => { if (!TYPES[c.site_key] || TYPES[c.site_key].en !== c.value) problems.push(`resource spec: Material type "${c.value}" ≠ materialTypes.${c.site_key}`); });
+  if (!same(typeChoices.map(c => c.site_key), ["worksheet", "comm", "handout", "resource", "presentation"])) problems.push("resource spec: Material types must be worksheet, comm, handout, resource, presentation");
+  if (!same((byKey.cohort && byKey.cohort.choices) || [], Object.keys(F2.cohorts))) problems.push(`resource spec: Cohort choices must be ${Object.keys(F2.cohorts).join(", ")}`);
+  const classes = []; Object.values(F2.cohorts).forEach(c => c.events.forEach(e => { const n = `${e.code} · ${e.module}`; if (e.module && !classes.includes(n)) classes.push(n); }));
+  if (!same(RS.class_choices || [], classes)) problems.push("resource spec: class_choices must match the classes in facts.js cohorts");
+  const text = JSON.stringify(RS).replace(/never 'empower' or any variant \(empoderar, empoderamiento\)/gi, "");
+  if (/empower|empodera/i.test(text)) problems.push("resource spec: empower/empoderar");
+  if (/docente/i.test(text.replace(/'maestros', not 'docentes'/g, ""))) problems.push("resource spec: docentes → maestros");
+}
+
 if (problems.length) { console.error("PARITY/VOCABULARY FAIL\n  " + problems.join("\n  ")); process.exit(1); }
 const count = (o) => Array.isArray(o) ? o.reduce((n, x) => n + count(x), 0)
   : (o && typeof o === "object") ? Object.values(o).reduce((n, x) => n + count(x), 0) : 1;
