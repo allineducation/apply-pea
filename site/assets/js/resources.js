@@ -282,6 +282,7 @@ window.PEA_RESOURCES = {
               "type": "resource",
               "title_es": "Intervención temprana (AzEIP): apoyo para familias de bebés y niños pequeños, desde el nacimiento hasta los 3 años (Departamento de Seguridad Económica de Arizona)",
               "title_en": "Early Intervention (AzEIP): support for families of infants and toddlers, birth to age 3 (Arizona Department of Economic Security)",
+              "es": "https://des.az.gov/sites/default/files/dl/GCI-1007A-S.pdf",
               "en": "https://des.az.gov/services/developmental-disabilities/early-intervention/families"
             },
             {
@@ -1179,7 +1180,9 @@ window.PEA_RESOURCES = {
             },
             {
               "type": "resource",
+              "title_es": "Participación familiar y comunitaria (Departamento de Educación de Arizona; traducción automática)",
               "title_en": "Family Engagement (Arizona Department of Education)",
+              "es": "https://www-azed-gov.translate.goog/titlei/familyengagement?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es",
               "en": "https://www.azed.gov/titlei/familyengagement"
             },
             {
@@ -1217,6 +1220,146 @@ window.PEA_RESOURCES = {
               "type": "resource",
               "title_en": "Yuma County: School Board Members",
               "en": "https://yumaesa.org/board-members.html"
+            }
+          ]
+        }
+      ]
+    },
+    "MCENG": {
+      "materials": [
+        {
+          "type": "worksheet",
+          "es": "https://drive.google.com/file/d/19OiA5JXVTv3-Df_aTdLZ9gjrFAn9wyDv/view?usp=drivesdk",
+          "en": "https://drive.google.com/file/d/1bmMLkJSmErFcgCPjDJhl19FAGG7iE9Ga/view?usp=drivesdk"
+        },
+        {
+          "type": "comm",
+          "title_es": "Herramienta de comunicación: mensajes listos para escribirle a la escuela (bilingüe)",
+          "title_en": "Communication tool: ready-to-send messages to the school (bilingual)",
+          "any": "https://drive.google.com/file/d/1t9aqj17vvzX0V5p76jm431Wx819-8V7O/view?usp=drivesdk",
+          "langs": [
+            "es",
+            "en"
+          ]
+        },
+        {
+          "type": "handout",
+          "title_es": "Participación familiar auténtica",
+          "title_en": "Authentic Family Engagement",
+          "es": "https://drive.google.com/file/d/1H33pgIIxQbJQEz_nOaWiYhskTmGDJRBU/view?usp=drivesdk",
+          "en": "https://drive.google.com/file/d/1gzSNgP-ZBExN-HndSjx4C_dyyNA5orPQ/view?usp=drivesdk"
+        },
+        {
+          "type": "handout",
+          "title_es": "Comunicación 360",
+          "title_en": "Communication 360",
+          "es": "https://drive.google.com/file/d/1w3f3P_b1WrbXmxxoxV_Z-sJjUl8vUxE2/view?usp=drivesdk",
+          "en": "https://drive.google.com/file/d/1MPhVonTLjQEyq69Y9EkDVJMRdMmHYF8o/view?usp=drivesdk"
+        },
+        {
+          "type": "handout",
+          "title_es": "Los cinco roles de la familia",
+          "title_en": "The Five Roles of the Family",
+          "es": "https://drive.google.com/file/d/1OUbsCIcLzYCrIbpL9Fbx6Hu_l73OYfmR/view?usp=drivesdk",
+          "en": "https://drive.google.com/file/d/1y_IqDav0J9l3XvdcLHaUMAgDChkDw5uv/view?usp=drivesdk"
+        }
+      ],
+      "resources": [
+        {
+          "title_es": "Participar en la escuela de sus hijos",
+          "title_en": "Getting involved in your child’s school",
+          "items": [
+            {
+              "type": "resource",
+              "title_es": "Video: padres involucrados en la escuela de sus hijos ayudan en el éxito académico",
+              "es": "https://www.youtube.com/watch?v=a7Skq5q65jg"
+            },
+            {
+              "type": "resource",
+              "title_es": "Cómo participar en las actividades escolares (Colorín Colorado)",
+              "title_en": "Parent Participation: Getting Involved in School Activities (Colorín Colorado)",
+              "es": "https://www.colorincolorado.org/es/articulo/participaci%C3%B3n-de-los-padres-c%C3%B3mo-mantenerse-involucrado-en-las-actividades-escolares-de-su",
+              "en": "https://www.colorincolorado.org/article/parent-participation-how-get-involved-your-childs-school-activities"
+            },
+            {
+              "type": "resource",
+              "title_es": "Escuelas y familias: colección de artículos (Colorín Colorado)",
+              "title_en": "Schools and Families: Article Collection (Colorín Colorado)",
+              "es": "https://www.colorincolorado.org/es/node/36889/articles",
+              "en": "https://www.colorincolorado.org/node/36889/articles"
+            },
+            {
+              "type": "resource",
+              "title_es": "Podcast: Padres involucrados, con Silvia Zacarías (Por Nuestros Niños)",
+              "es": "https://www.listennotes.com/podcasts/por-nuestros-ni%C3%B1os/padres-involucrados-silvia-tfv34iTapK-/"
+            }
+          ]
+        },
+        {
+          "title_es": "Título I y sus derechos como familia",
+          "title_en": "Title I and your rights as a family",
+          "items": [
+            {
+              "type": "resource",
+              "title_es": "Video: ¿Qué es una escuela de Título I?",
+              "es": "https://youtu.be/yN7otTSSbXk"
+            },
+            {
+              "type": "resource",
+              "title_es": "Participación familiar y comunitaria (Departamento de Educación de Arizona; traducción automática)",
+              "title_en": "Family Engagement (Arizona Department of Education)",
+              "es": "https://www-azed-gov.translate.goog/titlei/familyengagement?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es",
+              "en": "https://www.azed.gov/titlei/familyengagement"
+            },
+            {
+              "type": "resource",
+              "title_es": "Su derecho a recibir información de la escuela en un idioma que entienda: hoja para madres y padres (Departamentos de Justicia y de Educación de EE. UU.)",
+              "title_en": "Your right to school information in a language you understand: fact sheet for parents (U.S. Departments of Justice and Education)",
+              "es": "https://education.delaware.gov/legacy/wp-content/uploads/sites/4/2024/06/dcl-factsheet-lep-parents-201501-sp.pdf",
+              "en": "https://education.delaware.gov/legacy/wp-content/uploads/sites/4/2024/06/dcl-factsheet-lep-parents-201501.pdf",
+              "topic": "rights"
+            },
+            {
+              "type": "resource",
+              "title_es": "Política de participación familiar y su derecho a pedir información al distrito (ley de Arizona A.R.S. § 15-102; sitio en inglés)",
+              "title_en": "Family involvement policy and your right to request information from the district (A.R.S. § 15-102)",
+              "any": "https://www.azleg.gov/ars/15/00102.htm",
+              "langs": [
+                "en"
+              ]
+            },
+            {
+              "type": "resource",
+              "title_es": "Consejos escolares en Arizona: familias y maestros en números iguales (ley de Arizona A.R.S. § 15-351; sitio en inglés)",
+              "title_en": "Arizona school councils: parents and teachers in equal numbers (A.R.S. § 15-351)",
+              "any": "https://www.azleg.gov/ars/15/00351.htm",
+              "langs": [
+                "en"
+              ]
+            }
+          ]
+        },
+        {
+          "title_es": "Para el personal escolar y líderes de familias",
+          "title_en": "For school staff and family leaders",
+          "items": [
+            {
+              "type": "resource",
+              "title_es": "Marco de doble capacidad para alianzas entre familias y escuelas (Dual Capacity-Building Framework; sitio en inglés)",
+              "title_en": "Dual Capacity-Building Framework for Family-School Partnerships (Karen Mapp)",
+              "any": "https://www.dualcapacity.org/",
+              "langs": [
+                "en"
+              ]
+            },
+            {
+              "type": "resource",
+              "title_es": "Red Nacional de Escuelas en Alianza: los seis tipos de participación familiar de Joyce Epstein (Johns Hopkins; sitio en inglés)",
+              "title_en": "National Network of Partnership Schools: Joyce Epstein’s six types of family involvement (Johns Hopkins)",
+              "any": "https://nnps.jhucsos.com/",
+              "langs": [
+                "en"
+              ]
             }
           ]
         }
@@ -1727,19 +1870,27 @@ window.PEA_RESOURCES = {
         }
       ]
     },
-    "MCENG": {
-      "materials": [
-        {
-          "type": "worksheet",
-          "es": "https://drive.google.com/file/d/172jJ4Ur3DwHS6DnRcY3ePA2gMXffPPrF/view?usp=drivesdk"
-        }
-      ]
-    },
     "MBIAS": {
       "materials": [
         {
           "type": "comm",
           "es": "https://drive.google.com/file/d/1tZ3oEPuYE9RYuLW_F-tEp8DiSsKL4rWs/view?usp=drivesdk"
+        }
+      ]
+    },
+    "MSELF": {
+      "materials": [
+        {
+          "type": "worksheet",
+          "es": "https://drive.google.com/file/d/1s2m4PJS4CZWXBuvrJpXs7RgyeauTuJm9/view?usp=drivesdk",
+          "en": "https://drive.google.com/file/d/1cn2QLFWnq4aQk6IkNDIpLmUYpxu5yuTa/view?usp=drivesdk"
+        },
+        {
+          "type": "handout",
+          "title_es": "La historia de uno mismo: los cuatro elementos, el ejemplo de Dolores Huerta y con quién compartir su historia",
+          "title_en": "Story of Self: the four elements, Dolores Huerta’s example and who to share your story with",
+          "es": "https://drive.google.com/file/d/1XlD9ofnkWfZcmK61dlADOfaEpcg6frtR/view?usp=drivesdk",
+          "en": "https://drive.google.com/file/d/1dda6wEMxg4qqymHyjw0iqG7SiTUQYF7z/view?usp=drivesdk"
         }
       ]
     },
@@ -1762,14 +1913,6 @@ window.PEA_RESOURCES = {
           "type": "worksheet",
           "es": "https://drive.google.com/file/d/1rtHSJogz_FTi7VFTPHvMWDBkK4iKxvpq/view?usp=drivesdk",
           "en": "https://drive.google.com/file/d/1o52Fa0oSKtvjY-NCWzKvmYsuhz55ZXMB/view?usp=drivesdk"
-        }
-      ]
-    },
-    "MSELF": {
-      "materials": [
-        {
-          "type": "worksheet",
-          "es": "https://drive.google.com/file/d/1bWohNr9jlSV2JvznJcOHe__W1wh1C1cD/view?usp=drivesdk"
         }
       ]
     }
